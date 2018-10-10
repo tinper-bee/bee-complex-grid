@@ -11,19 +11,20 @@ const column = [
     title: "序号",
     dataIndex: "index",
     key: "index",
-    width: 100
+    width: 100,
+    fixed:'left'
   },
   {
     title: "订单编号",
     dataIndex: "orderCode",
     key: "orderCode",
-    width: 100
+    width: 115
   },
   {
     title: "供应商名称",
     dataIndex: "supplierName",
     key: "supplierName",
-    width: 100
+    width: 125
   },
   {
     title: "类型",
@@ -35,7 +36,7 @@ const column = [
     title: "采购组织",
     dataIndex: "purchasing",
     key: "purchasing",
-    width: 100
+    width: 110
   },
   {
     title: "采购组",
@@ -47,13 +48,13 @@ const column = [
     title: "凭证日期",
     dataIndex: "voucherDate",
     key: "voucherDate",
-    width: 100
+    width: 110
   },
   {
     title: "审批状态",
     dataIndex: "approvalState_name",
     key: "approvalState_name",
-    width: 100
+    width: 110
   },
   {
     title: "确认状态",
@@ -65,7 +66,7 @@ const column = [
     title: "关闭状态",
     dataIndex: "closeState_name",
     key: "closeState_name",
-    width: 100
+    width: 110
   },
   {
     title: "操作",
@@ -151,23 +152,17 @@ const dataList = [
   }
 ];
 
-class Demo1 extends Component {
+class Demo3 extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillReceiveProps(nextProps){
-    debugger
-  }
+
   //临时加个判断
   shouldComponentUpdate(){
     if(this.props.className =='u-panel-title'){
       return false;
     }
   }
-  getSelectedDataFunc = data => {
-    console.log("data", data);
-  };
-
   getCloumnsScroll = columns => {
     let sum = 0;
     columns.forEach(da => {
@@ -176,7 +171,9 @@ class Demo1 extends Component {
     console.log("sum", sum);
     return sum;
   };
-
+  getSelectedDataFunc = data => {
+    console.log("data", data);
+  };
   selectedRow = (record, index) => {};
   /**
    * 请求页面数据
@@ -187,7 +184,7 @@ class Demo1 extends Component {
   render() {
     let paginationObj = {
       activePage: 1,//当前页
-      items:10,//总页数
+      items:10,
       freshData:this.freshData
     }
     return (
@@ -196,14 +193,13 @@ class Demo1 extends Component {
         columns={column}
         data={dataList}
         getSelectedDataFunc={this.getSelectedDataFunc}
-        checkMinSize={7}
-        draggable={true}
         multiSelect={{ type: "checkbox" }}
         scroll={{ x: "130%", y: 100 }}
         selectedRow={this.selectedRow}
+        showHeaderMenu={true}
         paginationObj={paginationObj}
       />
     );
   }
 }
-export default Demo1;
+export default Demo3;

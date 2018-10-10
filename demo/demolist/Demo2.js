@@ -66,9 +66,7 @@ class Demo2 extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillReceiveProps(nextProps){
-    debugger
-  }
+
   //临时加个判断
   shouldComponentUpdate(){
     if(this.props.className =='u-panel-title'){
@@ -98,7 +96,7 @@ class Demo2 extends Component {
   render() {
     let paginationObj = {
       activePage: 1,//当前页
-      total:100,//总条数
+      items:10,//总页数
       freshData:this.freshData
     }
     let sortObj = {
