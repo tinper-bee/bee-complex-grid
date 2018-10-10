@@ -1,7 +1,7 @@
 {
- "name": "bee-grid",
- "version": "0.0.4",
- "description": "Grid ui component for react",
+ "name": "bee-complex-grid",
+ "version": "0.0.2",
+ "description": "Complex Grid for React",
  "keywords": [
   "react",
   "react-component",
