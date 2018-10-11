@@ -52,7 +52,7 @@ class Grid extends Component {
           ? nextProps.paginationObj.activePage
           : 1,
         total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1,
-        pageItems:paginationObj.items ? paginationObj.items : 1,
+        pageItems:nextProps.paginationObj.items ? nextProps.aginationObj.items : 1,
       });
     }
   }
