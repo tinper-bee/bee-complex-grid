@@ -149,7 +149,7 @@ class Grid extends Component {
         })
       }
       const menu = (
-        <Menu onSelect={this.onMenuSelect} >{
+        <Menu onSelect={this.onMenuSelect} selectedKeys = {[]}>{
             menuInfo.map(da=>{ return <Item key={da.key} index={da.index} data={da} >{da.info}</Item> })
             }
         </Menu>)

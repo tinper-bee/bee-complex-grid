@@ -173,7 +173,7 @@ var Grid = function (_Component) {
       }
       var menu = _react2["default"].createElement(
         _beeMenus2["default"],
-        { onSelect: _this2.onMenuSelect },
+        { onSelect: _this2.onMenuSelect, selectedKeys: [] },
         menuInfo.map(function (da) {
           return _react2["default"].createElement(
             Item,
