@@ -118,7 +118,8 @@ var Grid = function (_Component) {
     if (nextProps.paginationObj) {
       this.setState({
         activePage: nextProps.paginationObj.activePage ? nextProps.paginationObj.activePage : 1,
-        total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1
+        total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1,
+        pageItems: paginationObj.items ? paginationObj.items : 1
       });
     }
   };

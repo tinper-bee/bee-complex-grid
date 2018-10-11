@@ -4241,3 +4241,6 @@ input.u-button[type="submit"] {
   margin-top: 30px;
   display: flex;
   justify-content: center; }
+
+.u-table-filter-column-pop-cont-item .drop-menu .uf {
+  visibility: hidden; }
