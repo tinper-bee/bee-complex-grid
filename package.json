@@ -13,10 +13,10 @@
  "engines": {
   "node": ">=4.0.0"
  },
- "homepage": "https://github.com/tinper-bee/bee-grid.git",
+ "homepage": "https://github.com/tinper-bee/bee-complex-grid.git",
  "author": "Yonyou FED",
- "repository": "http://github.com/tinper-bee/bee-grid",
- "bugs": "https://github.com/tinper-bee/bee-grid.git/issues",
+ "repository": "http://github.com/tinper-bee/bee-complex-grid",
+ "bugs": "https://github.com/tinper-bee/bee-complex-grid/issues",
  "license": "MIT",
  "main": "./build/index.js",
  "config": {

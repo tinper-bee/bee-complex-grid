@@ -1,16 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-const propTypes = {
-  showHeaderMenu:PropTypes.bool
-};
-const defaultProps = {
-  scroll: {
-    y: true
-  },
-  bordered: true,
-  multiSelect:{type: "checkbox" },
-  showHeaderMenu:false
-};
 import classNames from 'classnames';
 import Table from "bee-table";
 import multiSelect from "bee-table/build/lib/newMultiSelect";
@@ -25,6 +14,17 @@ import Pagination from "bee-pagination";
 import Menu from 'bee-menus';
 import Dropdown from 'bee-dropdown';
 
+const propTypes = {
+  showHeaderMenu:PropTypes.bool
+};
+const defaultProps = {
+  scroll: {
+    y: true
+  },
+  bordered: true,
+  multiSelect:{type: "checkbox" },
+  showHeaderMenu:false
+};
 const { Item } = Menu;
 // const ComplexTable = filterColumn(
 //   dragColumn(multiSelect(sum(sort(Table, Icon)), Checkbox)),
