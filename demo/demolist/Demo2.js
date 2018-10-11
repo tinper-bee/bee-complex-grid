@@ -107,6 +107,7 @@ class Demo2 extends Component {
         className='gridDemo'
         columns={column}
         data={dataList}
+        bordered={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         selectedRow={this.selectedRow}
         sort={sortObj}
