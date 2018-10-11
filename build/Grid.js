@@ -71,6 +71,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+// import sum from "bee-table/build/lib/sum";
+
 
 var propTypes = {
   showHeaderMenu: _propTypes2["default"].bool
@@ -83,7 +85,6 @@ var defaultProps = {
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false
 };
-// import sum from "bee-table/build/lib/sum";
 var Item = _beeMenus2["default"].Item;
 // const ComplexTable = filterColumn(
 //   dragColumn(multiSelect(sum(sort(Table, Icon)), Checkbox)),
@@ -119,7 +120,7 @@ var Grid = function (_Component) {
       this.setState({
         activePage: nextProps.paginationObj.activePage ? nextProps.paginationObj.activePage : 1,
         total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1,
-        pageItems: nextProps.paginationObj.items ? nextProps.aginationObj.items : 1
+        pageItems: nextProps.paginationObj.items ? nextProps.paginationObj.items : 1
       });
     }
   };
