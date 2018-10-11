@@ -3,6 +3,8 @@
 /*  Navlayout  */
 /* FormGroup */
 /*  Navlayout  */
+@import url(../node_modules/bee-dropdown/build/Dropdown.css);
+@import url(../node_modules/bee-menus/build/Menu.css);
 .u-form-control {
   position: relative;
   display: inline-block;
@@ -2671,6 +2673,14 @@ input.u-button[type="submit"] {
       height: 100%;
       top: 0px;
       left: 3px; }
+
+.u-grid th .drop-menu .uf {
+  font-size: 12px;
+  visibility: hidden;
+  margin-left: 15px; }
+
+.u-grid th:hover .drop-menu .uf {
+  visibility: visible; }
 
 .u-grid .u-pagination {
   overflow: hidden;
