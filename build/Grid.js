@@ -140,24 +140,25 @@ var Grid = function (_Component) {
 
   /**
    * 渲染表头下拉菜单（过滤、隐藏）
-   * @param {Array} columns 表格列数组 
+   * @param {Array} columns 表格列数组
    */
   Grid.prototype.renderColumnsDropdown = function renderColumnsDropdown(columns) {
     var _this2 = this;
 
-    var icon = 'uf-arrow-down';
+    var icon = "uf-arrow-down";
 
     return columns.map(function (originColumn, index) {
       var column = _extends({}, originColumn);
       var menuInfo = [],
-          fixTitle = '锁定',
-          showTitle = '隐藏';
+          fixTitle = "锁定",
+          showTitle = "隐藏";
       if (originColumn.fixed) {
-        fixTitle = '解锁';
+        fixTitle = "解锁";
       }
-      if (originColumn.hasOwnProperty('ifshow') && originColumn.ifshow == false) {
-        showTitle = '显示';
-      }
+      //显示的列showTitle应该都是隐藏
+      // if(originColumn.hasOwnProperty('ifshow') && originColumn.ifshow == false){
+      //   showTitle = '显示';
+      // }
       menuInfo.push({
         info: fixTitle,
         key: "fix",
@@ -190,11 +191,7 @@ var Grid = function (_Component) {
         column.title,
         _react2["default"].createElement(
           _beeDropdown2["default"],
-          {
-            trigger: ['click'],
-            overlay: menu,
-            animation: "slide-up"
-          },
+          { trigger: ["click"], overlay: menu, animation: "slide-up" },
           _react2["default"].createElement(_beeIcon2["default"], { type: icon })
         )
       );
@@ -202,8 +199,22 @@ var Grid = function (_Component) {
     });
   };
 
+  /**
+   * 表头menu和表格整体过滤时有冲突，因此添加了回调函数
+   */
+
+
+  /**
+   * 后端获取数据
+   */
+
+
   Grid.prototype.render = function render() {
     var props = this.props;
+    var _props$sort = props.sort,
+        sort = _props$sort === undefined ? {} : _props$sort;
+
+    sort.sortFun = this.sortFun;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
     var columns = this.state.columns;
@@ -214,8 +225,12 @@ var Grid = function (_Component) {
 
     return _react2["default"].createElement(
       "div",
-      { className: (0, _classnames2["default"])('u-grid', props.className) },
-      _react2["default"].createElement(ComplexTable, _extends({}, props, { columns: columns })),
+      { className: (0, _classnames2["default"])("u-grid", props.className) },
+      _react2["default"].createElement(ComplexTable, _extends({}, props, {
+        columns: columns,
+        afterFilter: this.afterFilter,
+        sort: sort
+      })),
       _react2["default"].createElement(_beePagination2["default"], {
         first: true,
         last: true,
@@ -255,11 +270,11 @@ var _initialiseProps = function _initialiseProps() {
 
     columns.find(function (da) {
       if (da.key == key) {
-        da.fixed ? delete da.fixed : da.fixed = 'left';
+        da.fixed ? delete da.fixed : da.fixed = "left";
       }
-      if (da.fixed == 'left') {
+      if (da.fixed == "left") {
         fixedLeftCols.push(da);
-      } else if (da.fixed == 'right') {
+      } else if (da.fixed == "right") {
         fixedRightCols.push(da);
       } else {
         nonColums.push(da);
@@ -286,7 +301,7 @@ var _initialiseProps = function _initialiseProps() {
 
     var columns = _this3.state.columns;
     var fieldKey = item.props.data.fieldKey;
-    if (key == 'fix') {
+    if (key == "fix") {
       columns = _this3.optFixCols(columns, fieldKey);
     } else {
       columns = _this3.optShowCols(columns, fieldKey);
@@ -294,6 +309,44 @@ var _initialiseProps = function _initialiseProps() {
     _this3.setState({
       columns: columns
     });
+  };
+
+  this.afterFilter = function (optData, columns) {
+    var originColumns = _this3.state.columns;
+    originColumns.find(function (da) {
+      if (da.key == optData.key) {
+        da.ifshow = optData.ifshow;
+      }
+    });
+    _this3.setState({
+      columns: originColumns
+    });
+
+    if (typeof _this3.props.afterFilter == "function") {
+      _this3.props.afterFilter(optData, originColumns);
+    }
+  };
+
+  this.sortFun = function (sortParam) {
+    // console.info(sortParam);
+    //解析sortParam，方便column查找
+    var sortObj = {};
+    sortParam.forEach(function (item) {
+      sortObj[item.field] = item;
+    });
+    var originColumns = _this3.state.columns;
+    originColumns.forEach(function (da) {
+      if (sortObj[da.dataIndex]) {
+        da = _extends(da, sortObj[da.dataIndex]);
+      }
+    });
+    _this3.setState({
+      columns: originColumns
+    });
+    //将参数传递给后端排序
+    if (typeof _this3.props.sortFun == "function") {
+      _this3.props.sortFun(sortParam);
+    }
   };
 };
 
