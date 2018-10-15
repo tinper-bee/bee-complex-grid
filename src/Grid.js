@@ -37,13 +37,15 @@ const ComplexTable = filterColumn(
 class Grid extends Component {
   constructor(props) {
     super(props);
-    let { paginationObj = {} } = props;
+    let { paginationObj = {} ,sort={}} = props;
     this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
       columns: props.columns
     };
+    sort.originSortFun = sort.originSortFun?sort.originSortFun:sort.sortFun;
+    sort.sortFun = this.sortFun;
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.paginationObj) {
@@ -203,6 +205,7 @@ class Grid extends Component {
   sortFun = sortParam => {
     // console.info(sortParam);
     //解析sortParam，方便column查找
+    const {sort={}} = this.props;
     let sortObj = {};
     sortParam.forEach(item => {
       sortObj[item.field] = item;
@@ -217,15 +220,15 @@ class Grid extends Component {
       columns: originColumns
     });
     //将参数传递给后端排序
-    if (typeof this.props.sortFun == "function") {
-      this.props.sortFun(sortParam);
+    if (typeof this.props.sort.originSortFun == "function") {
+      this.props.sort.originSortFun(sortParam);
     }
   };
 
   render() {
     const props = this.props;
     let { sort = {} } = props;
-    sort.sortFun = this.sortFun;
+
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
     let columns = this.state.columns;

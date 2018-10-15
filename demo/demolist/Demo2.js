@@ -93,6 +93,13 @@ class Demo2 extends Component {
   freshData=()=>{
 
   }
+  /**
+   * 后端获取数据
+   */
+  sortFun = (sortParam)=>{
+    console.info(sortParam);
+    //将参数传递给后端排序
+  }
   render() {
     let paginationObj = {
       activePage: 1,//当前页
@@ -100,17 +107,19 @@ class Demo2 extends Component {
       freshData:this.freshData
     }
     let sortObj = {
-        mode:'multiple'
+        mode:'multiple',
+        backSource:true,
+        sortFun:this.sortFun
       }
     return (
       <Grid
         className='gridDemo'
         columns={column}
         data={dataList}
-        bordered={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         selectedRow={this.selectedRow}
         sort={sortObj}
+        sortFun={this.sortFun}
         paginationObj={paginationObj}
       />
     );
