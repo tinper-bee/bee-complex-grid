@@ -342,11 +342,13 @@ var _initialiseProps = function _initialiseProps() {
     });
     var originColumns = _this3.state.columns;
     originColumns.forEach(function (da) {
+      //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
         da = _extends(da, sortObj[da.dataIndex]);
+      } else {
+        da.order = 'flatscend';
+        da.orderNum = '';
       }
-      da.order = 'flatscend';
-      da.orderNum = '';
     });
     _this3.setState({
       columns: originColumns
