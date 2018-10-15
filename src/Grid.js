@@ -46,6 +46,7 @@ class Grid extends Component {
     };
     sort.originSortFun = sort.originSortFun?sort.originSortFun:sort.sortFun;
     sort.sortFun = this.sortFun;
+    this.sort= sort;
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.paginationObj) {
@@ -205,7 +206,7 @@ class Grid extends Component {
   sortFun = sortParam => {
     // console.info(sortParam);
     //解析sortParam，方便column查找
-    const {sort={}} = this.props;
+  
     let sortObj = {};
     sortParam.forEach(item => {
       sortObj[item.field] = item;
@@ -215,13 +216,15 @@ class Grid extends Component {
       if (sortObj[da.dataIndex]) {
         da = Object.assign(da, sortObj[da.dataIndex]);
       }
+      da.order= 'flatscend';
+      da.orderNum='';
     });
     this.setState({
       columns: originColumns
     });
     //将参数传递给后端排序
-    if (typeof this.props.sort.originSortFun == "function") {
-      this.props.sort.originSortFun(sortParam);
+    if (typeof this.sort.originSortFun == "function") {
+      this.sort.originSortFun(sortParam);
     }
   };
 
@@ -243,7 +246,7 @@ class Grid extends Component {
           {...props}
           columns={columns}
           afterFilter={this.afterFilter}
-          sort={sort}
+          sort={this.sort}
         />
         <Pagination
           first
