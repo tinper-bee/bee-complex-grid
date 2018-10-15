@@ -213,11 +213,14 @@ class Grid extends Component {
     });
     let originColumns = this.state.columns;
     originColumns.forEach(da => {
+      //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
         da = Object.assign(da, sortObj[da.dataIndex]);
+      }else{
+        da.order= 'flatscend';
+        da.orderNum='';
       }
-      da.order= 'flatscend';
-      da.orderNum='';
+
     });
     this.setState({
       columns: originColumns

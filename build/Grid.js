@@ -116,6 +116,7 @@ var Grid = function (_Component) {
     };
     sort.originSortFun = sort.originSortFun ? sort.originSortFun : sort.sortFun;
     sort.sortFun = _this.sortFun;
+    _this.sort = sort;
     return _this;
   }
 
@@ -233,7 +234,7 @@ var Grid = function (_Component) {
       _react2["default"].createElement(ComplexTable, _extends({}, props, {
         columns: columns,
         afterFilter: this.afterFilter,
-        sort: sort
+        sort: this.sort
       })),
       _react2["default"].createElement(_beePagination2["default"], {
         first: true,
@@ -334,8 +335,6 @@ var _initialiseProps = function _initialiseProps() {
   this.sortFun = function (sortParam) {
     // console.info(sortParam);
     //解析sortParam，方便column查找
-    var _props$sort3 = _this3.props.sort,
-        sort = _props$sort3 === undefined ? {} : _props$sort3;
 
     var sortObj = {};
     sortParam.forEach(function (item) {
@@ -346,13 +345,15 @@ var _initialiseProps = function _initialiseProps() {
       if (sortObj[da.dataIndex]) {
         da = _extends(da, sortObj[da.dataIndex]);
       }
+      da.order = 'flatscend';
+      da.orderNum = '';
     });
     _this3.setState({
       columns: originColumns
     });
     //将参数传递给后端排序
-    if (typeof _this3.props.sort.originSortFun == "function") {
-      _this3.props.sort.originSortFun(sortParam);
+    if (typeof _this3.sort.originSortFun == "function") {
+      _this3.sort.originSortFun(sortParam);
     }
   };
 };
