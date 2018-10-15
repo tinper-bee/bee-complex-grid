@@ -104,7 +104,9 @@ var Grid = function (_Component) {
     _initialiseProps.call(_this);
 
     var _props$paginationObj = props.paginationObj,
-        paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj;
+        paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj,
+        _props$sort = props.sort,
+        sort = _props$sort === undefined ? {} : _props$sort;
 
     _this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
@@ -112,6 +114,8 @@ var Grid = function (_Component) {
       pageItems: paginationObj.items ? paginationObj.items : 1,
       columns: props.columns
     };
+    sort.originSortFun = sort.originSortFun ? sort.originSortFun : sort.sortFun;
+    sort.sortFun = _this.sortFun;
     return _this;
   }
 
@@ -211,12 +215,12 @@ var Grid = function (_Component) {
 
   Grid.prototype.render = function render() {
     var props = this.props;
-    var _props$sort = props.sort,
-        sort = _props$sort === undefined ? {} : _props$sort;
+    var _props$sort2 = props.sort,
+        sort = _props$sort2 === undefined ? {} : _props$sort2;
 
-    sort.sortFun = this.sortFun;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
+
     var columns = this.state.columns;
     //是否显示表头菜单
     if (props.showHeaderMenu) {
@@ -330,6 +334,9 @@ var _initialiseProps = function _initialiseProps() {
   this.sortFun = function (sortParam) {
     // console.info(sortParam);
     //解析sortParam，方便column查找
+    var _props$sort3 = _this3.props.sort,
+        sort = _props$sort3 === undefined ? {} : _props$sort3;
+
     var sortObj = {};
     sortParam.forEach(function (item) {
       sortObj[item.field] = item;
@@ -344,8 +351,8 @@ var _initialiseProps = function _initialiseProps() {
       columns: originColumns
     });
     //将参数传递给后端排序
-    if (typeof _this3.props.sortFun == "function") {
-      _this3.props.sortFun(sortParam);
+    if (typeof _this3.props.sort.originSortFun == "function") {
+      _this3.props.sort.originSortFun(sortParam);
     }
   };
 };
