@@ -63,9 +63,18 @@ class Grid extends Component {
       });
     }
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
-      let columns = [...this.state.columns,nextProps.columns];
+      //将sort、过滤等在组件中维护的状态和传入column合并
+      const originColumns = this.state.columns;
+      const  originLen = originColumns.length;
+      let newColumns = [];
+      newColumns = nextProps.columns.map((item,index) => {
+          if(originLen > index){
+            item = {...originColumns[index],...item};
+          }
+          return item;
+      });
       this.setState({
-        columns: columns
+        columns: newColumns
       })
     }
   }

@@ -1138,9 +1138,7 @@ ul {
   position: absolute;
   outline: none;
   overflow: hidden;
-  font-size: 12px;
-  -webkit-animation: moveFromTop 300ms ease-in;
-  animation: uSlideUpIn 300ms ease; }
+  font-size: 12px; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-bottomLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-bottomLeft {
     -webkit-animation-name: uSlideUpIn;
     animation-name: uSlideUpIn; }
@@ -3811,6 +3809,8 @@ input.u-button[type="submit"] {
     transition: all 0.3s ease; }
     .u-table tr:hover {
       background: rgb(227,242,253); }
+      .u-table tr:hover td .uf-eye {
+        visibility: visible !important; }
   .u-table tr.tr-row-hover {
     background: rgb(227,242,253); }
   .u-table th,
@@ -3845,7 +3845,7 @@ input.u-button[type="submit"] {
     padding-right: 0px; }
   .u-table-fixed-header .u-table-body-inner {
     height: 100%;
-    overflow: auto; }
+    overflow: scroll; }
   .u-table-fixed-header .u-table-scroll .u-table-header {
     overflow-x: scroll;
     padding-bottom: 20px;
@@ -3965,10 +3965,6 @@ input.u-button[type="submit"] {
         display: block;
         width: 14px;
         cursor: pointer; }
-      .u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-flat {
-        display: none; }
-    .u-table-thead th:hover .bee-table-column-sorter > .bee-table-column-sorter-flat {
-      display: block; }
     .u-table-thead th .bee-table-column-sorter-down.on .uf-triangle-down,
     .u-table-thead th .bee-table-column-sorter-down.on .uf-triangle-up,
     .u-table-thead th .bee-table-column-sorter-up.on .uf-triangle-down,
@@ -3998,7 +3994,7 @@ input.u-button[type="submit"] {
     .u-table-thead th:hover .bee-table-column-sorter {
       display: inline-block; }
   .u-table-thead .th-drag {
-    cursor: pointer; }
+    cursor: move; }
   .u-table-thead .th-drag-hover {
     background: #ccc; }
   .u-table-thead-th {
@@ -4017,6 +4013,9 @@ input.u-button[type="submit"] {
     .u-table-thead-th .th-drag-gap-hover {
       background: #ccc;
       cursor: col-resize; }
+    .u-table-thead-th.th-can-not-drag .th-drag-gap-hover {
+      cursor: none;
+      width: 0px; }
   .u-table-thead-th:last-child-drag-gap {
     border: none; }
   .u-table-filter-column-pop-cont {
