@@ -63,8 +63,9 @@ class Grid extends Component {
       });
     }
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
+      let columns = [...this.state.columns,nextProps.columns];
       this.setState({
-        columns: nextProps.columns
+        columns: columns
       })
     }
   }
