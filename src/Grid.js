@@ -62,6 +62,11 @@ class Grid extends Component {
           : 1
       });
     }
+    if (nextProps.columns && nextProps.columns !== this.state.columns) {
+      this.setState({
+        columns: nextProps.columns
+      })
+    }
   }
   /**
    * 点击分页

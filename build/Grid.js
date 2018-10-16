@@ -128,6 +128,11 @@ var Grid = function (_Component) {
         pageItems: nextProps.paginationObj.items ? nextProps.paginationObj.items : 1
       });
     }
+    if (nextProps.columns && nextProps.columns !== this.state.columns) {
+      this.setState({
+        columns: nextProps.columns
+      });
+    }
   };
   /**
    * 点击分页
