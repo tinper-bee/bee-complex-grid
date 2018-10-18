@@ -38,6 +38,10 @@ var _sort = require("bee-table/build/lib/sort");
 
 var _sort2 = _interopRequireDefault(_sort);
 
+var _sum = require("bee-table/build/lib/sum");
+
+var _sum2 = _interopRequireDefault(_sum);
+
 var _beeIcon = require("bee-icon");
 
 var _beeIcon2 = _interopRequireDefault(_beeIcon);
@@ -91,7 +95,7 @@ var Item = _beeMenus2["default"].Item;
 //   Popover
 // );
 
-var ComplexTable = (0, _filterColumn2["default"])((0, _dragColumn2["default"])((0, _newMultiSelect2["default"])((0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]), _beeCheckbox2["default"])), _beePopover2["default"]);
+var ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -105,8 +109,7 @@ var Grid = function (_Component) {
 
     var _props$paginationObj = props.paginationObj,
         paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj,
-        _props$sort = props.sort,
-        sort = _props$sort === undefined ? {} : _props$sort;
+        sortObj = props.sort;
 
     _this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
@@ -114,9 +117,21 @@ var Grid = function (_Component) {
       pageItems: paginationObj.items ? paginationObj.items : 1,
       columns: props.columns
     };
-    sort.originSortFun = sort.originSortFun ? sort.originSortFun : sort.sortFun;
-    sort.sortFun = _this.sortFun;
-    _this.sort = sort;
+    //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
+    if (sortObj) {
+      sortObj.originSortFun = sortObj.originSortFun ? sortObj.originSortFun : sortObj.sortFun;
+      sortObj.sortFun = _this.sortFun;
+      _this.sort = sortObj;
+    }
+
+    ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
+    if (props.canSum) {
+      ComplexTable = (0, _sum2["default"])(ComplexTable);
+    }
+    if (props.multiSelect !== false) {
+      ComplexTable = (0, _newMultiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+    }
+    ComplexTable = (0, _filterColumn2["default"])((0, _dragColumn2["default"])(ComplexTable), _beePopover2["default"]);
     return _this;
   }
 
@@ -231,8 +246,8 @@ var Grid = function (_Component) {
 
   Grid.prototype.render = function render() {
     var props = this.props;
-    var _props$sort2 = props.sort,
-        sort = _props$sort2 === undefined ? {} : _props$sort2;
+    var _props$sort = props.sort,
+        sort = _props$sort === undefined ? {} : _props$sort;
 
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
