@@ -7,6 +7,7 @@ import filterColumn from "bee-table/build/lib/filterColumn";
 import dragColumn from "bee-table/build/lib/dragColumn";
 // import sum from "bee-table/build/lib/sum";
 import sort from "bee-table/build/lib/sort";
+import sum from "bee-table/build/lib/sum";
 import Icon from "bee-icon";
 import Checkbox from "bee-checkbox";
 import Popover from "bee-popover";
@@ -30,23 +31,36 @@ const { Item } = Menu;
 //   dragColumn(multiSelect(sum(sort(Table, Icon)), Checkbox)),
 //   Popover
 // );
-const ComplexTable = filterColumn(
-  dragColumn(multiSelect(sort(Table, Icon), Checkbox)),
-  Popover
-);
+
+let ComplexTable = sort(Table, Icon);
 class Grid extends Component {
   constructor(props) {
     super(props);
-    let { paginationObj = {} ,sort={}} = props;
+    let { paginationObj = {} ,sort:sortObj} = props;
     this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
       columns: props.columns
     };
-    sort.originSortFun = sort.originSortFun?sort.originSortFun:sort.sortFun;
-    sort.sortFun = this.sortFun;
-    this.sort= sort;
+    //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
+    if(sortObj){
+      sortObj.originSortFun = sortObj.originSortFun?sortObj.originSortFun:sortObj.sortFun;
+      sortObj.sortFun = this.sortFun;
+      this.sort= sortObj;
+    }
+   
+    ComplexTable = sort(Table, Icon);
+    if(props.canSum){
+      ComplexTable = sum(ComplexTable);
+    }
+    if(props.multiSelect !== false){
+      ComplexTable = multiSelect(ComplexTable, Checkbox)
+    }
+    ComplexTable = filterColumn(
+      dragColumn(ComplexTable),
+      Popover
+    );
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.paginationObj) {
