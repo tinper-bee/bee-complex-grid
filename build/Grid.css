@@ -4234,9 +4234,7 @@ input.u-button[type="submit"] {
 
 .u-grid .u-pagination {
   overflow: hidden;
-  margin-top: 8px;
-  display: flex;
-  justify-content: center; }
+  margin-bottom: 8px; }
 
 .u-table-filter-column-pop-cont-item .drop-menu .uf {
   visibility: hidden; }

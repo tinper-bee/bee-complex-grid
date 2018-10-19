@@ -243,6 +243,15 @@ var Grid = function (_Component) {
    * 后端获取数据
    */
 
+  /**
+   *拖拽交互列后记录下当前columns 
+   */
+
+
+  /**
+   * 获取所有列以及table属性值
+   */
+
 
   Grid.prototype.render = function render() {
     var props = this.props;
@@ -261,11 +270,6 @@ var Grid = function (_Component) {
     return _react2["default"].createElement(
       "div",
       { className: (0, _classnames2["default"])("u-grid", props.className) },
-      _react2["default"].createElement(ComplexTable, _extends({}, props, {
-        columns: columns,
-        afterFilter: this.afterFilter,
-        sort: this.sort
-      })),
       _react2["default"].createElement(_beePagination2["default"], {
         first: true,
         last: true,
@@ -278,7 +282,13 @@ var Grid = function (_Component) {
         showJump: true,
         items: this.state.pageItems,
         total: this.state.total
-      })
+      }),
+      _react2["default"].createElement(ComplexTable, _extends({}, props, {
+        columns: columns,
+        afterFilter: this.afterFilter,
+        sort: this.sort,
+        onDrop: this.dragDrop
+      }))
     );
   };
 
@@ -387,6 +397,23 @@ var _initialiseProps = function _initialiseProps() {
     if (typeof _this3.sort.originSortFun == "function") {
       _this3.sort.originSortFun(sortParam);
     }
+  };
+
+  this.dragDrop = function (event, data, columns) {
+    _this3.setState({
+      columns: columns
+    });
+    if (_this3.props.onDrop) {
+      _this3.props.onDrop(event, data, columns);
+    }
+  };
+
+  this.getColumnsAndTablePros = function () {
+    var rs = {
+      columns: _this3.state.columns,
+      tablePros: _this3.props
+    };
+    return rs;
   };
 };
 
