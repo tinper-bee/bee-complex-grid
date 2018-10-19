@@ -115,6 +115,7 @@ var Grid = function (_Component) {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
+      dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
       columns: props.columns
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -140,7 +141,8 @@ var Grid = function (_Component) {
       this.setState({
         activePage: nextProps.paginationObj.activePage ? nextProps.paginationObj.activePage : 1,
         total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1,
-        pageItems: nextProps.paginationObj.items ? nextProps.paginationObj.items : 1
+        pageItems: nextProps.paginationObj.items ? nextProps.paginationObj.items : 1,
+        dataNum: nextProps.paginationObj.dataNum ? nextProps.paginationObj.dataNum : 1
       });
     }
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
@@ -220,6 +222,7 @@ var Grid = function (_Component) {
           );
         })
       );
+      column.hasHeaderMenu = true;
       column.title = _react2["default"].createElement(
         "span",
         { className: "title-con drop-menu" },
@@ -263,9 +266,8 @@ var Grid = function (_Component) {
 
     var columns = this.state.columns;
     //是否显示表头菜单、已经显示过的不在显示
-    if (props.showHeaderMenu) {
+    if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
-      this.isHeaderMenuExit = true;
     }
 
     return _react2["default"].createElement(
@@ -282,7 +284,8 @@ var Grid = function (_Component) {
         onSelect: this.handleSelectPage,
         showJump: true,
         items: this.state.pageItems,
-        total: this.state.total
+        total: this.state.total,
+        dataNum: this.state.dataNum
       }),
       _react2["default"].createElement(ComplexTable, _extends({}, props, {
         columns: columns,
