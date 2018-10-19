@@ -259,11 +259,13 @@ var Grid = function (_Component) {
   Grid.prototype.render = function render() {
     var props = this.props;
     var _props$sort = props.sort,
-        sort = _props$sort === undefined ? {} : _props$sort;
+        sort = _props$sort === undefined ? {} : _props$sort,
+        paginationObj = props.paginationObj;
 
+    var paginationParam = _extends({}, paginationObj);
+    delete paginationParam.freshData;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
-
     var columns = this.state.columns;
     //是否显示表头菜单、已经显示过的不在显示
     if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
@@ -273,7 +275,7 @@ var Grid = function (_Component) {
     return _react2["default"].createElement(
       "div",
       { className: (0, _classnames2["default"])("u-grid", props.className) },
-      _react2["default"].createElement(_beePagination2["default"], {
+      _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
         first: true,
         last: true,
         prev: true,
@@ -284,9 +286,8 @@ var Grid = function (_Component) {
         onSelect: this.handleSelectPage,
         showJump: true,
         items: this.state.pageItems,
-        total: this.state.total,
-        dataNum: this.state.dataNum
-      }),
+        total: this.state.total
+      })),
       _react2["default"].createElement(ComplexTable, _extends({}, props, {
         columns: columns,
         afterFilter: this.afterFilter,
