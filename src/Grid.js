@@ -259,6 +259,28 @@ class Grid extends Component {
       this.sort.originSortFun(sortParam);
     }
   };
+  /**
+   *拖拽交互列后记录下当前columns 
+   */
+  dragDrop = (event,data,columns)=>{
+    this.setState({
+      columns: columns
+    });
+    if(this.props.onDrop){
+      this.props.onDrop(event,data,columns);
+    }
+  } 
+
+  /**
+   * 获取所有列以及table属性值
+   */
+  getColumnsAndTablePros=()=>{
+    let rs= {
+      columns:this.state.columns,
+      tablePros:this.props
+    }
+    return rs;
+  }
 
   render() {
     const props = this.props;
@@ -274,13 +296,7 @@ class Grid extends Component {
 
     return (
       <div className={classNames("u-grid", props.className)}>
-        <ComplexTable
-          {...props}
-          columns={columns}
-          afterFilter={this.afterFilter}
-          sort={this.sort}
-        />
-        <Pagination
+       <Pagination
           first
           last
           prev
@@ -293,6 +309,14 @@ class Grid extends Component {
           items={this.state.pageItems}
           total={this.state.total}
         />
+        <ComplexTable
+          {...props}
+          columns={columns}
+          afterFilter={this.afterFilter}
+          sort={this.sort}
+          onDrop={this.dragDrop}
+        />
+       
       </div>
     );
   }
