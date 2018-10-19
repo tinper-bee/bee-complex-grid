@@ -163,6 +163,7 @@ class Demo3 extends Component {
       return false;
     }
   }
+
   getCloumnsScroll = columns => {
     let sum = 0;
     columns.forEach(da => {
@@ -192,8 +193,9 @@ class Demo3 extends Component {
         className='gridDemo'
         columns={column}
         data={dataList}
+        draggable={true}
+        ref='grid'
         getSelectedDataFunc={this.getSelectedDataFunc}
-        multiSelect={{ type: "checkbox" }}
         scroll={{ x: "130%", y: 100 }}
         selectedRow={this.selectedRow}
         showHeaderMenu={true}

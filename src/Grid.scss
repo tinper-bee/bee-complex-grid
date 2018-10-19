@@ -26,8 +26,12 @@
         }
     }
     .u-pagination {
+        
         overflow: hidden;
         margin-bottom: 8px;
+        .u-pagination-list{
+            margin-left: 0px;
+        }
         // display: flex;
         // justify-content: center;
     } 

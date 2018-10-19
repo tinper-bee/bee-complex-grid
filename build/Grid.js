@@ -262,9 +262,10 @@ var Grid = function (_Component) {
     // let scroll = Object.assign({y:true},props.scroll);
 
     var columns = this.state.columns;
-    //是否显示表头菜单
+    //是否显示表头菜单、已经显示过的不在显示
     if (props.showHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
+      this.isHeaderMenuExit = true;
     }
 
     return _react2["default"].createElement(

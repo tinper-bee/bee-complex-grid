@@ -189,7 +189,8 @@ class Demo1 extends Component {
       activePage: 1,//当前页
       items:10,//总页数
       total:100,
-      freshData:this.freshData
+      freshData:this.freshData,
+      dataNum:2
     }
     return (
       <Grid
