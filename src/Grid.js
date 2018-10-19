@@ -287,8 +287,9 @@ class Grid extends Component {
 
   render() {
     const props = this.props;
-    let { sort = {} } = props;
-
+    let { sort = {}, paginationObj} = props;
+    const paginationParam = Object.assign({},paginationObj);
+    delete paginationParam.freshData;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
     let columns = this.state.columns;
@@ -301,6 +302,7 @@ class Grid extends Component {
     return (
       <div className={classNames("u-grid", props.className)}>
        <Pagination
+         {...paginationParam}
           first
           last
           prev
@@ -312,7 +314,6 @@ class Grid extends Component {
           showJump={true}
           items={this.state.pageItems}
           total={this.state.total}
-          dataNum={this.state.dataNum}
         />
         <ComplexTable
           {...props}

@@ -181,8 +181,11 @@ class Demo1 extends Component {
   /**
    * 请求页面数据
    */
-  freshData=()=>{
+  freshata=()=>{
 
+  }
+  onDataNumSelect=()=>{
+    console.log('选择每页多少条的回调函数');
   }
   render() {
     let paginationObj = {
@@ -190,6 +193,7 @@ class Demo1 extends Component {
       items:10,//总页数
       total:100,
       freshData:this.freshData,
+      onDataNumSelect:this.onDataNumSelect,
       dataNum:2
     }
     return (
