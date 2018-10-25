@@ -87,7 +87,8 @@ var defaultProps = {
   },
   bordered: true,
   multiSelect: { type: "checkbox" },
-  showHeaderMenu: false
+  showHeaderMenu: false,
+  data: []
 };
 var Item = _beeMenus2["default"].Item;
 // const ComplexTable = filterColumn(
@@ -146,16 +147,22 @@ var Grid = function (_Component) {
       });
     }
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
-      //将sort、过滤等在组件中维护的状态和传入column合并
-      var originColumns = this.state.columns;
-      var originLen = originColumns.length;
       var newColumns = [];
-      newColumns = nextProps.columns.map(function (item, index) {
-        if (originLen > index) {
-          item = _extends({}, originColumns[index], item);
-        }
-        return item;
-      });
+      if (nextProps.noReplaceColumns) {
+        newColumns = nextProps.columns;
+      } else {
+        //将sort、过滤等在组件中维护的状态和传入column合并
+        var originColumns = this.state.columns;
+        var originLen = originColumns.length;
+
+        newColumns = nextProps.columns.map(function (item, index) {
+          if (originLen > index) {
+            item = _extends({}, originColumns[index], item);
+          }
+          return item;
+        });
+      }
+
       this.setState({
         columns: newColumns
       });
@@ -255,6 +262,10 @@ var Grid = function (_Component) {
    * 获取所有列以及table属性值
    */
 
+  /**
+   * 拖拽后计算列宽
+   */
+
 
   Grid.prototype.render = function render() {
     var props = this.props;
@@ -292,7 +303,8 @@ var Grid = function (_Component) {
         columns: columns,
         afterFilter: this.afterFilter,
         sort: this.sort,
-        onDrop: this.dragDrop
+        onDrop: this.dragDrop,
+        afterDragColWidth: this.afterDragColWidth
       }))
     );
   };
@@ -400,7 +412,7 @@ var _initialiseProps = function _initialiseProps() {
     });
     //将参数传递给后端排序
     if (typeof _this3.sort.originSortFun == "function") {
-      _this3.sort.originSortFun(sortParam);
+      _this3.sort.originSortFun(sortParam, originColumns);
     }
   };
 
@@ -414,11 +426,37 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getColumnsAndTablePros = function () {
+    // const columns = this.state.columns.map((item,index)=>{
+    //    if(this.dragColsData[index] && this.dragColsData[index].width){
+    //     item.width = this.dragColsData[index].width;
+    //   }
+    //   return item;
+    // });
+    var columns = _this3.state.columns.slice();
+
+    if (_this3.dragColsData) {
+      var dragColsKeyArr = Object.keys(_this3.dragColsData);
+      dragColsKeyArr.some(function (itemKey) {
+        columns.forEach(function (col) {
+          if (col.dataIndex == itemKey) {
+            col.width = _this3.dragColsData[itemKey].width;
+            return true;
+          }
+        });
+      });
+    }
     var rs = {
-      columns: _this3.state.columns,
+      columns: columns,
       tablePros: _this3.props
     };
     return rs;
+  };
+
+  this.afterDragColWidth = function (colData) {
+    if (!_this3.dragColsData) {
+      _this3.dragColsData = {};
+    }
+    _this3.dragColsData[colData.dataIndex] = colData;
   };
 };
 

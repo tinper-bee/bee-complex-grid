@@ -58,6 +58,8 @@ table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面�
 |:--|:---:|:--:|---:|
 |paginationObj|表格分页，具体参考[分页API](http://bee.tinper.org/bee-pagination#bee-pagination)|Object|{activePage: 1, total: 1,items:1}
 |showHeaderMenu|是否显示表头菜单(动态设置显示隐藏、锁定解锁)|boolean|false|
+|multiSelect|是否含有多选框，multiSelect={false}时为每行不含有Checkbox|Object|{}|
+
 
 #### 开发调试
 

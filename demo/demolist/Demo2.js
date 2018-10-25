@@ -116,6 +116,7 @@ class Demo2 extends Component {
         className='gridDemo'
         columns={column}
         data={dataList}
+        draggable={true}
         getSelectedDataFunc={this.getSelectedDataFunc}
         selectedRow={this.selectedRow}
         sort={sortObj}

@@ -24,7 +24,8 @@ const defaultProps = {
   },
   bordered: true,
   multiSelect: { type: "checkbox" },
-  showHeaderMenu: false
+  showHeaderMenu: false,
+  data:[]
 };
 const { Item } = Menu;
 // const ComplexTable = filterColumn(
@@ -79,16 +80,22 @@ class Grid extends Component {
       });
     }
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
-      //将sort、过滤等在组件中维护的状态和传入column合并
-      const originColumns = this.state.columns;
-      const  originLen = originColumns.length;
       let newColumns = [];
-      newColumns = nextProps.columns.map((item,index) => {
-          if(originLen > index){
-            item = {...originColumns[index],...item};
-          }
-          return item;
-      });
+      if(nextProps.noReplaceColumns){
+        newColumns = nextProps.columns ;
+      }else{
+        //将sort、过滤等在组件中维护的状态和传入column合并
+        const originColumns = this.state.columns;
+        const  originLen = originColumns.length;
+        
+        newColumns = nextProps.columns.map((item,index) => {
+            if(originLen > index){
+              item = {...originColumns[index],...item};
+            }
+            return item;
+        });
+      }
+      
       this.setState({
         columns: newColumns
       })
@@ -259,7 +266,7 @@ class Grid extends Component {
     });
     //将参数传递给后端排序
     if (typeof this.sort.originSortFun == "function") {
-      this.sort.originSortFun(sortParam);
+      this.sort.originSortFun(sortParam,originColumns);
     }
   };
   /**
@@ -278,11 +285,33 @@ class Grid extends Component {
    * 获取所有列以及table属性值
    */
   getColumnsAndTablePros=()=>{
-    let rs= {
-      columns:this.state.columns,
+    const columns = this.state.columns.slice();
+  
+    if(this.dragColsData){
+      const dragColsKeyArr = Object.keys(this.dragColsData);
+      dragColsKeyArr.some(itemKey =>{
+          columns.forEach(col=>{
+            if(col.dataIndex == itemKey){
+              col.width = this.dragColsData[itemKey].width;
+              return true;
+            }
+          })
+      })
+    }
+    const rs= {
+      columns:columns,
       tablePros:this.props
     }
     return rs;
+  }
+  /**
+   * 拖拽后计算列宽
+   */
+  afterDragColWidth = (colData)=>{
+    if(!this.dragColsData){
+      this.dragColsData = {};
+    }
+    this.dragColsData[colData.dataIndex] = colData;
   }
 
   render() {
@@ -321,6 +350,7 @@ class Grid extends Component {
           afterFilter={this.afterFilter}
           sort={this.sort}
           onDrop={this.dragDrop}
+          afterDragColWidth = {this.afterDragColWidth}
         />
        
       </div>
