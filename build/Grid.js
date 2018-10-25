@@ -426,12 +426,6 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getColumnsAndTablePros = function () {
-    // const columns = this.state.columns.map((item,index)=>{
-    //    if(this.dragColsData[index] && this.dragColsData[index].width){
-    //     item.width = this.dragColsData[index].width;
-    //   }
-    //   return item;
-    // });
     var columns = _this3.state.columns.slice();
 
     if (_this3.dragColsData) {
