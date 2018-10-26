@@ -43,7 +43,7 @@ class Grid extends Component {
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
       dataNum:paginationObj.dataNum ? paginationObj.dataNum : 1,
-      columns: props.columns
+      columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
     if(sortObj){
@@ -82,20 +82,20 @@ class Grid extends Component {
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
       let newColumns = [];
       if(nextProps.noReplaceColumns){
-        newColumns = nextProps.columns ;
+        newColumns = nextProps.columns.slice() ;
       }else{
         //将sort、过滤等在组件中维护的状态和传入column合并
         const originColumns = this.state.columns;
         const  originLen = originColumns.length;
         
         newColumns = nextProps.columns.map((item,index) => {
+            let newItem={};
             if(originLen > index){
-              item = {...originColumns[index],...item};
+              newItem = {...originColumns[index],...item};
             }
-            return item;
+            return newItem;
         });
       }
-      
       this.setState({
         columns: newColumns
       })
@@ -311,7 +311,7 @@ class Grid extends Component {
     if(!this.dragColsData){
       this.dragColsData = {};
     }
-    this.dragColsData[colData.dataIndex] = colData;
+    this.dragColsData[colData.dataindex] = colData;
   }
 
   render() {
