@@ -163,7 +163,6 @@ var Grid = function (_Component) {
           return newItem;
         });
       }
-
       this.setState({
         columns: newColumns
       });
@@ -451,7 +450,7 @@ var _initialiseProps = function _initialiseProps() {
     if (!_this3.dragColsData) {
       _this3.dragColsData = {};
     }
-    _this3.dragColsData[colData.dataIndex] = colData;
+    _this3.dragColsData[colData.dataindex] = colData;
   };
 };
 
