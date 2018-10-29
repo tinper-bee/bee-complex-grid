@@ -47,12 +47,12 @@
   "bee-popover": "^1.0.2",
   "bee-table": "^1.4.5",
   "classnames": "^2.2.6",
+  "bee-pagination": "^1.1.5",
   "tinper-bee-core": "latest"
  },
  "devDependencies": {
   "bee-button": "latest",
   "bee-layout": "latest",
-  "bee-pagination": "^1.1.5",
   "bee-panel": "1.0.0",
   "chai": "^3.5.0",
   "console-polyfill": "~0.2.1",

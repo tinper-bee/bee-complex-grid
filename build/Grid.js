@@ -110,13 +110,15 @@ var Grid = function (_Component) {
 
     var _props$paginationObj = props.paginationObj,
         paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj,
-        sortObj = props.sort;
+        sortObj = props.sort,
+        filterable = props.filterable;
 
     _this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
       dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
+      filterable: filterable,
       columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -164,7 +166,8 @@ var Grid = function (_Component) {
         });
       }
       this.setState({
-        columns: newColumns
+        columns: newColumns,
+        filterable: nextProps.filterable
       });
     }
   };
@@ -218,6 +221,15 @@ var Grid = function (_Component) {
           index: 1
         });
       }
+      //是否行过滤菜单item
+      if (_this2.props.ifShowFilterHeader) {
+        menuInfo.push({
+          info: "行过滤",
+          key: "rowFilter",
+          fieldKey: originColumn.key,
+          index: 3
+        });
+      }
       var menu = _react2["default"].createElement(
         _beeMenus2["default"],
         { onSelect: _this2.onMenuSelect, selectedKeys: [] },
@@ -254,7 +266,7 @@ var Grid = function (_Component) {
    */
 
   /**
-   *拖拽交互列后记录下当前columns 
+   *拖拽交互列后记录下当前columns
    */
 
 
@@ -277,8 +289,11 @@ var Grid = function (_Component) {
     delete paginationParam.freshData;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
-    var columns = this.state.columns;
+    var _state = this.state,
+        columns = _state.columns,
+        filterable = _state.filterable;
     //是否显示表头菜单、已经显示过的不在显示
+
     if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
     }
@@ -304,7 +319,8 @@ var Grid = function (_Component) {
         afterFilter: this.afterFilter,
         sort: this.sort,
         onDrop: this.dragDrop,
-        afterDragColWidth: this.afterDragColWidth
+        afterDragColWidth: this.afterDragColWidth,
+        filterable: filterable
       }))
     );
   };
@@ -360,17 +376,26 @@ var _initialiseProps = function _initialiseProps() {
   this.onMenuSelect = function (_ref) {
     var key = _ref.key,
         item = _ref.item;
+    var _state2 = _this3.state,
+        columns = _state2.columns,
+        filterable = _state2.filterable;
 
-    var columns = _this3.state.columns;
     var fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
       columns = _this3.optFixCols(columns, fieldKey);
-    } else {
+      _this3.setState({
+        columns: columns
+      });
+    } else if (key == "show") {
       columns = _this3.optShowCols(columns, fieldKey);
+      _this3.setState({
+        columns: columns
+      });
+    } else {
+      var _filterable = _this3.state.filterable;
+
+      _this3.setState({ filterable: !_filterable });
     }
-    _this3.setState({
-      columns: columns
-    });
   };
 
   this.afterFilter = function (optData, columns) {
@@ -403,8 +428,8 @@ var _initialiseProps = function _initialiseProps() {
       if (sortObj[da.dataIndex]) {
         da = _extends(da, sortObj[da.dataIndex]);
       } else {
-        da.order = 'flatscend';
-        da.orderNum = '';
+        da.order = "flatscend";
+        da.orderNum = "";
       }
     });
     _this3.setState({

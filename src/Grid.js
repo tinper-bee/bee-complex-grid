@@ -25,7 +25,7 @@ const defaultProps = {
   bordered: true,
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
-  data:[]
+  data: []
 };
 const { Item } = Menu;
 // const ComplexTable = filterColumn(
@@ -37,32 +37,32 @@ let ComplexTable = sort(Table, Icon);
 class Grid extends Component {
   constructor(props) {
     super(props);
-    let { paginationObj = {} ,sort:sortObj} = props;
+    let { paginationObj = {}, sort: sortObj, filterable } = props;
     this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
-      dataNum:paginationObj.dataNum ? paginationObj.dataNum : 1,
+      dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
+      filterable,
       columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
-    if(sortObj){
-      sortObj.originSortFun = sortObj.originSortFun?sortObj.originSortFun:sortObj.sortFun;
+    if (sortObj) {
+      sortObj.originSortFun = sortObj.originSortFun
+        ? sortObj.originSortFun
+        : sortObj.sortFun;
       sortObj.sortFun = this.sortFun;
-      this.sort= sortObj;
+      this.sort = sortObj;
     }
-   
+
     ComplexTable = sort(Table, Icon);
-    if(props.canSum){
+    if (props.canSum) {
       ComplexTable = sum(ComplexTable);
     }
-    if(props.multiSelect !== false){
-      ComplexTable = multiSelect(ComplexTable, Checkbox)
+    if (props.multiSelect !== false) {
+      ComplexTable = multiSelect(ComplexTable, Checkbox);
     }
-    ComplexTable = filterColumn(
-      dragColumn(ComplexTable),
-      Popover
-    );
+    ComplexTable = filterColumn(dragColumn(ComplexTable), Popover);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.paginationObj) {
@@ -76,29 +76,32 @@ class Grid extends Component {
         pageItems: nextProps.paginationObj.items
           ? nextProps.paginationObj.items
           : 1,
-        dataNum:nextProps.paginationObj.dataNum ? nextProps.paginationObj.dataNum : 1,
+        dataNum: nextProps.paginationObj.dataNum
+          ? nextProps.paginationObj.dataNum
+          : 1
       });
     }
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
       let newColumns = [];
-      if(nextProps.noReplaceColumns){
-        newColumns = nextProps.columns.slice() ;
-      }else{
+      if (nextProps.noReplaceColumns) {
+        newColumns = nextProps.columns.slice();
+      } else {
         //将sort、过滤等在组件中维护的状态和传入column合并
         const originColumns = this.state.columns;
-        const  originLen = originColumns.length;
-        
-        newColumns = nextProps.columns.map((item,index) => {
-            let newItem={};
-            if(originLen > index){
-              newItem = {...originColumns[index],...item};
-            }
-            return newItem;
+        const originLen = originColumns.length;
+
+        newColumns = nextProps.columns.map((item, index) => {
+          let newItem = {};
+          if (originLen > index) {
+            newItem = { ...originColumns[index], ...item };
+          }
+          return newItem;
         });
       }
       this.setState({
-        columns: newColumns
-      })
+        columns: newColumns,
+        filterable: nextProps.filterable
+      });
     }
   }
   /**
@@ -150,16 +153,22 @@ class Grid extends Component {
   };
 
   onMenuSelect = ({ key, item }) => {
-    let columns = this.state.columns;
+    let { columns, filterable } = this.state;
     const fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
       columns = this.optFixCols(columns, fieldKey);
-    } else {
+      this.setState({
+        columns
+      });
+    } else if (key == "show") {
       columns = this.optShowCols(columns, fieldKey);
+      this.setState({
+        columns
+      });
+    } else {
+      const { filterable } = this.state;
+      this.setState({ filterable: !filterable });
     }
-    this.setState({
-      columns
-    });
   };
 
   /**
@@ -168,7 +177,7 @@ class Grid extends Component {
    */
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
-
+  
     return columns.map((originColumn, index) => {
       let column = Object.assign({}, originColumn);
       let menuInfo = [],
@@ -194,6 +203,15 @@ class Grid extends Component {
           key: `show`,
           fieldKey: originColumn.key,
           index: 1
+        });
+      }
+      //是否行过滤菜单item
+      if (this.props.ifShowFilterHeader) {
+        menuInfo.push({
+          info: "行过滤",
+          key: "rowFilter",
+          fieldKey: originColumn.key,
+          index: 3
         });
       }
       const menu = (
@@ -245,7 +263,7 @@ class Grid extends Component {
   sortFun = sortParam => {
     // console.info(sortParam);
     //解析sortParam，方便column查找
-  
+
     let sortObj = {};
     sortParam.forEach(item => {
       sortObj[item.field] = item;
@@ -255,83 +273,81 @@ class Grid extends Component {
       //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
         da = Object.assign(da, sortObj[da.dataIndex]);
-      }else{
-        da.order= 'flatscend';
-        da.orderNum='';
+      } else {
+        da.order = "flatscend";
+        da.orderNum = "";
       }
-
     });
     this.setState({
       columns: originColumns
     });
     //将参数传递给后端排序
     if (typeof this.sort.originSortFun == "function") {
-      this.sort.originSortFun(sortParam,originColumns);
+      this.sort.originSortFun(sortParam, originColumns);
     }
   };
   /**
-   *拖拽交互列后记录下当前columns 
+   *拖拽交互列后记录下当前columns
    */
-  dragDrop = (event,data,columns)=>{
+  dragDrop = (event, data, columns) => {
     this.setState({
       columns: columns
     });
-    if(this.props.onDrop){
-      this.props.onDrop(event,data,columns);
+    if (this.props.onDrop) {
+      this.props.onDrop(event, data, columns);
     }
-  } 
+  };
 
   /**
    * 获取所有列以及table属性值
    */
-  getColumnsAndTablePros=()=>{
+  getColumnsAndTablePros = () => {
     const columns = this.state.columns.slice();
-  
-    if(this.dragColsData){
+
+    if (this.dragColsData) {
       const dragColsKeyArr = Object.keys(this.dragColsData);
-      dragColsKeyArr.some(itemKey =>{
-          columns.forEach(col=>{
-            if(col.dataIndex == itemKey){
-              col.width = this.dragColsData[itemKey].width;
-              return true;
-            }
-          })
-      })
+      dragColsKeyArr.some(itemKey => {
+        columns.forEach(col => {
+          if (col.dataIndex == itemKey) {
+            col.width = this.dragColsData[itemKey].width;
+            return true;
+          }
+        });
+      });
     }
-    const rs= {
-      columns:columns,
-      tablePros:this.props
-    }
+    const rs = {
+      columns: columns,
+      tablePros: this.props
+    };
     return rs;
-  }
+  };
   /**
    * 拖拽后计算列宽
    */
-  afterDragColWidth = (colData)=>{
-    if(!this.dragColsData){
+  afterDragColWidth = colData => {
+    if (!this.dragColsData) {
       this.dragColsData = {};
     }
     this.dragColsData[colData.dataindex] = colData;
-  }
+  };
 
   render() {
     const props = this.props;
-    let { sort = {}, paginationObj} = props;
-    const paginationParam = Object.assign({},paginationObj);
+    let { sort = {}, paginationObj } = props;
+    const paginationParam = Object.assign({}, paginationObj);
     delete paginationParam.freshData;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
-    let columns = this.state.columns;
+    let {columns,filterable} = this.state;
     //是否显示表头菜单、已经显示过的不在显示
     if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
-     
     }
 
     return (
       <div className={classNames("u-grid", props.className)}>
-       <Pagination
-         {...paginationParam}
+        <Pagination
+          {...paginationParam}
           first
           last
           prev
@@ -350,9 +366,9 @@ class Grid extends Component {
           afterFilter={this.afterFilter}
           sort={this.sort}
           onDrop={this.dragDrop}
-          afterDragColWidth = {this.afterDragColWidth}
+          afterDragColWidth={this.afterDragColWidth}
+          filterable={filterable}
         />
-       
       </div>
     );
   }
