@@ -1,3 +1,8 @@
+<a name="0.0.22"></a>
+## [0.0.22](https://github.com/tinper-bee/bee-complex-grid/compare/v0.0.21...v0.0.22) (2018-10-30)
+
+
+
 <a name="0.0.21"></a>
 ## [0.0.21](https://github.com/tinper-bee/bee-complex-grid/compare/v0.0.20...v0.0.21) (2018-10-30)
 
