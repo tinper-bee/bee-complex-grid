@@ -361,6 +361,7 @@ class Grid extends Component {
           total={this.state.total}
         />
         <ComplexTable
+          headerScroll={true}
           {...props}
           columns={columns}
           afterFilter={this.afterFilter}
