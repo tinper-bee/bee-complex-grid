@@ -286,6 +286,7 @@ var Grid = function (_Component) {
         paginationObj = props.paginationObj;
 
     var paginationParam = _extends({}, paginationObj);
+    var scroll = _extends({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
@@ -317,6 +318,7 @@ var Grid = function (_Component) {
       _react2["default"].createElement(ComplexTable, _extends({
         headerScroll: true
       }, props, {
+        scroll: scroll,
         columns: columns,
         afterFilter: this.afterFilter,
         sort: this.sort,

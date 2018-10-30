@@ -335,6 +335,7 @@ class Grid extends Component {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
     const paginationParam = Object.assign({}, paginationObj);
+    const scroll = Object.assign({},{y:true},props.scroll);
     delete paginationParam.freshData;
     //默认固定表头
     // let scroll = Object.assign({y:true},props.scroll);
@@ -363,6 +364,7 @@ class Grid extends Component {
         <ComplexTable
           headerScroll={true}
           {...props}
+          scroll = {scroll}
           columns={columns}
           afterFilter={this.afterFilter}
           sort={this.sort}
