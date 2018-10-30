@@ -314,7 +314,9 @@ var Grid = function (_Component) {
         items: this.state.pageItems,
         total: this.state.total
       })),
-      _react2["default"].createElement(ComplexTable, _extends({}, props, {
+      _react2["default"].createElement(ComplexTable, _extends({
+        headerScroll: true
+      }, props, {
         columns: columns,
         afterFilter: this.afterFilter,
         sort: this.sort,
