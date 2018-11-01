@@ -5,7 +5,6 @@ import Table from "bee-table";
 import multiSelect from "bee-table/build/lib/newMultiSelect";
 import filterColumn from "bee-table/build/lib/filterColumn";
 import dragColumn from "bee-table/build/lib/dragColumn";
-// import sum from "bee-table/build/lib/sum";
 import sort from "bee-table/build/lib/sort";
 import sum from "bee-table/build/lib/sum";
 import Icon from "bee-icon";
@@ -14,6 +13,9 @@ import Popover from "bee-popover";
 import Pagination from "bee-pagination";
 import Menu from "bee-menus";
 import Dropdown from "bee-dropdown";
+
+import i18n from './i18n';
+import {getComponentLocale} from 'bee-locale/build/tool';
 
 const propTypes = {
   showHeaderMenu: PropTypes.bool
@@ -25,18 +27,16 @@ const defaultProps = {
   bordered: true,
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
-  data: []
+  data: [],
+  locale: {}
 };
 const { Item } = Menu;
-// const ComplexTable = filterColumn(
-//   dragColumn(multiSelect(sum(sort(Table, Icon)), Checkbox)),
-//   Popover
-// );
 
 let ComplexTable = sort(Table, Icon);
 class Grid extends Component {
   constructor(props) {
     super(props);
+    this.local = getComponentLocale(this.props, this.context, 'Grid', () => i18n);
     let { paginationObj = {}, sort: sortObj, filterable } = props;
     this.state = {
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
@@ -65,22 +65,7 @@ class Grid extends Component {
     ComplexTable = filterColumn(dragColumn(ComplexTable), Popover);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.paginationObj) {
-      this.setState({
-        activePage: nextProps.paginationObj.activePage
-          ? nextProps.paginationObj.activePage
-          : 1,
-        total: nextProps.paginationObj.total
-          ? nextProps.paginationObj.total
-          : 1,
-        pageItems: nextProps.paginationObj.items
-          ? nextProps.paginationObj.items
-          : 1,
-        dataNum: nextProps.paginationObj.dataNum
-          ? nextProps.paginationObj.dataNum
-          : 1
-      });
-    }
+   
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
       let newColumns = [];
       if (nextProps.noReplaceColumns) {
@@ -177,14 +162,14 @@ class Grid extends Component {
    */
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
-  
+    const {local} = this;
     return columns.map((originColumn, index) => {
       let column = Object.assign({}, originColumn);
       let menuInfo = [],
-        fixTitle = "锁定",
-        showTitle = "隐藏";
+        fixTitle =  local['fixTitle'],
+        showTitle = local['hideTitle'];
       if (originColumn.fixed) {
-        fixTitle = "解锁";
+        fixTitle = local['noFixTitle'];
       }
       //显示的列showTitle应该都是隐藏
       // if(originColumn.hasOwnProperty('ifshow') && originColumn.ifshow == false){
@@ -208,7 +193,7 @@ class Grid extends Component {
       //是否行过滤菜单item
       if (this.props.ifShowFilterHeader) {
         menuInfo.push({
-          info: "行过滤",
+          info: local['rowFilter'],
           key: "rowFilter",
           fieldKey: originColumn.key,
           index: 3
@@ -335,10 +320,10 @@ class Grid extends Component {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
     const paginationParam = Object.assign({}, paginationObj);
+    //默认固定表头
     const scroll = Object.assign({},{y:true},props.scroll);
     delete paginationParam.freshData;
-    //默认固定表头
-    // let scroll = Object.assign({y:true},props.scroll);
+
     let {columns,filterable} = this.state;
     //是否显示表头菜单、已经显示过的不在显示
     if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {

@@ -6,6 +6,7 @@
  */
 import React, { Component } from "react";
 import Grid from "../../src";
+import Locale from 'bee-locale'
 const column = [
   {
     title: "序号",
@@ -197,18 +198,20 @@ class Demo1 extends Component {
       dataNum:2
     }
     return (
-      <Grid
-        className='gridDemo'
-        columns={column}
-        data={dataList}
-        getSelectedDataFunc={this.getSelectedDataFunc}
-        checkMinSize={7}
-        draggable={true}
-        multiSelect={{ type: "checkbox" }}
-        scroll={{ x: "130%", y: 100 }}
-        selectedRow={this.selectedRow}
-        paginationObj={paginationObj}
-      />
+      <Locale >
+        <Grid
+          className='gridDemo'
+          columns={column}
+          data={dataList}
+          getSelectedDataFunc={this.getSelectedDataFunc}
+          checkMinSize={7}
+          draggable={true}
+          multiSelect={{ type: "checkbox" }}
+          scroll={{ x: "130%", y: 100 }}
+          selectedRow={this.selectedRow}
+          paginationObj={paginationObj}
+        />
+      </Locale>
     );
   }
 }
