@@ -66,6 +66,12 @@ var _beeDropdown = require("bee-dropdown");
 
 var _beeDropdown2 = _interopRequireDefault(_beeDropdown);
 
+var _i18n = require("./i18n");
+
+var _i18n2 = _interopRequireDefault(_i18n);
+
+var _tool = require("bee-locale/build/tool");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
@@ -75,8 +81,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
-// import sum from "bee-table/build/lib/sum";
-
 
 var propTypes = {
   showHeaderMenu: _propTypes2["default"].bool
@@ -88,13 +92,11 @@ var defaultProps = {
   bordered: true,
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
-  data: []
+  data: [],
+  locale: {}
 };
 var Item = _beeMenus2["default"].Item;
-// const ComplexTable = filterColumn(
-//   dragColumn(multiSelect(sum(sort(Table, Icon)), Checkbox)),
-//   Popover
-// );
+
 
 var ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
 
@@ -108,6 +110,9 @@ var Grid = function (_Component) {
 
     _initialiseProps.call(_this);
 
+    _this.local = (0, _tool.getComponentLocale)(_this.props, _this.context, 'Grid', function () {
+      return _i18n2["default"];
+    });
     var _props$paginationObj = props.paginationObj,
         paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj,
         sortObj = props.sort,
@@ -140,14 +145,7 @@ var Grid = function (_Component) {
   }
 
   Grid.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    if (nextProps.paginationObj) {
-      this.setState({
-        activePage: nextProps.paginationObj.activePage ? nextProps.paginationObj.activePage : 1,
-        total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1,
-        pageItems: nextProps.paginationObj.items ? nextProps.paginationObj.items : 1,
-        dataNum: nextProps.paginationObj.dataNum ? nextProps.paginationObj.dataNum : 1
-      });
-    }
+
     if (nextProps.columns && nextProps.columns !== this.state.columns) {
       var newColumns = [];
       if (nextProps.noReplaceColumns) {
@@ -193,14 +191,15 @@ var Grid = function (_Component) {
     var _this2 = this;
 
     var icon = "uf-arrow-down";
+    var local = this.local;
 
     return columns.map(function (originColumn, index) {
       var column = _extends({}, originColumn);
       var menuInfo = [],
-          fixTitle = "锁定",
-          showTitle = "隐藏";
+          fixTitle = local['fixTitle'],
+          showTitle = local['hideTitle'];
       if (originColumn.fixed) {
-        fixTitle = "解锁";
+        fixTitle = local['noFixTitle'];
       }
       //显示的列showTitle应该都是隐藏
       // if(originColumn.hasOwnProperty('ifshow') && originColumn.ifshow == false){
@@ -224,7 +223,7 @@ var Grid = function (_Component) {
       //是否行过滤菜单item
       if (_this2.props.ifShowFilterHeader) {
         menuInfo.push({
-          info: "行过滤",
+          info: local['rowFilter'],
           key: "rowFilter",
           fieldKey: originColumn.key,
           index: 3
@@ -286,10 +285,10 @@ var Grid = function (_Component) {
         paginationObj = props.paginationObj;
 
     var paginationParam = _extends({}, paginationObj);
+    //默认固定表头
     var scroll = _extends({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
-    //默认固定表头
-    // let scroll = Object.assign({y:true},props.scroll);
+
     var _state = this.state,
         columns = _state.columns,
         filterable = _state.filterable;
