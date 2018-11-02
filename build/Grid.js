@@ -98,7 +98,7 @@ var defaultProps = {
 var Item = _beeMenus2["default"].Item;
 
 
-var ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
+var ComplexTable = _beeTable2["default"];
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -113,18 +113,14 @@ var Grid = function (_Component) {
     _this.local = (0, _tool.getComponentLocale)(_this.props, _this.context, 'Grid', function () {
       return _i18n2["default"];
     });
-    var _props$paginationObj = props.paginationObj,
-        paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj,
-        sortObj = props.sort,
+    var sortObj = props.sort,
         filterable = props.filterable;
+    //一些属性需要内部控制，放在state中
 
     _this.state = {
-      activePage: paginationObj.activePage ? paginationObj.activePage : 1,
-      total: paginationObj.total ? paginationObj.total : 1,
-      pageItems: paginationObj.items ? paginationObj.items : 1,
-      dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
       filterable: filterable,
-      columns: props.columns.slice()
+      renderFlag: false //这个只是一个标记量，用于控制组件是否需要渲染
+      // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
     if (sortObj) {
@@ -132,7 +128,7 @@ var Grid = function (_Component) {
       sortObj.sortFun = _this.sortFun;
       _this.sort = sortObj;
     }
-
+    //根据条件生成Grid
     ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
     if (props.canSum) {
       ComplexTable = (0, _sum2["default"])(ComplexTable);
@@ -145,14 +141,15 @@ var Grid = function (_Component) {
   }
 
   Grid.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var renderFlag = this.state.renderFlag;
 
-    if (nextProps.columns && nextProps.columns !== this.state.columns) {
+    if (nextProps.columns && nextProps.columns !== this.columns) {
       var newColumns = [];
       if (nextProps.noReplaceColumns) {
         newColumns = nextProps.columns.slice();
       } else {
         //将sort、过滤等在组件中维护的状态和传入column合并
-        var originColumns = this.state.columns;
+        var originColumns = this.columns;
         var originLen = originColumns.length;
 
         newColumns = nextProps.columns.map(function (item, index) {
@@ -163,14 +160,14 @@ var Grid = function (_Component) {
           return newItem;
         });
       }
-      this.setState({
-        columns: newColumns,
+      this.columns = newColumns, this.setState({
+        renderFlag: !renderFlag,
         filterable: nextProps.filterable
       });
     }
   };
   /**
-   * 点击分页
+   * 点击分页回调函数
    */
 
 
@@ -180,6 +177,11 @@ var Grid = function (_Component) {
 
   /**
    * 设置隐藏显示Cols
+   */
+
+
+  /**
+   * header菜单点击操作
    */
 
 
@@ -201,10 +203,6 @@ var Grid = function (_Component) {
       if (originColumn.fixed) {
         fixTitle = local['noFixTitle'];
       }
-      //显示的列showTitle应该都是隐藏
-      // if(originColumn.hasOwnProperty('ifshow') && originColumn.ifshow == false){
-      //   showTitle = '显示';
-      // }
       menuInfo.push({
         info: fixTitle,
         key: "fix",
@@ -289,11 +287,10 @@ var Grid = function (_Component) {
     var scroll = _extends({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
 
-    var _state = this.state,
-        columns = _state.columns,
-        filterable = _state.filterable;
-    //是否显示表头菜单、已经显示过的不在显示
+    var filterable = this.state.filterable;
 
+    var columns = this.columns.slice();
+    //是否显示表头菜单、已经显示过的不在显示
     if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
     }
@@ -334,9 +331,11 @@ var Grid = function (_Component) {
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
+  this.columns = this.props.columns.slice();
+
   this.handleSelectPage = function (eventKey) {
-    var _props$paginationObj2 = _this3.props.paginationObj,
-        paginationObj = _props$paginationObj2 === undefined ? {} : _props$paginationObj2;
+    var _props$paginationObj = _this3.props.paginationObj,
+        paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj;
 
     _this3.setState({
       activePage: eventKey
@@ -379,54 +378,53 @@ var _initialiseProps = function _initialiseProps() {
   this.onMenuSelect = function (_ref) {
     var key = _ref.key,
         item = _ref.item;
-    var _state2 = _this3.state,
-        columns = _state2.columns,
-        filterable = _state2.filterable;
+    var _state = _this3.state,
+        filterable = _state.filterable,
+        renderFlag = _state.renderFlag;
+
 
     var fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
-      columns = _this3.optFixCols(columns, fieldKey);
+      _this3.columns = _this3.optFixCols(_this3.columns, fieldKey);
+      // this.setState({
+      //   columns
+      // });
       _this3.setState({
-        columns: columns
+        renderFlag: !renderFlag
       });
     } else if (key == "show") {
-      columns = _this3.optShowCols(columns, fieldKey);
+      _this3.columns = _this3.optShowCols(_this3.columns, fieldKey);
       _this3.setState({
-        columns: columns
+        renderFlag: !renderFlag
       });
     } else {
-      var _filterable = _this3.state.filterable;
-
-      _this3.setState({ filterable: !_filterable });
+      _this3.setState({ filterable: !filterable });
     }
   };
 
   this.afterFilter = function (optData, columns) {
-    var originColumns = _this3.state.columns;
-    originColumns.find(function (da) {
+    _this3.columns.find(function (da) {
       if (da.key == optData.key) {
         da.ifshow = optData.ifshow;
       }
     });
-    _this3.setState({
-      columns: originColumns
-    });
+    // this.setState({
+    //   columns: originColumns
+    // });
 
     if (typeof _this3.props.afterFilter == "function") {
-      _this3.props.afterFilter(optData, originColumns);
+      _this3.props.afterFilter(optData, _this3.columns);
     }
   };
 
   this.sortFun = function (sortParam) {
-    // console.info(sortParam);
-    //解析sortParam，方便column查找
 
     var sortObj = {};
     sortParam.forEach(function (item) {
       sortObj[item.field] = item;
     });
-    var originColumns = _this3.state.columns;
-    originColumns.forEach(function (da) {
+    ;
+    _this3.columns.forEach(function (da) {
       //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
         da = _extends(da, sortObj[da.dataIndex]);
@@ -435,26 +433,25 @@ var _initialiseProps = function _initialiseProps() {
         da.orderNum = "";
       }
     });
-    _this3.setState({
-      columns: originColumns
-    });
+
     //将参数传递给后端排序
     if (typeof _this3.sort.originSortFun == "function") {
-      _this3.sort.originSortFun(sortParam, originColumns);
+      _this3.sort.originSortFun(sortParam, _this3.columns);
     }
   };
 
   this.dragDrop = function (event, data, columns) {
-    _this3.setState({
-      columns: columns
-    });
+    // this.setState({
+    //   columns: columns
+    // });
+    _this3.columns = columns;
     if (_this3.props.onDrop) {
       _this3.props.onDrop(event, data, columns);
     }
   };
 
   this.getColumnsAndTablePros = function () {
-    var columns = _this3.state.columns.slice();
+    var columns = _this3.columns.slice();
 
     if (_this3.dragColsData) {
       var dragColsKeyArr = Object.keys(_this3.dragColsData);
