@@ -66,22 +66,34 @@ class Grid extends Component {
   componentWillReceiveProps(nextProps) {
     const {renderFlag} = this.state;
     if (nextProps.columns && nextProps.columns !== this.columns) {
-      let newColumns = [];
+      let newColumns = [],leftColumns=[],rightColumns=[],centerColumns=[];
       if (nextProps.noReplaceColumns) {
         newColumns = nextProps.columns.slice();
       } else {
         //将sort、过滤等在组件中维护的状态和传入column合并
-        const originColumns = this.columns;
-        const originLen = originColumns.length;
 
-        newColumns = nextProps.columns.map((item, index) => {
+        nextProps.columns.forEach((nextItem, index) => {
           let newItem = {};
-          if (originLen > index) {
-            newItem = { ...originColumns[index], ...item };
+          // if (originLen > index) {
+          //   newItem = { ...originColumns[index], ...item };
+          // }
+          this.columns.forEach(item=>{
+            if(nextItem.dataIndex == item.dataIndex){
+              newItem = { ...item, ...nextItem };
+
+            }
+          })
+          if(newItem.fixed == 'left'){
+            leftColumns.push(newItem);
+          }else if(newItem.fixed == 'right'){
+            rightColumns.push(newItem);
+          }else{
+            centerColumns.push(newItem);
           }
-          return newItem;
         });
+        newColumns = [...leftColumns,...centerColumns,...rightColumns];
       }
+
       this.columns = newColumns,
       this.setState({
         renderFlag: !renderFlag,
