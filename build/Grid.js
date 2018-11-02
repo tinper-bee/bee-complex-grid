@@ -414,6 +414,9 @@ var _initialiseProps = function _initialiseProps() {
         renderFlag: !renderFlag
       });
     } else {
+      if (typeof _this4.props.afterRowFilter == 'function') {
+        _this4.props.afterRowFilter(!filterable);
+      }
       _this4.setState({ filterable: !filterable });
     }
   };
@@ -424,17 +427,12 @@ var _initialiseProps = function _initialiseProps() {
         da.ifshow = optData.ifshow;
       }
     });
-    // this.setState({
-    //   columns: originColumns
-    // });
-
     if (typeof _this4.props.afterFilter == "function") {
       _this4.props.afterFilter(optData, _this4.columns);
     }
   };
 
   this.sortFun = function (sortParam) {
-
     var sortObj = {};
     sortParam.forEach(function (item) {
       sortObj[item.field] = item;

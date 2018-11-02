@@ -171,6 +171,9 @@ class Grid extends Component {
         renderFlag: !renderFlag
       });
     } else {
+      if(typeof this.props.afterRowFilter == 'function'){
+        this.props.afterRowFilter(!filterable);
+      }
       this.setState({ filterable: !filterable });
     }
   };
@@ -247,10 +250,6 @@ class Grid extends Component {
         da.ifshow = optData.ifshow;
       }
     });
-    // this.setState({
-    //   columns: originColumns
-    // });
-
     if (typeof this.props.afterFilter == "function") {
       this.props.afterFilter(optData, this.columns);
     }
@@ -260,8 +259,6 @@ class Grid extends Component {
    * 后端获取数据
    */
   sortFun = sortParam => {
-
-
     let sortObj = {};
     sortParam.forEach(item => {
       sortObj[item.field] = item;
