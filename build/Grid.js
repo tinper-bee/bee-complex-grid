@@ -93,13 +93,14 @@ var defaultProps = {
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
   data: [],
-  locale: {}
+  locale: {},
+  paginationObj: {}
 };
 var Item = _beeMenus2["default"].Item;
 
 
 var ComplexTable = _beeTable2["default"];
-var defualtPaginationParam = { dataNumSelect: ['5', '10', '15', '20', '25', '50', 'all'] };
+var defualtPaginationParam = { dataNumSelect: ['5', '10', '15', '20', '25', '50', 'ALL'] };
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -114,13 +115,18 @@ var Grid = function (_Component) {
     _this.local = (0, _tool.getComponentLocale)(_this.props, _this.context, 'Grid', function () {
       return _i18n2["default"];
     });
-    var sortObj = props.sort,
+    var paginationObj = props.paginationObj,
+        sortObj = props.sort,
         filterable = props.filterable;
     //一些属性需要内部控制，放在state中
 
     _this.state = {
       filterable: filterable,
-      renderFlag: false //这个只是一个标记量，用于控制组件是否需要渲染
+      renderFlag: false, //这个只是一个标记量，用于控制组件是否需要渲染
+      activePage: paginationObj.activePage ? paginationObj.activePage : 1,
+      total: paginationObj.total ? paginationObj.total : 1,
+      pageItems: paginationObj.items ? paginationObj.items : 1,
+      dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1
       // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -145,7 +151,16 @@ var Grid = function (_Component) {
     var _this2 = this;
 
     var renderFlag = this.state.renderFlag;
+    //分页
 
+    if (nextProps.paginationObj) {
+      this.setState({
+        activePage: nextProps.paginationObj.activePage ? nextProps.paginationObj.activePage : 1,
+        total: nextProps.paginationObj.total ? nextProps.paginationObj.total : 1,
+        pageItems: nextProps.paginationObj.items ? nextProps.paginationObj.items : 1,
+        dataNum: nextProps.paginationObj.dataNum ? nextProps.paginationObj.dataNum : 1
+      });
+    }
     if (nextProps.columns && nextProps.columns !== this.columns) {
       var newColumns = [],
           leftColumns = [],

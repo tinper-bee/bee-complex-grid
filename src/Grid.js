@@ -28,21 +28,26 @@ const defaultProps = {
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
   data: [],
-  locale: {}
+  locale: {},
+  paginationObj:{}
 };
 const { Item } = Menu;
 
 let ComplexTable = Table;
-const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','all']};
+const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','ALL']};
 class Grid extends Component {
   constructor(props) {
     super(props);
     this.local = getComponentLocale(this.props, this.context, 'Grid', () => i18n);
-    let { sort: sortObj, filterable } = props;
+    let { paginationObj,sort: sortObj, filterable } = props;
     //一些属性需要内部控制，放在state中
     this.state = {
       filterable,
-      renderFlag:false//这个只是一个标记量，用于控制组件是否需要渲染
+      renderFlag:false,//这个只是一个标记量，用于控制组件是否需要渲染
+      activePage: paginationObj.activePage ? paginationObj.activePage : 1,
+      total: paginationObj.total ? paginationObj.total : 1,
+      pageItems: paginationObj.items ? paginationObj.items : 1,
+      dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
       // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -66,6 +71,23 @@ class Grid extends Component {
   columns = this.props.columns.slice();
   componentWillReceiveProps(nextProps) {
     const {renderFlag} = this.state;
+    //分页
+    if (nextProps.paginationObj) {
+      this.setState({
+        activePage: nextProps.paginationObj.activePage
+          ? nextProps.paginationObj.activePage
+          : 1,
+        total: nextProps.paginationObj.total
+          ? nextProps.paginationObj.total
+          : 1,
+        pageItems: nextProps.paginationObj.items
+          ? nextProps.paginationObj.items
+          : 1,
+        dataNum: nextProps.paginationObj.dataNum
+          ? nextProps.paginationObj.dataNum
+          : 1
+      });
+    }
     if (nextProps.columns && nextProps.columns !== this.columns) {
       let newColumns = [],leftColumns=[],rightColumns=[],centerColumns=[];
       if (nextProps.noReplaceColumns) {
