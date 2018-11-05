@@ -99,6 +99,7 @@ var Item = _beeMenus2["default"].Item;
 
 
 var ComplexTable = _beeTable2["default"];
+var defualtPaginationParam = { dataNumSelect: ['5', '10', '15', '20', '25', '50', 'all'] };
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -298,7 +299,7 @@ var Grid = function (_Component) {
         sort = _props$sort === undefined ? {} : _props$sort,
         paginationObj = props.paginationObj;
 
-    var paginationParam = _extends({}, paginationObj);
+    var paginationParam = _extends({}, defualtPaginationParam, paginationObj);
     //默认固定表头
     var scroll = _extends({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
