@@ -33,6 +33,7 @@ const defaultProps = {
 const { Item } = Menu;
 
 let ComplexTable = Table;
+const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','all']};
 class Grid extends Component {
   constructor(props) {
     super(props);
@@ -328,7 +329,7 @@ class Grid extends Component {
   render() {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
-    const paginationParam = Object.assign({}, paginationObj);
+    const paginationParam = Object.assign({},defualtPaginationParam, paginationObj);
     //默认固定表头
     const scroll = Object.assign({},{y:true},props.scroll);
     delete paginationParam.freshData;
