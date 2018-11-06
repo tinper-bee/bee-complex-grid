@@ -537,6 +537,7 @@ var _initialiseProps = function _initialiseProps() {
 
   this.getRowList = function (data) {
     var rowAttr = [];
+    debugger;
     data.forEach(function (da) {
       var item = _this4.getItem(da);
       if (item) {
@@ -557,21 +558,16 @@ var _initialiseProps = function _initialiseProps() {
         columnAttr = [],
         rowAttr = [],
         sheetFilter = [];
-
     colsAndTablePros.columns.forEach(function (column) {
       sheetHeader.push(column.title);
-      columnAttr.push({ wpx: column.width, hidden: column.ifshow ? column.ifshow : false, hpx: 60 });
+      columnAttr.push({ wpx: column.width, hidden: column.ifshow === false ? true : false });
       sheetFilter.push(column.dataIndex);
     });
     if (_sheetHeader) {
       rowAttr.push(_this4.getItem(_sheetHeader));
     }
-    debugger;
     if (sheetIsRowFilter) {
-      colsAndTablePros.tablePros.data.forEach(function (da) {
-        var item = _this4.getItem(da);
-        item ? rowAttr.push(item) : "";
-      });
+      _this4.getRowList(colsAndTablePros.tablePros.data);
     }
     var option = {
       datas: [{

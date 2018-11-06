@@ -371,6 +371,7 @@ class Grid extends Component {
 
   getRowList = (data)=>{
     let rowAttr = [];
+    debugger;
     data.forEach(da=>{
       let item = this.getItem(da);
       if(item){
@@ -384,21 +385,16 @@ class Grid extends Component {
     let {sheetIsRowFilter,sheetName,sheetHeader:_sheetHeader} = this.props;
     let colsAndTablePros = this.getColumnsAndTablePros();
     let sheetHeader = [],columnAttr = [],rowAttr =[],sheetFilter = [];
-
     colsAndTablePros.columns.forEach(column=>{
       sheetHeader.push(column.title);
-      columnAttr.push({wpx:column.width,hidden:column.ifshow?column.ifshow:false,hpx:60});
+      columnAttr.push({wpx:column.width,hidden:column.ifshow === false?true:false});
       sheetFilter.push(column.dataIndex);
     });
     if(_sheetHeader){
       rowAttr.push(this.getItem(_sheetHeader));
     }
-    debugger;
     if(sheetIsRowFilter){
-      colsAndTablePros.tablePros.data.forEach(da=>{
-        let item = this.getItem(da)
-        item?rowAttr.push(item):"";
-      });
+      this.getRowList(colsAndTablePros.tablePros.data);
     }
     let option = {
       datas:[

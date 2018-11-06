@@ -140,7 +140,6 @@ var exportExcel = function exportExcel(options) {
   var instance = {
     saveExcel: function saveExcel() {
       var wb = _options.workbook;
-      debugger;
       _options.datas.forEach(function (data, index) {
         var sheetHeader = data.sheetHeader || null;
         var sheetData = data.sheetData;
@@ -158,7 +157,6 @@ var exportExcel = function exportExcel(options) {
         var ws = sheetChangeData(sheetData);
 
         ws["!merges"] = [];
-        debugger;
         ws["!cols"] = columnAttr;
         ws['!rows'] = rowAttr;
         console.log("ws : ", ws);
