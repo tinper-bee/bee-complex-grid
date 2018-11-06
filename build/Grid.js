@@ -438,11 +438,23 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.afterFilter = function (optData, columns) {
-    _this4.columns.find(function (da) {
-      if (da.key == optData.key) {
-        da.ifshow = optData.ifshow;
-      }
-    });
+    if (Array.isArray(optData)) {
+      _this4.columns.forEach(function (da) {
+        optData.forEach(function (optItem) {
+          if (da.key == optItem.key) {
+            da.ifshow = optItem.ifshow;
+            return true;
+          }
+        });
+      });
+    } else {
+      _this4.columns.find(function (da) {
+        if (da.key == optData.key) {
+          da.ifshow = optData.ifshow;
+        }
+      });
+    }
+
     if (typeof _this4.props.afterFilter == "function") {
       _this4.props.afterFilter(optData, _this4.columns);
     }

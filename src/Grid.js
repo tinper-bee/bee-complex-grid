@@ -268,11 +268,23 @@ class Grid extends Component {
    * 表头menu和表格整体过滤时有冲突，因此添加了回调函数
    */
   afterFilter = (optData, columns) => {
-    this.columns.find(da => {
-      if (da.key == optData.key) {
-        da.ifshow = optData.ifshow;
-      }
-    });
+    if(Array.isArray(optData)){
+      this.columns.forEach(da => {
+        optData.forEach(optItem=>{
+          if(da.key == optItem.key){
+            da.ifshow = optItem.ifshow;
+            return true;
+          }
+        })
+      });
+    }else{
+      this.columns.find(da => {
+        if (da.key == optData.key) {
+          da.ifshow = optData.ifshow;
+        }
+      });
+    }
+    
     if (typeof this.props.afterFilter == "function") {
       this.props.afterFilter(optData, this.columns);
     }
