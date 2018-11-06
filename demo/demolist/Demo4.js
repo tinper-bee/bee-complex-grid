@@ -11,7 +11,7 @@ const column = [
     title: "序号",
     dataIndex: "index",
     key: "index",
-    width: 100
+    width: 100,
   },
   {
     title: "订单编号",
@@ -93,7 +93,7 @@ const column = [
 const dataList = [
   {
     index: 1,
-    orderCode: "2343",
+    orderCode: "234333333",
     supplierName: "xxx",
     type_name: "123",
     purchasing: "内行",
@@ -102,7 +102,7 @@ const dataList = [
     approvalState_name: "vvvv",
     confirmState_name: "aaaa",
     closeState_name: "vnnnnn",
-    d: "操作",
+    d: "操作777",
     key: "1"
   },
   {
@@ -118,7 +118,9 @@ const dataList = [
     confirmState_name: "2aaaa",
     closeState_name: "2vnnnnn",
     d: "2操作",
-    key: "2"
+    key: "2",
+    ifshow:false,
+    height:30
   },
   {
     index: 3,
@@ -133,7 +135,7 @@ const dataList = [
     confirmState_name: "2aaaa",
     closeState_name: "2vnnnnn",
     d: "3操作",
-    key: "3"
+    key: "3",
   },
   {
     index: 4,
@@ -159,7 +161,7 @@ class Demo4 extends Component {
     }
   }
   componentWillReceiveProps(nextProps){
-    debugger
+    // debugger
   }
   //临时加个判断
   // shouldComponentUpdate(){
@@ -189,12 +191,18 @@ class Demo4 extends Component {
   }
   createTemTable=()=>{
     const colsAndTablePros = this.refs.grid.getColumnsAndTablePros();
+    console.log("colsAndTablePros: ",colsAndTablePros);
     this.setState({
       showTemTable:true,
       tablePros:colsAndTablePros.tablePros,
       temColumns:colsAndTablePros.columns
     });
   }
+
+  exportExcel=()=>{
+    this.refs.grid.exportExcel();
+  }
+  
   render() {
     let paginationObj = {
       activePage: 1,//当前页
@@ -205,6 +213,7 @@ class Demo4 extends Component {
     return (
       <div>
         <button onClick={this.createTemTable}>生成模板表格</button>
+        <button onClick={this.exportExcel}>导出excel</button>
         <Grid
            ref="grid"
           className='gridDemo'
@@ -218,6 +227,10 @@ class Demo4 extends Component {
           scroll={{ x: "130%", y: 100 }}
           selectedRow={this.selectedRow}
           paginationObj={paginationObj}
+
+          sheetName="demo4 导出模板"
+          sheetIsRowFilter={true}
+          sheetHeader={{height:30,ifshow:false}}
         />
         <h3>根据模板生成的表格</h3>
         {this.state.showTemTable?

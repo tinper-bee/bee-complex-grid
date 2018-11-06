@@ -14,9 +14,12 @@ import Popover from "bee-popover";
 import Pagination from "bee-pagination";
 import Menu from "bee-menus";
 import Dropdown from "bee-dropdown";
+import ExportJsonExcel from "./ExportExcel";
 
 const propTypes = {
-  showHeaderMenu: PropTypes.bool
+  showHeaderMenu: PropTypes.bool,
+  sheetName:PropTypes.string,
+  sheetIsRowFilter:PropTypes.bool
 };
 const defaultProps = {
   scroll: {
@@ -25,7 +28,10 @@ const defaultProps = {
   bordered: true,
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
-  data: []
+  data: [],
+
+  sheetName:"sheet", //导出表格的name
+  sheetIsRowFilter:false //是否要设置行样式，是否遍历
 };
 const { Item } = Menu;
 // const ComplexTable = filterColumn(
@@ -44,7 +50,7 @@ class Grid extends Component {
       pageItems: paginationObj.items ? paginationObj.items : 1,
       dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
       filterable,
-      columns: props.columns.slice()
+      columns: props.columns.slice(),
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
     if (sortObj) {
@@ -321,6 +327,67 @@ class Grid extends Component {
     };
     return rs;
   };
+
+  getItem = (da)=>{
+      let obj = {};
+      da.height?obj.hpx = da.height:"";
+      da.ifshow?obj.hidden = true:false;
+      da.level?obj.level = da.level:"";
+      return obj;
+      // if(da.height || da.hidden || da.level){
+      //   return obj;
+      // }else{
+      //   return null;
+      // }
+  }
+
+  getRowList = (data)=>{
+    let rowAttr = [];
+    data.forEach(da=>{
+      let item = this.getItem(da);
+      if(item){
+        rowAttr.push(item);
+      }
+    });
+    return rowAttr;
+  }
+
+  exportExcel = () => {
+    let {sheetIsRowFilter,sheetName,sheetHeader:_sheetHeader} = this.props;
+    let colsAndTablePros = this.getColumnsAndTablePros();
+    let sheetHeader = [],columnAttr = [],rowAttr =[],sheetFilter = [];
+
+    colsAndTablePros.columns.forEach(column=>{
+      sheetHeader.push(column.title);
+      columnAttr.push({wpx:column.width,hidden:column.ifshow?column.ifshow:false,hpx:60});
+      sheetFilter.push(column.dataIndex);
+    });
+    if(_sheetHeader){
+      rowAttr.push(this.getItem(_sheetHeader));
+    }
+    debugger;
+    if(sheetIsRowFilter){
+      colsAndTablePros.tablePros.data.forEach(da=>{
+        let item = this.getItem(da)
+        item?rowAttr.push(item):"";
+      });
+    }
+    let option = {
+      datas:[
+        {
+          sheetData:this.props.data,
+          sheetName,
+          sheetFilter,
+          sheetHeader,
+          columnAttr,
+          rowAttr
+        }
+      ]
+    };
+    let toExcel = new ExportJsonExcel(option);
+    toExcel.saveExcel();
+  }
+
   /**
    * 拖拽后计算列宽
    */

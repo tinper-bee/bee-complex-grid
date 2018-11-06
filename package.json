@@ -48,7 +48,12 @@
   "bee-table": "^1.4.5",
   "classnames": "^2.2.6",
   "bee-pagination": "^1.1.5",
-  "tinper-bee-core": "latest"
+  "tinper-bee-core": "latest",
+
+  "blob.js": "^1.0.1",
+  "file-saver": "^1.3.3",
+  "script-loader": "0.7.2",
+  "xlsx": "^0.11.17"
  },
  "devDependencies": {
   "bee-button": "latest",
