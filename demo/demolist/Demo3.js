@@ -6,6 +6,7 @@
  */
 import React, { Component } from "react";
 import Grid from "../../src";
+import ZhTW from "bee-locale/build/zh_TW";
 const column = [
   {
     title: "序号",
@@ -199,6 +200,7 @@ class Demo3 extends Component {
         scroll={{ x: "130%", y: 100 }}
         selectedRow={this.selectedRow}
         showHeaderMenu={true}
+        locale={ZhTW.Grid}
         paginationObj={paginationObj}
       />
     );

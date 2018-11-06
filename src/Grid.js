@@ -5,7 +5,6 @@ import Table from "bee-table";
 import multiSelect from "bee-table/build/lib/newMultiSelect";
 import filterColumn from "bee-table/build/lib/filterColumn";
 import dragColumn from "bee-table/build/lib/dragColumn";
-// import sum from "bee-table/build/lib/sum";
 import sort from "bee-table/build/lib/sort";
 import sum from "bee-table/build/lib/sum";
 import Icon from "bee-icon";
@@ -15,6 +14,9 @@ import Pagination from "bee-pagination";
 import Menu from "bee-menus";
 import Dropdown from "bee-dropdown";
 import ExportJsonExcel from "./ExportExcel";
+
+import i18n from './i18n';
+import {getComponentLocale} from 'bee-locale/build/tool';
 
 const propTypes = {
   showHeaderMenu: PropTypes.bool,
@@ -29,28 +31,29 @@ const defaultProps = {
   multiSelect: { type: "checkbox" },
   showHeaderMenu: false,
   data: [],
-
+  locale: {},
+  paginationObj:{},
   sheetName:"sheet", //导出表格的name
   sheetIsRowFilter:false //是否要设置行样式，是否遍历
 };
 const { Item } = Menu;
-// const ComplexTable = filterColumn(
-//   dragColumn(multiSelect(sum(sort(Table, Icon)), Checkbox)),
-//   Popover
-// );
 
-let ComplexTable = sort(Table, Icon);
+let ComplexTable = Table;
+const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','ALL']};
 class Grid extends Component {
   constructor(props) {
     super(props);
-    let { paginationObj = {}, sort: sortObj, filterable } = props;
+    this.local = getComponentLocale(this.props, this.context, 'Grid', () => i18n);
+    let { paginationObj,sort: sortObj, filterable } = props;
+    //一些属性需要内部控制，放在state中
     this.state = {
+      filterable,
+      renderFlag:false,//这个只是一个标记量，用于控制组件是否需要渲染
       activePage: paginationObj.activePage ? paginationObj.activePage : 1,
       total: paginationObj.total ? paginationObj.total : 1,
       pageItems: paginationObj.items ? paginationObj.items : 1,
       dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
-      filterable,
-      columns: props.columns.slice(),
+      // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
     if (sortObj) {
@@ -60,7 +63,7 @@ class Grid extends Component {
       sortObj.sortFun = this.sortFun;
       this.sort = sortObj;
     }
-
+    //根据条件生成Grid
     ComplexTable = sort(Table, Icon);
     if (props.canSum) {
       ComplexTable = sum(ComplexTable);
@@ -70,7 +73,10 @@ class Grid extends Component {
     }
     ComplexTable = filterColumn(dragColumn(ComplexTable), Popover);
   }
+  columns = this.props.columns.slice();
   componentWillReceiveProps(nextProps) {
+    const {renderFlag} = this.state;
+    //分页
     if (nextProps.paginationObj) {
       this.setState({
         activePage: nextProps.paginationObj.activePage
@@ -87,31 +93,45 @@ class Grid extends Component {
           : 1
       });
     }
-    if (nextProps.columns && nextProps.columns !== this.state.columns) {
-      let newColumns = [];
+    if (nextProps.columns && nextProps.columns !== this.columns) {
+      let newColumns = [],leftColumns=[],rightColumns=[],centerColumns=[];
       if (nextProps.noReplaceColumns) {
         newColumns = nextProps.columns.slice();
       } else {
         //将sort、过滤等在组件中维护的状态和传入column合并
-        const originColumns = this.state.columns;
-        const originLen = originColumns.length;
 
-        newColumns = nextProps.columns.map((item, index) => {
+        nextProps.columns.forEach((nextItem, index) => {
           let newItem = {};
-          if (originLen > index) {
-            newItem = { ...originColumns[index], ...item };
+          // if (originLen > index) {
+          //   newItem = { ...originColumns[index], ...item };
+          // }
+          this.columns.forEach(item=>{
+            if(nextItem.dataIndex == item.dataIndex){
+              newItem = { ...item, ...nextItem };
+
+            }
+          })
+          if(newItem.fixed == 'left'){
+            leftColumns.push(newItem);
+          }else if(newItem.fixed == 'right'){
+            rightColumns.push(newItem);
+          }else{
+            centerColumns.push(newItem);
           }
-          return newItem;
         });
+        newColumns = [...leftColumns,...centerColumns,...rightColumns];
       }
+
+      this.columns = newColumns,
       this.setState({
-        columns: newColumns,
+        renderFlag: !renderFlag,
         filterable: nextProps.filterable
       });
+
     }
   }
   /**
-   * 点击分页
+   * 点击分页回调函数
    */
   handleSelectPage = eventKey => {
     let { paginationObj = {} } = this.props;
@@ -158,21 +178,30 @@ class Grid extends Component {
     return columns;
   };
 
+  /**
+   * header菜单点击操作
+   */
   onMenuSelect = ({ key, item }) => {
-    let { columns, filterable } = this.state;
+    let { filterable, renderFlag} = this.state;
+    
     const fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
-      columns = this.optFixCols(columns, fieldKey);
+      this.columns = this.optFixCols(this.columns, fieldKey);
+      // this.setState({
+      //   columns
+      // });
       this.setState({
-        columns
+        renderFlag: !renderFlag
       });
     } else if (key == "show") {
-      columns = this.optShowCols(columns, fieldKey);
+      this.columns = this.optShowCols(this.columns, fieldKey);
       this.setState({
-        columns
+        renderFlag: !renderFlag
       });
     } else {
-      const { filterable } = this.state;
+      if(typeof this.props.afterRowFilter == 'function'){
+        this.props.afterRowFilter(!filterable);
+      }
       this.setState({ filterable: !filterable });
     }
   };
@@ -183,19 +212,15 @@ class Grid extends Component {
    */
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
-  
+    const {local} = this;
     return columns.map((originColumn, index) => {
       let column = Object.assign({}, originColumn);
       let menuInfo = [],
-        fixTitle = "锁定",
-        showTitle = "隐藏";
+        fixTitle =  local['fixTitle'],
+        showTitle = local['hideTitle'];
       if (originColumn.fixed) {
-        fixTitle = "解锁";
+        fixTitle = local['noFixTitle'];
       }
-      //显示的列showTitle应该都是隐藏
-      // if(originColumn.hasOwnProperty('ifshow') && originColumn.ifshow == false){
-      //   showTitle = '显示';
-      // }
       menuInfo.push({
         info: fixTitle,
         key: `fix`,
@@ -214,7 +239,7 @@ class Grid extends Component {
       //是否行过滤菜单item
       if (this.props.ifShowFilterHeader) {
         menuInfo.push({
-          info: "行过滤",
+          info: local['rowFilter'],
           key: "rowFilter",
           fieldKey: originColumn.key,
           index: 3
@@ -248,18 +273,25 @@ class Grid extends Component {
    * 表头menu和表格整体过滤时有冲突，因此添加了回调函数
    */
   afterFilter = (optData, columns) => {
-    let originColumns = this.state.columns;
-    originColumns.find(da => {
-      if (da.key == optData.key) {
-        da.ifshow = optData.ifshow;
-      }
-    });
-    this.setState({
-      columns: originColumns
-    });
-
+    if(Array.isArray(optData)){
+      this.columns.forEach(da => {
+        optData.forEach(optItem=>{
+          if(da.key == optItem.key){
+            da.ifshow = optItem.ifshow;
+            return true;
+          }
+        })
+      });
+    }else{
+      this.columns.find(da => {
+        if (da.key == optData.key) {
+          da.ifshow = optData.ifshow;
+        }
+      });
+    }
+    
     if (typeof this.props.afterFilter == "function") {
-      this.props.afterFilter(optData, originColumns);
+      this.props.afterFilter(optData, this.columns);
     }
   };
 
@@ -267,15 +299,12 @@ class Grid extends Component {
    * 后端获取数据
    */
   sortFun = sortParam => {
-    // console.info(sortParam);
-    //解析sortParam，方便column查找
-
     let sortObj = {};
     sortParam.forEach(item => {
       sortObj[item.field] = item;
     });
-    let originColumns = this.state.columns;
-    originColumns.forEach(da => {
+    ;
+    this.columns.forEach(da => {
       //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
         da = Object.assign(da, sortObj[da.dataIndex]);
@@ -284,21 +313,20 @@ class Grid extends Component {
         da.orderNum = "";
       }
     });
-    this.setState({
-      columns: originColumns
-    });
+    
     //将参数传递给后端排序
     if (typeof this.sort.originSortFun == "function") {
-      this.sort.originSortFun(sortParam, originColumns);
+      this.sort.originSortFun(sortParam, this.columns);
     }
   };
   /**
    *拖拽交互列后记录下当前columns
    */
   dragDrop = (event, data, columns) => {
-    this.setState({
-      columns: columns
-    });
+    // this.setState({
+    //   columns: columns
+    // });
+    this.columns = columns;
     if (this.props.onDrop) {
       this.props.onDrop(event, data, columns);
     }
@@ -308,7 +336,7 @@ class Grid extends Component {
    * 获取所有列以及table属性值
    */
   getColumnsAndTablePros = () => {
-    const columns = this.state.columns.slice();
+    const columns = this.columns.slice();
 
     if (this.dragColsData) {
       const dragColsKeyArr = Object.keys(this.dragColsData);
@@ -401,12 +429,13 @@ class Grid extends Component {
   render() {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
-    const paginationParam = Object.assign({}, paginationObj);
+    const paginationParam = Object.assign({},defualtPaginationParam, paginationObj);
+    //默认固定表头
     const scroll = Object.assign({},{y:true},props.scroll);
     delete paginationParam.freshData;
-    //默认固定表头
-    // let scroll = Object.assign({y:true},props.scroll);
-    let {columns,filterable} = this.state;
+
+    const {filterable} = this.state;
+    let columns = this.columns.slice();
     //是否显示表头菜单、已经显示过的不在显示
     if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);

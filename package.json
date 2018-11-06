@@ -1,6 +1,6 @@
 {
  "name": "bee-complex-grid",
- "version": "0.0.22",
+ "version": "0.2.29",
  "description": "Complex Grid for React",
  "keywords": [
   "react",
@@ -43,13 +43,13 @@
   "bee-dropdown": "^1.0.3",
   "bee-form-control": "^1.1.3",
   "bee-icon": "^1.0.5",
+  "bee-locale": "0.0.7",
   "bee-menus": "^1.0.7",
+  "bee-pagination": "^1.1.5",
   "bee-popover": "^1.0.2",
   "bee-table": "^1.4.5",
   "classnames": "^2.2.6",
-  "bee-pagination": "^1.1.5",
   "tinper-bee-core": "latest",
-
   "blob.js": "^1.0.1",
   "file-saver": "^1.3.3",
   "script-loader": "0.7.2",
