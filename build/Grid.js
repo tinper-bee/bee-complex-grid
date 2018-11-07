@@ -66,6 +66,10 @@ var _beeDropdown = require("bee-dropdown");
 
 var _beeDropdown2 = _interopRequireDefault(_beeDropdown);
 
+var _ExportExcel = require("./ExportExcel");
+
+var _ExportExcel2 = _interopRequireDefault(_ExportExcel);
+
 var _i18n = require("./i18n");
 
 var _i18n2 = _interopRequireDefault(_i18n);
@@ -83,7 +87,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 
 var propTypes = {
-  showHeaderMenu: _propTypes2["default"].bool
+  showHeaderMenu: _propTypes2["default"].bool,
+  sheetName: _propTypes2["default"].string,
+  sheetIsRowFilter: _propTypes2["default"].bool
 };
 var defaultProps = {
   scroll: {
@@ -94,7 +100,9 @@ var defaultProps = {
   showHeaderMenu: false,
   data: [],
   locale: {},
-  paginationObj: {}
+  paginationObj: {},
+  sheetName: "sheet", //导出表格的name
+  sheetIsRowFilter: false //是否要设置行样式，是否遍历
 };
 var Item = _beeMenus2["default"].Item;
 
@@ -302,6 +310,7 @@ var Grid = function (_Component) {
   /**
    * 获取所有列以及table属性值
    */
+
 
   /**
    * 拖拽后计算列宽
@@ -511,6 +520,67 @@ var _initialiseProps = function _initialiseProps() {
       tablePros: _this4.props
     };
     return rs;
+  };
+
+  this.getItem = function (da) {
+    var obj = {};
+    da.height ? obj.hpx = da.height : "";
+    da.ifshow ? obj.hidden = true : false;
+    da.level ? obj.level = da.level : "";
+    return obj;
+    // if(da.height || da.hidden || da.level){
+    //   return obj;
+    // }else{
+    //   return null;
+    // }
+  };
+
+  this.getRowList = function (data) {
+    var rowAttr = [];
+    debugger;
+    data.forEach(function (da) {
+      var item = _this4.getItem(da);
+      if (item) {
+        rowAttr.push(item);
+      }
+    });
+    return rowAttr;
+  };
+
+  this.exportExcel = function () {
+    var _props = _this4.props,
+        sheetIsRowFilter = _props.sheetIsRowFilter,
+        sheetName = _props.sheetName,
+        _sheetHeader = _props.sheetHeader;
+
+    var colsAndTablePros = _this4.getColumnsAndTablePros();
+    var sheetHeader = [],
+        columnAttr = [],
+        rowAttr = [],
+        sheetFilter = [];
+    colsAndTablePros.columns.forEach(function (column) {
+      sheetHeader.push(column.title);
+      columnAttr.push({ wpx: column.width, hidden: column.ifshow === false ? true : false });
+      sheetFilter.push(column.dataIndex);
+    });
+    if (_sheetHeader) {
+      rowAttr.push(_this4.getItem(_sheetHeader));
+    }
+    if (sheetIsRowFilter) {
+      _this4.getRowList(colsAndTablePros.tablePros.data);
+    }
+    var option = {
+      datas: [{
+        sheetData: _this4.props.data,
+        sheetName: sheetName,
+        sheetFilter: sheetFilter,
+        sheetHeader: sheetHeader,
+        columnAttr: columnAttr,
+        rowAttr: rowAttr
+      }]
+    };
+    var toExcel = new _ExportExcel2["default"](option);
+    toExcel.saveExcel();
   };
 
   this.afterDragColWidth = function (colData) {
