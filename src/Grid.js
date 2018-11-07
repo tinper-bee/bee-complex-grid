@@ -44,10 +44,10 @@ class Grid extends Component {
     this.state = {
       filterable,
       renderFlag:false,//这个只是一个标记量，用于控制组件是否需要渲染
-      activePage: paginationObj.activePage ? paginationObj.activePage : 1,
-      total: paginationObj.total ? paginationObj.total : 1,
-      pageItems: paginationObj.items ? paginationObj.items : 1,
-      dataNum: paginationObj.dataNum ? paginationObj.dataNum : 1,
+      activePage: paginationObj.activePage,
+      total: paginationObj.total,
+      pageItems: paginationObj.items,
+      dataNum: paginationObj.dataNum,
       // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -74,18 +74,10 @@ class Grid extends Component {
     //分页
     if (nextProps.paginationObj) {
       this.setState({
-        activePage: nextProps.paginationObj.activePage
-          ? nextProps.paginationObj.activePage
-          : 1,
-        total: nextProps.paginationObj.total
-          ? nextProps.paginationObj.total
-          : 1,
-        pageItems: nextProps.paginationObj.items
-          ? nextProps.paginationObj.items
-          : 1,
+        activePage: nextProps.paginationObj.activePage,
+        total: nextProps.paginationObj.total,
+        pageItems: nextProps.paginationObj.items,
         dataNum: nextProps.paginationObj.dataNum
-          ? nextProps.paginationObj.dataNum
-          : 1
       });
     }
     if (nextProps.columns && nextProps.columns !== this.columns) {
@@ -354,10 +346,19 @@ class Grid extends Component {
    * 拖拽后计算列宽
    */
   afterDragColWidth = colData => {
-    if (!this.dragColsData) {
-      this.dragColsData = {};
-    }
-    this.dragColsData[colData.dataindex] = colData;
+    // if (!this.dragColsData) {
+    //   this.dragColsData = {};
+    // }
+    // this.dragColsData[colData.dataindex] = colData;
+    const {renderFlag} = this.state
+    this.columns.find(col=>{
+      if (col.dataIndex == colData.dataindex) {
+        col.width = colData.width;
+      }
+    })
+    this.setState({
+      renderFlag:!renderFlag
+    });
   };
 
   render() {
