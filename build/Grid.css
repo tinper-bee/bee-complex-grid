@@ -4248,6 +4248,8 @@ input.u-button[type="submit"] {
   margin-bottom: 8px; }
   .u-grid .u-pagination .u-pagination-list {
     margin-left: 0px; }
+  .u-grid .u-pagination .data_per_select .u-select {
+    width: 60px; }
 
 .u-table-filter-column-pop-cont-item .drop-menu .uf {
   visibility: hidden; }

@@ -108,7 +108,7 @@ var Item = _beeMenus2["default"].Item;
 
 
 var ComplexTable = _beeTable2["default"];
-var defualtPaginationParam = { dataNumSelect: ['5', '10', '15', '20', '25', '50', 'ALL'] };
+var defualtPaginationParam = { dataNumSelect: ['5', '10', '15', '20', '25', '50', 'All'] };
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -259,7 +259,7 @@ var Grid = function (_Component) {
         });
       }
       //是否行过滤菜单item
-      if (_this3.props.ifShowFilterHeader) {
+      if (_this3.props.showFilterMenu) {
         menuInfo.push({
           info: local['rowFilter'],
           key: "rowFilter",
