@@ -39,7 +39,7 @@ const defaultProps = {
 const { Item } = Menu;
 
 let ComplexTable = Table;
-const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','ALL']};
+const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','All']};
 class Grid extends Component {
   constructor(props) {
     super(props);
@@ -229,7 +229,7 @@ class Grid extends Component {
         });
       }
       //是否行过滤菜单item
-      if (this.props.ifShowFilterHeader) {
+      if (this.props.showFilterMenu) {
         menuInfo.push({
           info: local['rowFilter'],
           key: "rowFilter",

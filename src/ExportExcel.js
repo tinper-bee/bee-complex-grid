@@ -113,7 +113,7 @@ const dataNormalization = function(dataArray,cloum) {
        }
       newArray.push(newValue);
    })
-   console.log("OOOOO",newArray);
+  //  console.log("OOOOO",newArray);
    return newArray;
 }
 
@@ -159,7 +159,7 @@ const exportExcel = function(options) {
         ws["!merges"] = [];
         ws["!cols"] = columnAttr;
         ws['!rows'] = rowAttr;
-        console.log("ws : ",ws);
+        // console.log("ws : ",ws);
         wb.SheetNames.push(sheetName);
         wb.Sheets[sheetName] = ws;
       });
