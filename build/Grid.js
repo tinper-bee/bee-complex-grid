@@ -177,16 +177,29 @@ var Grid = function (_Component) {
       if (nextProps.noReplaceColumns) {
         newColumns = nextProps.columns.slice();
       } else {
+        //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
+        this.columns.forEach(function (item, index) {
+
+          if (nextProps.columns[index].dataIndex !== item.dataIndex) {
+            var curIndex = -1;
+            for (var nextIndex = 0; nextIndex < nextProps.columns.length; nextIndex++) {
+              if (nextProps.columns[nextIndex].dataIndex == item.dataIndex) {
+                curIndex = nextIndex;
+                break;
+              }
+            }
+            nextProps.columns.splice(index, 0, nextProps.columns.splice(curIndex, 1)[0]);
+          }
+        });
         //将sort、过滤等在组件中维护的状态和传入column合并
 
         nextProps.columns.forEach(function (nextItem, index) {
           var newItem = {};
-          // if (originLen > index) {
-          //   newItem = { ...originColumns[index], ...item };
-          // }
+
           _this2.columns.forEach(function (item) {
             if (nextItem.dataIndex == item.dataIndex) {
               newItem = _extends({}, item, nextItem);
+              newItem.hasHeaderMenu = false; //重置后的都需要重新渲染表头菜单
             }
           });
           if (newItem.fixed == 'left') {
@@ -331,8 +344,8 @@ var Grid = function (_Component) {
     var filterable = this.state.filterable;
 
     var columns = this.columns.slice();
-    //是否显示表头菜单、已经显示过的不在显示
-    if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
+    //是否显示表头菜单、已经显示过的不再显示
+    if (props.showHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
     }
 
@@ -495,15 +508,36 @@ var _initialiseProps = function _initialiseProps() {
     // this.setState({
     //   columns: columns
     // });
-    _this4.columns = columns;
+
+    columns.forEach(function (item, index) {
+      if (_this4.columns[index].dataIndex !== item.dataIndex) {
+        var curIndex = -1;
+        for (var nextIndex = 0; nextIndex < _this4.columns.length; nextIndex++) {
+          if (_this4.columns[nextIndex].dataIndex == item.dataIndex) {
+            curIndex = nextIndex;
+            break;
+          }
+        }
+        _this4.columns.splice(index, 0, _this4.columns.splice(curIndex, 1)[0]);
+      }
+    });
     if (_this4.props.onDrop) {
-      _this4.props.onDrop(event, data, columns);
+      _this4.props.onDrop(event, data, _this4.columns);
     }
   };
 
   this.getColumnsAndTablePros = function () {
+    var originColumns = _this4.props.columns;
     var columns = _this4.columns.slice();
-
+    // //修改模板的title
+    // columns.forEach(item=>{
+    //   originColumns.some(originItem=>{
+    //     if(originItem.dataIndex == item.dataIndex){
+    //       item.title = originItem.title;
+    //       return true;
+    //     }
+    //   })
+    // })
     if (_this4.dragColsData) {
       var dragColsKeyArr = Object.keys(_this4.dragColsData);
       dragColsKeyArr.some(function (itemKey) {
@@ -584,10 +618,6 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.afterDragColWidth = function (colData) {
-    // if (!this.dragColsData) {
-    //   this.dragColsData = {};
-    // }
-    // this.dragColsData[colData.dataindex] = colData;
     var renderFlag = _this4.state.renderFlag;
 
     _this4.columns.find(function (col) {

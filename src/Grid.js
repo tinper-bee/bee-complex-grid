@@ -90,17 +90,29 @@ class Grid extends Component {
       if (nextProps.noReplaceColumns) {
         newColumns = nextProps.columns.slice();
       } else {
+        //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
+        this.columns.forEach((item,index)=>{
+        
+          if(nextProps.columns[index].dataIndex !== item.dataIndex ){
+              let curIndex = -1;
+              for(let nextIndex=0;nextIndex<nextProps.columns.length;nextIndex++){
+                if(nextProps.columns[nextIndex].dataIndex == item.dataIndex){
+                  curIndex = nextIndex;
+                  break; 
+                }
+              }
+              nextProps.columns.splice(index, 0,nextProps.columns.splice(curIndex, 1)[0] )
+          }
+        })
         //将sort、过滤等在组件中维护的状态和传入column合并
 
         nextProps.columns.forEach((nextItem, index) => {
           let newItem = {};
-          // if (originLen > index) {
-          //   newItem = { ...originColumns[index], ...item };
-          // }
+
           this.columns.forEach(item=>{
             if(nextItem.dataIndex == item.dataIndex){
               newItem = { ...item, ...nextItem };
-
+              newItem.hasHeaderMenu = false;//重置后的都需要重新渲染表头菜单
             }
           })
           if(newItem.fixed == 'left'){
@@ -318,9 +330,21 @@ class Grid extends Component {
     // this.setState({
     //   columns: columns
     // });
-    this.columns = columns;
+
+    columns.forEach((item,index)=>{
+      if(this.columns[index].dataIndex !== item.dataIndex ){
+          let curIndex = -1;
+          for(let nextIndex=0;nextIndex<this.columns.length;nextIndex++){
+            if(this.columns[nextIndex].dataIndex == item.dataIndex){
+              curIndex = nextIndex;
+              break; 
+            }
+          }
+          this.columns.splice(index, 0,this.columns.splice(curIndex, 1)[0] )
+      }
+    })
     if (this.props.onDrop) {
-      this.props.onDrop(event, data, columns);
+      this.props.onDrop(event, data, this.columns);
     }
   };
 
@@ -328,8 +352,17 @@ class Grid extends Component {
    * 获取所有列以及table属性值
    */
   getColumnsAndTablePros = () => {
+    const originColumns = this.props.columns;
     const columns = this.columns.slice();
-
+    // //修改模板的title
+    // columns.forEach(item=>{
+    //   originColumns.some(originItem=>{
+    //     if(originItem.dataIndex == item.dataIndex){
+    //       item.title = originItem.title;
+    //       return true;
+    //     }
+    //   })
+    // })
     if (this.dragColsData) {
       const dragColsKeyArr = Object.keys(this.dragColsData);
       dragColsKeyArr.some(itemKey => {
@@ -408,10 +441,7 @@ class Grid extends Component {
    * 拖拽后计算列宽
    */
   afterDragColWidth = colData => {
-    // if (!this.dragColsData) {
-    //   this.dragColsData = {};
-    // }
-    // this.dragColsData[colData.dataindex] = colData;
+ 
     const {renderFlag} = this.state
     this.columns.find(col=>{
       if (col.dataIndex == colData.dataindex) {
@@ -433,8 +463,8 @@ class Grid extends Component {
 
     const {filterable} = this.state;
     let columns = this.columns.slice();
-    //是否显示表头菜单、已经显示过的不在显示
-    if (props.showHeaderMenu && columns[0] && !columns[0].hasHeaderMenu) {
+    //是否显示表头菜单、已经显示过的不再显示
+    if (props.showHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
     }
 
