@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Table from "bee-table";
-import multiSelect from "bee-table/build/lib/newMultiSelect";
+import multiSelect from "bee-table/build/lib/multiSelect";
 import filterColumn from "bee-table/build/lib/filterColumn";
 import dragColumn from "bee-table/build/lib/dragColumn";
 import sort from "bee-table/build/lib/sort";
@@ -75,7 +75,10 @@ class Grid extends Component {
     }
     ComplexTable = filterColumn(dragColumn(ComplexTable), Popover);
   }
-  columns = this.props.columns.slice();
+  // columns = this.props.columns.slice();
+  columns = this.props.columns.map(colItem=>{
+    return {...colItem};
+  })
   componentWillReceiveProps(nextProps) {
     const {renderFlag} = this.state;
     //分页
@@ -90,7 +93,10 @@ class Grid extends Component {
     if (nextProps.columns && nextProps.columns !== this.columns) {
       let newColumns = [],leftColumns=[],rightColumns=[],centerColumns=[];
       if (nextProps.noReplaceColumns) {
-        newColumns = nextProps.columns.slice();
+        // newColumns = nextProps.columns.slice();
+        newColumns = nextProps.columns.map(colItem=>{
+          return {...colItem};
+        })
       } else {
         //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
         this.columns.forEach((item,index)=>{
@@ -454,6 +460,23 @@ class Grid extends Component {
       renderFlag:!renderFlag
     });
   };
+
+  /**
+   *
+   * 重置grid的columns
+   */
+  resetColumns =(newColumns)=>{
+    const {renderFlag} = this.state
+    if(newColumns){
+      this.columns = newColumns.map(colItem=>{
+        return {...colItem};
+      })
+      this.setState({
+        renderFlag:!renderFlag
+      });
+    }
+
+  }
 
   render() {
     const props = this.props;

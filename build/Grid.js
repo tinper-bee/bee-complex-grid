@@ -22,9 +22,9 @@ var _beeTable = require("bee-table");
 
 var _beeTable2 = _interopRequireDefault(_beeTable);
 
-var _newMultiSelect = require("bee-table/build/lib/newMultiSelect");
+var _multiSelect = require("bee-table/build/lib/multiSelect");
 
-var _newMultiSelect2 = _interopRequireDefault(_newMultiSelect);
+var _multiSelect2 = _interopRequireDefault(_multiSelect);
 
 var _filterColumn = require("bee-table/build/lib/filterColumn");
 
@@ -151,11 +151,13 @@ var Grid = function (_Component) {
       ComplexTable = (0, _sum2["default"])(ComplexTable);
     }
     if (props.multiSelect !== false) {
-      ComplexTable = (0, _newMultiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+      ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
     }
     ComplexTable = (0, _filterColumn2["default"])((0, _dragColumn2["default"])(ComplexTable), _beePopover2["default"]);
     return _this;
   }
+  // columns = this.props.columns.slice();
+
 
   Grid.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
     var _this2 = this;
@@ -177,7 +179,10 @@ var Grid = function (_Component) {
           rightColumns = [],
           centerColumns = [];
       if (nextProps.noReplaceColumns) {
-        newColumns = nextProps.columns.slice();
+        // newColumns = nextProps.columns.slice();
+        newColumns = nextProps.columns.map(function (colItem) {
+          return _extends({}, colItem);
+        });
       } else {
         //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
         this.columns.forEach(function (item, index) {
@@ -332,6 +337,12 @@ var Grid = function (_Component) {
    */
 
 
+  /**
+   *
+   * 重置grid的columns
+   */
+
+
   Grid.prototype.render = function render() {
     var props = this.props;
     var _props$sort = props.sort,
@@ -387,7 +398,9 @@ var Grid = function (_Component) {
 var _initialiseProps = function _initialiseProps() {
   var _this4 = this;
 
-  this.columns = this.props.columns.slice();
+  this.columns = this.props.columns.map(function (colItem) {
+    return _extends({}, colItem);
+  });
 
   this.handleSelectPage = function (eventKey) {
     var _props$paginationObj = _this4.props.paginationObj,
@@ -630,6 +643,19 @@ var _initialiseProps = function _initialiseProps() {
     _this4.setState({
       renderFlag: !renderFlag
     });
+  };
+
+  this.resetColumns = function (newColumns) {
+    var renderFlag = _this4.state.renderFlag;
+
+    if (newColumns) {
+      _this4.columns = newColumns.map(function (colItem) {
+        return _extends({}, colItem);
+      });
+      _this4.setState({
+        renderFlag: !renderFlag
+      });
+    }
   };
 };
 
