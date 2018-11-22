@@ -104,7 +104,8 @@ var defaultProps = {
   locale: {},
   paginationObj: {},
   sheetName: "sheet", //导出表格的name
-  sheetIsRowFilter: false //是否要设置行样式，是否遍历
+  sheetIsRowFilter: false, //是否要设置行样式，是否遍历
+  columnFilterAble: true
 };
 var Item = _beeMenus2["default"].Item;
 
@@ -153,7 +154,12 @@ var Grid = function (_Component) {
     if (props.multiSelect !== false) {
       ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
     }
-    ComplexTable = (0, _filterColumn2["default"])((0, _dragColumn2["default"])(ComplexTable), _beePopover2["default"]);
+    if (props.draggable) {
+      ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
+    }
+    if (props.columnFilterAble) {
+      ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
+    }
     return _this;
   }
   // columns = this.props.columns.slice();

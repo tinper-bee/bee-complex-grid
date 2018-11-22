@@ -36,7 +36,8 @@ const defaultProps = {
   locale: {},
   paginationObj:{},
   sheetName:"sheet", //导出表格的name
-  sheetIsRowFilter:false //是否要设置行样式，是否遍历
+  sheetIsRowFilter:false, //是否要设置行样式，是否遍历
+  columnFilterAble:true
 };
 const { Item } = Menu;
 
@@ -73,7 +74,12 @@ class Grid extends Component {
     if (props.multiSelect !== false) {
       ComplexTable = multiSelect(ComplexTable, Checkbox);
     }
-    ComplexTable = filterColumn(dragColumn(ComplexTable), Popover);
+    if(props.draggable){
+      ComplexTable = dragColumn(ComplexTable);
+    }
+    if(props.columnFilterAble){
+      ComplexTable = filterColumn(ComplexTable, Popover);
+    }
   }
   // columns = this.props.columns.slice();
   columns = this.props.columns.map(colItem=>{
