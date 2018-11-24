@@ -169,23 +169,8 @@ var Grid = function (_Component) {
     var _this2 = this;
 
     var renderFlag = this.state.renderFlag;
-    //根据参数动态生成表格
-    //根据条件生成Grid
-
-    ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
-    if (nextProps.canSum) {
-      ComplexTable = (0, _sum2["default"])(ComplexTable);
-    }
-    if (nextProps.multiSelect !== false) {
-      ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
-    }
-    if (nextProps.draggable) {
-      ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
-    }
-    if (nextProps.columnFilterAble) {
-      ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
-    }
     //分页
+
     if (nextProps.paginationObj) {
       this.setState({
         activePage: nextProps.paginationObj.activePage,
