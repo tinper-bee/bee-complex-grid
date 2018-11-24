@@ -87,21 +87,6 @@ class Grid extends Component {
   })
   componentWillReceiveProps(nextProps) {
     const {renderFlag} = this.state;
-    //根据参数动态生成表格
-     //根据条件生成Grid
-     ComplexTable = sort(Table, Icon);
-     if (nextProps.canSum) {
-       ComplexTable = sum(ComplexTable);
-     }
-     if (nextProps.multiSelect !== false) {
-       ComplexTable = multiSelect(ComplexTable, Checkbox);
-     }
-     if(nextProps.draggable){
-       ComplexTable = dragColumn(ComplexTable);
-     }
-     if(nextProps.columnFilterAble){
-       ComplexTable = filterColumn(ComplexTable, Popover);
-     }
     //分页
     if (nextProps.paginationObj) {
       this.setState({
