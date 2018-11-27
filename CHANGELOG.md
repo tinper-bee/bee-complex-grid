@@ -1,3 +1,13 @@
+<a name="0.2.39"></a>
+## [0.2.39](https://github.com/tinper-bee/bee-complex-grid/compare/v0.2.38...v0.2.39) (2018-11-27)
+
+
+### Bug Fixes
+
+* **拖拽回调函数休息:** 拖拽回调函数修改 ([a28325b](https://github.com/tinper-bee/bee-complex-grid/commit/a28325b))
+
+
+
 <a name="0.2.38"></a>
 ## [0.2.38](https://github.com/tinper-bee/bee-complex-grid/compare/v0.2.37...v0.2.38) (2018-11-24)
 
