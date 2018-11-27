@@ -641,11 +641,15 @@ var _initialiseProps = function _initialiseProps() {
   this.afterDragColWidth = function (colData) {
     var renderFlag = _this4.state.renderFlag;
 
-    _this4.columns.find(function (col) {
-      if (col.dataIndex == colData.dataindex) {
-        col.width = colData.width;
-      }
+
+    _this4.columns.forEach(function (item) {
+      colData.find(function (paramItem) {
+        if (item.dataIndex == paramItem.dataindex) {
+          item.width = paramItem.width;
+        }
+      });
     });
+
     _this4.setState({
       renderFlag: !renderFlag
     });

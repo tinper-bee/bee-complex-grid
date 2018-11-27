@@ -457,11 +457,15 @@ class Grid extends Component {
   afterDragColWidth = colData => {
  
     const {renderFlag} = this.state
-    this.columns.find(col=>{
-      if (col.dataIndex == colData.dataindex) {
-        col.width = colData.width;
-      }
+
+    this.columns.forEach(item=>{
+      colData.find(paramItem=>{
+        if (item.dataIndex == paramItem.dataindex) {
+          item.width = paramItem.width
+        }
+      })
     })
+
     this.setState({
       renderFlag:!renderFlag
     });
