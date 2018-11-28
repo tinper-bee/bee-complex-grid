@@ -126,6 +126,7 @@ class Grid extends Component {
           this.columns.forEach(item=>{
             if(nextItem.dataIndex == item.dataIndex){
               newItem = { ...item, ...nextItem };
+              newItem.width = item.width;
               newItem.hasHeaderMenu = false;//重置后的都需要重新渲染表头菜单
             }
           })
