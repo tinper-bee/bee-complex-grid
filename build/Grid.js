@@ -651,20 +651,20 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.afterDragColWidth = function (colData) {
+    var renderFlag = _this4.state.renderFlag;
 
-    // const {renderFlag} = this.state
 
-    // this.columns.forEach(item=>{
-    //   colData.find(paramItem=>{
-    //     if (item.dataIndex == paramItem.dataindex) {
-    //       item.width = paramItem.width
-    //     }
-    //   })
-    // })
+    _this4.columns.forEach(function (item) {
+      colData.find(function (paramItem) {
+        if (item.dataIndex == paramItem.dataindex) {
+          item.width = paramItem.width;
+        }
+      });
+    });
 
-    // this.setState({
-    //   renderFlag:!renderFlag
-    // });
+    _this4.setState({
+      renderFlag: !renderFlag
+    });
   };
 
   this.resetColumns = function (newColumns) {
