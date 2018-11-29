@@ -126,7 +126,9 @@ class Grid extends Component {
           this.columns.forEach(item=>{
             if(nextItem.dataIndex == item.dataIndex){
               newItem = { ...item, ...nextItem };
-              newItem.width = item.width;
+              if(item.width && newItem.width !== item.width ){
+                newItem.width = item.width
+              }
               newItem.hasHeaderMenu = false;//重置后的都需要重新渲染表头菜单
             }
           })
@@ -466,19 +468,19 @@ class Grid extends Component {
    */
   afterDragColWidth = colData => {
  
-    // const {renderFlag} = this.state
+    const {renderFlag} = this.state
 
-    // this.columns.forEach(item=>{
-    //   colData.find(paramItem=>{
-    //     if (item.dataIndex == paramItem.dataindex) {
-    //       item.width = paramItem.width
-    //     }
-    //   })
-    // })
+    this.columns.forEach(item=>{
+      colData.find(paramItem=>{
+        if (item.dataIndex == paramItem.dataindex) {
+          item.width = paramItem.width
+        }
+      })
+    })
 
-    // this.setState({
-    //   renderFlag:!renderFlag
-    // });
+    this.setState({
+      renderFlag:!renderFlag
+    });
   };
 
   /**
