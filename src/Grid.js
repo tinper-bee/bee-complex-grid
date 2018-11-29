@@ -202,7 +202,7 @@ class Grid extends Component {
    */
   onMenuSelect = ({ key, item }) => {
     let { filterable, renderFlag} = this.state;
-    
+    const {checkMinSize} = this.props;
     const fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
       this.columns = this.optFixCols(this.columns, fieldKey);
@@ -213,6 +213,14 @@ class Grid extends Component {
         renderFlag: !renderFlag
       });
     } else if (key == "show") {
+      //显示原则跟table组件同步，至少有一个非固定列显示
+      let sum = 0;
+      this.columns.forEach(da => {
+        !da.fixed && da.checked ? sum++ : "";
+      });
+      if ((sum < checkMinSize || sum <= 1)&& item.props.data.checked) {
+        return;
+      } 
       this.columns = this.optShowCols(this.columns, fieldKey);
       this.setState({
         renderFlag: !renderFlag
@@ -252,6 +260,7 @@ class Grid extends Component {
           info: showTitle,
           key: `show`,
           fieldKey: originColumn.key,
+          checked:originColumn.checked,
           index: 1
         });
       }
@@ -457,19 +466,19 @@ class Grid extends Component {
    */
   afterDragColWidth = colData => {
  
-    const {renderFlag} = this.state
+    // const {renderFlag} = this.state
 
-    this.columns.forEach(item=>{
-      colData.find(paramItem=>{
-        if (item.dataIndex == paramItem.dataindex) {
-          item.width = paramItem.width
-        }
-      })
-    })
+    // this.columns.forEach(item=>{
+    //   colData.find(paramItem=>{
+    //     if (item.dataIndex == paramItem.dataindex) {
+    //       item.width = paramItem.width
+    //     }
+    //   })
+    // })
 
-    this.setState({
-      renderFlag:!renderFlag
-    });
+    // this.setState({
+    //   renderFlag:!renderFlag
+    // });
   };
 
   /**
