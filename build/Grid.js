@@ -473,9 +473,9 @@ var _initialiseProps = function _initialiseProps() {
       //显示原则跟table组件同步，至少有一个非固定列显示
       var _sum = 0;
       _this4.columns.forEach(function (da) {
-        !da.fixed && da.checked ? _sum++ : "";
+        !da.fixed && da.ifshow !== false ? _sum++ : "";
       });
-      if ((_sum < checkMinSize || _sum <= 1) && item.props.data.checked) {
+      if (_sum < checkMinSize || _sum <= 1) {
         return;
       }
       _this4.columns = _this4.optShowCols(_this4.columns, fieldKey);

@@ -216,9 +216,9 @@ class Grid extends Component {
       //显示原则跟table组件同步，至少有一个非固定列显示
       let sum = 0;
       this.columns.forEach(da => {
-        !da.fixed && da.checked ? sum++ : "";
+        !da.fixed && da.ifshow!==false ? sum++ : "";
       });
-      if ((sum < checkMinSize || sum <= 1)&& item.props.data.checked) {
+      if (sum < checkMinSize || sum <= 1) {
         return;
       } 
       this.columns = this.optShowCols(this.columns, fieldKey);
