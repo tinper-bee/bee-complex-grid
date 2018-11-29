@@ -38,9 +38,9 @@ var _sort = require("bee-table/build/lib/sort");
 
 var _sort2 = _interopRequireDefault(_sort);
 
-var _sum = require("bee-table/build/lib/sum");
+var _sum2 = require("bee-table/build/lib/sum");
 
-var _sum2 = _interopRequireDefault(_sum);
+var _sum3 = _interopRequireDefault(_sum2);
 
 var _beeIcon = require("bee-icon");
 
@@ -149,7 +149,7 @@ var Grid = function (_Component) {
     //根据条件生成Grid
     ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
     if (props.canSum) {
-      ComplexTable = (0, _sum2["default"])(ComplexTable);
+      ComplexTable = (0, _sum3["default"])(ComplexTable);
     }
     if (props.multiSelect !== false) {
       ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
@@ -282,6 +282,7 @@ var Grid = function (_Component) {
           info: showTitle,
           key: "show",
           fieldKey: originColumn.key,
+          checked: originColumn.checked,
           index: 1
         });
       }
@@ -457,7 +458,7 @@ var _initialiseProps = function _initialiseProps() {
     var _state = _this4.state,
         filterable = _state.filterable,
         renderFlag = _state.renderFlag;
-
+    var checkMinSize = _this4.props.checkMinSize;
 
     var fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
@@ -469,6 +470,14 @@ var _initialiseProps = function _initialiseProps() {
         renderFlag: !renderFlag
       });
     } else if (key == "show") {
+      //显示原则跟table组件同步，至少有一个非固定列显示
+      var _sum = 0;
+      _this4.columns.forEach(function (da) {
+        !da.fixed && da.checked ? _sum++ : "";
+      });
+      if ((_sum < checkMinSize || _sum <= 1) && item.props.data.checked) {
+        return;
+      }
       _this4.columns = _this4.optShowCols(_this4.columns, fieldKey);
       _this4.setState({
         renderFlag: !renderFlag
@@ -640,20 +649,20 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.afterDragColWidth = function (colData) {
-    var renderFlag = _this4.state.renderFlag;
 
+    // const {renderFlag} = this.state
 
-    _this4.columns.forEach(function (item) {
-      colData.find(function (paramItem) {
-        if (item.dataIndex == paramItem.dataindex) {
-          item.width = paramItem.width;
-        }
-      });
-    });
+    // this.columns.forEach(item=>{
+    //   colData.find(paramItem=>{
+    //     if (item.dataIndex == paramItem.dataindex) {
+    //       item.width = paramItem.width
+    //     }
+    //   })
+    // })
 
-    _this4.setState({
-      renderFlag: !renderFlag
-    });
+    // this.setState({
+    //   renderFlag:!renderFlag
+    // });
   };
 
   this.resetColumns = function (newColumns) {
