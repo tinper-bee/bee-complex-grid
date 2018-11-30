@@ -158,15 +158,7 @@ class Demo4 extends Component {
       showTemTable:false
     }
   }
-  componentWillReceiveProps(nextProps){
-    debugger
-  }
-  //临时加个判断
-  // shouldComponentUpdate(){
-  //   if(this.props.className =='u-panel-title'){
-  //     return false;
-  //   }
-  // }
+
   getSelectedDataFunc = data => {
     console.log("data", data);
   };
@@ -212,10 +204,9 @@ class Demo4 extends Component {
           data={dataList}
           getSelectedDataFunc={this.getSelectedDataFunc}
           checkMinSize={7}
-          // draggable={true}
-          dragborder
+          dragborder={false}
           multiSelect={{ type: "checkbox" }}
-          scroll={{ x: "130%", y: 100 }}
+          scroll={{ y: 100 }}
           selectedRow={this.selectedRow}
           paginationObj={paginationObj}
         />

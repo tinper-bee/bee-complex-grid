@@ -532,7 +532,6 @@ class Grid extends Component {
           total={this.state.total}
         />
         <ComplexTable
-          headerScroll={true}
           {...props}
           scroll = {scroll}
           columns={columns}

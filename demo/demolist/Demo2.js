@@ -20,7 +20,6 @@ const column = [
       key: "b",
       width: 200,
       sumCol: true,
-      order:'ascend',
       sorter: (a, b) => a.c - b.c,
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
@@ -108,7 +107,7 @@ class Demo2 extends Component {
     }
     let sortObj = {
         mode:'multiple',
-        backSource:true,
+        // backSource:true,
         sortFun:this.sortFun
       }
     return (
@@ -116,7 +115,7 @@ class Demo2 extends Component {
         className='gridDemo'
         columns={column}
         data={dataList}
-        draggable={true}
+        dragborder={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         selectedRow={this.selectedRow}
         sort={sortObj}

@@ -155,9 +155,6 @@ class Demo1 extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillReceiveProps(nextProps){
-    debugger
-  }
   //临时加个判断
   shouldComponentUpdate(){
     if(this.props.className =='u-panel-title'){
@@ -201,9 +198,10 @@ class Demo1 extends Component {
         className='gridDemo'
         columns={column}
         data={dataList}
+        dragborder={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         multiSelect={{ type: "checkbox" }}
-        scroll={{ x: "130%", y: 100 }}
+        scroll={{ y: 100 }}
         selectedRow={this.selectedRow}
         paginationObj={paginationObj}
       />
