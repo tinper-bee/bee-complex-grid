@@ -486,19 +486,21 @@ class Grid extends Component {
    * 拖拽后计算列宽
    */
   afterDragColWidth = colData => {
-    const { renderFlag } = this.state;
-
+    const {rows,cols,currIndex} = colData;
     this.columns.forEach(item => {
-      colData.find(paramItem => {
+      rows.find((paramItem,paramIndex) => {
         if (item.dataIndex == paramItem.dataindex) {
-          item.width = paramItem.width;
+          if(paramIndex == currIndex-1){
+            item.width = parseInt(cols[paramIndex].style.width);
+          }else{
+            item.width = paramItem.width;
+          }
+          
         }
       });
     });
 
-    this.setState({
-      renderFlag: !renderFlag
-    });
+
   };
 
   /**
