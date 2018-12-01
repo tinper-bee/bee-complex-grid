@@ -15,13 +15,13 @@ import Menu from "bee-menus";
 import Dropdown from "bee-dropdown";
 import ExportJsonExcel from "./ExportExcel";
 
-import i18n from './i18n';
-import {getComponentLocale} from 'bee-locale/build/tool';
+import i18n from "./i18n";
+import { getComponentLocale } from "bee-locale/build/tool";
 
 const propTypes = {
   showHeaderMenu: PropTypes.bool,
-  sheetName:PropTypes.string,
-  sheetIsRowFilter:PropTypes.bool
+  sheetName: PropTypes.string,
+  sheetIsRowFilter: PropTypes.bool
 };
 const defaultProps = {
   scroll: {
@@ -29,33 +29,38 @@ const defaultProps = {
   },
   bordered: true,
   multiSelect: { type: "checkbox" },
-  draggable:true,
-  dragborder:true,
+  draggable: true,
+  dragborder: true,
   showHeaderMenu: true,
   data: [],
   locale: {},
-  paginationObj:{},
-  sheetName:"sheet", //导出表格的name
-  sheetIsRowFilter:false, //是否要设置行样式，是否遍历
-  columnFilterAble:true
+  paginationObj: {},
+  sheetName: "sheet", //导出表格的name
+  sheetIsRowFilter: false, //是否要设置行样式，是否遍历
+  columnFilterAble: true
 };
 const { Item } = Menu;
 
 let ComplexTable = Table;
-const defualtPaginationParam = {dataNumSelect : ['5','10','15','20','25','50','All']};
+const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom' };
 class Grid extends Component {
   constructor(props) {
     super(props);
-    this.local = getComponentLocale(this.props, this.context, 'Grid', () => i18n);
-    let { paginationObj,sort: sortObj, filterable } = props;
+    this.local = getComponentLocale(
+      this.props,
+      this.context,
+      "Grid",
+      () => i18n
+    );
+    let { paginationObj, sort: sortObj, filterable } = props;
     //一些属性需要内部控制，放在state中
     this.state = {
       filterable,
-      renderFlag:false,//这个只是一个标记量，用于控制组件是否需要渲染
+      renderFlag: false, //这个只是一个标记量，用于控制组件是否需要渲染
       activePage: paginationObj.activePage,
       total: paginationObj.total,
       pageItems: paginationObj.items,
-      dataNum: paginationObj.dataNum,
+      dataNum: paginationObj.dataNum
       // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -74,19 +79,19 @@ class Grid extends Component {
     if (props.multiSelect !== false) {
       ComplexTable = multiSelect(ComplexTable, Checkbox);
     }
-    if(props.draggable){
+    if (props.draggable) {
       ComplexTable = dragColumn(ComplexTable);
     }
-    if(props.columnFilterAble){
+    if (props.columnFilterAble) {
       ComplexTable = filterColumn(ComplexTable, Popover);
     }
   }
   // columns = this.props.columns.slice();
-  columns = this.props.columns.map(colItem=>{
-    return {...colItem};
-  })
+  columns = this.props.columns.map(colItem => {
+    return { ...colItem };
+  });
   componentWillReceiveProps(nextProps) {
-    const {renderFlag} = this.state;
+    const { renderFlag } = this.state;
     //分页
     if (nextProps.paginationObj) {
       this.setState({
@@ -97,58 +102,67 @@ class Grid extends Component {
       });
     }
     if (nextProps.columns && nextProps.columns !== this.columns) {
-      let newColumns = [],leftColumns=[],rightColumns=[],centerColumns=[];
+      let newColumns = [],
+        leftColumns = [],
+        rightColumns = [],
+        centerColumns = [];
       if (nextProps.noReplaceColumns) {
         // newColumns = nextProps.columns.slice();
-        newColumns = nextProps.columns.map(colItem=>{
-          return {...colItem};
-        })
+        newColumns = nextProps.columns.map(colItem => {
+          return { ...colItem };
+        });
       } else {
         //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
-        this.columns.forEach((item,index)=>{
-        
-          if(nextProps.columns[index].dataIndex !== item.dataIndex ){
-              let curIndex = -1;
-              for(let nextIndex=0;nextIndex<nextProps.columns.length;nextIndex++){
-                if(nextProps.columns[nextIndex].dataIndex == item.dataIndex){
-                  curIndex = nextIndex;
-                  break; 
-                }
+        this.columns.forEach((item, index) => {
+          if (nextProps.columns[index].dataIndex !== item.dataIndex) {
+            let curIndex = -1;
+            for (
+              let nextIndex = 0;
+              nextIndex < nextProps.columns.length;
+              nextIndex++
+            ) {
+              if (nextProps.columns[nextIndex].dataIndex == item.dataIndex) {
+                curIndex = nextIndex;
+                break;
               }
-              nextProps.columns.splice(index, 0,nextProps.columns.splice(curIndex, 1)[0] )
+            }
+            nextProps.columns.splice(
+              index,
+              0,
+              nextProps.columns.splice(curIndex, 1)[0]
+            );
           }
-        })
+        });
         //将sort、过滤等在组件中维护的状态和传入column合并
 
         nextProps.columns.forEach((nextItem, index) => {
           let newItem = {};
 
-          this.columns.forEach(item=>{
-            if(nextItem.dataIndex == item.dataIndex){
+          this.columns.forEach(item => {
+            if (nextItem.dataIndex == item.dataIndex) {
               newItem = { ...item, ...nextItem };
-              if(item.width && newItem.width !== item.width ){
-                newItem.width = item.width
+              if (item.width && newItem.width !== item.width) {
+                newItem.width = item.width;
               }
-              newItem.hasHeaderMenu = false;//重置后的都需要重新渲染表头菜单
+              newItem.hasHeaderMenu = false; //重置后的都需要重新渲染表头菜单
             }
-          })
-          if(newItem.fixed == 'left'){
+          });
+          if (newItem.fixed == "left") {
             leftColumns.push(newItem);
-          }else if(newItem.fixed == 'right'){
+          } else if (newItem.fixed == "right") {
             rightColumns.push(newItem);
-          }else{
+          } else {
             centerColumns.push(newItem);
           }
         });
-        newColumns = [...leftColumns,...centerColumns,...rightColumns];
+        newColumns = [...leftColumns, ...centerColumns, ...rightColumns];
       }
 
-      this.columns = newColumns,
-      this.setState({
-        renderFlag: !renderFlag,
-        filterable: nextProps.filterable
-      });
-
+      (this.columns = newColumns),
+        this.setState({
+          renderFlag: !renderFlag,
+          filterable: nextProps.filterable
+        });
     }
   }
   /**
@@ -203,8 +217,8 @@ class Grid extends Component {
    * header菜单点击操作
    */
   onMenuSelect = ({ key, item }) => {
-    let { filterable, renderFlag} = this.state;
-    const {checkMinSize} = this.props;
+    let { filterable, renderFlag } = this.state;
+    const { checkMinSize } = this.props;
     const fieldKey = item.props.data.fieldKey;
     if (key == "fix") {
       this.columns = this.optFixCols(this.columns, fieldKey);
@@ -218,17 +232,17 @@ class Grid extends Component {
       //显示原则跟table组件同步，至少有一个非固定列显示
       let sum = 0;
       this.columns.forEach(da => {
-        !da.fixed && da.ifshow!==false ? sum++ : "";
+        !da.fixed && da.ifshow !== false ? sum++ : "";
       });
       if (sum < checkMinSize || sum <= 1) {
         return;
-      } 
+      }
       this.columns = this.optShowCols(this.columns, fieldKey);
       this.setState({
         renderFlag: !renderFlag
       });
     } else {
-      if(typeof this.props.afterRowFilter == 'function'){
+      if (typeof this.props.afterRowFilter == "function") {
         this.props.afterRowFilter(!filterable);
       }
       this.setState({ filterable: !filterable });
@@ -241,14 +255,14 @@ class Grid extends Component {
    */
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
-    const {local} = this;
+    const { local } = this;
     return columns.map((originColumn, index) => {
       let column = Object.assign({}, originColumn);
       let menuInfo = [],
-        fixTitle =  local['fixTitle'],
-        showTitle = local['hideTitle'];
+        fixTitle = local["fixTitle"],
+        showTitle = local["hideTitle"];
       if (originColumn.fixed) {
-        fixTitle = local['noFixTitle'];
+        fixTitle = local["noFixTitle"];
       }
       menuInfo.push({
         info: fixTitle,
@@ -262,14 +276,14 @@ class Grid extends Component {
           info: showTitle,
           key: `show`,
           fieldKey: originColumn.key,
-          checked:originColumn.checked,
+          checked: originColumn.checked,
           index: 1
         });
       }
       //是否行过滤菜单item
       if (this.props.showFilterMenu) {
         menuInfo.push({
-          info: local['rowFilter'],
+          info: local["rowFilter"],
           key: "rowFilter",
           fieldKey: originColumn.key,
           index: 3
@@ -303,23 +317,23 @@ class Grid extends Component {
    * 表头menu和表格整体过滤时有冲突，因此添加了回调函数
    */
   afterFilter = (optData, columns) => {
-    if(Array.isArray(optData)){
+    if (Array.isArray(optData)) {
       this.columns.forEach(da => {
-        optData.forEach(optItem=>{
-          if(da.key == optItem.key){
+        optData.forEach(optItem => {
+          if (da.key == optItem.key) {
             da.ifshow = optItem.ifshow;
             return true;
           }
-        })
+        });
       });
-    }else{
+    } else {
       this.columns.find(da => {
         if (da.key == optData.key) {
           da.ifshow = optData.ifshow;
         }
       });
     }
-    
+
     if (typeof this.props.afterFilter == "function") {
       this.props.afterFilter(optData, this.columns);
     }
@@ -333,7 +347,6 @@ class Grid extends Component {
     sortParam.forEach(item => {
       sortObj[item.field] = item;
     });
-    ;
     this.columns.forEach(da => {
       //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
@@ -343,7 +356,7 @@ class Grid extends Component {
         da.orderNum = "";
       }
     });
-    
+
     //将参数传递给后端排序
     if (typeof this.sort.originSortFun == "function") {
       this.sort.originSortFun(sortParam, this.columns);
@@ -357,18 +370,18 @@ class Grid extends Component {
     //   columns: columns
     // });
 
-    columns.forEach((item,index)=>{
-      if(this.columns[index].dataIndex !== item.dataIndex ){
-          let curIndex = -1;
-          for(let nextIndex=0;nextIndex<this.columns.length;nextIndex++){
-            if(this.columns[nextIndex].dataIndex == item.dataIndex){
-              curIndex = nextIndex;
-              break; 
-            }
+    columns.forEach((item, index) => {
+      if (this.columns[index].dataIndex !== item.dataIndex) {
+        let curIndex = -1;
+        for (let nextIndex = 0; nextIndex < this.columns.length; nextIndex++) {
+          if (this.columns[nextIndex].dataIndex == item.dataIndex) {
+            curIndex = nextIndex;
+            break;
           }
-          this.columns.splice(index, 0,this.columns.splice(curIndex, 1)[0] )
+        }
+        this.columns.splice(index, 0, this.columns.splice(curIndex, 1)[0]);
       }
-    })
+    });
     if (this.props.onDrop) {
       this.props.onDrop(event, data, this.columns);
     }
@@ -407,50 +420,56 @@ class Grid extends Component {
     return rs;
   };
 
-  getItem = (da)=>{
-      let obj = {};
-      da.height?obj.hpx = da.height:"";
-      da.ifshow?obj.hidden = true:false;
-      da.level?obj.level = da.level:"";
-      return obj;
-      // if(da.height || da.hidden || da.level){
-      //   return obj;
-      // }else{
-      //   return null;
-      // }
-  }
+  getItem = da => {
+    let obj = {};
+    da.height ? (obj.hpx = da.height) : "";
+    da.ifshow ? (obj.hidden = true) : false;
+    da.level ? (obj.level = da.level) : "";
+    return obj;
+    // if(da.height || da.hidden || da.level){
+    //   return obj;
+    // }else{
+    //   return null;
+    // }
+  };
 
-  getRowList = (data)=>{
+  getRowList = data => {
     let rowAttr = [];
     debugger;
-    data.forEach(da=>{
+    data.forEach(da => {
       let item = this.getItem(da);
-      if(item){
+      if (item) {
         rowAttr.push(item);
       }
     });
     return rowAttr;
-  }
+  };
 
   exportExcel = () => {
-    let {sheetIsRowFilter,sheetName,sheetHeader:_sheetHeader} = this.props;
+    let { sheetIsRowFilter, sheetName, sheetHeader: _sheetHeader } = this.props;
     let colsAndTablePros = this.getColumnsAndTablePros();
-    let sheetHeader = [],columnAttr = [],rowAttr =[],sheetFilter = [];
-    colsAndTablePros.columns.forEach(column=>{
+    let sheetHeader = [],
+      columnAttr = [],
+      rowAttr = [],
+      sheetFilter = [];
+    colsAndTablePros.columns.forEach(column => {
       sheetHeader.push(column.title);
-      columnAttr.push({wpx:column.width,hidden:column.ifshow === false?true:false});
+      columnAttr.push({
+        wpx: column.width,
+        hidden: column.ifshow === false ? true : false
+      });
       sheetFilter.push(column.dataIndex);
     });
-    if(_sheetHeader){
+    if (_sheetHeader) {
       rowAttr.push(this.getItem(_sheetHeader));
     }
-    if(sheetIsRowFilter){
+    if (sheetIsRowFilter) {
       this.getRowList(colsAndTablePros.tablePros.data);
     }
     let option = {
-      datas:[
+      datas: [
         {
-          sheetData:this.props.data,
+          sheetData: this.props.data,
           sheetName,
           sheetFilter,
           sheetHeader,
@@ -461,25 +480,24 @@ class Grid extends Component {
     };
     let toExcel = new ExportJsonExcel(option);
     toExcel.saveExcel();
-  }
+  };
 
   /**
    * 拖拽后计算列宽
    */
   afterDragColWidth = colData => {
- 
-    const {renderFlag} = this.state
+    const { renderFlag } = this.state;
 
-    this.columns.forEach(item=>{
-      colData.find(paramItem=>{
+    this.columns.forEach(item => {
+      colData.find(paramItem => {
         if (item.dataIndex == paramItem.dataindex) {
-          item.width = paramItem.width
+          item.width = paramItem.width;
         }
-      })
-    })
+      });
+    });
 
     this.setState({
-      renderFlag:!renderFlag
+      renderFlag: !renderFlag
     });
   };
 
@@ -487,53 +505,58 @@ class Grid extends Component {
    *
    * 重置grid的columns
    */
-  resetColumns =(newColumns)=>{
-    const {renderFlag} = this.state
-    if(newColumns){
-      this.columns = newColumns.map(colItem=>{
-        return {...colItem};
-      })
+  resetColumns = newColumns => {
+    const { renderFlag } = this.state;
+    if (newColumns) {
+      this.columns = newColumns.map(colItem => {
+        return { ...colItem };
+      });
       this.setState({
-        renderFlag:!renderFlag
+        renderFlag: !renderFlag
       });
     }
-
-  }
+  };
 
   render() {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
-    const paginationParam = Object.assign({},defualtPaginationParam, paginationObj);
+    const paginationParam = Object.assign(
+      {},
+      defualtPaginationParam,
+      paginationObj
+    );
     //默认固定表头
-    const scroll = Object.assign({},{y:true},props.scroll);
+    const scroll = Object.assign({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
 
-    const {filterable} = this.state;
+    const { filterable } = this.state;
     let columns = this.columns.slice();
     //是否显示表头菜单、已经显示过的不再显示
     if (props.showHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
     }
-
     return (
       <div className={classNames("u-grid", props.className)}>
-        <Pagination
-          {...paginationParam}
-          first
-          last
-          prev
-          next
-          maxButtons={5}
-          boundaryLinks
-          activePage={this.state.activePage}
-          onSelect={this.handleSelectPage}
-          showJump={true}
-          items={this.state.pageItems}
-          total={this.state.total}
-        />
+        {paginationParam.verticalPosition == "top" && (
+          <Pagination
+            {...paginationParam}
+            first
+            last
+            prev
+            next
+            maxButtons={5}
+            boundaryLinks
+            activePage={this.state.activePage}
+            onSelect={this.handleSelectPage}
+            showJump={true}
+            items={this.state.pageItems}
+            total={this.state.total}
+          />
+        )}
+
         <ComplexTable
           {...props}
-          scroll = {scroll}
+          scroll={scroll}
           columns={columns}
           afterFilter={this.afterFilter}
           sort={this.sort}
@@ -541,6 +564,23 @@ class Grid extends Component {
           afterDragColWidth={this.afterDragColWidth}
           filterable={filterable}
         />
+        {paginationParam.verticalPosition == "bottom" && (
+          <Pagination
+        
+            {...paginationParam}
+            first
+            last
+            prev
+            next
+            maxButtons={5}
+            boundaryLinks
+            activePage={this.state.activePage}
+            onSelect={this.handleSelectPage}
+            showJump={true}
+            items={this.state.pageItems}
+            total={this.state.total}
+          />
+        )}
       </div>
     );
   }
