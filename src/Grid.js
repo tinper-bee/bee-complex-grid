@@ -435,7 +435,6 @@ class Grid extends Component {
 
   getRowList = data => {
     let rowAttr = [];
-    debugger;
     data.forEach(da => {
       let item = this.getItem(da);
       if (item) {
@@ -486,11 +485,12 @@ class Grid extends Component {
    * 拖拽后计算列宽
    */
   afterDragColWidth = colData => {
+    const { renderFlag } = this.state;
     const {rows,cols,currIndex} = colData;
     this.columns.forEach(item => {
       rows.find((paramItem,paramIndex) => {
         if (item.dataIndex == paramItem.dataindex) {
-          if(paramIndex == currIndex-1){
+          if(paramIndex == currIndex){
             item.width = parseInt(cols[paramIndex].style.width);
           }else{
             item.width = paramItem.width;
@@ -499,7 +499,9 @@ class Grid extends Component {
         }
       });
     });
-
+    this.setState({
+      renderFlag:!renderFlag
+    })
 
   };
 

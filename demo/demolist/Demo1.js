@@ -198,10 +198,10 @@ class Demo1 extends Component {
         className='gridDemo'
         columns={column}
         data={dataList}
-        dragborder={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         multiSelect={{ type: "checkbox" }}
         scroll={{ y: 100 }}
+        headerScroll={true}
         selectedRow={this.selectedRow}
         paginationObj={paginationObj}
       />
