@@ -111,7 +111,7 @@ var Item = _beeMenus2["default"].Item;
 
 
 var ComplexTable = _beeTable2["default"];
-var defualtPaginationParam = { dataNumSelect: ['5', '10', '15', '20', '25', '50', 'All'] };
+var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom' };
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -123,7 +123,7 @@ var Grid = function (_Component) {
 
     _initialiseProps.call(_this);
 
-    _this.local = (0, _tool.getComponentLocale)(_this.props, _this.context, 'Grid', function () {
+    _this.local = (0, _tool.getComponentLocale)(_this.props, _this.context, "Grid", function () {
       return _i18n2["default"];
     });
     var paginationObj = props.paginationObj,
@@ -192,7 +192,6 @@ var Grid = function (_Component) {
       } else {
         //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
         this.columns.forEach(function (item, index) {
-
           if (nextProps.columns[index].dataIndex !== item.dataIndex) {
             var curIndex = -1;
             for (var nextIndex = 0; nextIndex < nextProps.columns.length; nextIndex++) {
@@ -218,9 +217,9 @@ var Grid = function (_Component) {
               newItem.hasHeaderMenu = false; //重置后的都需要重新渲染表头菜单
             }
           });
-          if (newItem.fixed == 'left') {
+          if (newItem.fixed == "left") {
             leftColumns.push(newItem);
-          } else if (newItem.fixed == 'right') {
+          } else if (newItem.fixed == "right") {
             rightColumns.push(newItem);
           } else {
             centerColumns.push(newItem);
@@ -267,10 +266,10 @@ var Grid = function (_Component) {
     return columns.map(function (originColumn, index) {
       var column = _extends({}, originColumn);
       var menuInfo = [],
-          fixTitle = local['fixTitle'],
-          showTitle = local['hideTitle'];
+          fixTitle = local["fixTitle"],
+          showTitle = local["hideTitle"];
       if (originColumn.fixed) {
-        fixTitle = local['noFixTitle'];
+        fixTitle = local["noFixTitle"];
       }
       menuInfo.push({
         info: fixTitle,
@@ -291,7 +290,7 @@ var Grid = function (_Component) {
       //是否行过滤菜单item
       if (_this3.props.showFilterMenu) {
         menuInfo.push({
-          info: local['rowFilter'],
+          info: local["rowFilter"],
           key: "rowFilter",
           fieldKey: originColumn.key,
           index: 3
@@ -371,11 +370,10 @@ var Grid = function (_Component) {
     if (props.showHeaderMenu) {
       columns = this.renderColumnsDropdown(columns);
     }
-
     return _react2["default"].createElement(
       "div",
       { className: (0, _classnames2["default"])("u-grid", props.className) },
-      _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+      paginationParam.verticalPosition == "top" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
         first: true,
         last: true,
         prev: true,
@@ -388,9 +386,7 @@ var Grid = function (_Component) {
         items: this.state.pageItems,
         total: this.state.total
       })),
-      _react2["default"].createElement(ComplexTable, _extends({
-        headerScroll: true
-      }, props, {
+      _react2["default"].createElement(ComplexTable, _extends({}, props, {
         scroll: scroll,
         columns: columns,
         afterFilter: this.afterFilter,
@@ -398,6 +394,19 @@ var Grid = function (_Component) {
         onDrop: this.dragDrop,
         afterDragColWidth: this.afterDragColWidth,
         filterable: filterable
+      })),
+      paginationParam.verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+        first: true,
+        last: true,
+        prev: true,
+        next: true,
+        maxButtons: 5,
+        boundaryLinks: true,
+        activePage: this.state.activePage,
+        onSelect: this.handleSelectPage,
+        showJump: true,
+        items: this.state.pageItems,
+        total: this.state.total
       }))
     );
   };
@@ -485,7 +494,7 @@ var _initialiseProps = function _initialiseProps() {
         renderFlag: !renderFlag
       });
     } else {
-      if (typeof _this4.props.afterRowFilter == 'function') {
+      if (typeof _this4.props.afterRowFilter == "function") {
         _this4.props.afterRowFilter(!filterable);
       }
       _this4.setState({ filterable: !filterable });
@@ -520,7 +529,6 @@ var _initialiseProps = function _initialiseProps() {
     sortParam.forEach(function (item) {
       sortObj[item.field] = item;
     });
-    ;
     _this4.columns.forEach(function (da) {
       //保存返回的column状态，没有则终止order状态
       if (sortObj[da.dataIndex]) {
@@ -604,7 +612,6 @@ var _initialiseProps = function _initialiseProps() {
 
   this.getRowList = function (data) {
     var rowAttr = [];
-    debugger;
     data.forEach(function (da) {
       var item = _this4.getItem(da);
       if (item) {
@@ -627,7 +634,10 @@ var _initialiseProps = function _initialiseProps() {
         sheetFilter = [];
     colsAndTablePros.columns.forEach(function (column) {
       sheetHeader.push(column.title);
-      columnAttr.push({ wpx: column.width, hidden: column.ifshow === false ? true : false });
+      columnAttr.push({
+        wpx: column.width,
+        hidden: column.ifshow === false ? true : false
+      });
       sheetFilter.push(column.dataIndex);
     });
     if (_sheetHeader) {
@@ -652,16 +662,21 @@ var _initialiseProps = function _initialiseProps() {
 
   this.afterDragColWidth = function (colData) {
     var renderFlag = _this4.state.renderFlag;
-
+    var rows = colData.rows,
+        cols = colData.cols,
+        currIndex = colData.currIndex;
 
     _this4.columns.forEach(function (item) {
-      colData.find(function (paramItem) {
+      rows.find(function (paramItem, paramIndex) {
         if (item.dataIndex == paramItem.dataindex) {
-          item.width = paramItem.width;
+          if (paramIndex == currIndex) {
+            item.width = parseInt(cols[paramIndex].style.width);
+          } else {
+            item.width = paramItem.width;
+          }
         }
       });
     });
-
     _this4.setState({
       renderFlag: !renderFlag
     });
