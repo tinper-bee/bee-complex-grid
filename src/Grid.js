@@ -544,6 +544,7 @@ class Grid extends Component {
         {paginationParam.verticalPosition == "top" && (
           <Pagination
             {...paginationParam}
+            className={paginationParam.horizontalPosition}
             first
             last
             prev
@@ -572,6 +573,7 @@ class Grid extends Component {
           <Pagination
         
             {...paginationParam}
+            className={paginationParam.horizontalPosition}
             first
             last
             prev

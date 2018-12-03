@@ -45,7 +45,7 @@
   "bee-icon": "^1.0.5",
   "bee-locale": "0.0.7",
   "bee-menus": "^1.0.7",
-  "bee-pagination": "^1.1.5",
+  "bee-pagination": "^1.1.12",
   "bee-popover": "^1.0.2",
   "bee-table": "^1.6.1",
   "classnames": "^2.2.6",
