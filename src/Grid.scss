@@ -15,10 +15,12 @@
                 font-size: 12px;
                 visibility: hidden;
                 margin-left: 15px;
+                cursor: pointer;
             }
         }
         &:hover{
             .drop-menu{
+                // background: #ccc;
                 .uf{
                         visibility: visible;
                 }
