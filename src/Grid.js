@@ -14,6 +14,7 @@ import Pagination from "bee-pagination";
 import Menu from "bee-menus";
 import Dropdown from "bee-dropdown";
 import ExportJsonExcel from "./ExportExcel";
+import ColumnsDropdown from './columnsDropdown';
 
 import i18n from "./i18n";
 import { getComponentLocale } from "bee-locale/build/tool";
@@ -46,6 +47,7 @@ const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bo
 class Grid extends Component {
   constructor(props) {
     super(props);
+   
     this.local = getComponentLocale(
       this.props,
       this.context,
@@ -60,7 +62,8 @@ class Grid extends Component {
       activePage: paginationObj.activePage,
       total: paginationObj.total,
       pageItems: paginationObj.items,
-      dataNum: paginationObj.dataNum
+      dataNum: paginationObj.dataNum,
+      showMenuKey:''
       // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -82,9 +85,9 @@ class Grid extends Component {
     if (props.draggable) {
       ComplexTable = dragColumn(ComplexTable);
     }
-    if (props.columnFilterAble) {
-      ComplexTable = filterColumn(ComplexTable, Popover);
-    }
+
+    ComplexTable = filterColumn(ComplexTable, Popover);
+    
   }
   // columns = this.props.columns.slice();
   columns = this.props.columns.map(colItem => {
@@ -164,6 +167,10 @@ class Grid extends Component {
           filterable: nextProps.filterable
         });
     }
+  }
+
+  changeMenuKey=(key)=>{
+    
   }
   /**
    * 点击分页回调函数
@@ -255,6 +262,7 @@ class Grid extends Component {
    */
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
+    const {showFilterMenu} = this.props;
     const { local } = this;
     return columns.map((originColumn, index) => {
       let column = Object.assign({}, originColumn);
@@ -289,8 +297,8 @@ class Grid extends Component {
           index: 3
         });
       }
-      const menu = (
-        <Menu onSelect={this.onMenuSelect} selectedKeys={[]}>
+      let menu = (
+        <Menu onSelect={this.onMenuSelect} selectedKeys={[]} data-type="menu11" className="grid-menu">
           {menuInfo.map(da => {
             return (
               <Item key={da.key} index={da.index} data={da}>
@@ -301,14 +309,16 @@ class Grid extends Component {
         </Menu>
       );
       column.hasHeaderMenu = true;
-      column.title = (
-        <span className="title-con drop-menu">
-          {column.title}
-          <Dropdown trigger={["click"]} overlay={menu} animation="slide-up">
-            <Icon type={icon} />
-          </Dropdown>
-        </span>
-      );
+      // column.title = (
+      //   <span className="title-con drop-menu">
+      //     {column.title}
+      //     <Dropdown trigger={["click"]} overlay={menu} animation="slide-up" data-type="menu11">
+      //       <Icon type={icon} />
+      //     </Dropdown>
+      //   </span>
+      // );
+      column.title = <ColumnsDropdown originColumn={originColumn} local={this.local} showFilterMenu={showFilterMenu} onMenuSelect={this.onMenuSelect}/>;
+
       return column;
     });
   }
@@ -532,7 +542,8 @@ class Grid extends Component {
     //默认固定表头
     const scroll = Object.assign({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
-
+    delete paginationParam.horizontalPosition;
+    delete paginationParam.verticalPosition;
     const { filterable } = this.state;
     let columns = this.columns.slice();
     //是否显示表头菜单、已经显示过的不再显示
