@@ -70,6 +70,10 @@ var _ExportExcel = require("./ExportExcel");
 
 var _ExportExcel2 = _interopRequireDefault(_ExportExcel);
 
+var _columnsDropdown = require("./columnsDropdown");
+
+var _columnsDropdown2 = _interopRequireDefault(_columnsDropdown);
+
 var _i18n = require("./i18n");
 
 var _i18n2 = _interopRequireDefault(_i18n);
@@ -137,7 +141,8 @@ var Grid = function (_Component) {
       activePage: paginationObj.activePage,
       total: paginationObj.total,
       pageItems: paginationObj.items,
-      dataNum: paginationObj.dataNum
+      dataNum: paginationObj.dataNum,
+      showMenuKey: ''
       // columns: props.columns.slice()
     };
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
@@ -157,9 +162,9 @@ var Grid = function (_Component) {
     if (props.draggable) {
       ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
     }
-    if (props.columnFilterAble) {
-      ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
-    }
+
+    ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
+
     return _this;
   }
   // columns = this.props.columns.slice();
@@ -261,6 +266,7 @@ var Grid = function (_Component) {
     var _this3 = this;
 
     var icon = "uf-arrow-down";
+    var showFilterMenu = this.props.showFilterMenu;
     var local = this.local;
 
     return columns.map(function (originColumn, index) {
@@ -298,7 +304,7 @@ var Grid = function (_Component) {
       }
       var menu = _react2["default"].createElement(
         _beeMenus2["default"],
-        { onSelect: _this3.onMenuSelect, selectedKeys: [] },
+        { onSelect: _this3.onMenuSelect, selectedKeys: [], "data-type": "menu11", className: "grid-menu" },
         menuInfo.map(function (da) {
           return _react2["default"].createElement(
             Item,
@@ -308,16 +314,16 @@ var Grid = function (_Component) {
         })
       );
       column.hasHeaderMenu = true;
-      column.title = _react2["default"].createElement(
-        "span",
-        { className: "title-con drop-menu" },
-        column.title,
-        _react2["default"].createElement(
-          _beeDropdown2["default"],
-          { trigger: ["click"], overlay: menu, animation: "slide-up" },
-          _react2["default"].createElement(_beeIcon2["default"], { type: icon })
-        )
-      );
+      // column.title = (
+      //   <span className="title-con drop-menu">
+      //     {column.title}
+      //     <Dropdown trigger={["click"]} overlay={menu} animation="slide-up" data-type="menu11">
+      //       <Icon type={icon} />
+      //     </Dropdown>
+      //   </span>
+      // );
+      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu, onMenuSelect: _this3.onMenuSelect });
+
       return column;
     });
   };
@@ -362,7 +368,8 @@ var Grid = function (_Component) {
     //默认固定表头
     var scroll = _extends({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
-
+    delete paginationParam.horizontalPosition;
+    delete paginationParam.verticalPosition;
     var filterable = this.state.filterable;
 
     var columns = this.columns.slice();
@@ -374,6 +381,7 @@ var Grid = function (_Component) {
       "div",
       { className: (0, _classnames2["default"])("u-grid", props.className) },
       paginationParam.verticalPosition == "top" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+        className: paginationParam.horizontalPosition,
         first: true,
         last: true,
         prev: true,
@@ -396,6 +404,7 @@ var Grid = function (_Component) {
         filterable: filterable
       })),
       paginationParam.verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+        className: paginationParam.horizontalPosition,
         first: true,
         last: true,
         prev: true,
@@ -420,6 +429,8 @@ var _initialiseProps = function _initialiseProps() {
   this.columns = this.props.columns.map(function (colItem) {
     return _extends({}, colItem);
   });
+
+  this.changeMenuKey = function (key) {};
 
   this.handleSelectPage = function (eventKey) {
     var _props$paginationObj = _this4.props.paginationObj,
