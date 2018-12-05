@@ -534,11 +534,9 @@ class Grid extends Component {
   render() {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
-    const paginationParam = Object.assign(
-      {},
-      defualtPaginationParam,
-      paginationObj
-    );
+    const paginationParam = {...defualtPaginationParam,...paginationObj}
+    const verticalPosition = paginationParam.verticalPosition;
+    const horizontalPosition = paginationParam.horizontalPosition;
     //默认固定表头
     const scroll = Object.assign({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
@@ -552,10 +550,10 @@ class Grid extends Component {
     }
     return (
       <div className={classNames("u-grid", props.className)}>
-        {paginationParam.verticalPosition == "top" && (
+        {verticalPosition == "top" && (
           <Pagination
             {...paginationParam}
-            className={paginationParam.horizontalPosition}
+            className={horizontalPosition}
             first
             last
             prev
@@ -580,11 +578,11 @@ class Grid extends Component {
           afterDragColWidth={this.afterDragColWidth}
           filterable={filterable}
         />
-        {paginationParam.verticalPosition == "bottom" && (
+        {verticalPosition == "bottom" && (
           <Pagination
         
             {...paginationParam}
-            className={paginationParam.horizontalPosition}
+            className={horizontalPosition}
             first
             last
             prev

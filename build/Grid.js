@@ -365,6 +365,8 @@ var Grid = function (_Component) {
         paginationObj = props.paginationObj;
 
     var paginationParam = _extends({}, defualtPaginationParam, paginationObj);
+    var verticalPosition = paginationParam.verticalPosition;
+    var horizontalPosition = paginationParam.horizontalPosition;
     //默认固定表头
     var scroll = _extends({}, { y: true }, props.scroll);
     delete paginationParam.freshData;
@@ -380,8 +382,8 @@ var Grid = function (_Component) {
     return _react2["default"].createElement(
       "div",
       { className: (0, _classnames2["default"])("u-grid", props.className) },
-      paginationParam.verticalPosition == "top" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
-        className: paginationParam.horizontalPosition,
+      verticalPosition == "top" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+        className: horizontalPosition,
         first: true,
         last: true,
         prev: true,
@@ -403,8 +405,8 @@ var Grid = function (_Component) {
         afterDragColWidth: this.afterDragColWidth,
         filterable: filterable
       })),
-      paginationParam.verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
-        className: paginationParam.horizontalPosition,
+      verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+        className: horizontalPosition,
         first: true,
         last: true,
         prev: true,
