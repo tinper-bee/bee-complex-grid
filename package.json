@@ -47,7 +47,7 @@
   "bee-menus": "^1.0.7",
   "bee-pagination": "^1.1.12",
   "bee-popover": "^1.0.2",
-  "bee-table": "^1.6.1",
+  "bee-table": "^1.6.10-beta.0",
   "classnames": "^2.2.6",
   "tinper-bee-core": "latest",
   "blob.js": "^1.0.1",
