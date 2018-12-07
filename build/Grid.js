@@ -268,51 +268,53 @@ var Grid = function (_Component) {
     var icon = "uf-arrow-down";
     var showFilterMenu = this.props.showFilterMenu;
     var local = this.local;
+    // const exitNoFixedColumn = columns.find(item=> !item.fixed)
 
-    return columns.map(function (originColumn, index) {
+    return columns.map(function (originColumn, index, arr) {
       var column = _extends({}, originColumn);
-      var menuInfo = [],
-          fixTitle = local["fixTitle"],
-          showTitle = local["hideTitle"];
-      if (originColumn.fixed) {
-        fixTitle = local["noFixTitle"];
-      }
-      menuInfo.push({
-        info: fixTitle,
-        key: "fix",
-        fieldKey: originColumn.key,
-        index: 0
-      });
-      //非固定列添加是否显示菜单item
-      if (!originColumn.fixed) {
-        menuInfo.push({
-          info: showTitle,
-          key: "show",
-          fieldKey: originColumn.key,
-          checked: originColumn.checked,
-          index: 1
-        });
-      }
-      //是否行过滤菜单item
-      if (_this3.props.showFilterMenu) {
-        menuInfo.push({
-          info: local["rowFilter"],
-          key: "rowFilter",
-          fieldKey: originColumn.key,
-          index: 3
-        });
-      }
-      var menu = _react2["default"].createElement(
-        _beeMenus2["default"],
-        { onSelect: _this3.onMenuSelect, selectedKeys: [], "data-type": "menu11", className: "grid-menu" },
-        menuInfo.map(function (da) {
-          return _react2["default"].createElement(
-            Item,
-            { key: da.key, index: da.index, data: da },
-            da.info
-          );
-        })
-      );
+      // let menuInfo = [],
+      //   fixTitle = local["fixTitle"],
+      //   showTitle = local["hideTitle"];
+      // if (originColumn.fixed) {
+      //   fixTitle = local["noFixTitle"];
+      // }
+      // menuInfo.push({
+      //   info: fixTitle,
+      //   key: `fix`,
+      //   fieldKey: originColumn.key,
+      //   exitNoFixedColumn:exitNoFixedColumn,
+      //   index: 0
+      // });
+      // //非固定列添加是否显示菜单item
+      // if (!originColumn.fixed) {
+      //   menuInfo.push({
+      //     info: showTitle,
+      //     key: `show`,
+      //     fieldKey: originColumn.key,
+      //     checked: originColumn.checked,
+      //     index: 1
+      //   });
+      // }
+      // //是否行过滤菜单item
+      // if (this.props.showFilterMenu) {
+      //   menuInfo.push({
+      //     info: local["rowFilter"],
+      //     key: "rowFilter",
+      //     fieldKey: originColumn.key,
+      //     index: 3
+      //   });
+      // }
+      // let menu = (
+      //   <Menu onSelect={this.onMenuSelect} selectedKeys={[]} data-type="menu11" className="grid-menu">
+      //     {menuInfo.map(da => {
+      //       return (
+      //         <Item key={da.key} index={da.index} data={da}>
+      //           {da.info}
+      //         </Item>
+      //       );
+      //     })}
+      //   </Menu>
+      // );
       column.hasHeaderMenu = true;
       // column.title = (
       //   <span className="title-con drop-menu">
@@ -322,7 +324,7 @@ var Grid = function (_Component) {
       //     </Dropdown>
       //   </span>
       // );
-      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu, onMenuSelect: _this3.onMenuSelect });
+      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu, onMenuSelect: _this3.onMenuSelect, allColumns: arr });
 
       return column;
     });

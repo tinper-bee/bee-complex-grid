@@ -4316,6 +4316,9 @@ input.u-button[type="submit"] {
 .u-grid th:hover .drop-menu .uf {
   visibility: visible; }
 
+.u-grid th ::last-child {
+  overflow: hidden; }
+
 .u-grid .u-pagination {
   overflow: hidden;
   margin-bottom: 8px; }

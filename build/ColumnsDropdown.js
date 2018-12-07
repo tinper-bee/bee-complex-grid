@@ -85,10 +85,17 @@ var ColumnsDropdown = function (_Component) {
     var _props = this.props,
         originColumn = _props.originColumn,
         local = _props.local,
-        showFilterMenu = _props.showFilterMenu;
+        showFilterMenu = _props.showFilterMenu,
+        allColumns = _props.allColumns;
     var visible = this.state.visible;
 
     var icon = "uf-arrow-down";
+    var noFixedCount = 0; //非固定列个数
+    allColumns.forEach(function (item) {
+      if (!item.fixed) {
+        noFixedCount = noFixedCount + 1;
+      }
+    });
     var menuInfo = [],
         fixTitle = local["fixTitle"],
         showTitle = local["hideTitle"];
@@ -99,6 +106,7 @@ var ColumnsDropdown = function (_Component) {
       info: fixTitle,
       key: "fix",
       fieldKey: originColumn.key,
+      disabled: noFixedCount < 2 && !originColumn.fixed,
       index: 0
     });
     //非固定列添加是否显示菜单item
@@ -131,7 +139,7 @@ var ColumnsDropdown = function (_Component) {
       menuInfo.map(function (da) {
         return _react2["default"].createElement(
           Item,
-          { key: da.key, index: da.index, data: da },
+          { key: da.key, index: da.index, data: da, disabled: da.disabled },
           da.info
         );
       })
