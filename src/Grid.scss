@@ -26,6 +26,9 @@
                 }
             }
         }
+        ::last-child{
+            overflow: hidden;
+          }
     }
     .u-pagination {
         

@@ -45,9 +45,15 @@ class ColumnsDropdown extends Component {
   }
 
   render() {
-    let { originColumn, local ,showFilterMenu} = this.props;
+    let { originColumn, local ,showFilterMenu,allColumns} = this.props;
     const {visible} = this.state;
     const icon = "uf-arrow-down";
+    let noFixedCount =0;//非固定列个数
+    allColumns.forEach(item => {
+      if(!item.fixed){
+        noFixedCount = noFixedCount + 1;
+      }
+    });
     let menuInfo = [],
       fixTitle = local["fixTitle"],
       showTitle = local["hideTitle"];
@@ -58,6 +64,7 @@ class ColumnsDropdown extends Component {
       info: fixTitle,
       key: `fix`,
       fieldKey: originColumn.key,
+      disabled:noFixedCount<2 && !originColumn.fixed,
       index: 0
     });
     //非固定列添加是否显示菜单item
@@ -88,7 +95,7 @@ class ColumnsDropdown extends Component {
       >
         {menuInfo.map(da => {
           return (
-            <Item key={da.key} index={da.index} data={da}>
+            <Item key={da.key} index={da.index} data={da} disabled={da.disabled}>
               {da.info}
             </Item>
           );
