@@ -9,7 +9,7 @@
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/tinper-bee/bee-complex-grid.svg)](http://isitmaintained.com/project/tinper-bee/bee-complex-grid "Percentage of issues still open")
 
 
-##复杂表格
+## 高级表格
 
 bee-complex-grid 是基于bee-table上封装，将多选、过滤、排序、分页、固定列等多功能基于一身。在使用bee-table实现复杂功能时，需要高级组件嵌套高级组件，使用起来经常有问题。有了bee-complex-grid ，用户仅需要引入Grid即可，大大减少代码量，提供代码质量。
 
@@ -55,6 +55,7 @@ class Demo extends Component {
 ## API
 
 table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面是Grid扩充的API
+
 |参数|说明|类型|默认值|
 |:--|:---:|:--:|---:|
 |paginationObj|表格分页，具体参考[分页API](http://bee.tinper.org/bee-pagination#bee-pagination)|Object|{activePage: 1, total: 0,items:1}
