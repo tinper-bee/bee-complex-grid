@@ -93,7 +93,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var propTypes = {
   showHeaderMenu: _propTypes2["default"].bool,
   sheetName: _propTypes2["default"].string,
-  sheetIsRowFilter: _propTypes2["default"].bool
+  sheetIsRowFilter: _propTypes2["default"].bool,
+  exportData: _propTypes2["default"].array
 };
 var defaultProps = {
   scroll: {
@@ -105,6 +106,7 @@ var defaultProps = {
   dragborder: true,
   showHeaderMenu: true,
   data: [],
+  exportData: [],
   locale: {},
   paginationObj: {},
   sheetName: "sheet", //导出表格的name
@@ -116,6 +118,26 @@ var Item = _beeMenus2["default"].Item;
 
 var ComplexTable = _beeTable2["default"];
 var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom' };
+
+/**
+ * 简单数组数据对象拷贝
+ * @param {*} obj 要拷贝的对象 
+ */
+function ObjectAssign(obj) {
+  var b = obj instanceof Array;
+  var tagObj = b ? [] : {};
+  if (b) {
+    //数组
+    obj.forEach(function (da) {
+      var _da = {};
+      _extends(_da, da);
+      tagObj.push(_da);
+    });
+  } else {
+    _extends(tagObj, obj);
+  }
+  return tagObj;
+}
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
@@ -640,7 +662,8 @@ var _initialiseProps = function _initialiseProps() {
     var _props = _this4.props,
         sheetIsRowFilter = _props.sheetIsRowFilter,
         sheetName = _props.sheetName,
-        _sheetHeader = _props.sheetHeader;
+        _sheetHeader = _props.sheetHeader,
+        exportData = _props.exportData;
 
     var colsAndTablePros = _this4.getColumnsAndTablePros();
     var sheetHeader = [],
@@ -651,7 +674,7 @@ var _initialiseProps = function _initialiseProps() {
       sheetHeader.push(column.title);
       columnAttr.push({
         wpx: column.width,
-        hidden: column.ifshow === false ? true : false
+        hidden: column.excelHidden // column.excelHidden === false ? true : false
       });
       sheetFilter.push(column.dataIndex);
     });
@@ -663,7 +686,7 @@ var _initialiseProps = function _initialiseProps() {
     }
     var option = {
       datas: [{
-        sheetData: _this4.props.data,
+        sheetData: exportData,
         sheetName: sheetName,
         sheetFilter: sheetFilter,
         sheetHeader: sheetHeader,

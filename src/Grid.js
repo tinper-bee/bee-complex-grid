@@ -22,7 +22,8 @@ import { getComponentLocale } from "bee-locale/build/tool";
 const propTypes = {
   showHeaderMenu: PropTypes.bool,
   sheetName: PropTypes.string,
-  sheetIsRowFilter: PropTypes.bool
+  sheetIsRowFilter: PropTypes.bool,
+  exportData:PropTypes.array
 };
 const defaultProps = {
   scroll: {
@@ -34,6 +35,7 @@ const defaultProps = {
   dragborder: true,
   showHeaderMenu: true,
   data: [],
+  exportData:[],
   locale: {},
   paginationObj: {},
   sheetName: "sheet", //导出表格的name
@@ -44,6 +46,26 @@ const { Item } = Menu;
 
 let ComplexTable = Table;
 const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom' };
+
+  /**
+   * 简单数组数据对象拷贝
+   * @param {*} obj 要拷贝的对象 
+   */
+  function ObjectAssign(obj){
+    let b = obj instanceof Array;
+    let tagObj = b?[]:{};
+    if(b){//数组
+      obj.forEach(da => {
+        let _da = {};
+        Object.assign(_da,da);
+        tagObj.push(_da);
+      });
+    }else{
+      Object.assign(tagObj,obj);
+    }
+    return tagObj;
+  }
+
 class Grid extends Component {
   constructor(props) {
     super(props);
@@ -456,8 +478,11 @@ class Grid extends Component {
     return rowAttr;
   };
 
+
+  
+
   exportExcel = () => {
-    let { sheetIsRowFilter, sheetName, sheetHeader: _sheetHeader } = this.props;
+    let { sheetIsRowFilter, sheetName, sheetHeader: _sheetHeader ,exportData} = this.props;
     let colsAndTablePros = this.getColumnsAndTablePros();
     let sheetHeader = [],
       columnAttr = [],
@@ -467,7 +492,7 @@ class Grid extends Component {
       sheetHeader.push(column.title);
       columnAttr.push({
         wpx: column.width,
-        hidden: column.ifshow === false ? true : false
+        hidden:column.excelHidden// column.excelHidden === false ? true : false
       });
       sheetFilter.push(column.dataIndex);
     });
@@ -480,7 +505,7 @@ class Grid extends Component {
     let option = {
       datas: [
         {
-          sheetData: this.props.data,
+          sheetData: exportData,
           sheetName,
           sheetFilter,
           sheetHeader,

@@ -67,12 +67,21 @@ table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面�
 |resetColumns|重置columns|function|this.refs.grid.resetColumns(columns)|
 
 
+### Column(新增)
+
+|参数|说明|类型|默认值|
+|:--|:---|:--|:---| 
+|excelHidden|是否在导出中隐藏此列|boolean	|false|
+
+
 ####  导出excel 使用
 
 ```js
   exportExcel=()=>{
     this.refs.grid.exportExcel();
   }
+
+  
 ```
 
 #### 开发调试

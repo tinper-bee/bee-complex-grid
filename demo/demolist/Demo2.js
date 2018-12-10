@@ -1,6 +1,6 @@
 /**
  *
- * @title 排序的grid
+ * @title 高级表格(排序)应用
  * @description 基础grid上添加排序功能
  *
  */

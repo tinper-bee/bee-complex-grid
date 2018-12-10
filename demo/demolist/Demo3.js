@@ -1,28 +1,31 @@
 /**
- * @title 高级表格的基础应用grid
- * @description 全选、分页、过滤功能、交换
+  * @title 高级表格(保存操作模板、导出excel)应用 
+ * @description 拖住表格宽度、交换列、以及导出excel功能
  *
  */
 import React, { Component } from "react";
+import Button from 'bee-button';
 import Grid from "../../src";
+
 const column = [
   {
     title: "序号",
     dataIndex: "index",
     key: "index",
-    width: 100
+    width: 100,
+    exportHidden:true //是否在导出中隐藏此列
   },
   {
     title: "订单编号",
     dataIndex: "orderCode",
     key: "orderCode",
-    width: 150
+    width: 100
   },
   {
     title: "供应商名称",
     dataIndex: "supplierName",
     key: "supplierName",
-    width: 160
+    width: 100
   },
   {
     title: "类型",
@@ -34,7 +37,7 @@ const column = [
     title: "采购组织",
     dataIndex: "purchasing",
     key: "purchasing",
-    width: 150
+    width: 100
   },
   {
     title: "采购组",
@@ -46,13 +49,13 @@ const column = [
     title: "凭证日期",
     dataIndex: "voucherDate",
     key: "voucherDate",
-    width: 150
+    width: 100
   },
   {
     title: "审批状态",
     dataIndex: "approvalState_name",
     key: "approvalState_name",
-    width: 150
+    width: 100
   },
   {
     title: "确认状态",
@@ -64,7 +67,7 @@ const column = [
     title: "关闭状态",
     dataIndex: "closeState_name",
     key: "closeState_name",
-    width: 150
+    width: 100
   },
   {
     title: "操作",
@@ -150,16 +153,46 @@ const dataList = [
   }
 ];
 
-class Demo1 extends Component {
+const exportDataList = [
+  {
+    index: 1,
+    orderCode: "2343",
+    supplierName: "xxx",
+    type_name: "123",
+    purchasing: "内行",
+    purchasingGroup: "323",
+    voucherDate: "kkkk",
+    approvalState_name: "vvvv",
+    confirmState_name: "aaaa",
+    closeState_name: "vnnnnn",
+    d: "操作",
+    key: "1"
+  },
+  {
+    index: 4,
+    orderCode: "222",
+    supplierName: "22xxx",
+    type_name: "1223",
+    purchasing: "内行2",
+    purchasingGroup: "3223",
+    voucherDate: "222kk",
+    approvalState_name: "22vvvv",
+    confirmState_name: "2aaaa",
+    closeState_name: "2vnnnnn",
+    d: "4操作",
+    key: "4"
+  }
+];
+
+
+class Demo3 extends Component {
   constructor(props) {
     super(props);
-  }
-  //临时加个判断
-  shouldComponentUpdate(){
-    if(this.props.className =='u-panel-title'){
-      return false;
+    this.state={
+      showTemTable:false
     }
   }
+  
   getSelectedDataFunc = data => {
     console.log("data", data);
   };
@@ -177,34 +210,56 @@ class Demo1 extends Component {
   /**
    * 请求页面数据
    */
-  freshata=()=>{
+  freshData=()=>{
 
   }
-  onDataNumSelect=()=>{
-    console.log('选择每页多少条的回调函数');
+  createTemTable=()=>{
+    const colsAndTablePros = this.refs.grid.getColumnsAndTablePros();
+    this.setState({
+      showTemTable:true,
+      tablePros:colsAndTablePros.tablePros,
+      temColumns:colsAndTablePros.columns
+    });
   }
+
+  exportExcel = ()=>{
+    this.refs.grid.exportExcel();
+  }
+
   render() {
     let paginationObj = {
       activePage: 1,//当前页
       items:10,//总页数
       total:100,
-      freshData:this.freshData,
-      onDataNumSelect:this.onDataNumSelect,
-      dataNum:2
+      freshData:this.freshData
     }
     return (
-      <Grid
-        className='gridDemo'
-        columns={column}
-        data={dataList}
-        getSelectedDataFunc={this.getSelectedDataFunc}
-        multiSelect={{ type: "checkbox" }}
-        scroll={{ y: 100 }}
-        headerScroll={true}
-        selectedRow={this.selectedRow}
-        paginationObj={paginationObj}
-      />
+      <div>
+        <div className='btn_group'>
+          <Button colors="primary" onClick={this.createTemTable}>生成模板表格</Button>
+          <Button colors="primary" onClick={this.exportExcel}>导出数据</Button>
+        </div>
+        <Grid
+           ref="grid"
+          className='gridDemo'
+          columns={column}
+          data={dataList}
+          exportData={exportDataList}
+          getSelectedDataFunc={this.getSelectedDataFunc}
+          checkMinSize={7}
+          // draggable={true}
+          dragborder
+          multiSelect={{ type: "checkbox" }}
+          scroll={{ x: "130%", y: 100 }}
+          selectedRow={this.selectedRow}
+          paginationObj={paginationObj}
+        />
+        <h3>根据模板生成的表格</h3>
+        {this.state.showTemTable?
+          <Grid {...this.state.tablePros} columns={this.state.temColumns}/>
+          :""}
+      </div>
     );
   }
 }
-export default Demo1;
+export default Demo3;
