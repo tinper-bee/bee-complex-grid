@@ -53,6 +53,7 @@ class Demo extends Component {
 ```
 
 ## API
+
 table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面是Grid扩充的API
 |参数|说明|类型|默认值|
 |:--|:---:|:--:|---:|
