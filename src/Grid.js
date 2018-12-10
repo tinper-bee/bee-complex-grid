@@ -492,7 +492,7 @@ class Grid extends Component {
       sheetHeader.push(column.title);
       columnAttr.push({
         wpx: column.width,
-        hidden:column.excelHidden// column.excelHidden === false ? true : false
+        hidden:column.exportHidden// column.excelHidden === false ? true : false
       });
       let _cloum = column.exportKey?column.exportKey:column.dataIndex
       sheetFilter.push(_cloum);

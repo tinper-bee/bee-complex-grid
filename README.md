@@ -73,7 +73,7 @@ table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面�
 
 |参数|说明|类型|默认值|
 |:--|:---|:--|:---| 
-|excelHidden|是否在导出中隐藏此列|boolean	|false|
+|exportHidden|是否在导出中隐藏此列|boolean	|false|
 |exportKey|单独设置当前列的key[eg:性别 返回字段中 table 使用 id ，而导出中使用 name ]|string	|-|
 
 

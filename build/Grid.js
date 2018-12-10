@@ -674,7 +674,7 @@ var _initialiseProps = function _initialiseProps() {
       sheetHeader.push(column.title);
       columnAttr.push({
         wpx: column.width,
-        hidden: column.excelHidden // column.excelHidden === false ? true : false
+        hidden: column.exportHidden // column.excelHidden === false ? true : false
       });
       var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
       sheetFilter.push(_cloum);
