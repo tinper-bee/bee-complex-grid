@@ -19,6 +19,7 @@ const column = [
     title: "订单编号",
     dataIndex: "orderCode",
     key: "orderCode",
+    exportKey:'supplierName',//单独设置当前列的导出的key
     width: 100
   },
   {

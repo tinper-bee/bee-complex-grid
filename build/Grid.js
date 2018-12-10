@@ -676,7 +676,8 @@ var _initialiseProps = function _initialiseProps() {
         wpx: column.width,
         hidden: column.excelHidden // column.excelHidden === false ? true : false
       });
-      sheetFilter.push(column.dataIndex);
+      var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
+      sheetFilter.push(_cloum);
     });
     if (_sheetHeader) {
       rowAttr.push(_this4.getItem(_sheetHeader));

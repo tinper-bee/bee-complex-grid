@@ -494,7 +494,8 @@ class Grid extends Component {
         wpx: column.width,
         hidden:column.excelHidden// column.excelHidden === false ? true : false
       });
-      sheetFilter.push(column.dataIndex);
+      let _cloum = column.exportKey?column.exportKey:column.dataIndex
+      sheetFilter.push(_cloum);
     });
     if (_sheetHeader) {
       rowAttr.push(this.getItem(_sheetHeader));
