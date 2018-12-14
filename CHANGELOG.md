@@ -1,3 +1,28 @@
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.7...v1.0.8) (2018-12-14)
+
+
+### Bug Fixes
+
+* **保存锁定的zhuagnt:** 保存锁定的状态 ([8d28db7](https://github.com/tinper-bee/bee-complex-grid/commit/8d28db7))
+
+
+
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.6...v1.0.7) (2018-12-10)
+
+
+
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.5...v1.0.6) (2018-12-10)
+
+
+
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.4...v1.0.5) (2018-12-10)
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.3...v1.0.4) (2018-12-07)
 
