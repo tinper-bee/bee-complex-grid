@@ -166,9 +166,14 @@ class Grid extends Component {
           this.columns.forEach(item => {
             if (nextItem.dataIndex == item.dataIndex) {
               newItem = { ...item, ...nextItem };
+              //对于解锁的列，再次传入时还是解锁状态
+              if(!item.fixed){
+                newItem.fixed = '';
+              }
               if (item.width && newItem.width !== item.width) {
                 newItem.width = item.width;
               }
+
               newItem.hasHeaderMenu = false; //重置后的都需要重新渲染表头菜单
             }
           });
