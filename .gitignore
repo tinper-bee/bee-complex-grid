@@ -2,7 +2,8 @@
 logs
 *.log
 npm-debug.log*
-
+.DS_Store
+.idea
 # Runtime data
 pids
 *.pid
@@ -34,6 +35,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-dist
+
 coverage
-.idea/
+.*.swp
+package-lock.json
+demo/.DS_Store
+demo/demolist/.DS_Store
