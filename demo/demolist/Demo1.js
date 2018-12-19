@@ -164,15 +164,6 @@ class Demo1 extends Component {
     console.log("data", data);
   };
 
-  getCloumnsScroll = columns => {
-    let sum = 0;
-    columns.forEach(da => {
-      sum += da.width;
-    });
-    console.log("sum", sum);
-    return sum;
-  };
-
   selectedRow = (record, index) => {};
   /**
    * 请求页面数据
@@ -185,23 +176,16 @@ class Demo1 extends Component {
   }
   render() {
     let paginationObj = {
-      activePage: 1,//当前页
-      items:10,//总页数
-      total:100,
-      freshData:this.freshData,
-      onDataNumSelect:this.onDataNumSelect,
-      dataNum:2
+      items:10,//一页显示多少条
+      total:100,//总共多少条
+      freshData:this.freshData,//点击下一页刷新的数据
+      onDataNumSelect:this.onDataNumSelect //每页大小改变触发的事件
     }
     return (
       <Grid
-        className='gridDemo'
         columns={column}
         data={dataList}
         getSelectedDataFunc={this.getSelectedDataFunc}
-        multiSelect={{ type: "checkbox" }}
-        scroll={{ y: 100 }}
-        headerScroll={true}
-        selectedRow={this.selectedRow}
         paginationObj={paginationObj}
       />
     );

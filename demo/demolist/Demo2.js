@@ -101,7 +101,6 @@ class Demo2 extends Component {
   }
   render() {
     let paginationObj = {
-      activePage: 1,//当前页
       items:10,//总页数
       freshData:this.freshData
     }
@@ -112,7 +111,6 @@ class Demo2 extends Component {
       }
     return (
       <Grid
-        className='gridDemo'
         columns={column}
         data={dataList}
         getSelectedDataFunc={this.getSelectedDataFunc}

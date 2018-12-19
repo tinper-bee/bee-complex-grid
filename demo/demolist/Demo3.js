@@ -229,7 +229,6 @@ class Demo3 extends Component {
 
   render() {
     let paginationObj = {
-      activePage: 1,//当前页
       items:10,//总页数
       total:100,
       freshData:this.freshData
