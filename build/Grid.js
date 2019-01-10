@@ -22,9 +22,9 @@ var _beeTable = require("bee-table");
 
 var _beeTable2 = _interopRequireDefault(_beeTable);
 
-var _multiSelect = require("bee-table/build/lib/multiSelect");
+var _MultiSelect = require("bee-table/build/lib/MultiSelect");
 
-var _multiSelect2 = _interopRequireDefault(_multiSelect);
+var _MultiSelect2 = _interopRequireDefault(_MultiSelect);
 
 var _filterColumn = require("bee-table/build/lib/filterColumn");
 
@@ -41,6 +41,10 @@ var _sort2 = _interopRequireDefault(_sort);
 var _sum2 = require("bee-table/build/lib/sum");
 
 var _sum3 = _interopRequireDefault(_sum2);
+
+var _bigData = require("bee-table/build/lib/bigData");
+
+var _bigData2 = _interopRequireDefault(_bigData);
 
 var _beeIcon = require("bee-icon");
 
@@ -117,7 +121,7 @@ var Item = _beeMenus2["default"].Item;
 
 
 var ComplexTable = _beeTable2["default"];
-var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom' };
+var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true };
 
 /**
  * 简单数组数据对象拷贝
@@ -179,7 +183,10 @@ var Grid = function (_Component) {
       ComplexTable = (0, _sum3["default"])(ComplexTable);
     }
     if (props.multiSelect !== false) {
-      ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+      ComplexTable = (0, _MultiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+    }
+    if (props.loadLazy) {
+      ComplexTable = (0, _bigData2["default"])(ComplexTable);
     }
     if (props.draggable) {
       ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
@@ -421,7 +428,6 @@ var Grid = function (_Component) {
         boundaryLinks: true,
         activePage: this.state.activePage,
         onSelect: this.handleSelectPage,
-        showJump: true,
         items: this.state.pageItems,
         total: this.state.total
       })),
@@ -444,7 +450,6 @@ var Grid = function (_Component) {
         boundaryLinks: true,
         activePage: this.state.activePage,
         onSelect: this.handleSelectPage,
-        showJump: true,
         items: this.state.pageItems,
         total: this.state.total
       }))
