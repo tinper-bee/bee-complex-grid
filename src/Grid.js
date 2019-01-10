@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Table from "bee-table";
-import multiSelect from "bee-table/build/lib/multiSelect";
+import multiSelect from "bee-table/build/lib/MultiSelect";
 import filterColumn from "bee-table/build/lib/filterColumn";
 import dragColumn from "bee-table/build/lib/dragColumn";
 import sort from "bee-table/build/lib/sort";
 import sum from "bee-table/build/lib/sum";
+import bigData from "bee-table/build/lib/bigData";
 import Icon from "bee-icon";
 import Checkbox from "bee-checkbox";
 import Popover from "bee-popover";
@@ -45,7 +46,7 @@ const defaultProps = {
 const { Item } = Menu;
 
 let ComplexTable = Table;
-const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom' };
+const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom',showJump:true };
 
   /**
    * 简单数组数据对象拷贝
@@ -103,6 +104,9 @@ class Grid extends Component {
     }
     if (props.multiSelect !== false) {
       ComplexTable = multiSelect(ComplexTable, Checkbox);
+    }
+    if(props.loadLazy){
+      ComplexTable = bigData(ComplexTable);
     }
     if (props.draggable) {
       ComplexTable = dragColumn(ComplexTable);
@@ -595,7 +599,6 @@ class Grid extends Component {
             boundaryLinks
             activePage={this.state.activePage}
             onSelect={this.handleSelectPage}
-            showJump={true}
             items={this.state.pageItems}
             total={this.state.total}
           />
@@ -613,7 +616,6 @@ class Grid extends Component {
         />
         {verticalPosition == "bottom" && (
           <Pagination
-        
             {...paginationParam}
             className={horizontalPosition}
             first
@@ -624,7 +626,6 @@ class Grid extends Component {
             boundaryLinks
             activePage={this.state.activePage}
             onSelect={this.handleSelectPage}
-            showJump={true}
             items={this.state.pageItems}
             total={this.state.total}
           />

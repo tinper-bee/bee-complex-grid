@@ -179,12 +179,14 @@ class Demo1 extends Component {
       items:10,//一页显示多少条
       total:100,//总共多少条
       freshData:this.freshData,//点击下一页刷新的数据
-      onDataNumSelect:this.onDataNumSelect //每页大小改变触发的事件
+      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
+      showJump:false
     }
     return (
       <Grid
         columns={column}
         data={dataList}
+        // dragborder={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         paginationObj={paginationObj}
       />
