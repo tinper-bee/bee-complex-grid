@@ -205,7 +205,7 @@ var Grid = function (_Component) {
     var renderFlag = this.state.renderFlag;
     //分页
 
-    if (nextProps.paginationObj) {
+    if (nextProps.paginationObj && nextProps.paginationObj !== 'none') {
       this.setState({
         activePage: nextProps.paginationObj.activePage,
         total: nextProps.paginationObj.total,
@@ -400,14 +400,21 @@ var Grid = function (_Component) {
         sort = _props$sort === undefined ? {} : _props$sort,
         paginationObj = props.paginationObj;
 
-    var paginationParam = _extends({}, defualtPaginationParam, paginationObj);
-    var verticalPosition = paginationParam.verticalPosition;
-    var horizontalPosition = paginationParam.horizontalPosition;
+    var paginationParam = void 0,
+        verticalPosition = void 0,
+        horizontalPosition = void 0;
+    if (paginationObj !== 'none') {
+      paginationParam = _extends({}, defualtPaginationParam, paginationObj);
+      verticalPosition = paginationParam.verticalPosition;
+      horizontalPosition = paginationParam.horizontalPosition;
+      delete paginationParam.freshData;
+      delete paginationParam.horizontalPosition;
+      delete paginationParam.verticalPosition;
+    }
+
     //默认固定表头
     var scroll = _extends({}, { y: true }, props.scroll);
-    delete paginationParam.freshData;
-    delete paginationParam.horizontalPosition;
-    delete paginationParam.verticalPosition;
+
     var filterable = this.state.filterable;
 
     var columns = this.columns.slice();
