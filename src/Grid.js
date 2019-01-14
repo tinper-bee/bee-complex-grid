@@ -122,7 +122,7 @@ class Grid extends Component {
   componentWillReceiveProps(nextProps) {
     const { renderFlag } = this.state;
     //分页
-    if (nextProps.paginationObj) {
+    if (nextProps.paginationObj && nextProps.paginationObj !== 'none' ) {
       this.setState({
         activePage: nextProps.paginationObj.activePage,
         total: nextProps.paginationObj.total,
@@ -571,14 +571,19 @@ class Grid extends Component {
   render() {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
-    const paginationParam = {...defualtPaginationParam,...paginationObj}
-    const verticalPosition = paginationParam.verticalPosition;
-    const horizontalPosition = paginationParam.horizontalPosition;
+    let paginationParam,verticalPosition,horizontalPosition;
+    if(paginationObj !== 'none'){
+       paginationParam = {...defualtPaginationParam,...paginationObj}
+       verticalPosition = paginationParam.verticalPosition;
+       horizontalPosition = paginationParam.horizontalPosition;
+      delete paginationParam.freshData;
+      delete paginationParam.horizontalPosition;
+      delete paginationParam.verticalPosition;
+    }
+  
     //默认固定表头
     const scroll = Object.assign({}, { y: true }, props.scroll);
-    delete paginationParam.freshData;
-    delete paginationParam.horizontalPosition;
-    delete paginationParam.verticalPosition;
+   
     const { filterable } = this.state;
     let columns = this.columns.slice();
     //是否显示表头菜单、已经显示过的不再显示
@@ -587,7 +592,7 @@ class Grid extends Component {
     }
     return (
       <div className={classNames("u-grid", props.className)}>
-        {verticalPosition == "top" && (
+        { verticalPosition == "top" && (
           <Pagination
             {...paginationParam}
             className={horizontalPosition}
