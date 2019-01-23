@@ -86,7 +86,8 @@ var ColumnsDropdown = function (_Component) {
         originColumn = _props.originColumn,
         local = _props.local,
         showFilterMenu = _props.showFilterMenu,
-        allColumns = _props.allColumns;
+        allColumns = _props.allColumns,
+        columnFilterAble = _props.columnFilterAble;
     var visible = this.state.visible;
 
     var icon = "uf-arrow-down";
@@ -110,7 +111,7 @@ var ColumnsDropdown = function (_Component) {
       index: 0
     });
     //非固定列添加是否显示菜单item
-    if (!originColumn.fixed) {
+    if (!originColumn.fixed && columnFilterAble) {
       menuInfo.push({
         info: showTitle,
         key: "show",

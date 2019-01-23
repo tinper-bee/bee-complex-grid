@@ -300,7 +300,9 @@ var Grid = function (_Component) {
     var _this3 = this;
 
     var icon = "uf-arrow-down";
-    var showFilterMenu = this.props.showFilterMenu;
+    var _props = this.props,
+        showFilterMenu = _props.showFilterMenu,
+        columnFilterAble = _props.columnFilterAble;
     var local = this.local;
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
 
@@ -358,7 +360,7 @@ var Grid = function (_Component) {
       //     </Dropdown>
       //   </span>
       // );
-      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu, onMenuSelect: _this3.onMenuSelect, allColumns: arr });
+      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu, onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble });
 
       return column;
     });
@@ -676,11 +678,11 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.exportExcel = function () {
-    var _props = _this4.props,
-        sheetIsRowFilter = _props.sheetIsRowFilter,
-        sheetName = _props.sheetName,
-        _sheetHeader = _props.sheetHeader,
-        exportData = _props.exportData;
+    var _props2 = _this4.props,
+        sheetIsRowFilter = _props2.sheetIsRowFilter,
+        sheetName = _props2.sheetName,
+        _sheetHeader = _props2.sheetHeader,
+        exportData = _props2.exportData;
 
     var colsAndTablePros = _this4.getColumnsAndTablePros();
     var sheetHeader = [],
