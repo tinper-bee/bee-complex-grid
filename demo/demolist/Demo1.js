@@ -5,6 +5,18 @@
  */
 import React, { Component } from "react";
 import Grid from "../../src";
+
+function fmoney(s, n) {
+  n = n > 0 && n <= 20 ? n : 2;
+  s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+  let l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
+  let t = "";
+  for (let i = 0; i < l.length; i++) {
+  t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+  }
+  return t.split("").reverse().join("") + "." + r;
+  }
+  
 const column = [
   {
     title: "序号",
@@ -19,10 +31,15 @@ const column = [
     width: 150
   },
   {
-    title: "供应商名称",
-    dataIndex: "supplierName",
-    key: "supplierName",
-    width: 160
+    title: "金额",
+    dataIndex: "money",
+    key: "money",
+    width: 160,
+    textAlign:'right',
+    render(text, record, index) {
+       let money = fmoney(text,2);
+       return (<span>{money}</span>)
+    }
   },
   {
     title: "类型",
@@ -101,6 +118,7 @@ const dataList = [
     approvalState_name: "vvvv",
     confirmState_name: "aaaa",
     closeState_name: "vnnnnn",
+    money:'1232.56',
     d: "操作",
     key: "1"
   },
@@ -116,6 +134,7 @@ const dataList = [
     approvalState_name: "22vvvv",
     confirmState_name: "2aaaa",
     closeState_name: "2vnnnnn",
+    money:'2341232.56',
     d: "2操作",
     key: "2"
   },
@@ -131,6 +150,7 @@ const dataList = [
     approvalState_name: "22vvvv",
     confirmState_name: "2aaaa",
     closeState_name: "2vnnnnn",
+    money:'122368732.56',
     d: "3操作",
     key: "3"
   },
@@ -145,6 +165,7 @@ const dataList = [
     approvalState_name: "22vvvv",
     confirmState_name: "2aaaa",
     closeState_name: "2vnnnnn",
+    money:'18765232.56',
     d: "4操作",
     key: "4"
   }
@@ -177,7 +198,7 @@ class Demo1 extends Component {
   render() {
     let paginationObj = {
       items:10,//一页显示多少条
-      total:100,//总共多少条
+      total:100,//总共多少条、
       freshData:this.freshData,//点击下一页刷新的数据
       onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
       showJump:false
@@ -187,7 +208,6 @@ class Demo1 extends Component {
         columns={column}
         data={dataList}
         multiSelect={false}
-        // dragborder={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         paginationObj={paginationObj}
       />

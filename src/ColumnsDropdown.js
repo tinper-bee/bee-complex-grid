@@ -45,7 +45,7 @@ class ColumnsDropdown extends Component {
   }
 
   render() {
-    let { originColumn, local ,showFilterMenu,allColumns} = this.props;
+    let { originColumn, local ,showFilterMenu,allColumns,columnFilterAble} = this.props;
     const {visible} = this.state;
     const icon = "uf-arrow-down";
     let noFixedCount =0;//非固定列个数
@@ -68,7 +68,7 @@ class ColumnsDropdown extends Component {
       index: 0
     });
     //非固定列添加是否显示菜单item
-    if (!originColumn.fixed) {
+    if (!originColumn.fixed && columnFilterAble) {
       menuInfo.push({
         info: showTitle,
         key: `show`,

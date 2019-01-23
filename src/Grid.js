@@ -41,7 +41,7 @@ const defaultProps = {
   paginationObj: {},
   sheetName: "sheet", //导出表格的name
   sheetIsRowFilter: false, //是否要设置行样式，是否遍历
-  columnFilterAble: true
+  columnFilterAble: true,
 };
 const { Item } = Menu;
 
@@ -293,7 +293,7 @@ class Grid extends Component {
    */
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
-    const {showFilterMenu} = this.props;
+    const {showFilterMenu,columnFilterAble} = this.props;
     const { local } = this;
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
     return columns.map((originColumn, index,arr) => {
@@ -350,7 +350,7 @@ class Grid extends Component {
       //     </Dropdown>
       //   </span>
       // );
-      column.title = <ColumnsDropdown originColumn={originColumn} local={this.local} showFilterMenu={showFilterMenu} onMenuSelect={this.onMenuSelect} allColumns={arr}/>;
+      column.title = <ColumnsDropdown originColumn={originColumn} local={this.local} showFilterMenu={showFilterMenu} onMenuSelect={this.onMenuSelect} allColumns={arr} columnFilterAble={columnFilterAble}/>;
 
       return column;
     });
