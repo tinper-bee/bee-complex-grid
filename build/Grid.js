@@ -121,7 +121,8 @@ var Item = _beeMenus2["default"].Item;
 
 
 var ComplexTable = _beeTable2["default"];
-var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true };
+
+var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
 
 /**
  * 简单数组数据对象拷贝
@@ -429,11 +430,7 @@ var Grid = function (_Component) {
       { className: (0, _classnames2["default"])("u-grid", props.className) },
       verticalPosition == "top" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
         className: horizontalPosition,
-        first: true,
-        last: true,
-        prev: true,
-        next: true,
-        maxButtons: 5,
+
         boundaryLinks: true,
         activePage: this.state.activePage,
         onSelect: this.handleSelectPage,
@@ -451,11 +448,6 @@ var Grid = function (_Component) {
       })),
       verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
         className: horizontalPosition,
-        first: true,
-        last: true,
-        prev: true,
-        next: true,
-        maxButtons: 5,
         boundaryLinks: true,
         activePage: this.state.activePage,
         onSelect: this.handleSelectPage,

@@ -46,7 +46,8 @@ const defaultProps = {
 const { Item } = Menu;
 
 let ComplexTable = Table;
-const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom',showJump:true };
+
+const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom',showJump:true,first:true,prev:true,last:true,next:true,maxButtons:5 };
 
   /**
    * 简单数组数据对象拷贝
@@ -596,11 +597,7 @@ class Grid extends Component {
           <Pagination
             {...paginationParam}
             className={horizontalPosition}
-            first
-            last
-            prev
-            next
-            maxButtons={5}
+           
             boundaryLinks
             activePage={this.state.activePage}
             onSelect={this.handleSelectPage}
@@ -623,11 +620,6 @@ class Grid extends Component {
           <Pagination
             {...paginationParam}
             className={horizontalPosition}
-            first
-            last
-            prev
-            next
-            maxButtons={5}
             boundaryLinks
             activePage={this.state.activePage}
             onSelect={this.handleSelectPage}
