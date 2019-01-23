@@ -12,7 +12,7 @@ table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面�
 |columnFilterAble|是否显示列过滤功能|boolean|true|
 |sheetName【excel】| 设置导出excel 的sheet的名称 | string | -- |
 |sheetIsRowFilter【excel】| 是否要设置数据的行高 | boolean | false |
-|sheetHeader【excel】| 设置导出excel 的Head的高度 | Object | eg:{{height:30, //设置高度ifshow:false //是否显示}} |
+|sheetHeader【excel】| 设置导出excel 的Head的高度 | Object | eg:height:30, //设置高度ifshow:false //是否显示 |
 |resetColumns|重置columns|function|this.refs.grid.resetColumns(columns)|
 |exportData|要导出的数据源|array	|-|
 |afterRowFilter|是否增加栏位过滤|boolean	|true|
