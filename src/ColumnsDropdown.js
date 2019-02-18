@@ -45,7 +45,7 @@ class ColumnsDropdown extends Component {
   }
 
   render() {
-    let { originColumn, local ,showFilterMenu,allColumns,columnFilterAble} = this.props;
+    let { originColumn, local ,showFilterMenu,allColumns,columnFilterAble,filterable} = this.props;
     const {visible} = this.state;
     const icon = "uf-arrow-down";
     let noFixedCount =0;//非固定列个数
@@ -79,8 +79,10 @@ class ColumnsDropdown extends Component {
     }
     //是否行过滤菜单item
     if (showFilterMenu) {
+      let title= filterable?local["closeRowFilter"]:local["openRowFilter"];
+
       menuInfo.push({
-        info: local["rowFilter"],
+        info: title,
         key: "rowFilter",
         fieldKey: originColumn.key,
         index: 3

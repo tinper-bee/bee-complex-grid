@@ -295,6 +295,7 @@ class Grid extends Component {
   renderColumnsDropdown(columns) {
     const icon = "uf-arrow-down";
     const {showFilterMenu,columnFilterAble} = this.props;
+    const {filterable} = this.state;
     const { local } = this;
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
     return columns.map((originColumn, index,arr) => {
@@ -351,7 +352,10 @@ class Grid extends Component {
       //     </Dropdown>
       //   </span>
       // );
-      column.title = <ColumnsDropdown originColumn={originColumn} local={this.local} showFilterMenu={showFilterMenu} onMenuSelect={this.onMenuSelect} allColumns={arr} columnFilterAble={columnFilterAble}/>;
+      column.title = <ColumnsDropdown originColumn={originColumn} local={this.local} showFilterMenu={showFilterMenu}
+                                       onMenuSelect={this.onMenuSelect} allColumns={arr} columnFilterAble={columnFilterAble}
+                                       filterable={filterable} 
+                                       />;
 
       return column;
     });
