@@ -304,6 +304,7 @@ var Grid = function (_Component) {
     var _props = this.props,
         showFilterMenu = _props.showFilterMenu,
         columnFilterAble = _props.columnFilterAble;
+    var filterable = this.state.filterable;
     var local = this.local;
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
 
@@ -361,7 +362,10 @@ var Grid = function (_Component) {
       //     </Dropdown>
       //   </span>
       // );
-      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu, onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble });
+      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu,
+        onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble,
+        filterable: filterable
+      });
 
       return column;
     });

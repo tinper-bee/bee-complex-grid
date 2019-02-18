@@ -1998,7 +1998,7 @@ input.u-button[type="submit"] {
       list-style-type: none; }
       .u-pagination-list > li > a:hover, .u-pagination-list > li > span:hover, .u-pagination-list > li > a:focus, .u-pagination-list > li > span:focus {
         color: #666;
-        background-color: #eee;
+        background-color: rgba(122, 134, 154, 0.35);
         border-color: #d7d7d7;
         cursor: pointer; }
       .u-pagination-list > li > a > i {
@@ -2007,8 +2007,8 @@ input.u-button[type="submit"] {
       z-index: 2;
       color: #fff;
       cursor: default;
-      background-color: rgb(30,136,229);
-      border-color: rgb(30,136,229); }
+      background-color: #7A869A;
+      border-color: #7A869A; }
     .u-pagination-list > .disabled > a, .u-pagination-list > .disabled > span, .u-pagination-list > .disabled > a:hover, .u-pagination-list > .disabled > span:hover, .u-pagination-list > .disabled > a:focus, .u-pagination-list > .disabled > span:focus {
       color: #777;
       cursor: not-allowed;
@@ -2208,7 +2208,7 @@ input.u-button[type="submit"] {
   border: 1px solid #d7d7d7; }
   .u-pagination-gap > li > a:hover {
     background-color: transparent;
-    border-color: rgb(30,136,229); }
+    border-color: #7A869A; }
 
 .u-pagination-gap > li:first-child > a, .u-pagination-gap > li:last-child > a {
   border-radius: 5px; }

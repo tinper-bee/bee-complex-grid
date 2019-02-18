@@ -87,7 +87,8 @@ var ColumnsDropdown = function (_Component) {
         local = _props.local,
         showFilterMenu = _props.showFilterMenu,
         allColumns = _props.allColumns,
-        columnFilterAble = _props.columnFilterAble;
+        columnFilterAble = _props.columnFilterAble,
+        filterable = _props.filterable;
     var visible = this.state.visible;
 
     var icon = "uf-arrow-down";
@@ -122,8 +123,10 @@ var ColumnsDropdown = function (_Component) {
     }
     //是否行过滤菜单item
     if (showFilterMenu) {
+      var title = filterable ? local["closeRowFilter"] : local["openRowFilter"];
+
       menuInfo.push({
-        info: local["rowFilter"],
+        info: title,
         key: "rowFilter",
         fieldKey: originColumn.key,
         index: 3
