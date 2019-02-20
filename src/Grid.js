@@ -43,30 +43,10 @@ const defaultProps = {
   sheetIsRowFilter: false, //是否要设置行样式，是否遍历
   columnFilterAble: true,
 };
-const { Item } = Menu;
 
 let ComplexTable = Table;
 
 const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom',showJump:true,first:true,prev:true,last:true,next:true,maxButtons:5 };
-
-  /**
-   * 简单数组数据对象拷贝
-   * @param {*} obj 要拷贝的对象 
-   */
-  function ObjectAssign(obj){
-    let b = obj instanceof Array;
-    let tagObj = b?[]:{};
-    if(b){//数组
-      obj.forEach(da => {
-        let _da = {};
-        Object.assign(_da,da);
-        tagObj.push(_da);
-      });
-    }else{
-      Object.assign(tagObj,obj);
-    }
-    return tagObj;
-  }
 
 class Grid extends Component {
   constructor(props) {

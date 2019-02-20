@@ -15,7 +15,8 @@
 |sheetHeader【excel】| 设置导出excel 的Head的高度 | Object | eg:height:30, //设置高度ifshow:false //是否显示 |
 |resetColumns|重置columns|function|this.refs.grid.resetColumns(columns)|
 |exportData|要导出的数据源|array	|-|
-|afterRowFilter|是否增加栏位过滤|boolean	|true|
+|afterRowFilter|行过滤菜单显示隐藏时的回调函数|Function	|-|
+|noReplaceColumns|重置column内容|boolean	|false|
 
 
 ### Column(新增)

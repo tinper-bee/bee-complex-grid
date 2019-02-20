@@ -207,7 +207,6 @@ class Demo1 extends Component {
       <Grid
         columns={column}
         data={dataList}
-        multiSelect={false}
         getSelectedDataFunc={this.getSelectedDataFunc}
         paginationObj={paginationObj}
       />
