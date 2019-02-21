@@ -117,32 +117,10 @@ var defaultProps = {
   sheetIsRowFilter: false, //是否要设置行样式，是否遍历
   columnFilterAble: true
 };
-var Item = _beeMenus2["default"].Item;
-
 
 var ComplexTable = _beeTable2["default"];
 
 var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
-
-/**
- * 简单数组数据对象拷贝
- * @param {*} obj 要拷贝的对象 
- */
-function ObjectAssign(obj) {
-  var b = obj instanceof Array;
-  var tagObj = b ? [] : {};
-  if (b) {
-    //数组
-    obj.forEach(function (da) {
-      var _da = {};
-      _extends(_da, da);
-      tagObj.push(_da);
-    });
-  } else {
-    _extends(tagObj, obj);
-  }
-  return tagObj;
-}
 
 var Grid = function (_Component) {
   _inherits(Grid, _Component);
