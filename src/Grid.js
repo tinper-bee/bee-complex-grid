@@ -52,12 +52,7 @@ class Grid extends Component {
   constructor(props) {
     super(props);
    
-    this.local = getComponentLocale(
-      this.props,
-      this.context,
-      "Grid",
-      () => i18n
-    );
+   
     let { paginationObj, sort: sortObj, filterable } = props;
     //一些属性需要内部控制，放在state中
     this.state = {
@@ -276,7 +271,6 @@ class Grid extends Component {
     const icon = "uf-arrow-down";
     const {showFilterMenu,columnFilterAble} = this.props;
     const {filterable} = this.state;
-    const { local } = this;
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
     return columns.map((originColumn, index,arr) => {
       let column = Object.assign({}, originColumn);
@@ -557,6 +551,12 @@ class Grid extends Component {
     const props = this.props;
     let { sort = {}, paginationObj } = props;
     let paginationParam,verticalPosition,horizontalPosition;
+    this.local = getComponentLocale(
+      this.props,
+      this.context,
+      "Grid",
+      () => i18n
+    );
     if(paginationObj !== 'none'){
        paginationParam = {...defualtPaginationParam,...paginationObj}
        verticalPosition = paginationParam.verticalPosition;
@@ -617,4 +617,7 @@ class Grid extends Component {
 }
 Grid.propTypes = propTypes;
 Grid.defaultProps = defaultProps;
+Grid.contextTypes = {
+  beeLocale: PropTypes.object
+};
 export default Grid;
