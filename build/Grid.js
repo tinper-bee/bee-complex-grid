@@ -132,9 +132,6 @@ var Grid = function (_Component) {
 
     _initialiseProps.call(_this);
 
-    _this.local = (0, _tool.getComponentLocale)(_this.props, _this.context, "Grid", function () {
-      return _i18n2["default"];
-    });
     var paginationObj = props.paginationObj,
         sortObj = props.sort,
         filterable = props.filterable;
@@ -283,7 +280,6 @@ var Grid = function (_Component) {
         showFilterMenu = _props.showFilterMenu,
         columnFilterAble = _props.columnFilterAble;
     var filterable = this.state.filterable;
-    var local = this.local;
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
 
     return columns.map(function (originColumn, index, arr) {
@@ -388,6 +384,9 @@ var Grid = function (_Component) {
     var paginationParam = void 0,
         verticalPosition = void 0,
         horizontalPosition = void 0;
+    this.local = (0, _tool.getComponentLocale)(this.props, this.context, "Grid", function () {
+      return _i18n2["default"];
+    });
     if (paginationObj !== 'none') {
       paginationParam = _extends({}, defualtPaginationParam, paginationObj);
       verticalPosition = paginationParam.verticalPosition;
@@ -730,5 +729,8 @@ var _initialiseProps = function _initialiseProps() {
 
 Grid.propTypes = propTypes;
 Grid.defaultProps = defaultProps;
+Grid.contextTypes = {
+  beeLocale: _propTypes2["default"].object
+};
 exports["default"] = Grid;
 module.exports = exports["default"];
