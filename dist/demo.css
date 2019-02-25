@@ -6058,7 +6058,7 @@ ul {
     white-space: nowrap; }
   .u-select-dropdown .u-select-dropdown-menu-item:hover,
   .u-select-dropdown .u-select-dropdown-menu-item-active {
-    background-color: rgb(227,242,253); }
+    background-color: rgb(243,243,243); }
   .u-select-dropdown .u-select-dropdown-menu-item-disabled {
     color: #ccc;
     cursor: not-allowed; }
@@ -6452,7 +6452,7 @@ ul {
 .u-button {
   background: rgb(224,224,224);
   border: 1px solid rgb(224,224,224);
-  border-radius: 4px;
+  border-radius: 3px;
   color: rgb(0,0,0);
   position: relative;
   min-width: 72px;
@@ -9479,7 +9479,7 @@ input.u-button[type="submit"] {
 .u-button {
   background: rgb(224,224,224);
   border: 1px solid rgb(224,224,224);
-  border-radius: 4px;
+  border-radius: 3px;
   color: rgb(0,0,0);
   position: relative;
   min-width: 72px;
