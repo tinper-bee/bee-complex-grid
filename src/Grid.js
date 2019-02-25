@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Table from "bee-table";
-import multiSelect from "bee-table/build/lib/MultiSelect";
+import multiSelect from "bee-table/build/lib/multiSelect";
 import filterColumn from "bee-table/build/lib/filterColumn";
 import dragColumn from "bee-table/build/lib/dragColumn";
 import sort from "bee-table/build/lib/sort";

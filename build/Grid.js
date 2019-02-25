@@ -22,9 +22,9 @@ var _beeTable = require("bee-table");
 
 var _beeTable2 = _interopRequireDefault(_beeTable);
 
-var _MultiSelect = require("bee-table/build/lib/MultiSelect");
+var _multiSelect = require("bee-table/build/lib/multiSelect");
 
-var _MultiSelect2 = _interopRequireDefault(_MultiSelect);
+var _multiSelect2 = _interopRequireDefault(_multiSelect);
 
 var _filterColumn = require("bee-table/build/lib/filterColumn");
 
@@ -159,7 +159,7 @@ var Grid = function (_Component) {
       ComplexTable = (0, _sum3["default"])(ComplexTable);
     }
     if (props.multiSelect !== false) {
-      ComplexTable = (0, _MultiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+      ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
     }
     if (props.loadLazy) {
       ComplexTable = (0, _bigData2["default"])(ComplexTable);
