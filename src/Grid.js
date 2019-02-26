@@ -475,12 +475,26 @@ class Grid extends Component {
     let sheetHeader = [],
       columnAttr = [],
       rowAttr = [],
-      sheetFilter = [];
-    colsAndTablePros.columns.forEach(column => {
+      sheetFilter = [],
+      _exportHidden = false;
+
+    for (let index = 0; index < colsAndTablePros.columns.length; index++) {
+      const element = colsAndTablePros.columns[index];
+      if(element.exportHidden){
+        _exportHidden = true;
+        break;
+      }
+    }
+    console.log("--_excelHidden-******--",_exportHidden);
+    colsAndTablePros.columns.forEach(column => { 
       sheetHeader.push(column.title);
+      let _show = false;
+      if(column.ifshow != undefined && column.ifshow === false){
+        _show = true;
+      }
       columnAttr.push({
         wpx: column.width,
-        hidden:column.exportHidden// column.excelHidden === false ? true : false
+        hidden:_exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
       });
       let _cloum = column.exportKey?column.exportKey:column.dataIndex
       sheetFilter.push(_cloum);

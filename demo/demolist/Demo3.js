@@ -13,7 +13,7 @@ const column = [
     dataIndex: "index",
     key: "index",
     width: 100,
-    exportHidden:true //是否在导出中隐藏此列
+    // exportHidden:true //是否在导出中隐藏此列,此属性如不设置的话，他会读取当前页面的列是否隐藏和显示
   },
   {
     title: "订单编号",
@@ -38,7 +38,7 @@ const column = [
     title: "采购组织",
     dataIndex: "purchasing",
     key: "purchasing",
-    width: 100
+    width: 100,
   },
   {
     title: "采购组",
@@ -253,6 +253,7 @@ class Demo3 extends Component {
           scroll={{ x: "130%", y: 100 }}
           selectedRow={this.selectedRow}
           paginationObj={paginationObj}
+          showFilterPopover={true}
         />
         <h3>根据模板生成的表格</h3>
         {this.state.showTemTable?
