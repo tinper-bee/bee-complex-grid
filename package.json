@@ -1,6 +1,6 @@
 {
  "name": "bee-complex-grid",
- "version": "1.0.17",
+ "version": "1.0.18",
  "description": "Complex Grid for React, AdvancedDataGrid ",
  "keywords": [
   "react",
@@ -47,7 +47,7 @@
   "bee-menus": "1.0.7",
   "bee-pagination": "^1.1.12",
   "bee-popover": "^1.0.2",
-  "bee-table": "1.6.4-4.beta.0",
+  "bee-table": "^1.6.43",
   "blob.js": "^1.0.1",
   "classnames": "^2.2.6",
   "file-saver": "^1.3.3",

@@ -661,12 +661,26 @@ var _initialiseProps = function _initialiseProps() {
     var sheetHeader = [],
         columnAttr = [],
         rowAttr = [],
-        sheetFilter = [];
+        sheetFilter = [],
+        _exportHidden = false;
+
+    for (var index = 0; index < colsAndTablePros.columns.length; index++) {
+      var element = colsAndTablePros.columns[index];
+      if (element.exportHidden) {
+        _exportHidden = true;
+        break;
+      }
+    }
+    console.log("--_excelHidden-******--", _exportHidden);
     colsAndTablePros.columns.forEach(function (column) {
       sheetHeader.push(column.title);
+      var _show = false;
+      if (column.ifshow != undefined && column.ifshow === false) {
+        _show = true;
+      }
       columnAttr.push({
         wpx: column.width,
-        hidden: column.exportHidden // column.excelHidden === false ? true : false
+        hidden: _exportHidden ? column.exportHidden : _show //column.exportHidden // column.excelHidden === false ? true : false
       });
       var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
       sheetFilter.push(_cloum);
