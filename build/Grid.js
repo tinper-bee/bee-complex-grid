@@ -62,21 +62,13 @@ var _beePagination = require("bee-pagination");
 
 var _beePagination2 = _interopRequireDefault(_beePagination);
 
-var _beeMenus = require("bee-menus");
-
-var _beeMenus2 = _interopRequireDefault(_beeMenus);
-
-var _beeDropdown = require("bee-dropdown");
-
-var _beeDropdown2 = _interopRequireDefault(_beeDropdown);
-
 var _ExportExcel = require("./ExportExcel");
 
 var _ExportExcel2 = _interopRequireDefault(_ExportExcel);
 
-var _columnsDropdown = require("./columnsDropdown");
+var _ColumnsDropdown = require("./ColumnsDropdown");
 
-var _columnsDropdown2 = _interopRequireDefault(_columnsDropdown);
+var _ColumnsDropdown2 = _interopRequireDefault(_ColumnsDropdown);
 
 var _i18n = require("./i18n");
 
@@ -336,7 +328,7 @@ var Grid = function (_Component) {
       //     </Dropdown>
       //   </span>
       // );
-      column.title = _react2["default"].createElement(_columnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu,
+      column.title = _react2["default"].createElement(_ColumnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu,
         onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble,
         filterable: filterable
       });
