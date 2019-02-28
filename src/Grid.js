@@ -12,10 +12,8 @@ import Icon from "bee-icon";
 import Checkbox from "bee-checkbox";
 import Popover from "bee-popover";
 import Pagination from "bee-pagination";
-import Menu from "bee-menus";
-import Dropdown from "bee-dropdown";
 import ExportJsonExcel from "./ExportExcel";
-import ColumnsDropdown from './columnsDropdown';
+import ColumnsDropdown from './ColumnsDropdown';
 
 import i18n from "./i18n";
 import { getComponentLocale } from "bee-locale/build/tool";
