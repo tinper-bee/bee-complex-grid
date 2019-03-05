@@ -9938,20 +9938,6 @@ input.u-button[type="submit"] {
 .u-button-pill-right {
   border-radius: 0 500px 500px 0; }
 
-.collapsing {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  transition-property: height, visibility;
-  transition-duration: 0.35s;
-  transition-timing-function: ease; }
-
-.collapse {
-  display: none; }
-
-.collapse.in {
-  display: block; }
-
 .btn_group button {
   margin: 10px;
   margin-left: 0px; }
