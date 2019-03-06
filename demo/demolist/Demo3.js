@@ -240,8 +240,8 @@ class Demo3 extends Component {
           <Button colors="primary" onClick={this.exportExcel}>导出数据</Button>
         </div>
         <Grid
-           ref="grid"
-          className='gridDemo'
+          ref="grid"
+          className='gridDemo demo'
           columns={column}
           data={dataList}
           exportData={exportDataList}
