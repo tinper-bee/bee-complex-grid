@@ -25,9 +25,9 @@
     display: none; }
 
 .u-form-control[disabled] {
-  background: #eee;
-  border-color: #e0e0e0;
-  color: #BDBDBD;
+  background: #F7F9FB;
+  border-color: #DFE1E6;
+  color: #909090;
   cursor: not-allowed; }
 
 .u-form-control.lg {
@@ -1766,7 +1766,7 @@ ul {
     border-radius: 3px;
     width: 50px;
     text-align: center;
-    border: 1px solid #d7d7d7; }
+    border: 1px solid rgb(165, 173, 186); }
   .u-pagination .page_jump_btn,
   .u-pagination .page_jump_value {
     margin: 0 8px;
