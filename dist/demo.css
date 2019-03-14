@@ -8901,6 +8901,9 @@ ul {
 .u-grid th ::last-child {
   overflow: hidden; }
 
+.u-grid .u-checkbox {
+  margin: 0px; }
+
 .u-grid .u-pagination {
   overflow: hidden;
   margin-bottom: 8px; }
@@ -10021,5 +10024,16 @@ input.u-button[type="submit"] {
 .btn_group button {
   margin: 10px;
   margin-left: 0px; }
+
+.demo .u-table-filter-column-cont {
+  margin-bottom: 11px; }
+
+.demo .u-pagination {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
 
 /*# sourceMappingURL=demo.css.map */

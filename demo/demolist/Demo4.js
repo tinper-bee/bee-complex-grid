@@ -84,6 +84,7 @@ class Demo4 extends Component {
     }
     return (
       <Grid
+        className="demo"
         columns={columns}
         data={data}
         getSelectedDataFunc={this.getSelectedDataFunc}
