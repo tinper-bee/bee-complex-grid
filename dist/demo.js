@@ -6362,7 +6362,9 @@
 	        if (colorsMap[colors]) {
 	            clsObj[clsPrefix + '-' + colorsMap[colors]] = true;
 	        }
-	        //clsObj[`${clsPrefix}-border`] = bordered;
+	        if (bordered) {
+	            clsObj[clsPrefix + '-border'] = bordered;
+	        }
 	        var classes = (0, _classnames2["default"])(clsPrefix, clsObj);
 	        return _react2["default"].createElement(
 	            'button',
@@ -6435,7 +6437,7 @@
 	
 	var _multiSelect2 = _interopRequireDefault(_multiSelect);
 	
-	var _filterColumn = __webpack_require__(465);
+	var _filterColumn = __webpack_require__(461);
 	
 	var _filterColumn2 = _interopRequireDefault(_filterColumn);
 	
@@ -6459,7 +6461,7 @@
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
-	var _beeCheckbox = __webpack_require__(460);
+	var _beeCheckbox = __webpack_require__(462);
 	
 	var _beeCheckbox2 = _interopRequireDefault(_beeCheckbox);
 	
@@ -7378,7 +7380,7 @@
 	    var rows = [].concat(_toConsumableArray(props.data));
 	    _this.columnManager = new _ColumnManager2["default"](props.columns, props.children, props.originWidth);
 	    _this.store = (0, _createStore2["default"])({ currentHoverKey: null });
-	
+	    _this.firstDid = true;
 	    if (props.defaultExpandAllRows) {
 	      for (var i = 0; i < rows.length; i++) {
 	        var row = rows[i];
@@ -7499,6 +7501,8 @@
 	    if (prevProps.data.length === 0 || this.props.data.length === 0) {
 	      this.resetScrollX();
 	    }
+	    // 是否传入 scroll中的y属性，如果传入判断是否是整数，如果是则进行比较 。bodyTable 的clientHeight进行判断
+	    this.isShowScrollY();
 	  };
 	
 	  Table.prototype.componentWillUnmount = function componentWillUnmount() {
@@ -7546,6 +7550,23 @@
 	      this.setState({ contentWidthDiff: 0, lastShowIndex: lastShowIndex }); //重新渲染，为了显示滚动条
 	    }
 	  };
+	  //根据内容动态的判断是否显示纵向滚动条
+	
+	
+	  Table.prototype.isShowScrollY = function isShowScrollY() {
+	    var props = this.props;
+	    var y = props.scroll && props.scroll.y;
+	    if (y) {
+	      var bodyH = this.refs.bodyTable.clientHeight;
+	      var bodyContentH = this.refs.bodyTable.querySelector('table').clientHeight;
+	      var rightBodyTable = this.refs.fixedColumnsBodyRight;
+	      if (bodyContentH <= bodyH) {
+	        this.refs.bodyTable.style.overflowY = 'auto';
+	        this.refs.headTable.style.overflowY = 'auto';
+	        rightBodyTable && (rightBodyTable.style.overflowY = 'auto');
+	      }
+	    }
+	  };
 	
 	  Table.prototype.onExpandedRowsChange = function onExpandedRowsChange(expandedRowKeys) {
 	    if (!this.props.expandedRowKeys) {
@@ -7581,6 +7602,10 @@
 	    });
 	    if (index !== -1) {
 	      expandedRows.splice(index, 1);
+	    }
+	    //
+	    if (this.currentHoverKey == rowKey && this.hoverDom) {
+	      this.hoverDom.style.display = 'none';
 	    }
 	    this.onExpandedRowsChange(expandedRows);
 	  };
@@ -8430,19 +8455,21 @@
 	        currentHoverKey: isHover ? key : null
 	      });
 	    }
-	    if (this.hoverDom && isHover) {
-	      this.currentHoverKey = key;
-	      var td = (0, _utils.closest)(event.target, 'td');
-	      if (td) {
-	        var scrollTop = this.lastScrollTop ? this.lastScrollTop : 0;
-	        var top = td.offsetTop - scrollTop;
-	        if (this.refs.headTable) {
-	          top = top + this.refs.headTable.clientHeight;
+	    if (this.hoverDom) {
+	      if (isHover) {
+	        this.currentHoverKey = key;
+	        var td = (0, _utils.closest)(event.target, 'td');
+	        if (td) {
+	          var scrollTop = this.lastScrollTop ? this.lastScrollTop : 0;
+	          var top = td.offsetTop - scrollTop;
+	          if (this.refs.headTable) {
+	            top = top + this.refs.headTable.clientHeight;
+	          }
+	          this.hoverDom.style.top = top + 'px';
+	          this.hoverDom.style.height = td.offsetHeight + 'px';
+	          this.hoverDom.style.lineHeight = td.offsetHeight + 'px';
+	          this.hoverDom.style.display = 'block';
 	        }
-	        this.hoverDom.style.top = top + 'px';
-	        this.hoverDom.style.height = td.offsetHeight + 'px';
-	        this.hoverDom.style.lineHeight = td.offsetHeight + 'px';
-	        this.hoverDom.style.display = 'block';
 	      }
 	    }
 	
@@ -39550,11 +39577,10 @@
 	  }
 	
 	  InputGroupAddon.prototype.render = function render() {
-	    var _props = this.props;
-	    var className = _props.className;
-	    var clsPrefix = _props.clsPrefix;
-	
-	    var others = _objectWithoutProperties(_props, ['className', 'clsPrefix']);
+	    var _props = this.props,
+	        className = _props.className,
+	        clsPrefix = _props.clsPrefix,
+	        others = _objectWithoutProperties(_props, ['className', 'clsPrefix']);
 	
 	    return _react2["default"].createElement('span', _extends({}, others, {
 	      className: (0, _classnames2["default"])(className, clsPrefix)
@@ -40221,7 +40247,8 @@
 	            {
 	                value: this.state.value,
 	                animation: 'animation' in props ? props.animation : "slide-up",
-	                calendar: calendar
+	                calendar: calendar,
+	                disabled: props.disabled
 	            },
 	            function (_ref) {
 	                _objectDestructuringEmpty(_ref);
@@ -51260,13 +51287,13 @@
 	        value = format ? format(value) : value;
 	
 	        var disabledCursor = disabled ? ' disabled-cursor' : '';
-	
+	        var disabledCon = disabled ? ' disabled-con' : '';
 	        return _react2["default"].createElement(
 	            'div',
 	            null,
 	            iconStyle === 'double' ? _react2["default"].createElement(
 	                _beeInputGroup2["default"],
-	                { className: (0, _classnames2["default"])(className, classes) },
+	                { className: (0, _classnames2["default"])(className, classes, disabledCon) },
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
@@ -51295,7 +51322,7 @@
 	            ) : _react2["default"].createElement(
 	                _beeInputGroup2["default"],
 	                {
-	                    className: (0, _classnames2["default"])(className, classes),
+	                    className: (0, _classnames2["default"])(className, classes, disabledCon),
 	                    simple: true
 	                },
 	                _react2["default"].createElement(_beeFormControl2["default"], _extends({}, others, {
@@ -55250,7 +55277,7 @@
 	        if (column.fixed === 'left' || column.fixed === true) {
 	          var width = column.width;
 	          if (typeof width == 'string' && width.includes('%')) {
-	            width = contentWidth * parseInt(col.width) / 100;
+	            width = contentWidth * parseInt(column.width) / 100;
 	          }
 	          leftColumnsWidth += parseInt(width);
 	        }
@@ -55270,7 +55297,7 @@
 	        if (column.fixed === 'right') {
 	          var width = column.width;
 	          if (typeof width == 'string' && width.includes('%')) {
-	            width = contentWidth * parseInt(col.width) / 100;
+	            width = contentWidth * parseInt(column.width) / 100;
 	          }
 	          rightColumnsWidth += parseInt(width);
 	        }
@@ -55973,7 +56000,7 @@
 /* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -55987,11 +56014,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beeCheckbox = __webpack_require__(460);
-	
-	var _beeCheckbox2 = _interopRequireDefault(_beeCheckbox);
-	
-	var _util = __webpack_require__(464);
+	var _util = __webpack_require__(460);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -56002,6 +56025,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+	// import Checkbox from 'bee-checkbox';
+	
 	
 	/**
 	 * 参数: 过滤表头
@@ -56109,7 +56134,8 @@
 	
 	    return NewMultiSelect;
 	  }(_react.Component), _class.defaultProps = {
-	    prefixCls: "u-table-mult-select"
+	    prefixCls: "u-table-mult-select",
+	    getSelectedDataFunc: function getSelectedDataFunc() {}
 	  }, _initialiseProps = function _initialiseProps() {
 	    var _this2 = this;
 	
@@ -56193,7 +56219,7 @@
 	
 	      var _defaultColumns = [{
 	        title: _react2["default"].createElement(Checkbox, _extends({
-	          className: 'table-checkbox'
+	          className: "table-checkbox"
 	        }, checkAttr, {
 	          disabled: disabledCount == dataLength ? true : false,
 	          onChange: _this2.onAllCheckChange
@@ -56207,7 +56233,7 @@
 	          record._disabled ? attr.disabled = record._disabled : "";
 	          return _react2["default"].createElement(Checkbox, _extends({
 	            key: index,
-	            className: 'table-checkbox'
+	            className: "table-checkbox"
 	          }, attr, {
 	            checked: record._checked,
 	            onClick: _this2.handleClick,
@@ -56219,10 +56245,373 @@
 	    };
 	  }, _temp;
 	}
-	module.exports = exports['default'];
+	module.exports = exports["default"];
 
 /***/ }),
 /* 460 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.sortBy = sortBy;
+	exports.compare = compare;
+	exports.ObjectAssign = ObjectAssign;
+	/*
+	* 快速排序，按某个属性，或按“获取排序依据的函数”，来排序.
+	* @method soryBy
+	* @static
+	* @param {array} arr 待处理数组
+	* @param {string|function} prop 排序依据属性，获取
+	* @param {boolean} desc 降序
+	* @return {array} 返回排序后的新数组
+	*/
+	
+	function sortBy(arr, prop, desc) {
+	    var props = [],
+	        ret = [],
+	        i = 0,
+	        len = arr.length;
+	    if (typeof prop == 'string') {
+	        for (; i < len; i++) {
+	            var oI = arr[i];
+	            (props[i] = new String(oI && oI[prop] || ''))._obj = oI;
+	        }
+	    } else if (typeof prop == 'function') {
+	        for (; i < len; i++) {
+	            var _oI = arr[i];
+	            (props[i] = new String(_oI && prop(_oI) || ''))._obj = _oI;
+	        }
+	    } else {
+	        throw '参数类型错误';
+	    }
+	    props.sort();
+	    for (i = 0; i < len; i++) {
+	        ret[i] = props[i]._obj;
+	    }
+	    if (desc) ret.reverse();
+	    return ret;
+	};
+	
+	/**
+	 * 数组对象排序
+	 * console.log(arr.sort(compare('age')))
+	 * @param {} property 
+	 */
+	function compare(property) {
+	    return function (a, b) {
+	        var value1 = a[property];
+	        var value2 = b[property];
+	        return value1 - value2;
+	    };
+	}
+	
+	/**
+	 * 简单数组数据对象拷贝
+	 * @param {*} obj 要拷贝的对象 
+	 */
+	function ObjectAssign(obj) {
+	    var b = obj instanceof Array;
+	    var tagObj = b ? [] : {};
+	    if (b) {
+	        //数组
+	        obj.forEach(function (da) {
+	            var _da = {};
+	            _extends(_da, da);
+	            tagObj.push(_da);
+	        });
+	    } else {
+	        _extends(tagObj, obj);
+	    }
+	    return tagObj;
+	}
+
+/***/ }),
+/* 461 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports["default"] = filterColumn;
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _beeCheckbox = __webpack_require__(462);
+	
+	var _beeCheckbox2 = _interopRequireDefault(_beeCheckbox);
+	
+	var _beeIcon = __webpack_require__(361);
+	
+	var _beeIcon2 = _interopRequireDefault(_beeIcon);
+	
+	var _util = __webpack_require__(460);
+	
+	var _i18n = __webpack_require__(447);
+	
+	var _i18n2 = _interopRequireDefault(_i18n);
+	
+	var _tool = __webpack_require__(448);
+	
+	var _propTypes = __webpack_require__(5);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+	
+	function noop() {}
+	/**
+	 * 参数: 过滤表头
+	 * @param {*} Table
+	 * @param {*} Popover
+	 * @param {*} Icon
+	 */
+	
+	function filterColumn(Table, Popover) {
+	  var _class, _temp, _initialiseProps;
+	
+	  return _temp = _class = function (_Component) {
+	    _inherits(FilterColumn, _Component);
+	
+	    function FilterColumn(props) {
+	      _classCallCheck(this, FilterColumn);
+	
+	      var _this = _possibleConstructorReturn(this, _Component.call(this, props));
+	
+	      _initialiseProps.call(_this);
+	
+	      var columns = props.columns;
+	
+	      _this.state = {
+	        columns: _this.setColumOrderByIndex((0, _util.ObjectAssign)(columns)),
+	        showModal: false,
+	        screenY: 0
+	      };
+	      return _this;
+	    }
+	
+	    FilterColumn.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	      if (nextProps.columns != this.props.columns) {
+	        this.setState({
+	          columns: this.setColumOrderByIndex((0, _util.ObjectAssign)(nextProps.columns))
+	        });
+	      }
+	      this.setState({
+	        showModal: nextProps.showFilterPopover ? true : false
+	      });
+	    };
+	
+	    FilterColumn.prototype.render = function render() {
+	      var _props = this.props,
+	          data = _props.data,
+	          prefixCls = _props.prefixCls,
+	          scrollPro = _props.scroll;
+	      var _state = this.state,
+	          columns = _state.columns,
+	          showModal = _state.showModal;
+	
+	
+	      var locale = (0, _tool.getComponentLocale)(this.props, this.context, 'Table', function () {
+	        return _i18n2["default"];
+	      });
+	
+	      var _columns = [],
+	          widthState = 0,
+	          scroll = scrollPro;
+	      columns.forEach(function (da) {
+	        if (da.ifshow) {
+	          _columns.push(da);
+	          if (da.width) {
+	            widthState++;
+	          }
+	        }
+	      });
+	      // if(_columns.length == widthState){
+	      //   scroll.x = this.getCloumnsScroll(columns);
+	      // }
+	
+	      var content = _react2["default"].createElement(
+	        "div",
+	        { className: prefixCls + "-pop-cont" },
+	        _react2["default"].createElement(
+	          "span",
+	          { className: prefixCls + "-clear-setting", onClick: this.clear },
+	          locale["resetSettings"]
+	        ),
+	        _react2["default"].createElement(
+	          "div",
+	          null,
+	          this.getCloumItem()
+	        )
+	      );
+	
+	      return _react2["default"].createElement(
+	        "div",
+	        { className: prefixCls + "-cont" },
+	        _react2["default"].createElement(Table, _extends({}, this.props, {
+	          columns: _columns,
+	          data: data
+	          // scroll={scroll}
+	          //  scroll={{x:this.getCloumnsScroll(columns)}}
+	        })),
+	        this.props.columnFilterAble == false ? "" : _react2["default"].createElement(
+	          "div",
+	          { className: prefixCls + "-filter-icon" },
+	          _react2["default"].createElement(
+	            Popover,
+	            {
+	              id: "filter_column_popover",
+	              placement: "left",
+	              content: content,
+	              show: showModal
+	            },
+	            _react2["default"].createElement(
+	              "div",
+	              { className: prefixCls + "-pop-column-filter-cont" },
+	              _react2["default"].createElement(_beeIcon2["default"], { type: "uf-grid", onClick: this.openCloumList })
+	            )
+	          )
+	        )
+	      );
+	    };
+	
+	    return FilterColumn;
+	  }(_react.Component), _class.defaultProps = {
+	    prefixCls: "u-table-filter-column",
+	    afterFilter: noop,
+	    columnFilterAble: true,
+	    scroll: {}
+	  }, _class.contextTypes = {
+	    beeLocale: _propTypes2["default"].object
+	  }, _initialiseProps = function _initialiseProps() {
+	    var _this2 = this;
+	
+	    this.setColumOrderByIndex = function (_column) {
+	      _column.forEach(function (da) {
+	        //默认所有的列都显示，如果传递ifshow属性，根据ifshow属性值来判断是否显示某列
+	        if (da.hasOwnProperty("ifshow")) {
+	          da.checked = da.ifshow ? true : false;
+	          da.ifshow = da.checked;
+	        } else {
+	          da.checked = true;
+	          da.ifshow = true;
+	        }
+	      });
+	      return _column;
+	    };
+	
+	    this.checkedColumItemClick = function (da) {
+	      var _props2 = _this2.props,
+	          checkMinSize = _props2.checkMinSize,
+	          afterFilter = _props2.afterFilter;
+	      // if(checkMinSize)
+	
+	      var sum = 0,
+	          leng = 0;
+	      _this2.state.columns.forEach(function (da) {
+	        da.fixed ? "" : leng++;
+	        !da.fixed && da.checked ? sum++ : "";
+	      });
+	      if (sum < checkMinSize && da.checked) {
+	        return;
+	      } else {
+	        if (sum <= 1 && da.checked) return;
+	      }
+	      da.checked = da.checked ? false : true;
+	      da.ifshow = da.checked ? true : false;
+	
+	      _this2.setState(_extends({}, _this2.state));
+	      afterFilter(da, _this2.state.columns);
+	    };
+	
+	    this.openCloumList = function () {
+	      _this2.setState({
+	        showModal: true
+	      });
+	    };
+	
+	    this.getCloumItem = function () {
+	      var prefixCls = _this2.props.prefixCls;
+	      var columns = _this2.state.columns;
+	
+	      return columns.map(function (da, i) {
+	        var paramObj = {
+	          id: da.key,
+	          checked: da.checked
+	        };
+	        if (da.fixed) {
+	          paramObj.disabled = true;
+	        } else {
+	          paramObj.onClick = function () {
+	            _this2.checkedColumItemClick(da);
+	          };
+	        }
+	
+	        return _react2["default"].createElement(
+	          "div",
+	          {
+	            key: da.key + "_" + i,
+	            className: prefixCls + "-pop-cont-item"
+	          },
+	          _react2["default"].createElement(_beeCheckbox2["default"], paramObj),
+	          _react2["default"].createElement(
+	            "span",
+	            null,
+	            da.title
+	          )
+	        );
+	      });
+	    };
+	
+	    this.clear = function () {
+	      var columns = _this2.state.columns;
+	
+	      columns.forEach(function (da) {
+	        da.checked = true;
+	        da.ifshow = true;
+	      });
+	      _this2.setState({
+	        columns: columns
+	      });
+	      _this2.props.afterFilter(_this2.state.columns, _this2.state.columns);
+	    };
+	
+	    this.getCloumnsScroll = function (columns) {
+	      var sum = 0;
+	      columns.forEach(function (da) {
+	        if (da.checked) {
+	          sum += da.width;
+	        }
+	      });
+	      // console.log("sum",sum);
+	      return sum;
+	    };
+	  }, _temp;
+	}
+	module.exports = exports["default"];
+
+/***/ }),
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56231,11 +56620,11 @@
 	  value: true
 	});
 	
-	var _Checkbox = __webpack_require__(461);
+	var _Checkbox = __webpack_require__(463);
 	
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 	
-	var _CheckboxGroup = __webpack_require__(462);
+	var _CheckboxGroup = __webpack_require__(464);
 	
 	var _CheckboxGroup2 = _interopRequireDefault(_CheckboxGroup);
 	
@@ -56246,7 +56635,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 461 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56285,12 +56674,15 @@
 	
 	    colors: _propTypes2["default"].oneOf(['', 'dark', 'success', 'info', 'warning', 'danger', 'primary']),
 	
-	    disabled: _propTypes2["default"].bool
+	    disabled: _propTypes2["default"].bool,
+	
+	    inverse: _propTypes2["default"].bool
 	
 	};
 	
 	var defaultProps = {
 	    disabled: false,
+	    inverse: false,
 	    colors: 'primary',
 	    clsPrefix: 'u-checkbox',
 	    defaultChecked: false,
@@ -56326,6 +56718,7 @@
 	    Checkbox.prototype.render = function render() {
 	        var _props = this.props,
 	            disabled = _props.disabled,
+	            inverse = _props.inverse,
 	            colors = _props.colors,
 	            size = _props.size,
 	            className = _props.className,
@@ -56336,7 +56729,7 @@
 	            clsPrefix = _props.clsPrefix,
 	            onDoubleClick = _props.onDoubleClick,
 	            onChange = _props.onChange,
-	            others = _objectWithoutProperties(_props, ['disabled', 'colors', 'size', 'className', 'indeterminate', 'onClick', 'children', 'checked', 'clsPrefix', 'onDoubleClick', 'onChange']);
+	            others = _objectWithoutProperties(_props, ['disabled', 'inverse', 'colors', 'size', 'className', 'indeterminate', 'onClick', 'children', 'checked', 'clsPrefix', 'onDoubleClick', 'onChange']);
 	
 	        var input = _react2["default"].createElement('input', _extends({}, others, {
 	            type: 'checkbox',
@@ -56347,6 +56740,10 @@
 	            'is-checked': this.state.checked,
 	            disabled: disabled
 	        };
+	
+	        if (inverse) {
+	            classes[clsPrefix + '-inverse'] = true;
+	        }
 	
 	        if (colors) {
 	            classes[clsPrefix + '-' + colors] = true;
@@ -56434,7 +56831,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 462 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56455,11 +56852,11 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _Checkbox = __webpack_require__(461);
+	var _Checkbox = __webpack_require__(463);
 	
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 	
-	var _lodash = __webpack_require__(463);
+	var _lodash = __webpack_require__(465);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -56476,13 +56873,15 @@
 	var propTypes = {
 	    clsPrefix: _propTypes2["default"].string,
 	    value: _propTypes2["default"].array,
-	    onChange: _propTypes2["default"].func
+	    onChange: _propTypes2["default"].func,
+	    disabled: _propTypes2["default"].bool
 	};
 	
 	var defaultProps = {
 	    clsPrefix: 'u-checkbox-group',
 	    value: [],
-	    onChange: function onChange() {}
+	    onChange: function onChange() {},
+	    disabled: false
 	};
 	
 	var CheckboxGroup = function (_React$Component) {
@@ -56525,7 +56924,8 @@
 	
 	        var _props = this.props,
 	            clsPrefix = _props.clsPrefix,
-	            className = _props.className;
+	            className = _props.className,
+	            disabled = _props.disabled;
 	
 	        var classes = clsPrefix;
 	        if (className) classes += ' ' + className;
@@ -56537,7 +56937,8 @@
 	                    onChange: function onChange() {
 	                        _this2.changeHandle(child.props.value);
 	                    },
-	                    checked: _this2.state.values.indexOf(child.props.value) != -1
+	                    checked: _this2.state.values.indexOf(child.props.value) != -1,
+	                    disabled: disabled
 	                });
 	            })
 	        );
@@ -56553,7 +56954,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 463 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -58408,369 +58809,6 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(104)(module)))
 
 /***/ }),
-/* 464 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	exports.sortBy = sortBy;
-	exports.compare = compare;
-	exports.ObjectAssign = ObjectAssign;
-	/*
-	* 快速排序，按某个属性，或按“获取排序依据的函数”，来排序.
-	* @method soryBy
-	* @static
-	* @param {array} arr 待处理数组
-	* @param {string|function} prop 排序依据属性，获取
-	* @param {boolean} desc 降序
-	* @return {array} 返回排序后的新数组
-	*/
-	
-	function sortBy(arr, prop, desc) {
-	    var props = [],
-	        ret = [],
-	        i = 0,
-	        len = arr.length;
-	    if (typeof prop == 'string') {
-	        for (; i < len; i++) {
-	            var oI = arr[i];
-	            (props[i] = new String(oI && oI[prop] || ''))._obj = oI;
-	        }
-	    } else if (typeof prop == 'function') {
-	        for (; i < len; i++) {
-	            var _oI = arr[i];
-	            (props[i] = new String(_oI && prop(_oI) || ''))._obj = _oI;
-	        }
-	    } else {
-	        throw '参数类型错误';
-	    }
-	    props.sort();
-	    for (i = 0; i < len; i++) {
-	        ret[i] = props[i]._obj;
-	    }
-	    if (desc) ret.reverse();
-	    return ret;
-	};
-	
-	/**
-	 * 数组对象排序
-	 * console.log(arr.sort(compare('age')))
-	 * @param {} property 
-	 */
-	function compare(property) {
-	    return function (a, b) {
-	        var value1 = a[property];
-	        var value2 = b[property];
-	        return value1 - value2;
-	    };
-	}
-	
-	/**
-	 * 简单数组数据对象拷贝
-	 * @param {*} obj 要拷贝的对象 
-	 */
-	function ObjectAssign(obj) {
-	    var b = obj instanceof Array;
-	    var tagObj = b ? [] : {};
-	    if (b) {
-	        //数组
-	        obj.forEach(function (da) {
-	            var _da = {};
-	            _extends(_da, da);
-	            tagObj.push(_da);
-	        });
-	    } else {
-	        _extends(tagObj, obj);
-	    }
-	    return tagObj;
-	}
-
-/***/ }),
-/* 465 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	exports["default"] = filterColumn;
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _beeCheckbox = __webpack_require__(460);
-	
-	var _beeCheckbox2 = _interopRequireDefault(_beeCheckbox);
-	
-	var _beeIcon = __webpack_require__(361);
-	
-	var _beeIcon2 = _interopRequireDefault(_beeIcon);
-	
-	var _util = __webpack_require__(464);
-	
-	var _i18n = __webpack_require__(447);
-	
-	var _i18n2 = _interopRequireDefault(_i18n);
-	
-	var _tool = __webpack_require__(448);
-	
-	var _propTypes = __webpack_require__(5);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
-	
-	function noop() {}
-	/**
-	 * 参数: 过滤表头
-	 * @param {*} Table
-	 * @param {*} Popover
-	 * @param {*} Icon
-	 */
-	
-	function filterColumn(Table, Popover) {
-	  var _class, _temp, _initialiseProps;
-	
-	  return _temp = _class = function (_Component) {
-	    _inherits(FilterColumn, _Component);
-	
-	    function FilterColumn(props) {
-	      _classCallCheck(this, FilterColumn);
-	
-	      var _this = _possibleConstructorReturn(this, _Component.call(this, props));
-	
-	      _initialiseProps.call(_this);
-	
-	      var columns = props.columns;
-	
-	      _this.state = {
-	        columns: _this.setColumOrderByIndex((0, _util.ObjectAssign)(columns)),
-	        showModal: false,
-	        screenY: 0
-	      };
-	      return _this;
-	    }
-	
-	    FilterColumn.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	      if (nextProps.columns != this.props.columns) {
-	        this.setState({
-	          columns: this.setColumOrderByIndex((0, _util.ObjectAssign)(nextProps.columns))
-	        });
-	      }
-	      this.setState({
-	        showModal: nextProps.showFilterPopover ? true : false
-	      });
-	    };
-	
-	    FilterColumn.prototype.render = function render() {
-	      var _props = this.props,
-	          data = _props.data,
-	          prefixCls = _props.prefixCls,
-	          scrollPro = _props.scroll;
-	      var _state = this.state,
-	          columns = _state.columns,
-	          showModal = _state.showModal;
-	
-	
-	      var locale = (0, _tool.getComponentLocale)(this.props, this.context, 'Table', function () {
-	        return _i18n2["default"];
-	      });
-	
-	      var _columns = [],
-	          widthState = 0,
-	          scroll = scrollPro;
-	      columns.forEach(function (da) {
-	        if (da.ifshow) {
-	          _columns.push(da);
-	          if (da.width) {
-	            widthState++;
-	          }
-	        }
-	      });
-	      // if(_columns.length == widthState){
-	      //   scroll.x = this.getCloumnsScroll(columns);
-	      // }
-	
-	      var content = _react2["default"].createElement(
-	        "div",
-	        { className: prefixCls + "-pop-cont" },
-	        _react2["default"].createElement(
-	          "span",
-	          { className: prefixCls + "-clear-setting", onClick: this.clear },
-	          locale["resetSettings"]
-	        ),
-	        _react2["default"].createElement(
-	          "div",
-	          null,
-	          this.getCloumItem()
-	        )
-	      );
-	
-	      return _react2["default"].createElement(
-	        "div",
-	        { className: prefixCls + "-cont" },
-	        _react2["default"].createElement(Table, _extends({}, this.props, {
-	          columns: _columns,
-	          data: data
-	          // scroll={scroll}
-	          //  scroll={{x:this.getCloumnsScroll(columns)}}
-	        })),
-	        this.props.columnFilterAble == false ? "" : _react2["default"].createElement(
-	          "div",
-	          { className: prefixCls + "-filter-icon" },
-	          _react2["default"].createElement(
-	            Popover,
-	            {
-	              id: "filter_column_popover",
-	              placement: "left",
-	              content: content,
-	              show: showModal
-	            },
-	            _react2["default"].createElement(
-	              "div",
-	              { className: prefixCls + "-pop-column-filter-cont" },
-	              _react2["default"].createElement(_beeIcon2["default"], { type: "uf-grid", onClick: this.openCloumList })
-	            )
-	          )
-	        )
-	      );
-	    };
-	
-	    return FilterColumn;
-	  }(_react.Component), _class.defaultProps = {
-	    prefixCls: "u-table-filter-column",
-	    afterFilter: noop,
-	    columnFilterAble: true,
-	    scroll: {}
-	  }, _class.contextTypes = {
-	    beeLocale: _propTypes2["default"].object
-	  }, _initialiseProps = function _initialiseProps() {
-	    var _this2 = this;
-	
-	    this.setColumOrderByIndex = function (_column) {
-	      _column.forEach(function (da) {
-	        //默认所有的列都显示，如果传递ifshow属性，根据ifshow属性值来判断是否显示某列
-	        if (da.hasOwnProperty("ifshow")) {
-	          da.checked = da.ifshow ? true : false;
-	          da.ifshow = da.checked;
-	        } else {
-	          da.checked = true;
-	          da.ifshow = true;
-	        }
-	      });
-	      return _column;
-	    };
-	
-	    this.checkedColumItemClick = function (da) {
-	      var _props2 = _this2.props,
-	          checkMinSize = _props2.checkMinSize,
-	          afterFilter = _props2.afterFilter;
-	      // if(checkMinSize)
-	
-	      var sum = 0,
-	          leng = 0;
-	      _this2.state.columns.forEach(function (da) {
-	        da.fixed ? "" : leng++;
-	        !da.fixed && da.checked ? sum++ : "";
-	      });
-	      if (sum < checkMinSize && da.checked) {
-	        return;
-	      } else {
-	        if (sum <= 1 && da.checked) return;
-	      }
-	      da.checked = da.checked ? false : true;
-	      da.ifshow = da.checked ? true : false;
-	
-	      _this2.setState(_extends({}, _this2.state));
-	      afterFilter(da, _this2.state.columns);
-	    };
-	
-	    this.openCloumList = function () {
-	      _this2.setState({
-	        showModal: true
-	      });
-	    };
-	
-	    this.getCloumItem = function () {
-	      var prefixCls = _this2.props.prefixCls;
-	      var columns = _this2.state.columns;
-	
-	      return columns.map(function (da, i) {
-	        var paramObj = {
-	          id: da.key,
-	          checked: da.checked
-	        };
-	        if (da.fixed) {
-	          paramObj.disabled = true;
-	        } else {
-	          paramObj.onClick = function () {
-	            _this2.checkedColumItemClick(da);
-	          };
-	        }
-	
-	        return _react2["default"].createElement(
-	          "div",
-	          {
-	            key: da.key + "_" + i,
-	            className: prefixCls + "-pop-cont-item"
-	          },
-	          _react2["default"].createElement(_beeCheckbox2["default"], paramObj),
-	          _react2["default"].createElement(
-	            "span",
-	            null,
-	            da.title
-	          )
-	        );
-	      });
-	    };
-	
-	    this.clear = function () {
-	      var columns = _this2.state.columns;
-	
-	      columns.forEach(function (da) {
-	        da.checked = true;
-	        da.ifshow = true;
-	      });
-	      _this2.setState({
-	        columns: columns
-	      });
-	      _this2.props.afterFilter(_this2.state.columns, _this2.state.columns);
-	    };
-	
-	    this.getCloumnsScroll = function (columns) {
-	      var sum = 0;
-	      columns.forEach(function (da) {
-	        if (da.checked) {
-	          sum += da.width;
-	        }
-	      });
-	      // console.log("sum",sum);
-	      return sum;
-	    };
-	  }, _temp;
-	}
-	module.exports = exports["default"];
-
-/***/ }),
 /* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -58790,7 +58828,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _util = __webpack_require__(464);
+	var _util = __webpack_require__(460);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
