@@ -1,7 +1,21 @@
 # Grid
+
+## 何时使用
+当需要复杂表格展示数据的时候
+
+## 如何使用
+
+```
+
+import Grid from 'bee-complex-grid';
+import bee-complex-grid/build/Grid.css;
+
+```
+
 ## 代码演示
+
 ## API
-table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面是Grid扩充的API
+table相关API参考[这里](https://design.yonyoucloud.com/tinper-bee/bee-table),下面是Grid扩充的API
 
 |参数|说明|类型|默认值|
 |:--|:---:|:--:|---:|
@@ -27,7 +41,7 @@
 |exportKey|单独设置当前列的key[eg:性别 返回字段中 table 使用 id ，而导出中使用 name ]|string	|-|
 
 
-####  导出excel 使用
+###  导出excel 使用
 
 ```js
   exportExcel=()=>{
@@ -38,3 +52,8 @@
 ```
 
 
+## 注意事项
+
+暂无
+
+## 更新日志
