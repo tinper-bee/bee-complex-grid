@@ -38,7 +38,7 @@ class Demo extends Component {
             </Button>
         );
         return (
-            <Col md={12} >
+            <Col md={12} id={title.trim()} >
                 <h3>{ title }</h3>
                 <p>{ desc }</p>
                 <Panel collapsible headerContent expanded={ this.state.open } colors='bordered' header={ example } footer={footer} footerStyle = {{padding: 0}}>
