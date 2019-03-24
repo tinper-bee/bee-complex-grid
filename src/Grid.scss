@@ -99,7 +99,7 @@
 
 
 
-.u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-up, .u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-flat {
-    width: auto;
-  }
+.u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-down, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-flat, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-up {
+    width:auto !important;
+}
 
