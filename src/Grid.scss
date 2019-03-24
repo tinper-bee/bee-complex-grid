@@ -18,25 +18,27 @@
                 cursor: pointer;
             }
         }
-        .title-con {
-            i.uf{
-                padding-right: 4px;
-                padding-left: 0px;
-                // float: right;
-            }
-        }
-        .drop-menu-title {
-            width: calc(100% - 18px) !important;
+        // .title-con {
+        //     i.uf{
+        //         padding-right: 4px;
+        //         padding-left: 0px;
+        //         // float: right;
+        //     }
+        // }
+        .drop-menu {
+            // width: calc(100% - 18px) !important;
             text-overflow: ellipsis;
             white-space: nowrap;
             display: inline-block;
             vertical-align: middle;
             overflow: hidden;
-        }
-        .cansort {
-            .drop-menu-title {
-                width: calc(100% - 40px) !important;
+            i.uf{
+                padding-left: 4px;
             }
+        }
+        .cansort.drop-menu {
+                width: calc(100% - 24px) !important;
+            
         }
         .bee-table-column-sorter {
             margin-left: 0px;

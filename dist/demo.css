@@ -8891,20 +8891,17 @@ ul {
   visibility: hidden;
   cursor: pointer; }
 
-.u-grid th .title-con i.uf {
-  padding-right: 4px;
-  padding-left: 0px; }
-
-.u-grid th .drop-menu-title {
-  width: calc(100% - 18px) !important;
+.u-grid th .drop-menu {
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
   vertical-align: middle;
   overflow: hidden; }
+  .u-grid th .drop-menu i.uf {
+    padding-left: 4px; }
 
-.u-grid th .cansort .drop-menu-title {
-  width: calc(100% - 40px) !important; }
+.u-grid th .cansort.drop-menu {
+  width: calc(100% - 24px) !important; }
 
 .u-grid th .bee-table-column-sorter {
   margin-left: 0px;
