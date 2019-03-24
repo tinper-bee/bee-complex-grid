@@ -2418,9 +2418,6 @@ i.uf {
 /*
  * 选择时删除文本阴影，及设置默认选中颜色
  */
-::-moz-selection {
-  background: rgb(187,222,251);
-  text-shadow: none; }
 ::selection {
   background: rgb(187,222,251);
   text-shadow: none; }
@@ -5726,7 +5723,7 @@ ul {
   box-sizing: border-box;
   display: inline-block;
   position: relative;
-  color: #666;
+  color: #212121;
   width: 100%;
   font-size: 12px; }
   .u-select :root .u-select-arrow {
@@ -5833,7 +5830,7 @@ ul {
   padding-left: 5px; }
 
 .u-select-disabled {
-  color: #ccc; }
+  color: #909090; }
   .u-select-disabled .u-select-selection {
     background: #f7f7f7;
     cursor: not-allowed; }
@@ -6135,7 +6132,7 @@ ul {
     cursor: not-allowed; }
   .u-select-dropdown .u-select-dropdown-menu-item-selected,
   .u-select-dropdown .u-select-dropdown-menu-item-selected:hover {
-    background-color: rgb(247,247,247);
+    background-color: rgb(255, 247, 231);
     font-weight: bold;
     color: #867777; }
   .u-select-dropdown .u-select-dropdown-menu-item-divider {
@@ -6419,7 +6416,7 @@ ul {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
   .u-popover > .arrow, .u-popover > .arrow:after {
     position: absolute;
@@ -6897,7 +6894,7 @@ ul {
       background: white;
       background: rgba(255, 255, 255, 0.01); }
     .u-dropdown-menu-item-group-title {
-      color: #999;
+      color: #909090;
       font-size: 12px;
       line-height: 1.5;
       padding: 8px 16px; }
@@ -6918,10 +6915,10 @@ ul {
       .u-dropdown-menu > .u-dropdown-menu-item-selected {
         position: relative; }
       .u-dropdown-menu > .u-dropdown-menu-item-disabled {
-        color: rgb(189,189,189);
+        color: #909090;
         cursor: not-allowed; }
         .u-dropdown-menu > .u-dropdown-menu-item-disabled:hover {
-          color: rgb(189,189,189);
+          color: #909090;
           background-color: #fff;
           cursor: not-allowed; }
       .u-dropdown-menu > .u-dropdown-menu-item:last-child {
@@ -8892,8 +8889,31 @@ ul {
 .u-grid th .drop-menu .uf {
   font-size: 12px;
   visibility: hidden;
-  margin-left: 15px;
   cursor: pointer; }
+
+.u-grid th .title-con i.uf {
+  padding-right: 4px;
+  padding-left: 0px; }
+
+.u-grid th .drop-menu-title {
+  width: calc(100% - 18px) !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden; }
+
+.u-grid th .cansort .drop-menu-title {
+  width: calc(100% - 40px) !important; }
+
+.u-grid th .bee-table-column-sorter {
+  margin-left: 0px;
+  margin-top: 4px; }
+  .u-grid th .bee-table-column-sorter i {
+    padding: 0px; }
+
+.u-grid th .bee-table-column-sorter > .bee-table-column-sorter-up {
+  width: auto; }
 
 .u-grid th:hover .drop-menu .uf {
   visibility: visible; }
@@ -8925,6 +8945,9 @@ ul {
 .u-table-filter-column-pop-cont-item .drop-menu .uf {
   visibility: hidden; }
 
+.u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-up, .u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-flat {
+  width: auto; }
+
 /* FormGroup */
 /*  Navlayout  */
 .collapsing {
@@ -8949,7 +8972,7 @@ ul {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   border: 1px solid transparent;
-  border-radius: 4px; }
+  border-radius: 3px; }
   .u-panel .u-panel-heading {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -8980,6 +9003,18 @@ ul {
   .u-panel .u-panel-body {
     padding: 15px 15px;
     position: relative; }
+    .u-panel .u-panel-body .u-panel-copy {
+      position: absolute;
+      right: 25px;
+      top: 30px;
+      color: #fff;
+      font-size: 20px;
+      padding: 2px 8px;
+      margin: 8px;
+      border-radius: 4px;
+      cursor: pointer; }
+      .u-panel .u-panel-body .u-panel-copy:hover {
+        color: #a8a7a7; }
 
 .u-panel-default {
   border-color: #ddd; }
@@ -9656,7 +9691,7 @@ ul {
   .u-button::-moz-focus-inner {
     border: 0; }
   .u-button:hover {
-    background-color: rgb(238,238,238);
+    background-color: rgb(189,189,189);
     border-color: rgb(238,238,238); }
   .u-button:active {
     background-color: rgb(189,189,189);
@@ -9664,7 +9699,7 @@ ul {
   .u-button.colored {
     color: rgb(245, 60, 50); }
     .u-button.colored:focus:not(:active) {
-      background-color: rgb(238,238,238);
+      background-color: rgb(189,189,189);
       border-color: rgb(189,189,189); }
   .u-button.disable, .u-button.u-button[disabled] {
     cursor: not-allowed;
@@ -9722,11 +9757,11 @@ input.u-button[type="submit"] {
   background: rgb(255,255,255); }
   .u-button-border:hover {
     color: rgb(33,33,33);
-    background-color: rgb(238,238,238);
+    background-color: rgb(189,189,189);
     border-color: rgb(165, 173, 186); }
   .u-button-border:active {
     color: rgb(33,33,33);
-    background-color: rgb(238,238,238);
+    background-color: rgb(189,189,189);
     border-color: rgb(165, 173, 186); }
 
 .u-button.u-button-primary {

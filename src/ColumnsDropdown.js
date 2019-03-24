@@ -104,9 +104,12 @@ class ColumnsDropdown extends Component {
         })}
       </Menu>
     );
+    let className = originColumn.sorter ? "cansort title-con drop-menu":"title-con drop-menu"; 
+
+    
     return (
-      <span data-type='menu' className="title-con drop-menu" >
-        {originColumn.title}
+      <span data-type='menu' className={className} >
+        <span className='drop-menu-title'>{originColumn.title}</span>
         <Dropdown
           trigger={["click"]}
           // onVisibleChange={this.onVisibleChange}

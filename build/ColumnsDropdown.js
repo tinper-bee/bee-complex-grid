@@ -148,10 +148,16 @@ var ColumnsDropdown = function (_Component) {
         );
       })
     );
+    var className = originColumn.sorter ? "cansort title-con drop-menu" : "title-con drop-menu";
+
     return _react2["default"].createElement(
       "span",
-      { "data-type": "menu", className: "title-con drop-menu" },
-      originColumn.title,
+      { "data-type": "menu", className: className },
+      _react2["default"].createElement(
+        "span",
+        { className: "drop-menu-title" },
+        originColumn.title
+      ),
       _react2["default"].createElement(
         _beeDropdown2["default"],
         {

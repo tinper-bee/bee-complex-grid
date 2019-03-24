@@ -833,7 +833,7 @@ ul {
   box-sizing: border-box;
   display: inline-block;
   position: relative;
-  color: #666;
+  color: #212121;
   width: 100%;
   font-size: 12px; }
   .u-select :root .u-select-arrow {
@@ -948,7 +948,7 @@ ul {
   padding-left: 5px; }
 
 .u-select-disabled {
-  color: #ccc; }
+  color: #909090; }
   .u-select-disabled .u-select-selection {
     background: #f7f7f7;
     cursor: not-allowed; }
@@ -1264,7 +1264,7 @@ ul {
     cursor: not-allowed; }
   .u-select-dropdown .u-select-dropdown-menu-item-selected,
   .u-select-dropdown .u-select-dropdown-menu-item-selected:hover {
-    background-color: rgb(247,247,247);
+    background-color: rgb(255, 247, 231);
     font-weight: bold;
     color: #867777; }
   .u-select-dropdown .u-select-dropdown-menu-item-divider {
@@ -2044,7 +2044,7 @@ ul {
       background: white;
       background: rgba(255, 255, 255, 0.01); }
     .u-dropdown-menu-item-group-title {
-      color: #999;
+      color: #909090;
       font-size: 12px;
       line-height: 1.5;
       padding: 8px 16px; }
@@ -2065,10 +2065,10 @@ ul {
       .u-dropdown-menu > .u-dropdown-menu-item-selected {
         position: relative; }
       .u-dropdown-menu > .u-dropdown-menu-item-disabled {
-        color: rgb(189,189,189);
+        color: #909090;
         cursor: not-allowed; }
         .u-dropdown-menu > .u-dropdown-menu-item-disabled:hover {
-          color: rgb(189,189,189);
+          color: #909090;
           background-color: #fff;
           cursor: not-allowed; }
       .u-dropdown-menu > .u-dropdown-menu-item:last-child {
@@ -4611,14 +4611,40 @@ ul {
 .u-grid th .drop-menu .uf {
   font-size: 12px;
   visibility: hidden;
-  margin-left: 15px;
   cursor: pointer; }
+
+.u-grid th .title-con i.uf {
+  padding-right: 4px;
+  padding-left: 0px; }
+
+.u-grid th .drop-menu-title {
+  width: calc(100% - 18px) !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden; }
+
+.u-grid th .cansort .drop-menu-title {
+  width: calc(100% - 40px) !important; }
+
+.u-grid th .bee-table-column-sorter {
+  margin-left: 0px;
+  margin-top: 4px; }
+  .u-grid th .bee-table-column-sorter i {
+    padding: 0px; }
+
+.u-grid th .bee-table-column-sorter > .bee-table-column-sorter-up {
+  width: auto; }
 
 .u-grid th:hover .drop-menu .uf {
   visibility: visible; }
 
 .u-grid th ::last-child {
   overflow: hidden; }
+
+.u-grid .u-checkbox {
+  margin: 0px; }
 
 .u-grid .u-pagination {
   overflow: hidden;

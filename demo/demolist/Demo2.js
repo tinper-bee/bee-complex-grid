@@ -15,7 +15,7 @@ const column = [
       width: 200
     },
     {
-      title: "功力指数",
+      title: "功力指数名称长时显示省略号",
       dataIndex: "b",
       key: "b",
       width: 200,
