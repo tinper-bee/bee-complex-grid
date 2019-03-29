@@ -3644,7 +3644,7 @@ ul {
     padding-left: 4px; }
 
 .u-grid th .cansort.drop-menu {
-  width: calc(100% - 24px) !important; }
+  width: calc(100% - 32px) !important; }
 
 .u-grid th .bee-table-column-sorter {
   margin-left: 0px;
