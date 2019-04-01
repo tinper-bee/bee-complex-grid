@@ -151,7 +151,10 @@ class Grid extends Component {
               if (item.width && newItem.width !== item.width) {
                 newItem.width = item.width;
               }
-
+              if(item.hasOwnProperty('ifshow')){
+                newItem.ifshow = item.ifshow;
+              }
+              
               newItem.hasHeaderMenu = false; //重置后的都需要重新渲染表头菜单
             }
           });
