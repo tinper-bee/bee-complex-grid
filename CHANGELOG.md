@@ -1,3 +1,23 @@
+<a name="2.0.5"></a>
+## [2.0.5](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.2...2.0.5) (2019-04-01)
+
+
+### Bug Fixes
+
+* **Grid:** 过滤列时保存列的显示状态 ([6273865](https://github.com/tinper-bee/bee-complex-grid/commit/6273865))
+
+
+
+<a name="2.0.2"></a>
+## [2.0.2](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.1...v2.0.2) (2019-03-12)
+
+
+
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.19...v2.0.1) (2019-03-07)
+
+
+
 <a name="1.0.19"></a>
 ## [1.0.19](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.18...v1.0.19) (2019-02-28)
 
