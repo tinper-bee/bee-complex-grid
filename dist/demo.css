@@ -3548,6 +3548,9 @@ ul {
 .u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-down, .u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-flat, .u-table-thead th .bee-table-column-sorter > .bee-table-column-sorter-up {
   width: auto !important; }
 
+.u-dropdown.grid-menu {
+  z-index: 1800; }
+
 .btn_group button {
   margin: 10px;
   margin-left: 0px; }

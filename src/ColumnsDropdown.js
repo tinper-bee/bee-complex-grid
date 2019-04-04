@@ -117,6 +117,7 @@ class ColumnsDropdown extends Component {
           overlay={menu}
           animation="slide-up"
           data-type="menu11"
+          overlayClassName={'grid-menu'}
           rootClose={true}
         >
           <Icon type={icon} data-key={originColumn.key} data-role="menuBtn"/>

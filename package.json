@@ -44,6 +44,7 @@
   "bee-icon": "latest",
   "bee-locale": "latest",
   "bee-menus": "^2.0.2",
+  "bee-modal": "^2.0.2",
   "bee-pagination": "^2.0.4",
   "bee-popover": "^2.0.0",
   "bee-table": "latest",

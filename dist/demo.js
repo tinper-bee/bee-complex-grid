@@ -13972,6 +13972,8 @@
 	
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 	
+	var _extends2;
+	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _classnames = __webpack_require__(5);
@@ -14042,8 +14044,6 @@
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14052,7 +14052,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["default"].propTypes, {
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["default"].propTypes, (_extends2 = {
 	
 	  /**
 	   * 是否弹出遮罩层/遮罩层点击是否触发关闭
@@ -14110,20 +14112,8 @@
 	
 	  onExited: _propTypes2["default"].func,
 	
-	  /**
-	   * 要添加到的元素
-	   */
-	  container: _Modal2["default"].propTypes.container,
-	
-	  /**
-	   * 尺寸
-	   */
-	  size: _propTypes2["default"].oneOf(["sm", "lg", "xlg", ""]),
-	  /**
-	   * 自定义宽度
-	   */
-	  width: _propTypes2["default"].oneOfType([_propTypes2["default"].number, _propTypes2["default"].string])
-	});
+	  containerClassName: _propTypes2["default"].string
+	}, _defineProperty(_extends2, 'containerClassName', _propTypes2["default"].string), _defineProperty(_extends2, 'container', _Modal2["default"].propTypes.container), _defineProperty(_extends2, 'size', _propTypes2["default"].oneOf(["sm", "lg", "xlg", ""])), _defineProperty(_extends2, 'width', _propTypes2["default"].oneOfType([_propTypes2["default"].number, _propTypes2["default"].string])), _extends2));
 	
 	var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
 	  backdropClosable: true,
@@ -14231,7 +14221,9 @@
 	        children = _props.children,
 	        onEntering = _props.onEntering,
 	        onExited = _props.onExited,
-	        props = _objectWithoutProperties(_props, ['backdrop', 'backdropClosable', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited']);
+	        backdropClassName = _props.backdropClassName,
+	        containerClassName = _props.containerClassName,
+	        props = _objectWithoutProperties(_props, ['backdrop', 'backdropClosable', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited', 'backdropClassName', 'containerClassName']);
 	
 	    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
 	        _splitComponent2 = _slicedToArray(_splitComponent, 2),
@@ -14259,7 +14251,7 @@
 	        onExited: (0, _tinperBeeCore.createChainedFunction)(onExited, this.handleExited),
 	        backdrop: backdrop,
 	        backdropClassName: (0, _classnames2["default"])(backdropClasses, inClassName),
-	        containerClassName: (0, _classnames2["default"])(containerClasses),
+	        containerClassName: (0, _classnames2["default"])(containerClasses, containerClassName),
 	        transition: animation ? _beeTransition.Fade : undefined,
 	        dialogTransitionTimeout: Modal.TRANSITION_DURATION,
 	        backdropTransitionTimeout: Modal.BACKDROP_TRANSITION_DURATION
@@ -14268,7 +14260,7 @@
 	        Dialog,
 	        _extends({}, dialogProps, {
 	          style: styleRes,
-	          className: (0, _classnames2["default"])(className, inClassName),
+	          className: (0, _classnames2["default"])(className, inClassName, backdropClassName),
 	          onClick: backdrop === true && !!backdropClosable ? this.handleDialogClick : null,
 	          size: size
 	        }),
@@ -16954,17 +16946,8 @@
 	  };
 	
 	  this.getColumnsAndTablePros = function () {
-	    var originColumns = _this4.props.columns;
 	    var columns = _this4.columns.slice();
-	    // //修改模板的title
-	    // columns.forEach(item=>{
-	    //   originColumns.some(originItem=>{
-	    //     if(originItem.dataIndex == item.dataIndex){
-	    //       item.title = originItem.title;
-	    //       return true;
-	    //     }
-	    //   })
-	    // })
+	
 	    if (_this4.dragColsData) {
 	      var dragColsKeyArr = Object.keys(_this4.dragColsData);
 	      dragColsKeyArr.some(function (itemKey) {
@@ -71862,6 +71845,7 @@
 	          , overlay: menu,
 	          animation: "slide-up",
 	          "data-type": "menu11",
+	          overlayClassName: 'grid-menu',
 	          rootClose: true
 	        },
 	        _react2["default"].createElement(_beeIcon2["default"], { type: icon, "data-key": originColumn.key, "data-role": "menuBtn" })
