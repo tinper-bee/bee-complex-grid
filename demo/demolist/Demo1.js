@@ -36,6 +36,7 @@ const column = [
     key: "money",
     width: 160,
     textAlign:'right',
+    sumCol: true,
     render(text, record, index) {
        let money = fmoney(text,2);
        return (<span>{money}</span>)
@@ -210,6 +211,7 @@ class Demo1 extends Component {
         data={dataList}
         getSelectedDataFunc={this.getSelectedDataFunc}
         paginationObj={paginationObj}
+        canSum={true}
       />
     );
   }

@@ -39,7 +39,7 @@ const defaultProps = {
   paginationObj: {},
   sheetName: "sheet", //导出表格的name
   sheetIsRowFilter: false, //是否要设置行样式，是否遍历
-  columnFilterAble: true,
+  columnFilterAble: true
 };
 
 let ComplexTable = Table;
