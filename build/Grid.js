@@ -657,19 +657,22 @@ var _initialiseProps = function _initialiseProps() {
         break;
       }
     }
-    console.log("--_excelHidden-******--", _exportHidden);
+    // console.log("--_excelHidden-******--",_exportHidden);
     colsAndTablePros.columns.forEach(function (column) {
-      sheetHeader.push(column.title);
+
       var _show = false;
       if (column.ifshow != undefined && column.ifshow === false) {
         _show = true;
       }
-      columnAttr.push({
-        wpx: column.width,
-        hidden: _exportHidden ? column.exportHidden : _show //column.exportHidden // column.excelHidden === false ? true : false
-      });
-      var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
-      sheetFilter.push(_cloum);
+      var _hidden = _exportHidden ? column.exportHidden : _show; //column.exportHidden // column.excelHidden === false ? true : false
+      if (!_hidden) {
+        columnAttr.push({
+          wpx: column.width
+        });
+        var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
+        sheetFilter.push(_cloum);
+        sheetHeader.push(column.title);
+      }
     });
     if (_sheetHeader) {
       rowAttr.push(_this4.getItem(_sheetHeader));
