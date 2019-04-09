@@ -167,6 +167,7 @@ var ColumnsDropdown = function (_Component) {
           , overlay: menu,
           animation: "slide-up",
           "data-type": "menu11",
+          overlayClassName: 'grid-menu',
           rootClose: true
         },
         _react2["default"].createElement(_beeIcon2["default"], { type: icon, "data-key": originColumn.key, "data-role": "menuBtn" })

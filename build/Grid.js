@@ -592,17 +592,8 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getColumnsAndTablePros = function () {
-    var originColumns = _this4.props.columns;
     var columns = _this4.columns.slice();
-    // //修改模板的title
-    // columns.forEach(item=>{
-    //   originColumns.some(originItem=>{
-    //     if(originItem.dataIndex == item.dataIndex){
-    //       item.title = originItem.title;
-    //       return true;
-    //     }
-    //   })
-    // })
+
     if (_this4.dragColsData) {
       var dragColsKeyArr = Object.keys(_this4.dragColsData);
       dragColsKeyArr.some(function (itemKey) {

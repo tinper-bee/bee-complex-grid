@@ -39,7 +39,7 @@ const defaultProps = {
   paginationObj: {},
   sheetName: "sheet", //导出表格的name
   sheetIsRowFilter: false, //是否要设置行样式，是否遍历
-  columnFilterAble: true,
+  columnFilterAble: true
 };
 
 let ComplexTable = Table;
@@ -414,17 +414,8 @@ class Grid extends Component {
    * 获取所有列以及table属性值
    */
   getColumnsAndTablePros = () => {
-    const originColumns = this.props.columns;
     const columns = this.columns.slice();
-    // //修改模板的title
-    // columns.forEach(item=>{
-    //   originColumns.some(originItem=>{
-    //     if(originItem.dataIndex == item.dataIndex){
-    //       item.title = originItem.title;
-    //       return true;
-    //     }
-    //   })
-    // })
+    
     if (this.dragColsData) {
       const dragColsKeyArr = Object.keys(this.dragColsData);
       dragColsKeyArr.some(itemKey => {

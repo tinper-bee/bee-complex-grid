@@ -31,7 +31,7 @@ import bee-complex-grid/build/Grid.css;
 |exportData|要导出的数据源|array	|-|
 |afterRowFilter|行过滤菜单显示隐藏时的回调函数，第一个参数会返回当前行过滤展开关闭状态|Function	|-|
 |noReplaceColumns|重置column内容|boolean	|false|
-
+|canSum |是否开启合计功能|boolean	|false|
 
 ### Column(新增)
 

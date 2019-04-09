@@ -1,5 +1,16 @@
+<a name="2.0.6"></a>
+## [2.0.6](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.5...v2.0.6) (2019-04-04)
+
+
+### Bug Fixes
+
+* 模态框中含有grid中表头菜单出不来 ([67d85bd](https://github.com/tinper-bee/bee-complex-grid/commit/67d85bd))
+* **Grid:** 模态框中含有grid中表头菜单出不来 ([49530c7](https://github.com/tinper-bee/bee-complex-grid/commit/49530c7))
+
+
+
 <a name="2.0.5"></a>
-## [2.0.5](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.2...2.0.5) (2019-04-01)
+## [2.0.5](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.2...v2.0.5) (2019-04-01)
 
 
 ### Bug Fixes
