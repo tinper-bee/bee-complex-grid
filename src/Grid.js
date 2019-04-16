@@ -478,19 +478,22 @@ class Grid extends Component {
         break;
       }
     }
-    console.log("--_excelHidden-******--",_exportHidden);
+    // console.log("--_excelHidden-******--",_exportHidden);
     colsAndTablePros.columns.forEach(column => { 
-      sheetHeader.push(column.title);
+     
       let _show = false;
       if(column.ifshow != undefined && column.ifshow === false){
         _show = true;
       }
-      columnAttr.push({
-        wpx: column.width,
-        hidden:_exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
-      });
-      let _cloum = column.exportKey?column.exportKey:column.dataIndex
-      sheetFilter.push(_cloum);
+      let _hidden = _exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
+      if(!_hidden){
+        columnAttr.push({
+          wpx: column.width,
+        });
+        let _cloum = column.exportKey?column.exportKey:column.dataIndex
+        sheetFilter.push(_cloum);
+        sheetHeader.push(column.title);
+      }
     });
     if (_sheetHeader) {
       rowAttr.push(this.getItem(_sheetHeader));

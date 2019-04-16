@@ -8,7 +8,7 @@
 ```
 
 import Grid from 'bee-complex-grid';
-import bee-complex-grid/build/Grid.css;
+import 'bee-complex-grid/build/Grid.css';
 
 ```
 
