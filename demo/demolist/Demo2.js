@@ -45,12 +45,6 @@ const column = [
       width: 200,
       sumCol: true,
       sorter: (a, b) => a.c - b.c,
-    },
-    {
-      title: "武功级别",
-      dataIndex: "d",
-      key: "d",
-      width: 200
     }
   ];
   const dataList = [
@@ -117,7 +111,6 @@ class Demo2 extends Component {
         getSelectedDataFunc={this.getSelectedDataFunc}
         selectedRow={this.selectedRow}
         sort={sortObj}
-        headerScroll={true}
         sortFun={this.sortFun}
         paginationObj={paginationObj}
       />

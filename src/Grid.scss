@@ -25,13 +25,28 @@
             display: inline-block;
             vertical-align: middle;
             overflow: hidden;
+            width:100%;
             i.uf{
                 padding-left: 4px;
+            }
+            .drop-menu-title{
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                display: inline-block;
+                vertical-align: middle;
+                overflow: hidden;
+                max-width: calc( 100% - 24px);
             }
         }
         .cansort.drop-menu {
                 width: calc(100% - 32px) !important;
             
+        }
+        &:last-child{
+            .cansort.drop-menu {
+                width: calc(100% - 64px) !important;
+            
+            }
         }
         .bee-table-column-sorter {
             margin-left: 0px;

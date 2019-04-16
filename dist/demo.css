@@ -3499,12 +3499,23 @@ ul {
   white-space: nowrap;
   display: inline-block;
   vertical-align: middle;
-  overflow: hidden; }
+  overflow: hidden;
+  width: 100%; }
   .u-grid th .drop-menu i.uf {
     padding-left: 4px; }
+  .u-grid th .drop-menu .drop-menu-title {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    max-width: calc( 100% - 24px); }
 
 .u-grid th .cansort.drop-menu {
   width: calc(100% - 32px) !important; }
+
+.u-grid th:last-child .cansort.drop-menu {
+  width: calc(100% - 64px) !important; }
 
 .u-grid th .bee-table-column-sorter {
   margin-left: 0px;

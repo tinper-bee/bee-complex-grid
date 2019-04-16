@@ -71,11 +71,12 @@ class Grid extends Component {
       sortObj.sortFun = this.sortFun;
       this.sort = sortObj;
     }
-    //根据条件生成Grid
-    ComplexTable = sort(Table, Icon);
     if (props.canSum) {
       ComplexTable = sum(ComplexTable);
     }
+    //根据条件生成Grid
+    ComplexTable = sort(Table, Icon);
+    
     if (props.multiSelect !== false) {
       ComplexTable = multiSelect(ComplexTable, Checkbox);
     }
