@@ -4,7 +4,7 @@
  *
  */
 import React, { Component } from "react";
-import Grid from "../../src";
+import  Grid from "../../src";
 
 function fmoney(s, n) {
   n = n > 0 && n <= 20 ? n : 2;
@@ -83,28 +83,6 @@ const column = [
     dataIndex: "closeState_name",
     key: "closeState_name",
     width: 150
-  },
-  {
-    title: "操作",
-    dataIndex: "d",
-    key: "d",
-    width: 100,
-    fixed: "right",
-    render(text, record, index) {
-      return (
-        <div className="operation-btn">
-          <a
-            href="#"
-            tooltip={text}
-            onClick={() => {
-              alert("这是第" + index + "列，内容为:" + text);
-            }}
-          >
-            一些操作
-          </a>
-        </div>
-      );
-    }
   }
 ];
 const dataList = [

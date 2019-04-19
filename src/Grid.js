@@ -42,15 +42,16 @@ const defaultProps = {
   columnFilterAble: true
 };
 
-let ComplexTable = Table;
 
+// let ComplexTable = Table;
 const defualtPaginationParam = { horizontalPosition: "left",verticalPosition:'bottom',showJump:true,first:true,prev:true,last:true,next:true,maxButtons:5 };
 
 class Grid extends Component {
   constructor(props) {
     super(props);
    
-   
+    let ComplexTable = Table;
+    
     let { paginationObj, sort: sortObj, filterable } = props;
     //一些属性需要内部控制，放在state中
     this.state = {
@@ -78,7 +79,7 @@ class Grid extends Component {
     ComplexTable = sort(Table, Icon);
     
     if (props.multiSelect !== false) {
-      ComplexTable = multiSelect(ComplexTable, Checkbox);
+      ComplexTable =   multiSelect(ComplexTable, Checkbox);
     }
     if(props.loadLazy){
       ComplexTable = bigData(ComplexTable);
@@ -88,8 +89,10 @@ class Grid extends Component {
     }
 
     ComplexTable = filterColumn(ComplexTable, Popover);
+     this.ComplexTable = ComplexTable;
     
   }
+ 
   // columns = this.props.columns.slice();
   columns = this.props.columns.map(colItem => {
     return { ...colItem };
@@ -559,7 +562,8 @@ class Grid extends Component {
 
   render() {
     const props = this.props;
-    let { sort = {}, paginationObj } = props;
+    const ComplexTable = this.ComplexTable;
+     let { sort = {}, paginationObj } = props;
     let paginationParam,verticalPosition,horizontalPosition;
     this.local = getComponentLocale(
       this.props,

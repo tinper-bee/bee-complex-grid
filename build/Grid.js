@@ -110,8 +110,7 @@ var defaultProps = {
   columnFilterAble: true
 };
 
-var ComplexTable = _beeTable2["default"];
-
+// let ComplexTable = Table;
 var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
 
 var Grid = function (_Component) {
@@ -123,6 +122,8 @@ var Grid = function (_Component) {
     var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
     _initialiseProps.call(_this);
+
+    var ComplexTable = _beeTable2["default"];
 
     var paginationObj = props.paginationObj,
         sortObj = props.sort,
@@ -145,11 +146,12 @@ var Grid = function (_Component) {
       sortObj.sortFun = _this.sortFun;
       _this.sort = sortObj;
     }
-    //根据条件生成Grid
-    ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
     if (props.canSum) {
       ComplexTable = (0, _sum3["default"])(ComplexTable);
     }
+    //根据条件生成Grid
+    ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
+
     if (props.multiSelect !== false) {
       ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
     }
@@ -161,9 +163,11 @@ var Grid = function (_Component) {
     }
 
     ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
+    _this.ComplexTable = ComplexTable;
 
     return _this;
   }
+
   // columns = this.props.columns.slice();
 
 
@@ -372,6 +376,8 @@ var Grid = function (_Component) {
 
   Grid.prototype.render = function render() {
     var props = this.props;
+    console.log(props.className);
+    var ComplexTable = this.ComplexTable;
     var _props$sort = props.sort,
         sort = _props$sort === undefined ? {} : _props$sort,
         paginationObj = props.paginationObj;

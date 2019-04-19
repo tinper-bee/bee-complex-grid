@@ -20,6 +20,7 @@ const column = [
       key: "b",
       width: 200,
       sumCol: true,
+      fixed:'left',
       sorter: (a, b) => a.c - b.c,
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
@@ -45,6 +46,12 @@ const column = [
       width: 200,
       sumCol: true,
       sorter: (a, b) => a.c - b.c,
+    },
+    {
+      title: "武功级别",
+      dataIndex: "d",
+      key: "d",
+      width: 200
     }
   ];
   const dataList = [

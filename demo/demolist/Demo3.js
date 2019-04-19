@@ -20,13 +20,13 @@ const column = [
     dataIndex: "orderCode",
     key: "orderCode",
     exportKey:'supplierName',//单独设置当前列的导出的key
-    width: 100
+    width: 130
   },
   {
     title: "供应商名称",
     dataIndex: "supplierName",
     key: "supplierName",
-    width: 100
+    width: 130
   },
   {
     title: "类型",
@@ -38,7 +38,7 @@ const column = [
     title: "采购组织",
     dataIndex: "purchasing",
     key: "purchasing",
-    width: 100,
+    width: 130,
   },
   {
     title: "采购组",
@@ -50,13 +50,13 @@ const column = [
     title: "凭证日期",
     dataIndex: "voucherDate",
     key: "voucherDate",
-    width: 100
+    width: 130
   },
   {
     title: "审批状态",
     dataIndex: "approvalState_name",
     key: "approvalState_name",
-    width: 100
+    width: 130
   },
   {
     title: "确认状态",
