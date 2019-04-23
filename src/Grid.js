@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
+
+import ExportJsonExcel from "./ExportExcel";
+import ColumnsDropdown from './ColumnsDropdown';
+import ToolBar from "./ToolBar";
+
 import Table from "bee-table";
 import multiSelect from "bee-table/build/lib/multiSelect";
 import filterColumn from "bee-table/build/lib/filterColumn";
@@ -12,8 +17,7 @@ import Icon from "bee-icon";
 import Checkbox from "bee-checkbox";
 import Popover from "bee-popover";
 import Pagination from "bee-pagination";
-import ExportJsonExcel from "./ExportExcel";
-import ColumnsDropdown from './ColumnsDropdown';
+
 
 import i18n from "./i18n";
 import { getComponentLocale } from "bee-locale/build/tool";
@@ -279,58 +283,7 @@ class Grid extends Component {
     // const exitNoFixedColumn = columns.find(item=> !item.fixed)
     return columns.map((originColumn, index,arr) => {
       let column = Object.assign({}, originColumn);
-      // let menuInfo = [],
-      //   fixTitle = local["fixTitle"],
-      //   showTitle = local["hideTitle"];
-      // if (originColumn.fixed) {
-      //   fixTitle = local["noFixTitle"];
-      // }
-      // menuInfo.push({
-      //   info: fixTitle,
-      //   key: `fix`,
-      //   fieldKey: originColumn.key,
-      //   exitNoFixedColumn:exitNoFixedColumn,
-      //   index: 0
-      // });
-      // //非固定列添加是否显示菜单item
-      // if (!originColumn.fixed) {
-      //   menuInfo.push({
-      //     info: showTitle,
-      //     key: `show`,
-      //     fieldKey: originColumn.key,
-      //     checked: originColumn.checked,
-      //     index: 1
-      //   });
-      // }
-      // //是否行过滤菜单item
-      // if (this.props.showFilterMenu) {
-      //   menuInfo.push({
-      //     info: local["rowFilter"],
-      //     key: "rowFilter",
-      //     fieldKey: originColumn.key,
-      //     index: 3
-      //   });
-      // }
-      // let menu = (
-      //   <Menu onSelect={this.onMenuSelect} selectedKeys={[]} data-type="menu11" className="grid-menu">
-      //     {menuInfo.map(da => {
-      //       return (
-      //         <Item key={da.key} index={da.index} data={da}>
-      //           {da.info}
-      //         </Item>
-      //       );
-      //     })}
-      //   </Menu>
-      // );
       column.hasHeaderMenu = true;
-      // column.title = (
-      //   <span className="title-con drop-menu">
-      //     {column.title}
-      //     <Dropdown trigger={["click"]} overlay={menu} animation="slide-up" data-type="menu11">
-      //       <Icon type={icon} />
-      //     </Dropdown>
-      //   </span>
-      // );
       column.title = <ColumnsDropdown originColumn={originColumn} local={this.local} showFilterMenu={showFilterMenu}
                                        onMenuSelect={this.onMenuSelect} allColumns={arr} columnFilterAble={columnFilterAble}
                                        filterable={filterable} 
@@ -563,7 +516,7 @@ class Grid extends Component {
   render() {
     const props = this.props;
     const ComplexTable = this.ComplexTable;
-     let { sort = {}, paginationObj } = props;
+     let { sort = {}, paginationObj,toolBar={} } = props;
     let paginationParam,verticalPosition,horizontalPosition;
     this.local = getComponentLocale(
       this.props,
@@ -591,6 +544,7 @@ class Grid extends Component {
     }
     return (
       <div className={classNames("u-grid", props.className)}>
+        <ToolBar toolBtns={toolBar.toolBtns} btnSize={toolBar.btnSize}/>
         { verticalPosition == "top" && (
           <Pagination
             {...paginationParam}

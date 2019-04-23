@@ -124,43 +124,41 @@ $icon-color:#505F79;
 .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-down, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-flat, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-up {
     width:auto !important;
 }
-
+// 菜单在模态框中使用隐藏问题
 .u-dropdown.grid-menu{
     z-index: 1800;
 }
-
-
 // todo
 .u-table-thead th .bee-table-column-sorter{
     margin-top: 0px;
 }
-
-// .u-grid th .bee-table-column-sorter i {
-//     padding: 0px;
-//     font-weight: 600;
-//     color: #505F79;
-// }
-
-// .u-table-filter-column-filter-icon i.uf {
-//     padding: 0;
-//     color: #505F79;
-// }
-// .u-table-filter-column-filter-icon{
-//     height: 40px !important;
-//     line-height: 40px !important;
-//     right: 12px !important;
-//     top:2px !important;
-// }
-
-
-// .u-table td, .u-table th {
-//     padding:  12px 16px !important;
-// }
-
-// .u-table-thead th .bee-table-column-sorter {
-//     height: 16px !important;
-// }
-
-// .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-down, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-flat, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-up{
-//     line-height: 16px !important;
-// }
+// toolbar
+.grid-toolbar{
+    padding: 7px 12px 7px 4px;
+    .u-button{
+        margin-left: 8px;
+    }
+    .dropdown-btn{
+        display: inline-block;
+    }
+    .toolbar-btn-icon.u-button{
+        width: 26px;
+        min-width: 0px;
+        height: 26px;
+        line-height: 26px;
+        padding: 0px;
+        .uf{
+            padding: 0px
+        }
+    }
+}
+.u-dropdown-menu{
+    padding-top: 3px;
+    padding-bottom: 8px;
+    > .u-dropdown-menu-item {
+        line-height: 26px;
+        height: 26px;
+        padding-left: 12px;
+        min-width: 76px;
+    }
+}
