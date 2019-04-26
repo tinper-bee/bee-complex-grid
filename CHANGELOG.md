@@ -1,3 +1,14 @@
+<a name="2.0.10"></a>
+## [2.0.10](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.9...v2.0.10) (2019-04-26)
+
+
+### Bug Fixes
+
+* table 过滤列文字不对齐问题 ([9eaa6ad](https://github.com/tinper-bee/bee-complex-grid/commit/9eaa6ad))
+* **过滤列:** 过滤列文字图标不对齐问题 ([3d4ee18](https://github.com/tinper-bee/bee-complex-grid/commit/3d4ee18))
+
+
+
 <a name="2.0.9"></a>
 ## [2.0.9](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.7...v2.0.9) (2019-04-26)
 
