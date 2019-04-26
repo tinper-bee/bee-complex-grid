@@ -1,3 +1,23 @@
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.7...v2.0.9) (2019-04-26)
+
+
+### Bug Fixes
+
+* 一个节点多个场景中Grid相互影响问题 ([df8179a](https://github.com/tinper-bee/bee-complex-grid/commit/df8179a))
+
+
+### Features
+
+* 增加GridToolBar组件 ([dbde825](https://github.com/tinper-bee/bee-complex-grid/commit/dbde825))
+
+
+
+<a name="2.0.7"></a>
+## [2.0.7](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.6...v2.0.7) (2019-04-09)
+
+
+
 <a name="2.0.6"></a>
 ## [2.0.6](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.5...v2.0.6) (2019-04-04)
 
@@ -10,12 +30,17 @@
 
 
 <a name="2.0.5"></a>
-## [2.0.5](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.2...v2.0.5) (2019-04-01)
+## [2.0.5](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.4...v2.0.5) (2019-04-01)
 
 
 ### Bug Fixes
 
 * **Grid:** 过滤列时保存列的显示状态 ([6273865](https://github.com/tinper-bee/bee-complex-grid/commit/6273865))
+
+
+
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.2...2.0.4) (2019-03-29)
 
 
 
