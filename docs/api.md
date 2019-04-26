@@ -53,6 +53,11 @@ import 'bee-complex-grid/build/Grid.css';
   
 ```
 
+### GridToolbar操作栏
+|参数|说明|类型|默认值|
+|:--|:---|:--|:---| 
+|toolBtns|按钮组,数组元素中单个按钮属性可以参考[button](http://bee.tinper.org/tinper-bee/bee-button)当按钮属性中含有children属性，会自动解析成dropdown按钮。|array	|[]|
+|btnSize|按钮的尺寸,默认是小尺寸行高为26px（sm、lg、xg）|string	|'sm'|
 
 ## 注意事项
 

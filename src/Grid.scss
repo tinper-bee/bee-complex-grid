@@ -167,3 +167,10 @@ $icon-color:#505F79;
         min-width: 76px;
     }
 }
+
+// 过滤列
+#filter_column_popover{
+    .u-table-filter-column-pop-cont-item .drop-menu .uf{
+        display: none;
+    }
+}
