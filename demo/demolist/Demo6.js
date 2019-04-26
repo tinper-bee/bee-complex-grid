@@ -1,11 +1,11 @@
 /**
-  * @title 高级表格(保存操作模板、导出excel)应用 
+  * @title 高级表格(保存操作模板、导出excel)
  * @description 拖住表格宽度、交换列、以及导出excel功能
  *
  */
 import React, { Component } from "react";
 import Button from 'bee-button';
-import Grid from "../../src";
+import Grid,{GridToolBar} from "../../src";
 
 const column = [
   {
@@ -233,12 +233,19 @@ class Demo3 extends Component {
       total:100,
       freshData:this.freshData
     }
+    const toolBtns = [{
+        value:'生成模板表格',
+        onClick:this.createTemTable,
+        bordered:false,
+        colors:'primary'
+    },{
+        value:'导出',
+        iconType:'uf-search',
+        onClick:this.exportExcel
+    }]
     return (
       <div>
-        <div className='btn_group'>
-          <Button colors="primary" onClick={this.createTemTable}>生成模板表格</Button>
-          <Button colors="primary" onClick={this.exportExcel}>导出数据</Button>
-        </div>
+        <GridToolBar toolBtns={toolBtns}  />
         <Grid
           ref="grid"
           className='gridDemo demo'

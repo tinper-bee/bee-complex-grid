@@ -1,6 +1,6 @@
 /**
- * @title 高级表格的基础应用grid
- * @description 全选、分页、过滤功能、交换
+ * @title 高级表格的基础应用(基本示例3)
+ * @description 全选、分页、过滤。功能、交换
  *
  */
 import React, { Component } from "react";

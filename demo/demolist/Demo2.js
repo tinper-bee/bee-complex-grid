@@ -110,17 +110,22 @@ class Demo2 extends Component {
         // backSource:true,
         sortFun:this.sortFun
       }
+    
     return (
-      <Grid
-        className="demo"
-        columns={column}
-        data={dataList}
-        getSelectedDataFunc={this.getSelectedDataFunc}
-        selectedRow={this.selectedRow}
-        sort={sortObj}
-        sortFun={this.sortFun}
-        paginationObj={paginationObj}
-      />
+      <div>
+        
+         <Grid
+          className="demo"
+          columns={column}
+          data={dataList}
+          getSelectedDataFunc={this.getSelectedDataFunc}
+          selectedRow={this.selectedRow}
+          sort={sortObj}
+          sortFun={this.sortFun}
+          paginationObj={paginationObj}
+        />
+      </div>
+     
     );
   }
 }
