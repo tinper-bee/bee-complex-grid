@@ -18,6 +18,14 @@ var _classnames = require("classnames");
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _ExportExcel = require("./ExportExcel");
+
+var _ExportExcel2 = _interopRequireDefault(_ExportExcel);
+
+var _ColumnsDropdown = require("./ColumnsDropdown");
+
+var _ColumnsDropdown2 = _interopRequireDefault(_ColumnsDropdown);
+
 var _beeTable = require("bee-table");
 
 var _beeTable2 = _interopRequireDefault(_beeTable);
@@ -61,14 +69,6 @@ var _beePopover2 = _interopRequireDefault(_beePopover);
 var _beePagination = require("bee-pagination");
 
 var _beePagination2 = _interopRequireDefault(_beePagination);
-
-var _ExportExcel = require("./ExportExcel");
-
-var _ExportExcel2 = _interopRequireDefault(_ExportExcel);
-
-var _ColumnsDropdown = require("./ColumnsDropdown");
-
-var _ColumnsDropdown2 = _interopRequireDefault(_ColumnsDropdown);
 
 var _i18n = require("./i18n");
 
@@ -283,58 +283,7 @@ var Grid = function (_Component) {
 
     return columns.map(function (originColumn, index, arr) {
       var column = _extends({}, originColumn);
-      // let menuInfo = [],
-      //   fixTitle = local["fixTitle"],
-      //   showTitle = local["hideTitle"];
-      // if (originColumn.fixed) {
-      //   fixTitle = local["noFixTitle"];
-      // }
-      // menuInfo.push({
-      //   info: fixTitle,
-      //   key: `fix`,
-      //   fieldKey: originColumn.key,
-      //   exitNoFixedColumn:exitNoFixedColumn,
-      //   index: 0
-      // });
-      // //非固定列添加是否显示菜单item
-      // if (!originColumn.fixed) {
-      //   menuInfo.push({
-      //     info: showTitle,
-      //     key: `show`,
-      //     fieldKey: originColumn.key,
-      //     checked: originColumn.checked,
-      //     index: 1
-      //   });
-      // }
-      // //是否行过滤菜单item
-      // if (this.props.showFilterMenu) {
-      //   menuInfo.push({
-      //     info: local["rowFilter"],
-      //     key: "rowFilter",
-      //     fieldKey: originColumn.key,
-      //     index: 3
-      //   });
-      // }
-      // let menu = (
-      //   <Menu onSelect={this.onMenuSelect} selectedKeys={[]} data-type="menu11" className="grid-menu">
-      //     {menuInfo.map(da => {
-      //       return (
-      //         <Item key={da.key} index={da.index} data={da}>
-      //           {da.info}
-      //         </Item>
-      //       );
-      //     })}
-      //   </Menu>
-      // );
       column.hasHeaderMenu = true;
-      // column.title = (
-      //   <span className="title-con drop-menu">
-      //     {column.title}
-      //     <Dropdown trigger={["click"]} overlay={menu} animation="slide-up" data-type="menu11">
-      //       <Icon type={icon} />
-      //     </Dropdown>
-      //   </span>
-      // );
       column.title = _react2["default"].createElement(_ColumnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu,
         onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble,
         filterable: filterable
@@ -376,11 +325,12 @@ var Grid = function (_Component) {
 
   Grid.prototype.render = function render() {
     var props = this.props;
-    console.log(props.className);
     var ComplexTable = this.ComplexTable;
     var _props$sort = props.sort,
         sort = _props$sort === undefined ? {} : _props$sort,
-        paginationObj = props.paginationObj;
+        paginationObj = props.paginationObj,
+        _props$toolBar = props.toolBar,
+        toolBar = _props$toolBar === undefined ? {} : _props$toolBar;
 
     var paginationParam = void 0,
         verticalPosition = void 0,
@@ -741,5 +691,6 @@ Grid.defaultProps = defaultProps;
 Grid.contextTypes = {
   beeLocale: _propTypes2["default"].object
 };
+
 exports["default"] = Grid;
 module.exports = exports["default"];
