@@ -4,7 +4,7 @@
  *
  */
 import React, { Component } from "react";
-import  Grid from "../../src";
+import  Grid,{GridToolBar} from "../../src";
 
   
 const column = [
@@ -187,8 +187,7 @@ class Demo1 extends Component {
       showJump:false
     }
 
-    const toolBar={
-        toolBtns:[{
+    const toolBtns = [{
             value:'新增',
             onClick:this.addData,
             bordered:false,
@@ -214,19 +213,20 @@ class Demo1 extends Component {
             ]
         },{
             iconType:'uf-copy',
-        }],
-        btnSize:'sm',
-    }
+        }]
     return (
-      <Grid
-        className="demo"
-        toolBar={toolBar}
-        columns={column}
-        data={this.state.dataList}
-        getSelectedDataFunc={this.getSelectedDataFunc}
-        paginationObj={paginationObj}
-        canSum={true}
-      />
+      <div>
+        <GridToolBar toolBtns={toolBtns} btnSize='sm' />
+        <Grid
+          className="demo"
+          columns={column}
+          data={this.state.dataList}
+          getSelectedDataFunc={this.getSelectedDataFunc}
+          paginationObj={paginationObj}
+          canSum={true}
+        />
+      </div>
+      
     );
   }
 }

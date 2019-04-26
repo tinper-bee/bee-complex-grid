@@ -11234,6 +11234,8 @@ ul {
         color: #1565c0; }
   .u-table thead tr:last-child {
     border-bottom: 1px solid #C1C7D0; }
+  .u-table thead tr > th:last-child {
+    border-right: none; }
   .u-table tr:hover td .uf-eye {
     visibility: visible !important; }
   .u-table tr tr a {
@@ -11326,6 +11328,8 @@ ul {
     border-bottom: 1px solid rgb(193, 199, 208);
     text-align: center;
     position: relative; }
+    .u-table-placeholder .table-nodata {
+      font-size: 48px; }
   .u-table-expand-icon-col {
     width: 10px; }
   .u-table-row .u-table tr, .u-table-expanded-row .u-table tr {
@@ -11517,7 +11521,7 @@ ul {
     width: 30px;
     height: 38px;
     line-height: 38px;
-    right: 12px;
+    right: 0px;
     top: 1px;
     z-index: 2;
     background: rgb(241, 242, 245);
@@ -11528,10 +11532,11 @@ ul {
       color: #505F79; }
   .u-table-filter-column-pop-cont-item {
     margin-top: 8px;
+    font-size: 12px;
     cursor: pointer; }
     .u-table-filter-column-pop-cont-item .u-checkbox {
       margin: 0px; }
-  .u-table-filter-column-pop-cont-item > span {
+  .u-table-filter-column-pop-cont-item span.drop-menu-title {
     margin-left: -3px;
     max-width: 132px;
     width: auto !important;
@@ -11815,6 +11820,10 @@ ul {
   vertical-align: middle;
   overflow: hidden; }
 
+.u-table-drag-hidden-cont {
+  position: absolute;
+  top: -1000px; }
+
 .u-grid th .drop-menu .uf {
   font-size: 12px;
   visibility: hidden;
@@ -11904,6 +11913,9 @@ ul {
     padding: 0px; }
     .grid-toolbar .toolbar-btn-icon.u-button .uf {
       padding: 0px; }
+  .grid-toolbar .u-button:not(.u-button-icon) i.uf {
+    vertical-align: middle;
+    font-size: 14px; }
 
 .u-dropdown-menu {
   padding-top: 3px;

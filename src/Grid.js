@@ -4,7 +4,6 @@ import classNames from "classnames";
 
 import ExportJsonExcel from "./ExportExcel";
 import ColumnsDropdown from './ColumnsDropdown';
-import ToolBar from "./ToolBar";
 
 import Table from "bee-table";
 import multiSelect from "bee-table/build/lib/multiSelect";
@@ -544,7 +543,7 @@ class Grid extends Component {
     }
     return (
       <div className={classNames("u-grid", props.className)}>
-        <ToolBar toolBtns={toolBar.toolBtns} btnSize={toolBar.btnSize}/>
+        {/* <ToolBar toolBtns={toolBar.toolBtns} btnSize={toolBar.btnSize}/> */}
         { verticalPosition == "top" && (
           <Pagination
             {...paginationParam}
@@ -588,4 +587,5 @@ Grid.defaultProps = defaultProps;
 Grid.contextTypes = {
   beeLocale: PropTypes.object
 };
+
 export default Grid;

@@ -50,7 +50,11 @@ class ToolBar extends Component{
     }
     getToolBtns=()=>{
         let rs = [];
-        const {toolBtns,btnSize,btnBordered} = this.props;
+        const {toolBtns,btnSize,btnBordered,contentAlign} = this.props;
+        let className='grid-toolbar';
+        if(contentAlign){
+            className += ` ${contentAlign}` ; 
+        }
         rs = toolBtns.map(item=>{
             let btn,className = item.className?item.className:'' ;
             if(item.iconType && !item.value){
@@ -70,7 +74,7 @@ class ToolBar extends Component{
             return ''
         else
             return (
-                <div className='grid-toolbar'>
+                <div className={className}>
                    {rs}
                 </div>
             )

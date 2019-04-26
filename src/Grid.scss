@@ -151,6 +151,11 @@ $icon-color:#505F79;
             padding: 0px
         }
     }
+
+    .u-button:not(.u-button-icon) i.uf {
+        vertical-align: middle;
+        font-size: 14px;
+    }
 }
 .u-dropdown-menu{
     padding-top: 3px;
