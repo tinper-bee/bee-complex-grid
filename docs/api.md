@@ -24,6 +24,7 @@ import 'bee-complex-grid/build/Grid.css';
 |multiSelect|是否含有多选框，multiSelect={false}时为每行不含有Checkbox|Object|{}|
 |showFilterMenu|是否显示行过滤菜单|boolean|false|
 |columnFilterAble|是否显示列过滤功能|boolean|true|
+|exporFileName【excel】| 设置导出excel 的文件名称 | string | -- |
 |sheetName【excel】| 设置导出excel 的sheet的名称 | string | -- |
 |sheetIsRowFilter【excel】| 是否要设置数据的行高 | boolean | false |
 |sheetHeader【excel】| 设置导出excel 的Head的高度 | Object | eg:height:30, //设置高度ifshow:false //是否显示 |

@@ -240,7 +240,7 @@ class Demo3 extends Component {
         colors:'primary'
     },{
         value:'导出',
-        iconType:'uf-search',
+        iconType:'uf-export',
         onClick:this.exportExcel
     }]
     return (
@@ -249,6 +249,7 @@ class Demo3 extends Component {
         <Grid
           ref="grid"
           className='gridDemo demo'
+          exporFileName="bee-grid-excel" //导出excel的文件名称设置，如果不设置为dowloand
           columns={column}
           data={dataList}
           exportData={exportDataList}

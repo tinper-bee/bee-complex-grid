@@ -127,9 +127,10 @@ const sortObjArray = function(array, key) {
   });
  }
 
-const exportExcel = function(options) {
+const exportExcel = function(options,fileName) {
   let _options = {
-    fileName: options.fileName || "download",
+    // fileName: options.fileName || "download",
+    fileName: fileName ?fileName:"download",
     datas: options.datas,
     workbook: {
       SheetNames: [],
