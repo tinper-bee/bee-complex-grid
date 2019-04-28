@@ -127,9 +127,10 @@ var sortObjArray = function sortObjArray(array, key) {
   });
 };
 
-var exportExcel = function exportExcel(options) {
+var exportExcel = function exportExcel(options, fileName) {
   var _options = {
-    fileName: options.fileName || "download",
+    // fileName: options.fileName || "download",
+    fileName: fileName ? fileName : "download",
     datas: options.datas,
     workbook: {
       SheetNames: [],
