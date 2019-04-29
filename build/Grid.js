@@ -598,7 +598,7 @@ var _initialiseProps = function _initialiseProps() {
         sheetName = _props2.sheetName,
         _sheetHeader = _props2.sheetHeader,
         exportData = _props2.exportData,
-        exporFileName = _props2.exporFileName;
+        exportFileName = _props2.exportFileName;
 
     var colsAndTablePros = _this4.getColumnsAndTablePros();
     var sheetHeader = [],
@@ -639,7 +639,7 @@ var _initialiseProps = function _initialiseProps() {
     }
     var option = {
       datas: [{
-        fileName: exporFileName,
+        fileName: exportFileName,
         sheetData: exportData,
         sheetName: sheetName,
         sheetFilter: sheetFilter,
@@ -648,7 +648,7 @@ var _initialiseProps = function _initialiseProps() {
         rowAttr: rowAttr
       }]
     };
-    var toExcel = new _ExportExcel2["default"](option, exporFileName);
+    var toExcel = new _ExportExcel2["default"](option, exportFileName);
     toExcel.saveExcel();
   };
 

@@ -418,7 +418,7 @@ class Grid extends Component {
   
 
   exportExcel = () => {
-    let { sheetIsRowFilter, sheetName, sheetHeader: _sheetHeader ,exportData,exporFileName} = this.props;
+    let { sheetIsRowFilter, sheetName, sheetHeader: _sheetHeader ,exportData,exportFileName} = this.props;
     let colsAndTablePros = this.getColumnsAndTablePros();
     let sheetHeader = [],
       columnAttr = [],
@@ -459,7 +459,7 @@ class Grid extends Component {
     let option = {
       datas: [
         {
-          fileName:exporFileName,
+          fileName:exportFileName,
           sheetData: exportData,
           sheetName,
           sheetFilter,
@@ -469,7 +469,7 @@ class Grid extends Component {
         }
       ]
     };
-    let toExcel = new ExportJsonExcel(option,exporFileName);
+    let toExcel = new ExportJsonExcel(option,exportFileName);
     toExcel.saveExcel();
   };
 
