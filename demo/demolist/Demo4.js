@@ -4,6 +4,7 @@
  *
  */
 import React, { Component } from "react";
+import Button from 'bee-button';
 import Grid from "../../src";
 const columns = [
     {
@@ -19,28 +20,7 @@ const columns = [
     title: "用户名", dataIndex: "a", key: "a", width: 580, className: "rowClassName",
   },
   { id: "123", title: "性别", dataIndex: "b", key: "b", width: 80},
-  { title: "年龄", dataIndex: "c", key: "c", width: 200 },
-  {
-    title: "操作",
-    dataIndex: "d",
-    key: "d",
-    fixed:'right',
-    render(text, record, index) {
-      return (
-        <div style={{ position: 'relative' }} title={text} >
-          <a
-            href="javascript:;"
-            tooltip={text}
-            onClick={() => {
-              alert('这是第' + index + '列，内容为:' + text);
-            }}
-          >
-            一些操作
-              </a>
-        </div>
-      );
-    }
-  }
+  { title: "年龄", dataIndex: "c", key: "c", width: 200 }
 ];
 
 const data = [ ...new Array(10000) ].map((e, i) => {
@@ -69,18 +49,30 @@ class Demo4 extends Component {
   /**
    * 请求页面数据
    */
-  freshata=()=>{
+  freshata = () => {
 
   }
-  onDataNumSelect=()=>{
+  onDataNumSelect = () => {
     console.log('选择每页多少条的回调函数');
+  }
+  onRowHover = (index,record) => {
+    this.currentIndex = index;
+    this.currentRecord = record;
+  }
+  handleClick = () => {
+    alert('这是第' + this.currentIndex + '列，用户名为:' + this.currentRecord.a);
+  }
+
+  getHoverContent=()=>{
+    return <div className="opt-btns"><Button size="sm" onClick={this.handleClick}>一些操作</Button> </div>
   }
   render() {
     let paginationObj = {
       items:10,//一页显示多少条
       total:100,//总共多少条
       freshData:this.freshData,//点击下一页刷新的数据
-      onDataNumSelect:this.onDataNumSelect //每页大小改变触发的事件
+      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
+      noBorder:true
     }
     return (
       <Grid
@@ -92,6 +84,8 @@ class Demo4 extends Component {
         loadLazy={true}
         heigth={40}
         scroll = {{y:300}}
+        hoverContent={this.getHoverContent}
+        onRowHover={this.onRowHover}
       />
     );
   }

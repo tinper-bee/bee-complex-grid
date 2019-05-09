@@ -15783,4 +15783,13 @@ ul {
   -ms-flex-pack: center;
   justify-content: center; }
 
+.opt-btns .u-button {
+  margin: 0 4px;
+  color: #fff;
+  background: #505F79;
+  border-color: #505F79; }
+  .opt-btns .u-button:hover, .opt-btns .u-button:active {
+    background: #344563;
+    border-color: #505F79; }
+
 /*# sourceMappingURL=demo.css.map */

@@ -69,28 +69,6 @@ const column = [
     dataIndex: "closeState_name",
     key: "closeState_name",
     width: 100
-  },
-  {
-    title: "操作",
-    dataIndex: "d",
-    key: "d",
-    width: 100,
-    fixed: "right",
-    render(text, record, index) {
-      return (
-        <div className="operation-btn">
-          <a
-            href="#"
-            tooltip={text}
-            onClick={() => {
-              alert("这是第" + index + "列，内容为:" + text);
-            }}
-          >
-            一些操作
-          </a>
-        </div>
-      );
-    }
   }
 ];
 const dataList = [
@@ -227,11 +205,25 @@ class Demo3 extends Component {
     this.refs.grid.exportExcel();
   }
 
+  onRowHover = (index,record) => {
+    this.currentIndex = index;
+    this.currentRecord = record;
+  }
+
+  handleClick = () => {
+    alert('这是第' + this.currentIndex + '列，订单编号为:' + this.currentRecord.orderCode);
+  }
+
+  getHoverContent=()=>{
+    return <div className="opt-btns"><Button size="sm" onClick={this.handleClick}>一些操作</Button> </div>
+  }
+
   render() {
     let paginationObj = {
       items:10,//总页数
       total:100,
-      freshData:this.freshData
+      freshData:this.freshData,
+      noBorder:true
     }
     const toolBtns = [{
         value:'生成模板表格',
@@ -259,6 +251,8 @@ class Demo3 extends Component {
           scroll={{ x: "130%" }}
           selectedRow={this.selectedRow}
           paginationObj={paginationObj}
+          hoverContent={this.getHoverContent}
+          onRowHover={this.onRowHover}
         />
         <h3>根据模板生成的表格</h3>
         {this.state.showTemTable?

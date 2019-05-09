@@ -184,7 +184,8 @@ class Demo1 extends Component {
       total:100,//总共多少条、
       freshData:this.freshData,//点击下一页刷新的数据
       onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
-      showJump:false
+      showJump:false,
+      noBorder:true
     }
 
     const toolBtns = [{

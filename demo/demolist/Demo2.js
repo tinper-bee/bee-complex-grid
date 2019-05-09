@@ -103,7 +103,8 @@ class Demo2 extends Component {
   render() {
     let paginationObj = {
       items:10,//总页数
-      freshData:this.freshData
+      freshData:this.freshData,
+      noBorder:true
     }
     let sortObj = {
         mode:'multiple',
