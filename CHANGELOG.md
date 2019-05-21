@@ -1,3 +1,28 @@
+<a name="2.0.14"></a>
+## [2.0.14](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.13...v2.0.14) (2019-05-21)
+
+
+### Bug Fixes
+
+* **Grid.js:** fix:当所有列都锁定了,表格内容消失 ([a66e9b9](https://github.com/tinper-bee/bee-complex-grid/commit/a66e9b9))
+
+
+
+<a name="2.0.13"></a>
+## [2.0.13](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.12...v2.0.13) (2019-04-29)
+
+
+
+<a name="2.0.12"></a>
+## [2.0.12](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.11...v2.0.12) (2019-04-29)
+
+
+
+<a name="2.0.11"></a>
+## [2.0.11](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.10...v2.0.11) (2019-04-28)
+
+
+
 <a name="2.0.10"></a>
 ## [2.0.10](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.9...v2.0.10) (2019-04-26)
 
