@@ -21,7 +21,7 @@ import 'bee-complex-grid/build/Grid.css';
 |:--|:---:|:--:|---:|
 |paginationObj|表格分页，具体参考[分页API](http://bee.tinper.org/bee-pagination#bee-pagination)|Object|{activePage: 1, total: 0,items:1}horizontalPosition:分页条的对齐方式是left可以为center、right。verticalPosition为bottom或者top,当值为'none'时不显示分页|
 |showHeaderMenu|是否显示表头菜单(动态设置显示隐藏、锁定解锁)|boolean|true|
-|multiSelect|是否含有多选框，multiSelect={false}时为每行不含有Checkbox|Object|{}|
+|multiSelect|是否显示多选功能或单选功能，multiSelect={{type:"radio"}}时为单选表格，multiSelect={{type:"checkbox"}}时为多选表格，传其他值时均为普通表格|Object|{type:"checkbox"}|
 |showFilterMenu|是否显示行过滤菜单|boolean|false|
 |columnFilterAble|是否显示列过滤功能|boolean|true|
 |exportFileName【excel】| 设置导出excel 的文件名称 | string | -- |
