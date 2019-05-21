@@ -50,7 +50,7 @@ class ColumnsDropdown extends Component {
     const icon = "uf-arrow-down";
     let noFixedCount =0;//非固定列个数
     allColumns.forEach(item => {
-      if(!item.fixed){
+      if(!item.fixed && item.ifshow !== false){
         noFixedCount = noFixedCount + 1;
       }
     });

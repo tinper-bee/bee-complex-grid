@@ -34884,7 +34884,7 @@
 	    var icon = "uf-arrow-down";
 	    var noFixedCount = 0; //非固定列个数
 	    allColumns.forEach(function (item) {
-	      if (!item.fixed) {
+	      if (!item.fixed && item.ifshow !== false) {
 	        noFixedCount = noFixedCount + 1;
 	      }
 	    });
@@ -45515,33 +45515,14 @@
 	      });
 	    };
 	
-	    _this.getTableUID = function () {
-	      var uid = "_table_uid_" + new Date().getTime();
-	      _this.tableUid = uid;
-	      var div = document.createElement("div");
-	      // div.className = "u-table-drag-hidden-cont";
-	      div.className = "u-table-drag-hidden-cont";
-	      div.id = uid;
-	      _this.contentTable.appendChild(div);
-	    };
-	
-	    _this.onDragRow = function (currentKey, targetKey) {
+	    _this.onDragRow = function (currentIndex, targetIndex) {
 	      var data = _this.state.data,
-	          currentIndex = void 0,
-	          targetIndex = void 0;
-	      data.forEach(function (da, i) {
-	        if (da.key == currentKey) {
-	          currentIndex = i;
-	        }
-	        if (da.key == targetKey) {
-	          targetIndex = i;
-	        }
-	      });
-	      if (currentIndex < targetIndex) {
-	        data.splice(targetIndex, 0, data.splice(currentIndex, 1).shift());
-	      } else {
-	        data.splice(targetIndex + 1, 0, data.splice(currentIndex, 1).shift());
-	      }
+	          currentObj = data[currentIndex],
+	          targetObj = data[targetIndex];
+	
+	      console.log(currentIndex + " ----------onRowDragEnd-------- " + targetIndex);
+	      data.splice(targetIndex, 0, data.splice(currentIndex, 1).shift());
+	      console.log(" _data---- ", data);
 	      _this.setState({
 	        data: data
 	      });
@@ -45644,12 +45625,10 @@
 	    _this.handleRowHover = _this.handleRowHover.bind(_this);
 	    _this.computeTableWidth = _this.computeTableWidth.bind(_this);
 	    _this.onBodyMouseLeave = _this.onBodyMouseLeave.bind(_this);
-	    _this.tableUid = null;
 	    return _this;
 	  }
 	
 	  Table.prototype.componentDidMount = function componentDidMount() {
-	    this.getTableUID();
 	    _utils.EventUtil.addHandler(this.contentTable, 'keydown', this.onKeyDown);
 	    _utils.EventUtil.addHandler(this.contentTable, 'focus', this.onFocus);
 	    setTimeout(this.resetScrollX, 300);
@@ -46149,7 +46128,7 @@
 	        indent: indent,
 	        indentSize: props.indentSize,
 	        needIndentSpaced: needIndentSpaced,
-	        className: className + ' ' + (this.props.rowDraggAble ? ' row-dragg-able ' : ''),
+	        className: className,
 	        record: record,
 	        expandIconAsCell: expandIconAsCell,
 	        onDestroy: this.onRowDestroy,
@@ -46183,8 +46162,7 @@
 	        bodyDisplayInRow: props.bodyDisplayInRow,
 	        rowDraggAble: this.props.rowDraggAble,
 	        onDragRow: this.onDragRow,
-	        contentTable: this.contentTable,
-	        tableUid: this.tableUid
+	        contentTable: this.contentTable
 	      })));
 	      this.treeRowIndex++;
 	      var subVisible = visible && isRowExpanded;
@@ -46905,11 +46883,6 @@
 	          target = _utils.Event.getTarget(event);
 	      _this.currentIndex = target.getAttribute("data-row-key");
 	      _this._dragCurrent = target;
-	
-	      //TODO 自定义图像后续需要增加。
-	      //  let crt = this.synchronizeTableTrShadow(); 
-	      //  document.getElementById(this.props.tableUid).appendChild(crt);
-	      // event.dataTransfer.setDragImage(crt, 0, 0);
 	      event.dataTransfer.effectAllowed = "move";
 	      event.dataTransfer.setData("Text", _this.currentIndex);
 	    };
@@ -46927,37 +46900,15 @@
 	      var event = _utils.Event.getEvent(e),
 	          _target = _utils.Event.getTarget(event),
 	          target = _target.parentNode;
-	
-	      var currentKey = event.dataTransfer.getData("text");
-	      var targetKey = target.getAttribute("data-row-key");
-	
-	      if (!targetKey || targetKey === currentKey) return;
+	      var currentIndex = target.getAttribute("data-row-key");
+	      if (!currentIndex || currentIndex === _this.currentIndex) return;
 	      if (target.nodeName.toUpperCase() === "TR") {
-	        _this.synchronizeTableTr(currentKey, null);
-	        _this.synchronizeTableTr(targetKey, null);
+	        _this.synchronizeTableTr(_this.currentIndex, null);
 	        // target.setAttribute("style","");
 	        // this.synchronizeTrStyle(this.currentIndex,false);
 	      }
-	      onDragRow && onDragRow(currentKey, targetKey);
-	    };
-	
-	    _this.synchronizeTableTrShadow = function () {
-	      var _this$props2 = _this.props,
-	          contentTable = _this$props2.contentTable,
-	          index = _this$props2.index;
-	
-	
-	      var _table_cont = contentTable.querySelector('.u-table-scroll table tbody').getElementsByTagName("tr")[index],
-	          _table_trs = _table_cont.getBoundingClientRect(),
-	          _table_fixed_left_trs = contentTable.querySelector('.u-table-fixed-left table tbody').getElementsByTagName("tr")[index].getBoundingClientRect(),
-	          _table_fixed_right_trs = contentTable.querySelector('.u-table-fixed-right table tbody').getElementsByTagName("tr")[index].getBoundingClientRect();
-	
-	      var div = document.createElement("div");
-	      var style = "wdith:" + (_table_trs.width + _table_fixed_left_trs.width + _table_fixed_right_trs.width) + "px";
-	      style += "height:" + _table_trs.height + "px";
-	      style += "classname:" + _table_cont.className;
-	      div.setAttribute("style", style);
-	      return div;
+	      var _currentIndex = event.dataTransfer.getData("text");
+	      onDragRow && onDragRow(parseInt(_this.currentIndex--), parseInt(currentIndex--));
 	    };
 	
 	    _this.synchronizeTableTr = function (currentIndex, type) {
@@ -47101,12 +47052,6 @@
 	  /**
 	   * 在一个拖动过程中，释放鼠标键时触发此事件。【目标事件】
 	   * @memberof TableHeader
-	   */
-	
-	
-	  /**
-	   *同步当前拖拽到阴影
-	   * @memberof TableRow
 	   */
 	
 	
@@ -80314,7 +80259,7 @@
 	};
 	
 	var defaultProps = {
-	    value: "",
+	    value: 0,
 	    step: 1,
 	    clsPrefix: 'u-input-number',
 	    iconStyle: 'double',
@@ -80340,34 +80285,25 @@
 	
 	    if (value) {
 	        currentValue = Number(value) || 0;
-	    } else if (min && value != '') {
+	    } else if (min) {
 	        currentValue = min;
-	    } else if (value === '0' || value === 0) {
+	    } else if (value == 0) {
 	        currentValue = 0;
 	    } else {
 	        //NaN
-	        if (oldValue || oldValue === 0 || oldValue === '0') {
+	        if (oldValue || oldValue == 0) {
 	            currentValue = oldValue;
-	        } else {
-	            //value为空
-	            return {
-	                value: '',
-	                minusDisabled: false,
-	                plusDisabled: false
-	            };
 	        }
 	    }
 	    if (currentValue <= min) {
 	        currentMinusDisabled = true;
-	        currentValue = min;
 	    }
 	    if (currentValue >= max) {
 	        currentPlusDisabled = true;
-	        currentValue = max;
 	    }
 	
 	    if (props.hasOwnProperty('precision')) {
-	        currentValue = Number(currentValue).toFixed(precision);
+	        currentValue = currentValue.toFixed(precision);
 	    }
 	
 	    return {
@@ -80382,7 +80318,6 @@
 	 * @param {是否要小数点} point 
 	 */
 	function toThousands(number, point) {
-	    if (number == '') return '';
 	    var num = (number || 0).toString();
 	    var integer = num.split('.')[0];
 	    var decimal = num.split('.')[1] || '';
@@ -80422,13 +80357,6 @@
 	                onChange = _this$props.onChange,
 	                toNumber = _this$props.toNumber;
 	
-	            if (value == '') {
-	                onChange && onChange(value);
-	                _this.setState({
-	                    value: value
-	                });
-	                return;
-	            }
 	            value = unThousands(value);
 	            if (isNaN(value) && value != '.') return;
 	            _this.setState({
@@ -80457,6 +80385,7 @@
 	        };
 	
 	        _this.handleBlur = function (v) {
+	            v = unThousands(v);
 	            _this.focus = false;
 	            var _this$props3 = _this.props,
 	                onBlur = _this$props3.onBlur,
@@ -80464,15 +80393,6 @@
 	                onChange = _this$props3.onChange,
 	                toNumber = _this$props3.toNumber;
 	
-	            if (v == '') {
-	                _this.setState({
-	                    value: v
-	                });
-	                onBlur && onBlur(v);
-	                onChange && onChange(v);
-	                return;
-	            }
-	            v = unThousands(v);
 	            var value = Number(v);
 	            if (precision) {
 	                value = value.toFixed(precision);

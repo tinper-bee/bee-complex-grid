@@ -94,7 +94,7 @@ var ColumnsDropdown = function (_Component) {
     var icon = "uf-arrow-down";
     var noFixedCount = 0; //非固定列个数
     allColumns.forEach(function (item) {
-      if (!item.fixed) {
+      if (!item.fixed && item.ifshow !== false) {
         noFixedCount = noFixedCount + 1;
       }
     });

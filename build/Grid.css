@@ -6363,7 +6363,7 @@ ul {
     width: 16px;
     height: 16px;
     text-align: center;
-    line-height: 14px;
+    line-height: 16px;
     border: 1px solid rgb(193, 199, 208);
     user-select: none;
     background: #fff;
@@ -6379,9 +6379,9 @@ ul {
   .u-table-row.selected {
     background: #FFF7E7; }
   .u-table tr.u-table-expanded-row {
-    background: #DFE1E6; }
+    background: #f7f7f7; }
     .u-table tr.u-table-expanded-row:hover {
-      background: #DFE1E6; }
+      background: #f7f7f7; }
     .u-table tr.u-table-expanded-row .u-table {
       z-index: 1; }
   .u-table-column-hidden {
@@ -6527,7 +6527,7 @@ ul {
   .u-table-filter-column-pop-cont {
     margin: 0px;
     max-height: 300px;
-    overflow-y: auto;
+    overflow-y: scroll;
     color: #212121; }
   .u-table-filter-column-clear-setting {
     cursor: pointer;
@@ -6601,11 +6601,6 @@ ul {
     display: none; }
   .u-table ::-webkit-scrollbar-track-piece {
     display: none; }
-  .u-table .row-dragg-able {
-    cursor: move; }
-  .u-table .u-table-drag-hidden-cont {
-    width: 100px;
-    height: 40px; }
 
 .u-table:focus {
   outline: none;
@@ -6839,24 +6834,6 @@ ul {
 .u-table-drag-hidden-cont {
   position: absolute;
   top: -1000px; }
-
-.u-editable-table .u-table .u-table-row-hover .editable-cell-text-wrapper {
-  padding-left: 4px;
-  border: 1px solid #c1c7d0; }
-
-.u-editable-table .u-table .editable-cell-text-wrapper:hover {
-  padding-left: 4px;
-  border: 1px solid #a5adba; }
-
-.u-editable-table .u-table .editable-cell-input-wrapper:focus {
-  outline: none; }
-
-.u-editable-table-tp .tooltip-arrow {
-  top: 1px !important;
-  border-bottom-color: #F44336 !important; }
-
-.u-editable-table-tp .tooltip-inner {
-  border-color: #F44336 !important; }
 
 .u-grid th .drop-menu .uf {
   font-size: 12px;
