@@ -54,7 +54,7 @@ class ColumnsDropdown extends Component {
         noFixedCount = noFixedCount + 1;
       }
     });
-    let menuInfo = [],
+    let menuInfo = [], 
       fixTitle = local["fixTitle"],
       showTitle = local["hideTitle"];
     if (originColumn.fixed) {
@@ -63,8 +63,9 @@ class ColumnsDropdown extends Component {
     menuInfo.push({
       info: fixTitle,
       key: `fix`,
+      fixed:originColumn.fixed,
       fieldKey: originColumn.key,
-      disabled:noFixedCount<2 && !originColumn.fixed,
+      // disabled:noFixedCount<2 && !originColumn.fixed,
       index: 0
     });
     //非固定列添加是否显示菜单item
@@ -74,6 +75,7 @@ class ColumnsDropdown extends Component {
         key: `show`,
         fieldKey: originColumn.key,
         checked: originColumn.checked,
+        // disabled:noFixedCount<2 && !originColumn.fixed,
         index: 1
       });
     }

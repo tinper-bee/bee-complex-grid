@@ -242,7 +242,19 @@ class Grid extends Component {
     let { filterable, renderFlag } = this.state;
     const { checkMinSize } = this.props;
     const fieldKey = item.props.data.fieldKey;
+    let sum = 0;
+    if(key !=='rowFilter'){
+      //显示原则跟table组件同步，至少有一个非固定列显示
+     
+      this.columns.forEach(da => {
+        !da.fixed && da.ifshow !== false ? sum++ : "";
+      });
+     
+    }
     if (key == "fix") {
+      if ( sum <= 1 && !item.props.data.fixed) {
+        return;
+      }
       this.columns = this.optFixCols(this.columns, fieldKey);
       // this.setState({
       //   columns
@@ -251,11 +263,6 @@ class Grid extends Component {
         renderFlag: !renderFlag
       });
     } else if (key == "show") {
-      //显示原则跟table组件同步，至少有一个非固定列显示
-      let sum = 0;
-      this.columns.forEach(da => {
-        !da.fixed && da.ifshow !== false ? sum++ : "";
-      });
       if (sum < checkMinSize || sum <= 1) {
         return;
       }
@@ -296,6 +303,7 @@ class Grid extends Component {
    * 表头menu和表格整体过滤时有冲突，因此添加了回调函数
    */
   afterFilter = (optData, columns) => {
+    const { renderFlag } = this.state;
     if (Array.isArray(optData)) {
       this.columns.forEach(da => {
         optData.forEach(optItem => {
@@ -316,6 +324,9 @@ class Grid extends Component {
     if (typeof this.props.afterFilter == "function") {
       this.props.afterFilter(optData, this.columns);
     }
+    // this.setState({
+    //   renderFlag:!renderFlag
+    // })
   };
 
   /**
