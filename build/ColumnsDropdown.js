@@ -107,8 +107,9 @@ var ColumnsDropdown = function (_Component) {
     menuInfo.push({
       info: fixTitle,
       key: "fix",
+      fixed: originColumn.fixed,
       fieldKey: originColumn.key,
-      disabled: noFixedCount < 2 && !originColumn.fixed,
+      // disabled:noFixedCount<2 && !originColumn.fixed,
       index: 0
     });
     //非固定列添加是否显示菜单item
@@ -118,6 +119,7 @@ var ColumnsDropdown = function (_Component) {
         key: "show",
         fieldKey: originColumn.key,
         checked: originColumn.checked,
+        // disabled:noFixedCount<2 && !originColumn.fixed,
         index: 1
       });
     }
