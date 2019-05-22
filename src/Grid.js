@@ -12,10 +12,12 @@ import dragColumn from "bee-table/build/lib/dragColumn";
 import sort from "bee-table/build/lib/sort";
 import sum from "bee-table/build/lib/sum";
 import bigData from "bee-table/build/lib/bigData";
+import singleSelect from "bee-table/build/lib/singleSelect";
 import Icon from "bee-icon";
 import Checkbox from "bee-checkbox";
 import Popover from "bee-popover";
 import Pagination from "bee-pagination";
+import Radio from "bee-radio";
 
 
 import i18n from "./i18n";
@@ -81,8 +83,12 @@ class Grid extends Component {
     //根据条件生成Grid
     ComplexTable = sort(Table, Icon);
     
-    if (props.multiSelect !== false) {
-      ComplexTable =   multiSelect(ComplexTable, Checkbox);
+    if(Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
+      if(props.multiSelect.type === "checkbox"){ //多选
+        ComplexTable =   multiSelect(ComplexTable, Checkbox);
+      }else if(props.multiSelect.type === "radio") { //单选
+        ComplexTable =   singleSelect(ComplexTable, Radio);
+      }
     }
     if(props.loadLazy){
       ComplexTable = bigData(ComplexTable);

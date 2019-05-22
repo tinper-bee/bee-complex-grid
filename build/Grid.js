@@ -54,6 +54,10 @@ var _bigData = require("bee-table/build/lib/bigData");
 
 var _bigData2 = _interopRequireDefault(_bigData);
 
+var _singleSelect = require("bee-table/build/lib/singleSelect");
+
+var _singleSelect2 = _interopRequireDefault(_singleSelect);
+
 var _beeIcon = require("bee-icon");
 
 var _beeIcon2 = _interopRequireDefault(_beeIcon);
@@ -69,6 +73,10 @@ var _beePopover2 = _interopRequireDefault(_beePopover);
 var _beePagination = require("bee-pagination");
 
 var _beePagination2 = _interopRequireDefault(_beePagination);
+
+var _beeRadio = require("bee-radio");
+
+var _beeRadio2 = _interopRequireDefault(_beeRadio);
 
 var _i18n = require("./i18n");
 
@@ -152,8 +160,14 @@ var Grid = function (_Component) {
     //根据条件生成Grid
     ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
 
-    if (props.multiSelect !== false) {
-      ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+    if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
+      if (props.multiSelect.type === "checkbox") {
+        //多选
+        ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+      } else if (props.multiSelect.type === "radio") {
+        //单选
+        ComplexTable = (0, _singleSelect2["default"])(ComplexTable, _beeRadio2["default"]);
+      }
     }
     if (props.loadLazy) {
       ComplexTable = (0, _bigData2["default"])(ComplexTable);

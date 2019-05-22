@@ -60,7 +60,7 @@ table相关API参考[这里](http://bee.tinper.org/bee-table#bee-table),下面�
 |:--|:---:|:--:|---:|
 |paginationObj|表格分页，具体参考[分页API](http://bee.tinper.org/bee-pagination#bee-pagination)|Object|{activePage: 1, total: 0,items:1}
 |showHeaderMenu|是否显示表头菜单(动态设置显示隐藏、锁定解锁)|boolean|true|
-|multiSelect|是否含有多选框，multiSelect={false}时为每行不含有Checkbox|boolean|true|
+|multiSelect|是否显示多选功能或单选功能，multiSelect={{type:"radio"}}时为单选表格，multiSelect={{type:"checkbox"}}时为多选表格，传其他值时均为普通表格|Object|{type:"checkbox"}|
 |showFilterMenu|是否显示行过滤菜单|boolean|false|
 |columnFilterAble|是否显示列过滤功能|boolean|true|
 |sheetName【excel】| 设置导出excel 的sheet的名称 | string | -- |
