@@ -32,6 +32,8 @@ $icon-color:#505F79;
             // width:100%;
             i.uf{
                 padding-left: 4px;
+                -ms-width: 12px;//兼容火狐浏览器样式
+                -ms-display:inline-block;
             }
             .drop-menu-title{
                 text-overflow: ellipsis;
@@ -40,7 +42,11 @@ $icon-color:#505F79;
                 vertical-align: middle;
                 overflow: hidden;
                 max-width: calc( 100% - 21px);
+                // min-width: 24px;
             }
+        }
+        .title-con.drop-menu{
+            max-width: 100% !important;
         }
         .cansort.drop-menu {
                 max-width: calc(100% - 32px) !important;
@@ -48,7 +54,7 @@ $icon-color:#505F79;
         }
         &:last-child{
             .cansort.drop-menu {
-                width: calc(100% - 64px) !important;
+                width: calc(100% - 38px) !important;
             
             }
         }

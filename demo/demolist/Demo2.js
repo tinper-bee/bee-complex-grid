@@ -20,7 +20,6 @@ const column = [
       key: "b",
       width: 200,
       sumCol: true,
-      fixed:'left',
       sorter: (a, b) => a.c - b.c,
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
@@ -119,11 +118,13 @@ class Demo2 extends Component {
           className="demo"
           columns={column}
           data={dataList}
+          // multiSelect={false}
           getSelectedDataFunc={this.getSelectedDataFunc}
           selectedRow={this.selectedRow}
           sort={sortObj}
           sortFun={this.sortFun}
           paginationObj={paginationObj}
+          showFilterMenu
         />
       </div>
      

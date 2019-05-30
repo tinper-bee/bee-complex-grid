@@ -7311,7 +7311,9 @@ ul {
 .u-grid th .drop-menu {
   display: inline-block; }
   .u-grid th .drop-menu i.uf {
-    padding-left: 4px; }
+    padding-left: 4px;
+    -ms-width: 12px;
+    -ms-display: inline-block; }
   .u-grid th .drop-menu .drop-menu-title {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -7320,11 +7322,14 @@ ul {
     overflow: hidden;
     max-width: calc( 100% - 21px); }
 
+.u-grid th .title-con.drop-menu {
+  max-width: 100% !important; }
+
 .u-grid th .cansort.drop-menu {
   max-width: calc(100% - 32px) !important; }
 
 .u-grid th:last-child .cansort.drop-menu {
-  width: calc(100% - 64px) !important; }
+  width: calc(100% - 38px) !important; }
 
 .u-grid th .bee-table-column-sorter {
   margin-left: 0px; }

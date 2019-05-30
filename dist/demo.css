@@ -16086,7 +16086,9 @@ ul {
 .u-grid th .drop-menu {
   display: inline-block; }
   .u-grid th .drop-menu i.uf {
-    padding-left: 4px; }
+    padding-left: 4px;
+    -ms-width: 12px;
+    -ms-display: inline-block; }
   .u-grid th .drop-menu .drop-menu-title {
     text-overflow: ellipsis;
     white-space: nowrap;
