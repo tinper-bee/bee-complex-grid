@@ -160,6 +160,7 @@ var Grid = function (_Component) {
     //根据条件生成Grid
     ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
 
+    // 1、type: "checkbox" 多选  2、type: "radio" 单选
     if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
       if (props.multiSelect.type === "checkbox") {
         //多选
@@ -168,7 +169,11 @@ var Grid = function (_Component) {
         //单选
         ComplexTable = (0, _singleSelect2["default"])(ComplexTable, _beeRadio2["default"]);
       }
+    } else if (typeof props.multiSelect === 'boolean' && !!props.multiSelect) {
+      //兼容老版本，设置 true 为多选。
+      ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
     }
+
     if (props.loadLazy) {
       ComplexTable = (0, _bigData2["default"])(ComplexTable);
     }
