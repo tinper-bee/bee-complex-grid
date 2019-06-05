@@ -191,6 +191,7 @@ class Demo1 extends Component {
         getSelectedDataFunc={this.getSelectedDataFunc}
         paginationObj={paginationObj}
         canSum={true}
+        multiSelect={true}
       />
     );
   }

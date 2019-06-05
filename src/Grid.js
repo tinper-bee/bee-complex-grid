@@ -83,13 +83,17 @@ class Grid extends Component {
     //根据条件生成Grid
     ComplexTable = sort(Table, Icon);
     
+    // 1、type: "checkbox" 多选  2、type: "radio" 单选
     if(Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
       if(props.multiSelect.type === "checkbox"){ //多选
         ComplexTable =   multiSelect(ComplexTable, Checkbox);
       }else if(props.multiSelect.type === "radio") { //单选
         ComplexTable =   singleSelect(ComplexTable, Radio);
       }
+    }else if(typeof props.multiSelect === 'boolean' && !!(props.multiSelect)) { //兼容老版本，设置 true 为多选。
+      ComplexTable =   multiSelect(ComplexTable, Checkbox);
     }
+
     if(props.loadLazy){
       ComplexTable = bigData(ComplexTable);
     }
