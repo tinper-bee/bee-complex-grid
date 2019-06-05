@@ -12,7 +12,7 @@ const column = [
     title: "序号",
     dataIndex: "index",
     key: "index",
-    width: 100,
+    width: 400,
     // exportHidden:true //是否在导出中隐藏此列,此属性如不设置的话，他会读取当前页面的列是否隐藏和显示
   },
   {
@@ -20,7 +20,7 @@ const column = [
     dataIndex: "orderCode",
     key: "orderCode",
     exportKey:'supplierName',//单独设置当前列的导出的key
-    width: 130
+    width: '20%'
   },
   {
     title: "供应商名称",

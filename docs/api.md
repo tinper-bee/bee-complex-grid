@@ -42,6 +42,7 @@ import 'bee-complex-grid/build/Grid.css';
 |:--|:---|:--|:---| 
 |exportHidden|是否在导出中隐藏此列|boolean	|false|
 |exportKey|单独设置当前列的key[eg:性别 返回字段中 table 使用 id ，而导出中使用 name ]|string	|-|
+|width|如果设置为百分比，导出的时候默认宽度为 100px | %	| 百分比 |
 
 
 ###  导出excel 使用
