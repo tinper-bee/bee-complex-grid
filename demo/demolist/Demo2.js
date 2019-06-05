@@ -12,7 +12,12 @@ const column = [
       dataIndex: "a",
       key: "a",
       className:'dfasd',
-      width: 200
+      width: 200,
+      sorter: (pre, after) => {return pre.a.localeCompare(after.a)} ,
+      sorterClick:(data,type)=>{//排序的回调函数
+        //type value is up or down
+        console.log("data",data);
+      }
     },
     {
       title: "功力指数名称长时显示省略号",
@@ -20,7 +25,7 @@ const column = [
       key: "b",
       width: 200,
       sumCol: true,
-      sorter: (a, b) => a.c - b.c,
+      sorter: (pre, after) => {return pre.b - after.b},
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
         console.log("data",data);
@@ -32,7 +37,7 @@ const column = [
       key: "c",
       width: 200,
       sumCol: true,
-      sorter: (a, b) => a.c - b.c,
+      sorter: (pre, after) => {return pre.c - after.c},
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
         console.log("data",data);
@@ -44,7 +49,7 @@ const column = [
       key: "e",
       width: 200,
       sumCol: true,
-      sorter: (a, b) => a.c - b.c,
+      sorter: (pre, after) => {return pre.e - after.e},
     },
     {
       title: "武功级别",
