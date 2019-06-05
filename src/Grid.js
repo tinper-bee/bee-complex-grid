@@ -463,8 +463,9 @@ class Grid extends Component {
       }
       let _hidden = _exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
       if(!_hidden){
+        let _width = String(column.width).indexOf("%") != -1?100:column.width
         columnAttr.push({
-          wpx: column.width,
+          wpx: _width
         });
         let _cloum = column.exportKey?column.exportKey:column.dataIndex
         sheetFilter.push(_cloum);
