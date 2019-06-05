@@ -69,6 +69,9 @@ class Grid extends Component {
       showMenuKey:''
       // columns: props.columns.slice()
     };
+    if(props.loadLazy){
+      ComplexTable = bigData(ComplexTable);
+    }
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
     if (sortObj) {
       sortObj.originSortFun = sortObj.originSortFun
@@ -81,7 +84,7 @@ class Grid extends Component {
       ComplexTable = sum(ComplexTable);
     }
     //根据条件生成Grid
-    ComplexTable = sort(Table, Icon);
+    ComplexTable = sort(ComplexTable, Icon);
     
     // 1、type: "checkbox" 多选  2、type: "radio" 单选
     if(Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
@@ -94,9 +97,7 @@ class Grid extends Component {
       ComplexTable =   multiSelect(ComplexTable, Checkbox);
     }
 
-    if(props.loadLazy){
-      ComplexTable = bigData(ComplexTable);
-    }
+    
     if (props.draggable) {
       ComplexTable = dragColumn(ComplexTable);
     }
