@@ -653,8 +653,9 @@ var _initialiseProps = function _initialiseProps() {
       }
       var _hidden = _exportHidden ? column.exportHidden : _show; //column.exportHidden // column.excelHidden === false ? true : false
       if (!_hidden) {
+        var _width = String(column.width).indexOf("%") != -1 ? 100 : column.width;
         columnAttr.push({
-          wpx: column.width
+          wpx: _width
         });
         var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
         sheetFilter.push(_cloum);
