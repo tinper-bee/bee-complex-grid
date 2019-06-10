@@ -148,6 +148,9 @@ var Grid = function (_Component) {
       showMenuKey: ''
       // columns: props.columns.slice()
     };
+    if (props.loadLazy) {
+      ComplexTable = (0, _bigData2["default"])(ComplexTable);
+    }
     //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
     if (sortObj) {
       sortObj.originSortFun = sortObj.originSortFun ? sortObj.originSortFun : sortObj.sortFun;
@@ -158,7 +161,7 @@ var Grid = function (_Component) {
       ComplexTable = (0, _sum2["default"])(ComplexTable);
     }
     //根据条件生成Grid
-    ComplexTable = (0, _sort2["default"])(_beeTable2["default"], _beeIcon2["default"]);
+    ComplexTable = (0, _sort2["default"])(ComplexTable, _beeIcon2["default"]);
 
     // 1、type: "checkbox" 多选  2、type: "radio" 单选
     if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
@@ -174,9 +177,6 @@ var Grid = function (_Component) {
       ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
     }
 
-    if (props.loadLazy) {
-      ComplexTable = (0, _bigData2["default"])(ComplexTable);
-    }
     if (props.draggable) {
       ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
     }
@@ -634,27 +634,30 @@ var _initialiseProps = function _initialiseProps() {
     var sheetHeader = [],
         columnAttr = [],
         rowAttr = [],
-        sheetFilter = [],
-        _exportHidden = false;
+        sheetFilter = [];
+    // _exportHidden = false;
 
-    for (var index = 0; index < colsAndTablePros.columns.length; index++) {
-      var element = colsAndTablePros.columns[index];
-      if (element.exportHidden) {
-        _exportHidden = true;
-        break;
-      }
-    }
+    // for (let index = 0; index < colsAndTablePros.columns.length; index++) {
+    //   const element = colsAndTablePros.columns[index];
+    //   if(element.exportHidden){
+    //     _exportHidden = true;
+    //     break;
+    //   }
+    // }
     // console.log("--_excelHidden-******--",_exportHidden);
     colsAndTablePros.columns.forEach(function (column) {
 
-      var _show = false;
+      var _show = false,
+          _hidden = false;
       if (column.ifshow != undefined && column.ifshow === false) {
         _show = true;
       }
-      var _hidden = _exportHidden ? column.exportHidden : _show; //column.exportHidden // column.excelHidden === false ? true : false
+      // _hidden = _exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
+      _hidden = column.exportHidden ? true : _show;
       if (!_hidden) {
+        var _width = String(column.width).indexOf("%") != -1 ? 100 : column.width;
         columnAttr.push({
-          wpx: column.width
+          wpx: _width
         });
         var _cloum = column.exportKey ? column.exportKey : column.dataIndex;
         sheetFilter.push(_cloum);

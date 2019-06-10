@@ -445,24 +445,25 @@ class Grid extends Component {
     let sheetHeader = [],
       columnAttr = [],
       rowAttr = [],
-      sheetFilter = [],
-      _exportHidden = false;
+      sheetFilter = [];
+      // _exportHidden = false;
 
-    for (let index = 0; index < colsAndTablePros.columns.length; index++) {
-      const element = colsAndTablePros.columns[index];
-      if(element.exportHidden){
-        _exportHidden = true;
-        break;
-      }
-    }
+    // for (let index = 0; index < colsAndTablePros.columns.length; index++) {
+    //   const element = colsAndTablePros.columns[index];
+    //   if(element.exportHidden){
+    //     _exportHidden = true;
+    //     break;
+    //   }
+    // }
     // console.log("--_excelHidden-******--",_exportHidden);
     colsAndTablePros.columns.forEach(column => { 
      
-      let _show = false;
+      let _show = false,  _hidden = false;
       if(column.ifshow != undefined && column.ifshow === false){
         _show = true;
       }
-      let _hidden = _exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
+      // _hidden = _exportHidden?column.exportHidden:_show //column.exportHidden // column.excelHidden === false ? true : false
+      _hidden = column.exportHidden?true:_show;
       if(!_hidden){
         let _width = String(column.width).indexOf("%") != -1?100:column.width
         columnAttr.push({
