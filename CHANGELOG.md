@@ -1,3 +1,13 @@
+<a name="2.0.19"></a>
+## [2.0.19](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.18...v2.0.19) (2019-06-10)
+
+
+
+<a name="2.0.18"></a>
+## [2.0.18](https://github.com/tinper-bee/bee-complex-grid/compare/2.0.18...v2.0.18) (2019-06-06)
+
+
+
 <a name="2.0.17"></a>
 ## [2.0.17](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.16...v2.0.17) (2019-06-04)
 
@@ -142,7 +152,12 @@
 
 
 <a name="1.0.13"></a>
-## [1.0.13](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.11...v1.0.13) (2019-02-18)
+## [1.0.13](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.12...v1.0.13) (2019-02-18)
+
+
+
+<a name="1.0.12"></a>
+## [1.0.12](https://github.com/tinper-bee/bee-complex-grid/compare/v1.0.11...v1.0.12) (2019-01-23)
 
 
 
