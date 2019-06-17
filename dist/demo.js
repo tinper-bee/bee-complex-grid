@@ -58,11 +58,11 @@
 	
 	var _beePanel = __webpack_require__(9);
 	
-	var _beeDrawer = __webpack_require__(84);
+	var _beeDrawer = __webpack_require__(82);
 	
 	var _beeDrawer2 = _interopRequireDefault(_beeDrawer);
 	
-	var _beeClipboard = __webpack_require__(98);
+	var _beeClipboard = __webpack_require__(96);
 	
 	var _beeClipboard2 = _interopRequireDefault(_beeClipboard);
 	
@@ -80,7 +80,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var Demo1 = __webpack_require__(626);var Demo2 = __webpack_require__(627);var Demo4 = __webpack_require__(628);var Demo5 = __webpack_require__(629);var Demo6 = __webpack_require__(630);var Demo7 = __webpack_require__(631);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 高级表格的基础应用(基本示例2)", "code": "/**\n * @title 高级表格的基础应用(基本示例2)\n * @description 全选、分页、过滤功能、交换\n *\n */\nimport React, { Component } from \"react\";\nimport { Grid } from 'tinper-bee';\n\nfunction fmoney(s, n) {\n  n = n > 0 && n <= 20 ? n : 2;\n  s = parseFloat((s + \"\").replace(/[^\\d\\.-]/g, \"\")).toFixed(n) + \"\";\n  let l = s.split(\".\")[0].split(\"\").reverse(), r = s.split(\".\")[1];\n  let t = \"\";\n  for (let i = 0; i < l.length; i++) {\n  t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? \",\" : \"\");\n  }\n  return t.split(\"\").reverse().join(\"\") + \".\" + r;\n  }\n  \nconst column = [\n  {\n    title: \"序号\",\n    dataIndex: \"index\",\n    key: \"index\",\n    width: 100\n  },\n  {\n    title: \"订单编号\",\n    dataIndex: \"orderCode\",\n    key: \"orderCode\",\n    width: 150\n  },\n  {\n    title: \"金额\",\n    dataIndex: \"money\",\n    key: \"money\",\n    width: 160,\n    textAlign:'right',\n    sumCol: true,\n    render(text, record, index) {\n       let money = fmoney(text,2);\n       return (<span>{money}</span>)\n    }\n  },\n  {\n    title: \"类型\",\n    dataIndex: \"type_name\",\n    key: \"type_name\",\n    width: 100\n  },\n  {\n    title: \"采购组织\",\n    dataIndex: \"purchasing\",\n    key: \"purchasing\",\n    width: 150\n  },\n  {\n    title: \"采购组\",\n    dataIndex: \"purchasingGroup\",\n    key: \"purchasingGroup\",\n    width: 300\n  },\n  {\n    title: \"凭证日期\",\n    dataIndex: \"voucherDate\",\n    key: \"voucherDate\",\n    width: 150\n  },\n  {\n    title: \"审批状态\",\n    dataIndex: \"approvalState_name\",\n    key: \"approvalState_name\",\n    width: 150\n  },\n  {\n    title: \"确认状态\",\n    dataIndex: \"confirmState_name\",\n    key: \"confirmState_name\",\n    width: 500\n  },\n  {\n    title: \"关闭状态\",\n    dataIndex: \"closeState_name\",\n    key: \"closeState_name\",\n    width: 150\n  }\n];\nconst dataList = [\n  {\n    index: 1,\n    orderCode: \"2343\",\n    supplierName: \"xxx\",\n    type_name: \"123\",\n    purchasing: \"内行\",\n    purchasingGroup: \"323\",\n    voucherDate: \"kkkk\",\n    approvalState_name: \"vvvv\",\n    confirmState_name: \"aaaa\",\n    closeState_name: \"vnnnnn\",\n    money:'1232.56',\n    d: \"操作\",\n    key: \"1\"\n  },\n  {\n    index: 2,\n    _checked: true,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    money:'2341232.56',\n    d: \"2操作\",\n    key: \"2\"\n  },\n  {\n    index: 3,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    _disabled: true,\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    money:'122368732.56',\n    d: \"3操作\",\n    key: \"3\"\n  },\n  {\n    index: 4,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    money:'18765232.56',\n    d: \"4操作\",\n    key: \"4\"\n  }\n];\n\nclass Demo1 extends Component {\n  constructor(props) {\n    super(props);\n  }\n  //临时加个判断\n  shouldComponentUpdate(){\n    if(this.props.className =='u-panel-title'){\n      return false;\n    }\n  }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshata=()=>{\n\n  }\n  onDataNumSelect=()=>{\n    console.log('选择每页多少条的回调函数');\n  }\n  render() {\n    let paginationObj = {\n      items:10,//一页显示多少条\n      total:100,//总共多少条、\n      freshData:this.freshData,//点击下一页刷新的数据\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\n      showJump:false,\n      noBorder:true\n    }\n    return (\n      <Grid\n        className=\"demo\"\n        columns={column}\n        data={dataList}\n        getSelectedDataFunc={this.getSelectedDataFunc}\n        paginationObj={paginationObj}\n        canSum={true}\n        multiSelect={true}\n      />\n    );\n  }\n}\n", "desc": " 全选、分页、过滤功能、交换" }, { "example": _react2['default'].createElement(Demo2, null), "title": " 高级表格(排序)应用", "code": "/**\n *\n * @title 高级表格(排序)应用\n * @description 基础grid上添加排序功能\n *\n */\nimport React, { Component } from \"react\";\nimport { Grid } from 'tinper-bee';\nconst column = [\n    {\n      title: \"名字\",\n      dataIndex: \"a\",\n      key: \"a\",\n      className:'dfasd',\n      width: 200,\n      sorter: (pre, after) => {return pre.a.localeCompare(after.a)} ,\n      sorterClick:(data,type)=>{//排序的回调函数\n        //type value is up or down\n        console.log(\"data\",data);\n      }\n    },\n    {\n      title: \"功力指数名称长时显示省略号\",\n      dataIndex: \"b\",\n      key: \"b\",\n      width: 200,\n      sumCol: true,\n      sorter: (pre, after) => {return pre.b - after.b},\n      sorterClick:(data,type)=>{//排序的回调函数\n        //type value is up or down\n        console.log(\"data\",data);\n      }\n    },\n    {\n      title: \"年龄\",\n      dataIndex: \"c\",\n      key: \"c\",\n      width: 200,\n      sumCol: true,\n      sorter: (pre, after) => {return pre.c - after.c},\n      sorterClick:(data,type)=>{//排序的回调函数\n        //type value is up or down\n        console.log(\"data\",data);\n      }\n    },\n    {\n      title: \"成绩\",\n      dataIndex: \"e\",\n      key: \"e\",\n      width: 200,\n      sumCol: true,\n      sorter: (pre, after) => {return pre.e - after.e},\n    },\n    {\n      title: \"武功级别\",\n      dataIndex: \"d\",\n      key: \"d\",\n      width: 200\n    }\n  ];\n  const dataList = [\n    { a: \"杨过\", b: 675, c: 30, d: \"内行\",e:100, key: \"2\" },\n    { a: \"令狐冲\", b: 43, c: 41, d: \"大侠\",e:90, key: \"1\" },\n    { a: \"令狐冲1\", b: 43, c: 81, d: \"大侠\", e:120,key: \"4\" },\n    { a: \"令狐冲2\", b: 43, c: 81, d: \"大侠\", e:130,key: \"5\" },\n    { a: \"郭靖\", b: 153, c: 25, d: \"大侠\",e:90, key: \"3\" }\n  ];\n\nclass Demo2 extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  //临时加个判断\n  shouldComponentUpdate(){\n    if(this.props.className =='u-panel-title'){\n      return false;\n    }\n  }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  getCloumnsScroll = columns => {\n    let sum = 0;\n    columns.forEach(da => {\n      sum += da.width;\n    });\n    console.log(\"sum\", sum);\n    return sum;\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshData=()=>{\n\n  }\n  /**\n   * 后端获取数据\n   */\n  sortFun = (sortParam)=>{\n    console.info(sortParam);\n    //将参数传递给后端排序\n  }\n  render() {\n    let paginationObj = {\n      items:10,//总页数\n      freshData:this.freshData,\n      noBorder:true\n    }\n    let sortObj = {\n        mode:'multiple',\n        // backSource:true,\n        sortFun:this.sortFun\n      }\n    \n    return (\n      <div>\n        \n         <Grid\n          className=\"demo\"\n          columns={column}\n          data={dataList}\n          // multiSelect={false}\n          getSelectedDataFunc={this.getSelectedDataFunc}\n          selectedRow={this.selectedRow}\n          sort={sortObj}\n          sortFun={this.sortFun}\n          paginationObj={paginationObj}\n          showFilterMenu\n        />\n      </div>\n     \n    );\n  }\n}\n", "desc": " 基础grid上添加排序功能" }, { "example": _react2['default'].createElement(Demo4, null), "title": " 高级表格的基础应用(基本示例3)", "code": "/**\n * @title 高级表格的基础应用(基本示例3)\n * @description 全选、分页、过滤。功能、交换\n *\n */\nimport React, { Component } from \"react\";\nimport { Grid, Button } from 'tinper-bee';\nconst columns = [\n    {\n        title:'序号',\n        dataIndex:'index',\n        width:'80',\n        render:(text,record,index)=>{\n            return index\n        },\n        fixed:'left'\n    },\n    {\n    title: \"用户名\", dataIndex: \"a\", key: \"a\", width: 580, className: \"rowClassName\",\n  },\n  { id: \"123\", title: \"性别\", dataIndex: \"b\", key: \"b\", width: 80},\n  { title: \"年龄\", dataIndex: \"c\", key: \"c\", width: 200 }\n];\n\nconst data = [ ...new Array(10000) ].map((e, i) => {\n    const rs = { a: i + 'a', b: i + 'b', c: i + 'c', d: i + 'd', key: i };\n    if(i%3==0){\n        rs.b = '女';\n    }\n    return rs;\n   })\n\nclass Demo4 extends Component {\n  constructor(props) {\n    super(props);\n  }\n  //临时加个判断\n  shouldComponentUpdate(){\n    if(this.props.className =='u-panel-title'){\n      return false;\n    }\n  }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshata = () => {\n\n  }\n  onDataNumSelect = () => {\n    console.log('选择每页多少条的回调函数');\n  }\n  onRowHover = (index,record) => {\n    this.currentIndex = index;\n    this.currentRecord = record;\n  }\n  handleClick = () => {\n    alert('这是第' + this.currentIndex + '列，用户名为:' + this.currentRecord.a);\n  }\n\n  getHoverContent=()=>{\n    return <div className=\"opt-btns\"><Button size=\"sm\" onClick={this.handleClick}>一些操作</Button> </div>\n  }\n  render() {\n    let paginationObj = {\n      items:10,//一页显示多少条\n      total:100,//总共多少条\n      freshData:this.freshData,//点击下一页刷新的数据\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\n      noBorder:true\n    }\n    return (\n      <Grid\n        className=\"demo\"\n        columns={columns}\n        data={data}\n        getSelectedDataFunc={this.getSelectedDataFunc}\n        paginationObj={paginationObj}\n        loadLazy={true}\n        heigth={40}\n        scroll = {{y:300}}\n        hoverContent={this.getHoverContent}\n        onRowHover={this.onRowHover}\n      />\n    );\n  }\n}\n", "desc": " 全选、分页、过滤。功能、交换" }, { "example": _react2['default'].createElement(Demo5, null), "title": " 含有ToolBar的复杂表格", "code": "/**\n * @title 含有ToolBar的复杂表格\n * @description 用户可以自定表格的toolBar，其中的button 请参考bee-button中属性配置\n *\n */\nimport React, { Component } from \"react\";\nimport {  } from 'tinper-bee';\nimport  Grid,{GridToolBar} from \"../../src\";\n\n  \nconst column = [\n  {\n    title: \"序号\",\n    dataIndex: \"index\",\n    key: \"index\",\n    width: 100\n  },\n  {\n    title: \"订单编号\",\n    dataIndex: \"orderCode\",\n    key: \"orderCode\",\n    width: 150\n  },\n  {\n    title: \"类型\",\n    dataIndex: \"type_name\",\n    key: \"type_name\",\n    width: 100\n  },\n  {\n    title: \"采购组织\",\n    dataIndex: \"purchasing\",\n    key: \"purchasing\",\n    width: 150\n  },\n  {\n    title: \"采购组\",\n    dataIndex: \"purchasingGroup\",\n    key: \"purchasingGroup\",\n    width: 300\n  },\n  {\n    title: \"凭证日期\",\n    dataIndex: \"voucherDate\",\n    key: \"voucherDate\",\n    width: 150\n  },\n  {\n    title: \"审批状态\",\n    dataIndex: \"approvalState_name\",\n    key: \"approvalState_name\",\n    width: 150\n  },\n  {\n    title: \"确认状态\",\n    dataIndex: \"confirmState_name\",\n    key: \"confirmState_name\",\n    width: 500\n  },\n  {\n    title: \"关闭状态\",\n    dataIndex: \"closeState_name\",\n    key: \"closeState_name\",\n    width: 150\n  }\n];\n\n\nclass Demo1 extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n        dataList: [\n            {\n              index: 1,\n              orderCode: \"2343\",\n              supplierName: \"xxx\",\n              type_name: \"123\",\n              purchasing: \"内行\",\n              purchasingGroup: \"323\",\n              voucherDate: \"kkkk\",\n              approvalState_name: \"vvvv\",\n              confirmState_name: \"aaaa\",\n              closeState_name: \"vnnnnn\",\n              money:'1232.56',\n              key: \"1\"\n            },\n            {\n              index: 2,\n              _checked: true,\n              orderCode: \"222\",\n              supplierName: \"22xxx\",\n              type_name: \"1223\",\n              purchasing: \"内行2\",\n              purchasingGroup: \"3223\",\n              voucherDate: \"222kk\",\n              approvalState_name: \"22vvvv\",\n              confirmState_name: \"2aaaa\",\n              closeState_name: \"2vnnnnn\",\n              money:'2341232.56',\n              key: \"2\"\n            },\n            {\n              index: 3,\n              orderCode: \"222\",\n              supplierName: \"22xxx\",\n              _disabled: true,\n              type_name: \"1223\",\n              purchasing: \"内行2\",\n              purchasingGroup: \"3223\",\n              voucherDate: \"222kk\",\n              approvalState_name: \"22vvvv\",\n              confirmState_name: \"2aaaa\",\n              closeState_name: \"2vnnnnn\",\n              money:'122368732.56',\n              key: \"3\"\n            },\n            {\n              index: 4,\n              orderCode: \"222\",\n              supplierName: \"22xxx\",\n              type_name: \"1223\",\n              purchasing: \"内行2\",\n              purchasingGroup: \"3223\",\n              voucherDate: \"222kk\",\n              approvalState_name: \"22vvvv\",\n              confirmState_name: \"2aaaa\",\n              closeState_name: \"2vnnnnn\",\n              money:'18765232.56',\n              key: \"4\"\n            }\n          ]\n    }\n  }\n  //临时加个判断\n//   shouldComponentUpdate(){\n    // if(this.props.className =='u-panel-title'){\n    //   return false;\n    // }\n//   }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshata=()=>{\n\n  }\n  onDataNumSelect=()=>{\n    console.log('选择每页多少条的回调函数');\n  }\n  addData = ()=>{\n      const dataList = this.state.dataList;\n      const currentIndex  = dataList.length + 1;\n      dataList.push({\n        index: currentIndex,\n        key: `${currentIndex}`\n      });\n      this.setState({\n          dataList\n      })\n     \n  }\n  \n      console.log('export=======');\n  }\n  /**\n   *批量修改操作\n   */\n  dispatchUpdate = ()=>{\n    console.log('--dispatch---update')\n  }\n  /**\n   *批量删除\n   */\n  dispatchDel = ()=>{\n    console.log('--dispatch---del')\n  }\n  render() {\n    let paginationObj = {\n      items:10,//一页显示多少条\n      total:100,//总共多少条、\n      freshData:this.freshData,//点击下一页刷新的数据\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\n      showJump:false,\n      noBorder:true\n    }\n\n    const toolBtns = [{\n            value:'新增',\n            onClick:this.addData,\n            bordered:false,\n            colors:'primary'\n        },{\n            value:'导出',\n            iconType:'uf-search',\n            onClick:this.\n            value:'上传',\n            iconType:'uf-cloud-up',\n        },{\n            value:'批量操作',\n            onClick:this.dispatchOpt,\n            children:[\n                {\n                    value:'修改',  \n                    onClick:this.dispatchUpdate\n                },{\n                    value:'删除',  \n                    onClick:this.dispatchDel\n                }\n            ]\n        },{\n            iconType:'uf-copy',\n        }]\n    return (\n      <div>\n        <GridToolBar toolBtns={toolBtns} btnSize='sm' />\n        <Grid\n          className=\"demo\"\n          columns={column}\n          data={this.state.dataList}\n          getSelectedDataFunc={this.getSelectedDataFunc}\n          paginationObj={paginationObj}\n          canSum={true}\n        />\n      </div>\n      \n    );\n  }\n}\n", "desc": " 用户可以自定表格的toolBar，其中的button 请参考bee-button中属性配置" }, { "example": _react2['default'].createElement(Demo6, null), "title": " 高级表格(保存操作模板、导出excel)", "code": "/**\n  * @title 高级表格(保存操作模板、导出excel)\n * @description 拖住表格宽度、交换列、以及导出excel功能\n *\n */\nimport React, { Component } from \"react\";\nimport { Button } from 'tinper-bee';\nimport Grid,{GridToolBar} from \"../../src\";\n\nconst column = [\n  {\n    title: \"序号\",\n    dataIndex: \"index\",\n    key: \"index\",\n    width: 400,\n    // exportHidden:true //是否在导出中隐藏此列,此属性如不设置的话，他会读取当前页面的列是否隐藏和显示\n  },\n  {\n    title: \"订单编号\",\n    dataIndex: \"orderCode\",\n    key: \"orderCode\",\n    exportKey:'supplierName',//单独设置当前列的导出的key\n    width: '20%'\n  },\n  {\n    title: \"供应商名称\",\n    dataIndex: \"supplierName\",\n    key: \"supplierName\",\n    width: 130\n  },\n  {\n    title: \"类型\",\n    dataIndex: \"type_name\",\n    key: \"type_name\",\n    width: 100\n  },\n  {\n    title: \"采购组织\",\n    dataIndex: \"purchasing\",\n    key: \"purchasing\",\n    width: 130,\n  },\n  {\n    title: \"采购组\",\n    dataIndex: \"purchasingGroup\",\n    key: \"purchasingGroup\",\n    width: 300\n  },\n  {\n    title: \"凭证日期\",\n    dataIndex: \"voucherDate\",\n    key: \"voucherDate\",\n    width: 130\n  },\n  {\n    title: \"审批状态\",\n    dataIndex: \"approvalState_name\",\n    key: \"approvalState_name\",\n    width: 130\n  },\n  {\n    title: \"确认状态\",\n    dataIndex: \"confirmState_name\",\n    key: \"confirmState_name\",\n    width: 500\n  },\n  {\n    title: \"关闭状态\",\n    dataIndex: \"closeState_name\",\n    key: \"closeState_name\",\n    width: 100\n  }\n];\nconst dataList = [\n  {\n    index: 1,\n    orderCode: \"2343\",\n    supplierName: \"xxx\",\n    type_name: \"123\",\n    purchasing: \"内行\",\n    purchasingGroup: \"323\",\n    voucherDate: \"kkkk\",\n    approvalState_name: \"vvvv\",\n    confirmState_name: \"aaaa\",\n    closeState_name: \"vnnnnn\",\n    d: \"操作\",\n    key: \"1\"\n  },\n  {\n    index: 2,\n    _checked: true,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"2操作\",\n    key: \"2\"\n  },\n  {\n    index: 3,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    _disabled: true,\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"3操作\",\n    key: \"3\"\n  },\n  {\n    index: 4,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"4操作\",\n    key: \"4\"\n  }\n];\n\nconst exportDataList = [\n  {\n    index: 1,\n    orderCode: \"2343\",\n    supplierName: \"xxx\",\n    type_name: \"123\",\n    purchasing: \"内行\",\n    purchasingGroup: \"323\",\n    voucherDate: \"kkkk\",\n    approvalState_name: \"vvvv\",\n    confirmState_name: \"aaaa\",\n    closeState_name: \"vnnnnn\",\n    d: \"操作\",\n    key: \"1\"\n  },\n  {\n    index: 4,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"4操作\",\n    key: \"4\"\n  }\n];\n\n\nclass Demo3 extends Component {\n  constructor(props) {\n    super(props);\n    this.state={\n      showTemTable:false\n    }\n  }\n  \n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  getCloumnsScroll = columns => {\n    let sum = 0;\n    columns.forEach(da => {\n      sum += da.width;\n    });\n    console.log(\"sum\", sum);\n    return sum;\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshData=()=>{\n\n  }\n  createTemTable=()=>{\n    const colsAndTablePros = this.refs.grid.getColumnsAndTablePros();\n    this.setState({\n      showTemTable:true,\n      tablePros:colsAndTablePros.tablePros,\n      temColumns:colsAndTablePros.columns\n    });\n  }\n\n  exportExcel = ()=>{\n    this.refs.grid.exportExcel();\n  }\n\n  onRowHover = (index,record) => {\n    this.currentIndex = index;\n    this.currentRecord = record;\n  }\n\n  handleClick = () => {\n    alert('这是第' + this.currentIndex + '列，订单编号为:' + this.currentRecord.orderCode);\n  }\n\n  getHoverContent=()=>{\n    return <div className=\"opt-btns\"><Button size=\"sm\" onClick={this.handleClick}>一些操作</Button> </div>\n  }\n\n  render() {\n    let paginationObj = {\n      items:10,//总页数\n      total:100,\n      freshData:this.freshData,\n      noBorder:true\n    }\n    const toolBtns = [{\n        value:'生成模板表格',\n        onClick:this.createTemTable,\n        bordered:false,\n        colors:'primary'\n    },{\n        value:'导出',\n        iconType:'uf-export',\n        onClick:this.exportExcel\n    }]\n    return (\n      <div>\n        <GridToolBar toolBtns={toolBtns}  />\n        <Grid\n          ref=\"grid\"\n          className='gridDemo demo'\n          exportFileName=\"bee-grid-excel\" //导出excel的文件名称设置，如果不设置为dowloand\n          columns={column}\n          data={dataList}\n          exportData={exportDataList}\n          getSelectedDataFunc={this.getSelectedDataFunc}\n          dragborder\n          multiSelect={{ type: \"checkbox\" }}\n          scroll={{ x: \"130%\" }}\n          selectedRow={this.selectedRow}\n          paginationObj={paginationObj}\n          hoverContent={this.getHoverContent}\n          onRowHover={this.onRowHover}\n        />\n        <h3>根据模板生成的表格</h3>\n        {this.state.showTemTable?\n          <Grid {...this.state.tablePros} columns={this.state.temColumns}/>\n          :\"\"}\n      </div>\n    );\n  }\n}\n", "desc": " 拖住表格宽度、交换列、以及导出excel功能" }, { "example": _react2['default'].createElement(Demo7, null), "title": " 高级表格(单选)应用", "code": "/**\r\n * @title 高级表格(单选)应用\r\n * @description 单选、分页、过滤功能、交换。设置 `multiSelect = {{ type:\"radio\" }}`，即可使用表格单选功能。\r\n *\r\n */\r\nimport React, { Component } from \"react\";\r\nimport { Grid } from 'tinper-bee';\r\n\r\nfunction fmoney(s, n) {\r\n  n = n > 0 && n <= 20 ? n : 2;\r\n  s = parseFloat((s + \"\").replace(/[^\\d\\.-]/g, \"\")).toFixed(n) + \"\";\r\n  let l = s.split(\".\")[0].split(\"\").reverse(), r = s.split(\".\")[1];\r\n  let t = \"\";\r\n  for (let i = 0; i < l.length; i++) {\r\n  t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? \",\" : \"\");\r\n  }\r\n  return t.split(\"\").reverse().join(\"\") + \".\" + r;\r\n  }\r\n  \r\nconst column = [\r\n  {\r\n    title: \"序号\",\r\n    dataIndex: \"index\",\r\n    key: \"index\",\r\n    width: 100\r\n  },\r\n  {\r\n    title: \"订单编号\",\r\n    dataIndex: \"orderCode\",\r\n    key: \"orderCode\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"金额\",\r\n    dataIndex: \"money\",\r\n    key: \"money\",\r\n    width: 160,\r\n    textAlign:'right',\r\n    sumCol: true,\r\n    render(text, record, index) {\r\n       let money = fmoney(text,2);\r\n       return (<span>{money}</span>)\r\n    }\r\n  },\r\n  {\r\n    title: \"类型\",\r\n    dataIndex: \"type_name\",\r\n    key: \"type_name\",\r\n    width: 100\r\n  },\r\n  {\r\n    title: \"采购组织\",\r\n    dataIndex: \"purchasing\",\r\n    key: \"purchasing\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"采购组\",\r\n    dataIndex: \"purchasingGroup\",\r\n    key: \"purchasingGroup\",\r\n    width: 300\r\n  },\r\n  {\r\n    title: \"凭证日期\",\r\n    dataIndex: \"voucherDate\",\r\n    key: \"voucherDate\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"审批状态\",\r\n    dataIndex: \"approvalState_name\",\r\n    key: \"approvalState_name\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"确认状态\",\r\n    dataIndex: \"confirmState_name\",\r\n    key: \"confirmState_name\",\r\n    width: 500\r\n  },\r\n  {\r\n    title: \"关闭状态\",\r\n    dataIndex: \"closeState_name\",\r\n    key: \"closeState_name\",\r\n    width: 150\r\n  }\r\n];\r\nconst dataList = [\r\n  {\r\n    index: 1,\r\n    orderCode: \"2343\",\r\n    supplierName: \"xxx\",\r\n    type_name: \"123\",\r\n    purchasing: \"内行\",\r\n    purchasingGroup: \"323\",\r\n    voucherDate: \"kkkk\",\r\n    approvalState_name: \"vvvv\",\r\n    confirmState_name: \"aaaa\",\r\n    closeState_name: \"vnnnnn\",\r\n    money:'1232.56',\r\n    d: \"操作\",\r\n    key: \"1\"\r\n  },\r\n  {\r\n    index: 2,\r\n    _checked: true,\r\n    orderCode: \"222\",\r\n    supplierName: \"22xxx\",\r\n    type_name: \"1223\",\r\n    purchasing: \"内行2\",\r\n    purchasingGroup: \"3223\",\r\n    voucherDate: \"222kk\",\r\n    approvalState_name: \"22vvvv\",\r\n    confirmState_name: \"2aaaa\",\r\n    closeState_name: \"2vnnnnn\",\r\n    money:'2341232.56',\r\n    d: \"2操作\",\r\n    key: \"2\"\r\n  },\r\n  {\r\n    index: 3,\r\n    orderCode: \"222\",\r\n    supplierName: \"22xxx\",\r\n    _disabled: true,\r\n    type_name: \"1223\",\r\n    purchasing: \"内行2\",\r\n    purchasingGroup: \"3223\",\r\n    voucherDate: \"222kk\",\r\n    approvalState_name: \"22vvvv\",\r\n    confirmState_name: \"2aaaa\",\r\n    closeState_name: \"2vnnnnn\",\r\n    money:'122368732.56',\r\n    d: \"3操作\",\r\n    key: \"3\"\r\n  },\r\n  {\r\n    index: 4,\r\n    orderCode: \"222\",\r\n    supplierName: \"22xxx\",\r\n    type_name: \"1223\",\r\n    purchasing: \"内行2\",\r\n    purchasingGroup: \"3223\",\r\n    voucherDate: \"222kk\",\r\n    approvalState_name: \"22vvvv\",\r\n    confirmState_name: \"2aaaa\",\r\n    closeState_name: \"2vnnnnn\",\r\n    money:'18765232.56',\r\n    d: \"4操作\",\r\n    key: \"4\"\r\n  }\r\n];\r\n\r\nclass Demo7 extends Component {\r\n  constructor(props) {\r\n    super(props);\r\n  }\r\n  //临时加个判断\r\n  shouldComponentUpdate(){\r\n    if(this.props.className =='u-panel-title'){\r\n      return false;\r\n    }\r\n  }\r\n  getSelectedDataFunc = data => {\r\n    console.log(\"data\", data);\r\n  };\r\n\r\n  selectedRow = (record, index) => {};\r\n  /**\r\n   * 请求页面数据\r\n   */\r\n  freshata=()=>{\r\n\r\n  }\r\n  onDataNumSelect=()=>{\r\n    console.log('选择每页多少条的回调函数');\r\n  }\r\n  render() {\r\n    let paginationObj = {\r\n      items:10,//一页显示多少条\r\n      total:100,//总共多少条、\r\n      freshData:this.freshData,//点击下一页刷新的数据\r\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\r\n      showJump:false,\r\n      noBorder:true\r\n    }\r\n    return (\r\n      <Grid\r\n        className=\"demo\"\r\n        columns={column}\r\n        data={dataList}\r\n        paginationObj={paginationObj}\r\n        canSum={true} \r\n        multiSelect={{ type:\"radio\" }}\r\n        getSelectedDataFunc={this.getSelectedDataFunc}\r\n      />\r\n    );\r\n  }\r\n}\r\n", "desc": " 单选、分页、过滤功能、交换。设置 `multiSelect = {{ type:\"radio\" }}`，即可使用表格单选功能。" }];
+	var Demo1 = __webpack_require__(626);var Demo2 = __webpack_require__(627);var Demo4 = __webpack_require__(628);var Demo5 = __webpack_require__(629);var Demo6 = __webpack_require__(630);var Demo7 = __webpack_require__(631);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 高级表格的基础应用(基本示例2)", "code": "/**\n * @title 高级表格的基础应用(基本示例2)\n * @description 全选、分页、过滤功能、交换\n *\n */\nimport React, { Component } from \"react\";\nimport { Grid } from 'tinper-bee';\n\nfunction fmoney(s, n) {\n  n = n > 0 && n <= 20 ? n : 2;\n  s = parseFloat((s + \"\").replace(/[^\\d\\.-]/g, \"\")).toFixed(n) + \"\";\n  let l = s.split(\".\")[0].split(\"\").reverse(), r = s.split(\".\")[1];\n  let t = \"\";\n  for (let i = 0; i < l.length; i++) {\n  t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? \",\" : \"\");\n  }\n  return t.split(\"\").reverse().join(\"\") + \".\" + r;\n  }\n  \nconst column = [\n  {\n    title: \"序号\",\n    dataIndex: \"index\",\n    key: \"index\",\n    width: 100\n  },\n  {\n    title: \"订单编号\",\n    dataIndex: \"orderCode\",\n    key: \"orderCode\",\n    width: 150\n  },\n  {\n    title: \"金额\",\n    dataIndex: \"money\",\n    key: \"money\",\n    width: 160,\n    textAlign:'right',\n    sumCol: true,\n    render(text, record, index) {\n       let money = fmoney(text,2);\n       return (<span>{money}</span>)\n    }\n  },\n  {\n    title: \"类型\",\n    dataIndex: \"type_name\",\n    key: \"type_name\",\n    width: 100\n  },\n  {\n    title: \"采购组织\",\n    dataIndex: \"purchasing\",\n    key: \"purchasing\",\n    width: 150\n  },\n  {\n    title: \"采购组\",\n    dataIndex: \"purchasingGroup\",\n    key: \"purchasingGroup\",\n    width: 300\n  },\n  {\n    title: \"凭证日期\",\n    dataIndex: \"voucherDate\",\n    key: \"voucherDate\",\n    width: 150\n  },\n  {\n    title: \"审批状态\",\n    dataIndex: \"approvalState_name\",\n    key: \"approvalState_name\",\n    width: 150\n  },\n  {\n    title: \"确认状态\",\n    dataIndex: \"confirmState_name\",\n    key: \"confirmState_name\",\n    width: 500\n  },\n  {\n    title: \"关闭状态\",\n    dataIndex: \"closeState_name\",\n    key: \"closeState_name\",\n    width: 150\n  }\n];\nconst dataList = [\n  {\n    index: 1,\n    orderCode: \"2343\",\n    supplierName: \"xxx\",\n    type_name: \"123\",\n    purchasing: \"内行\",\n    purchasingGroup: \"323\",\n    voucherDate: \"kkkk\",\n    approvalState_name: \"vvvv\",\n    confirmState_name: \"aaaa\",\n    closeState_name: \"vnnnnn\",\n    money:'1232.56',\n    d: \"操作\",\n    key: \"1\"\n  },\n  {\n    index: 2,\n    _checked: true,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    money:'2341232.56',\n    d: \"2操作\",\n    key: \"2\"\n  },\n  {\n    index: 3,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    _disabled: true,\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    money:'122368732.56',\n    d: \"3操作\",\n    key: \"3\"\n  },\n  {\n    index: 4,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    money:'18765232.56',\n    d: \"4操作\",\n    key: \"4\"\n  }\n];\n\nclass Demo1 extends Component {\n  constructor(props) {\n    super(props);\n  }\n  //临时加个判断\n  shouldComponentUpdate(){\n    if(this.props.className =='u-panel-title'){\n      return false;\n    }\n  }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshata=()=>{\n\n  }\n  onDataNumSelect=()=>{\n    console.log('选择每页多少条的回调函数');\n  }\n  render() {\n    let paginationObj = {\n      items:10,//一页显示多少条\n      total:100,//总共多少条、\n      freshData:this.freshData,//点击下一页刷新的数据\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\n      showJump:false,\n      noBorder:true\n    }\n    return (\n      <Grid\n        className=\"demo\"\n        columns={column}\n        data={dataList}\n        getSelectedDataFunc={this.getSelectedDataFunc}\n        paginationObj={paginationObj}\n        canSum={true}\n        multiSelect={true}\n      />\n    );\n  }\n}\n", "desc": " 全选、分页、过滤功能、交换" }, { "example": _react2['default'].createElement(Demo2, null), "title": " 高级表格(排序)应用", "code": "/**\n *\n * @title 高级表格(排序)应用\n * @description 基础grid上添加排序功能\n *\n */\nimport React, { Component } from \"react\";\nimport { Grid } from 'tinper-bee';\nconst column = [\n    {\n      title: \"名字\",\n      dataIndex: \"a\",\n      key: \"a\",\n      className:'dfasd',\n      width: 200,\n      sorter: (pre, after) => {return pre.a.localeCompare(after.a)} ,\n      sorterClick:(data,type)=>{//排序的回调函数\n        //type value is up or down\n        console.log(\"data\",data);\n      }\n    },\n    {\n      title: \"功力指数名称长时显示省略号\",\n      dataIndex: \"b\",\n      key: \"b\",\n      width: 200,\n      sumCol: true,\n      sorter: (pre, after) => {return pre.b - after.b},\n      sorterClick:(data,type)=>{//排序的回调函数\n        //type value is up or down\n        console.log(\"data\",data);\n      }\n    },\n    {\n      title: \"年龄\",\n      dataIndex: \"c\",\n      key: \"c\",\n      width: 200,\n      sumCol: true,\n      sorter: (pre, after) => {return pre.c - after.c},\n      sorterClick:(data,type)=>{//排序的回调函数\n        //type value is up or down\n        console.log(\"data\",data);\n      }\n    },\n    {\n      title: \"成绩\",\n      dataIndex: \"e\",\n      key: \"e\",\n      width: 200,\n      sumCol: true,\n      sorter: (pre, after) => {return pre.e - after.e},\n    },\n    {\n      title: \"武功级别\",\n      dataIndex: \"d\",\n      key: \"d\",\n      width: 200\n    }\n  ];\n  const dataList = [\n    { a: \"杨过\", b: 675, c: 30, d: \"内行\",e:100, key: \"2\" },\n    { a: \"令狐冲\", b: 43, c: 41, d: \"大侠\",e:90, key: \"1\" },\n    { a: \"令狐冲1\", b: 43, c: 81, d: \"大侠\", e:120,key: \"4\" },\n    { a: \"令狐冲2\", b: 43, c: 81, d: \"大侠\", e:130,key: \"5\" },\n    { a: \"郭靖\", b: 153, c: 25, d: \"大侠\",e:90, key: \"3\" }\n  ];\n\nclass Demo2 extends Component {\n  constructor(props) {\n    super(props);\n  }\n\n  //临时加个判断\n  shouldComponentUpdate(){\n    if(this.props.className =='u-panel-title'){\n      return false;\n    }\n  }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  getCloumnsScroll = columns => {\n    let sum = 0;\n    columns.forEach(da => {\n      sum += da.width;\n    });\n    console.log(\"sum\", sum);\n    return sum;\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshData=()=>{\n\n  }\n  /**\n   * 后端获取数据\n   */\n  sortFun = (sortParam)=>{\n    console.info(sortParam);\n    //将参数传递给后端排序\n  }\n  render() {\n    let paginationObj = {\n      items:10,//总页数\n      freshData:this.freshData,\n      noBorder:true\n    }\n    let sortObj = {\n        mode:'multiple',\n        // backSource:true,\n        sortFun:this.sortFun\n      }\n    \n    return (\n      <div>\n        \n         <Grid\n          className=\"demo\"\n          columns={column}\n          data={dataList}\n          // multiSelect={false}\n          getSelectedDataFunc={this.getSelectedDataFunc}\n          selectedRow={this.selectedRow}\n          sort={sortObj}\n          sortFun={this.sortFun}\n          paginationObj={paginationObj}\n          showFilterMenu\n        />\n      </div>\n     \n    );\n  }\n}\n", "desc": " 基础grid上添加排序功能" }, { "example": _react2['default'].createElement(Demo4, null), "title": " 高级表格的基础应用(基本示例3)", "code": "/**\n * @title 高级表格的基础应用(基本示例3)\n * @description 全选、分页、过滤。功能、交换\n *\n */\nimport React, { Component } from \"react\";\nimport { Grid, Button } from 'tinper-bee';\nconst columns = [\n    {\n        title:'序号',\n        dataIndex:'index',\n        width:'80',\n        render:(text,record,index)=>{\n            return index\n        },\n        fixed:'left'\n    },\n    {\n    title: \"用户名\", dataIndex: \"a\", key: \"a\", width: 580, className: \"rowClassName\",\n  },\n  { id: \"123\", title: \"性别\", dataIndex: \"b\", key: \"b\", width: 80},\n  { title: \"年龄\", dataIndex: \"c\", key: \"c\", width: 200 }\n];\n\nconst data = [ ...new Array(10000) ].map((e, i) => {\n    const rs = { a: i + 'a', b: i + 'b', c: i + 'c', d: i + 'd', key: i };\n    if(i%3==0){\n        rs.b = '女';\n    }\n    return rs;\n   })\n\nclass Demo4 extends Component {\n  constructor(props) {\n    super(props);\n  }\n  //临时加个判断\n  shouldComponentUpdate(){\n    if(this.props.className =='u-panel-title'){\n      return false;\n    }\n  }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshata = () => {\n\n  }\n  onDataNumSelect = () => {\n    console.log('选择每页多少条的回调函数');\n  }\n  onRowHover = (index,record) => {\n    this.currentIndex = index;\n    this.currentRecord = record;\n  }\n  handleClick = () => {\n    alert('这是第' + this.currentIndex + '列，用户名为:' + this.currentRecord.a);\n  }\n\n  getHoverContent=()=>{\n    return <div className=\"opt-btns\"><Button size=\"sm\" onClick={this.handleClick}>一些操作</Button> </div>\n  }\n  render() {\n    let paginationObj = {\n      items:10,//一页显示多少条\n      total:100,//总共多少条\n      freshData:this.freshData,//点击下一页刷新的数据\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\n      noBorder:true\n    }\n    return (\n      <Grid\n        className=\"demo\"\n        columns={columns}\n        data={data}\n        getSelectedDataFunc={this.getSelectedDataFunc}\n        paginationObj={paginationObj}\n        loadLazy={true}\n        heigth={40}\n        scroll = {{y:300}}\n        hoverContent={this.getHoverContent}\n        onRowHover={this.onRowHover}\n      />\n    );\n  }\n}\n", "desc": " 全选、分页、过滤。功能、交换" }, { "example": _react2['default'].createElement(Demo5, null), "title": " 含有ToolBar的复杂表格", "code": "/**\n * @title 含有ToolBar的复杂表格\n * @description 用户可以自定表格的toolBar，其中的button 请参考bee-button中属性配置\n *\n */\nimport React, { Component } from \"react\";\nimport {  } from 'tinper-bee';\nimport  Grid,{GridToolBar} from \"../../src\";\n\n  \nconst column = [\n  {\n    title: \"序号\",\n    dataIndex: \"index\",\n    key: \"index\",\n    width: 100\n  },\n  {\n    title: \"订单编号\",\n    dataIndex: \"orderCode\",\n    key: \"orderCode\",\n    width: 150\n  },\n  {\n    title: \"类型\",\n    dataIndex: \"type_name\",\n    key: \"type_name\",\n    width: 100\n  },\n  {\n    title: \"采购组织\",\n    dataIndex: \"purchasing\",\n    key: \"purchasing\",\n    width: 150\n  },\n  {\n    title: \"采购组\",\n    dataIndex: \"purchasingGroup\",\n    key: \"purchasingGroup\",\n    width: 300\n  },\n  {\n    title: \"凭证日期\",\n    dataIndex: \"voucherDate\",\n    key: \"voucherDate\",\n    width: 150\n  },\n  {\n    title: \"审批状态\",\n    dataIndex: \"approvalState_name\",\n    key: \"approvalState_name\",\n    width: 150\n  },\n  {\n    title: \"确认状态\",\n    dataIndex: \"confirmState_name\",\n    key: \"confirmState_name\",\n    width: 500\n  },\n  {\n    title: \"关闭状态\",\n    dataIndex: \"closeState_name\",\n    key: \"closeState_name\",\n    width: 150\n  }\n];\n\n\nclass Demo1 extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n        dataList: [\n            {\n              index: 1,\n              orderCode: \"2343\",\n              supplierName: \"xxx\",\n              type_name: \"123\",\n              purchasing: \"内行\",\n              purchasingGroup: \"323\",\n              voucherDate: \"kkkk\",\n              approvalState_name: \"vvvv\",\n              confirmState_name: \"aaaa\",\n              closeState_name: \"vnnnnn\",\n              money:'1232.56',\n              key: \"1\"\n            },\n            {\n              index: 2,\n              _checked: true,\n              orderCode: \"222\",\n              supplierName: \"22xxx\",\n              type_name: \"1223\",\n              purchasing: \"内行2\",\n              purchasingGroup: \"3223\",\n              voucherDate: \"222kk\",\n              approvalState_name: \"22vvvv\",\n              confirmState_name: \"2aaaa\",\n              closeState_name: \"2vnnnnn\",\n              money:'2341232.56',\n              key: \"2\"\n            },\n            {\n              index: 3,\n              orderCode: \"222\",\n              supplierName: \"22xxx\",\n              _disabled: true,\n              type_name: \"1223\",\n              purchasing: \"内行2\",\n              purchasingGroup: \"3223\",\n              voucherDate: \"222kk\",\n              approvalState_name: \"22vvvv\",\n              confirmState_name: \"2aaaa\",\n              closeState_name: \"2vnnnnn\",\n              money:'122368732.56',\n              key: \"3\"\n            },\n            {\n              index: 4,\n              orderCode: \"222\",\n              supplierName: \"22xxx\",\n              type_name: \"1223\",\n              purchasing: \"内行2\",\n              purchasingGroup: \"3223\",\n              voucherDate: \"222kk\",\n              approvalState_name: \"22vvvv\",\n              confirmState_name: \"2aaaa\",\n              closeState_name: \"2vnnnnn\",\n              money:'18765232.56',\n              key: \"4\"\n            }\n          ]\n    }\n  }\n  //临时加个判断\n//   shouldComponentUpdate(){\n    // if(this.props.className =='u-panel-title'){\n    //   return false;\n    // }\n//   }\n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshata=()=>{\n\n  }\n  onDataNumSelect=()=>{\n    console.log('选择每页多少条的回调函数');\n  }\n  addData = ()=>{\n      const dataList = this.state.dataList;\n      const currentIndex  = dataList.length + 1;\n      dataList.push({\n        index: currentIndex,\n        key: `${currentIndex}`\n      });\n      this.setState({\n          dataList\n      })\n     \n  }\n  \n      console.log('export=======');\n  }\n  /**\n   *批量修改操作\n   */\n  dispatchUpdate = ()=>{\n    console.log('--dispatch---update')\n  }\n  /**\n   *批量删除\n   */\n  dispatchDel = ()=>{\n    console.log('--dispatch---del')\n  }\n  render() {\n    let paginationObj = {\n      items:10,//一页显示多少条\n      total:100,//总共多少条、\n      freshData:this.freshData,//点击下一页刷新的数据\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\n      showJump:false,\n      noBorder:true\n    }\n\n    const toolBtns = [{\n            value:'新增',\n            onClick:this.addData,\n            bordered:false,\n            colors:'primary'\n        },{\n            value:'导出',\n            iconType:'uf-search',\n            onClick:this.\n            value:'上传',\n            iconType:'uf-cloud-up',\n        },{\n            value:'批量操作',\n            onClick:this.dispatchOpt,\n            children:[\n                {\n                    value:'修改',  \n                    onClick:this.dispatchUpdate\n                },{\n                    value:'删除',  \n                    onClick:this.dispatchDel\n                }\n            ]\n        },{\n            iconType:'uf-copy',\n        }]\n    return (\n      <div>\n        <GridToolBar toolBtns={toolBtns} btnSize='sm' />\n        <Grid\n          className=\"demo\"\n          columns={column}\n          data={this.state.dataList}\n          getSelectedDataFunc={this.getSelectedDataFunc}\n          paginationObj={paginationObj}\n          canSum={true}\n        />\n      </div>\n      \n    );\n  }\n}\n", "desc": " 用户可以自定表格的toolBar，其中的button 请参考bee-button中属性配置" }, { "example": _react2['default'].createElement(Demo6, null), "title": " 高级表格(保存操作模板、导出excel)", "code": "/**\n  * @title 高级表格(保存操作模板、导出excel)\n * @description 拖住表格宽度、交换列、以及导出excel功能\n *\n */\nimport React, { Component } from \"react\";\nimport { Button } from 'tinper-bee';\nimport Grid,{GridToolBar} from \"../../src\";\n\nconst column = [\n  {\n    title: \"序号\",\n    dataIndex: \"index\",\n    key: \"index\",\n    width: 400,\n    // exportHidden:true //是否在导出中隐藏此列,此属性如不设置的话，他会读取当前页面的列是否隐藏和显示\n  },\n  {\n    title: \"订单编号\",\n    dataIndex: \"orderCode\",\n    key: \"orderCode\",\n    exportKey:'supplierName',//单独设置当前列的导出的key\n    width: '20%'\n  },\n  {\n    title: \"供应商名称\",\n    dataIndex: \"supplierName\",\n    key: \"supplierName\",\n    width: 130\n  },\n  {\n    title: \"类型\",\n    dataIndex: \"type_name\",\n    key: \"type_name\",\n    width: 100\n  },\n  {\n    title: \"采购组织\",\n    dataIndex: \"purchasing\",\n    key: \"purchasing\",\n    width: 130,\n  },\n  {\n    title: \"采购组\",\n    dataIndex: \"purchasingGroup\",\n    key: \"purchasingGroup\",\n    width: 300\n  },\n  {\n    title: \"凭证日期\",\n    dataIndex: \"voucherDate\",\n    key: \"voucherDate\",\n    width: 130\n  },\n  {\n    title: \"审批状态\",\n    dataIndex: \"approvalState_name\",\n    key: \"approvalState_name\",\n    width: 130\n  },\n  {\n    title: \"确认状态\",\n    dataIndex: \"confirmState_name\",\n    key: \"confirmState_name\",\n    width: 500\n  },\n  {\n    title: \"关闭状态\",\n    dataIndex: \"closeState_name\",\n    key: \"closeState_name\",\n    width: 100\n  }\n];\nconst dataList = [\n  {\n    index: 1,\n    orderCode: \"2343\",\n    supplierName: \"xxx\",\n    type_name: \"123\",\n    purchasing: \"内行\",\n    purchasingGroup: \"323\",\n    voucherDate: \"kkkk\",\n    approvalState_name: \"vvvv\",\n    confirmState_name: \"aaaa\",\n    closeState_name: \"vnnnnn\",\n    d: \"操作\",\n    key: \"1\"\n  },\n  {\n    index: 2,\n    _checked: true,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"2操作\",\n    key: \"2\"\n  },\n  {\n    index: 3,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    _disabled: true,\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"3操作\",\n    key: \"3\"\n  },\n  {\n    index: 4,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"4操作\",\n    key: \"4\"\n  }\n];\n\nconst exportDataList = [\n  {\n    index: 1,\n    orderCode: \"2343\",\n    supplierName: \"xxx\",\n    type_name: \"123\",\n    purchasing: \"内行\",\n    purchasingGroup: \"323\",\n    voucherDate: \"kkkk\",\n    approvalState_name: \"vvvv\",\n    confirmState_name: \"aaaa\",\n    closeState_name: \"vnnnnn\",\n    d: \"操作\",\n    key: \"1\"\n  },\n  {\n    index: 4,\n    orderCode: \"222\",\n    supplierName: \"22xxx\",\n    type_name: \"1223\",\n    purchasing: \"内行2\",\n    purchasingGroup: \"3223\",\n    voucherDate: \"222kk\",\n    approvalState_name: \"22vvvv\",\n    confirmState_name: \"2aaaa\",\n    closeState_name: \"2vnnnnn\",\n    d: \"4操作\",\n    key: \"4\"\n  }\n];\n\n\nclass Demo3 extends Component {\n  constructor(props) {\n    super(props);\n    this.state={\n      showTemTable:false\n    }\n  }\n  \n  getSelectedDataFunc = data => {\n    console.log(\"data\", data);\n  };\n\n  getCloumnsScroll = columns => {\n    let sum = 0;\n    columns.forEach(da => {\n      sum += da.width;\n    });\n    console.log(\"sum\", sum);\n    return sum;\n  };\n\n  selectedRow = (record, index) => {};\n  /**\n   * 请求页面数据\n   */\n  freshData=()=>{\n\n  }\n  createTemTable=()=>{\n    const colsAndTablePros = this.refs.grid.getColumnsAndTablePros();\n    this.setState({\n      showTemTable:true,\n      tablePros:colsAndTablePros.tablePros,\n      temColumns:colsAndTablePros.columns\n    });\n  }\n\n  exportExcel = ()=>{\n    this.refs.grid.exportExcel();\n  }\n\n  onRowHover = (index,record) => {\n    this.currentIndex = index;\n    this.currentRecord = record;\n  }\n\n  handleClick = () => {\n    alert('这是第' + this.currentIndex + '列，订单编号为:' + this.currentRecord.orderCode);\n  }\n\n  getHoverContent=()=>{\n    return <div className=\"opt-btns\"><Button size=\"sm\" onClick={this.handleClick}>一些操作</Button> </div>\n  }\n\n  render() {\n    let paginationObj = {\n      items:10,//总页数\n      total:100,\n      freshData:this.freshData,\n      noBorder:true\n    }\n    const toolBtns = [{\n        value:'生成模板表格',\n        onClick:this.createTemTable,\n        bordered:false,\n        colors:'primary'\n    },{\n        value:'导出',\n        iconType:'uf-export',\n        onClick:this.exportExcel\n    }]\n    return (\n      <div>\n        <GridToolBar toolBtns={toolBtns}  />\n        <Grid\n          ref=\"grid\"\n          className='gridDemo demo'\n          exportFileName=\"bee-grid-excel\" //导出excel的文件名称设置，如果不设置为dowloand\n          columns={column}\n          data={dataList}\n          exportData={exportDataList}\n          getSelectedDataFunc={this.getSelectedDataFunc}\n          dragborder\n          multiSelect={{ type: \"checkbox\" }}\n          scroll={{ x: \"130%\" }}\n          selectedRow={this.selectedRow}\n          paginationObj={paginationObj}\n          hoverContent={this.getHoverContent}\n          onRowHover={this.onRowHover}\n        />\n        <h3>根据模板生成的表格</h3>\n        {this.state.showTemTable?\n          <Grid {...this.state.tablePros} columns={this.state.temColumns}/>\n          :\"\"}\n      </div>\n    );\n  }\n}\n", "desc": " 拖住表格宽度、交换列、以及导出excel功能" }, { "example": _react2['default'].createElement(Demo7, null), "title": " 高级表格(单选)应用", "code": "/**\r\n * @title 高级表格(单选)应用\r\n * @description 单选、分页、过滤功能、交换。设置 `multiSelect = {{ type:\"radio\" }}`，即可使用表格单选功能。\r\n *\r\n */\r\nimport React, { Component } from \"react\";\r\nimport { Grid } from 'tinper-bee';\r\n\r\nfunction fmoney(s, n) {\r\n  n = n > 0 && n <= 20 ? n : 2;\r\n  s = parseFloat((s + \"\").replace(/[^\\d\\.-]/g, \"\")).toFixed(n) + \"\";\r\n  let l = s.split(\".\")[0].split(\"\").reverse(), r = s.split(\".\")[1];\r\n  let t = \"\";\r\n  for (let i = 0; i < l.length; i++) {\r\n  t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? \",\" : \"\");\r\n  }\r\n  return t.split(\"\").reverse().join(\"\") + \".\" + r;\r\n  }\r\n  \r\nconst column = [\r\n  {\r\n    title: \"序号\",\r\n    dataIndex: \"index\",\r\n    key: \"index\",\r\n    width: 100\r\n  },\r\n  {\r\n    title: \"订单编号\",\r\n    dataIndex: \"orderCode\",\r\n    key: \"orderCode\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"金额\",\r\n    dataIndex: \"money\",\r\n    key: \"money\",\r\n    width: 160,\r\n    textAlign:'right',\r\n    sumCol: true,\r\n    render(text, record, index) {\r\n       let money = fmoney(text,2);\r\n       return (<span>{money}</span>)\r\n    }\r\n  },\r\n  {\r\n    title: \"类型\",\r\n    dataIndex: \"type_name\",\r\n    key: \"type_name\",\r\n    width: 100\r\n  },\r\n  {\r\n    title: \"采购组织\",\r\n    dataIndex: \"purchasing\",\r\n    key: \"purchasing\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"采购组\",\r\n    dataIndex: \"purchasingGroup\",\r\n    key: \"purchasingGroup\",\r\n    width: 300\r\n  },\r\n  {\r\n    title: \"凭证日期\",\r\n    dataIndex: \"voucherDate\",\r\n    key: \"voucherDate\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"审批状态\",\r\n    dataIndex: \"approvalState_name\",\r\n    key: \"approvalState_name\",\r\n    width: 150\r\n  },\r\n  {\r\n    title: \"确认状态\",\r\n    dataIndex: \"confirmState_name\",\r\n    key: \"confirmState_name\",\r\n    width: 500\r\n  },\r\n  {\r\n    title: \"关闭状态\",\r\n    dataIndex: \"closeState_name\",\r\n    key: \"closeState_name\",\r\n    width: 150\r\n  }\r\n];\r\nconst dataList = [\r\n  {\r\n    index: 0,\r\n    orderCode: \"2343\",\r\n    supplierName: \"xxx\",\r\n    type_name: \"123\",\r\n    purchasing: \"内行\",\r\n    purchasingGroup: \"323\",\r\n    voucherDate: \"kkkk\",\r\n    approvalState_name: \"vvvv\",\r\n    confirmState_name: \"aaaa\",\r\n    closeState_name: \"vnnnnn\",\r\n    money:'1232.56',\r\n    d: \"操作\",\r\n    key: \"1\"\r\n  },\r\n  {\r\n    index: 1,\r\n    _checked: true,\r\n    orderCode: \"222\",\r\n    supplierName: \"22xxx\",\r\n    type_name: \"1223\",\r\n    purchasing: \"内行2\",\r\n    purchasingGroup: \"3223\",\r\n    voucherDate: \"222kk\",\r\n    approvalState_name: \"22vvvv\",\r\n    confirmState_name: \"2aaaa\",\r\n    closeState_name: \"2vnnnnn\",\r\n    money:'2341232.56',\r\n    d: \"2操作\",\r\n    key: \"2\"\r\n  },\r\n  {\r\n    index: 2,\r\n    orderCode: \"222\",\r\n    supplierName: \"22xxx\",\r\n    _disabled: true,\r\n    type_name: \"1223\",\r\n    purchasing: \"内行2\",\r\n    purchasingGroup: \"3223\",\r\n    voucherDate: \"222kk\",\r\n    approvalState_name: \"22vvvv\",\r\n    confirmState_name: \"2aaaa\",\r\n    closeState_name: \"2vnnnnn\",\r\n    money:'122368732.56',\r\n    d: \"3操作\",\r\n    key: \"3\"\r\n  },\r\n  {\r\n    index: 3,\r\n    orderCode: \"222\",\r\n    supplierName: \"22xxx\",\r\n    type_name: \"1223\",\r\n    purchasing: \"内行2\",\r\n    purchasingGroup: \"3223\",\r\n    voucherDate: \"222kk\",\r\n    approvalState_name: \"22vvvv\",\r\n    confirmState_name: \"2aaaa\",\r\n    closeState_name: \"2vnnnnn\",\r\n    money:'18765232.56',\r\n    d: \"4操作\",\r\n    key: \"4\"\r\n  }\r\n];\r\n\r\nclass Demo7 extends Component {\r\n  constructor(props) {\r\n    super(props);\r\n  }\r\n  //临时加个判断\r\n  shouldComponentUpdate(){\r\n    if(this.props.className =='u-panel-title'){\r\n      return false;\r\n    }\r\n  }\r\n  getSelectedDataFunc = data => {\r\n    console.log(\"data\", data);\r\n  };\r\n\r\n  selectedRow = (record, index) => {};\r\n  /**\r\n   * 请求页面数据\r\n   */\r\n  freshata=()=>{\r\n\r\n  }\r\n  onDataNumSelect=()=>{\r\n    console.log('选择每页多少条的回调函数');\r\n  }\r\n  render() {\r\n    let paginationObj = {\r\n      items:10,//一页显示多少条\r\n      total:100,//总共多少条、\r\n      freshData:this.freshData,//点击下一页刷新的数据\r\n      onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件\r\n      showJump:false,\r\n      noBorder:true\r\n    }\r\n    return (\r\n      <Grid\r\n        className=\"demo\"\r\n        columns={column}\r\n        data={dataList}\r\n        paginationObj={paginationObj}\r\n        canSum={true} \r\n        multiSelect={{ type:\"radio\" }}\r\n        getSelectedDataFunc={this.getSelectedDataFunc}\r\n      />\r\n    );\r\n  }\r\n}\r\n", "desc": " 单选、分页、过滤功能、交换。设置 `multiSelect = {{ type:\"radio\" }}`，即可使用表格单选功能。" }];
 	
 	var Demo = function (_Component) {
 	    _inherits(Demo, _Component);
@@ -673,7 +673,7 @@
 	
 	var _Panel3 = _interopRequireDefault(_Panel2);
 	
-	var _PanelGroup2 = __webpack_require__(83);
+	var _PanelGroup2 = __webpack_require__(81);
 	
 	var _PanelGroup3 = _interopRequireDefault(_PanelGroup2);
 	
@@ -712,7 +712,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _copyToClipboard = __webpack_require__(81);
+	var _copyToClipboard = __webpack_require__(79);
 	
 	var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 	
@@ -6143,45 +6143,38 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _warning = __webpack_require__(32);
-	
-	var _warning2 = _interopRequireDefault(_warning);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	var defaultDuration = 1.5;
 	var newDuration = void 0;
-	var defaultTop = 24;
+	var defaultTop = 0;
 	var defaultBottom = 48;
 	var bottom = 90;
 	var padding = 30;
-	var width = 240;
+	var width = 200;
 	var messageInstance = void 0;
 	var key = 1;
 	var clsPrefix = 'u-message';
 	var noop = function noop() {};
-	var notificationStyle_copy = {};
-	var messageStyle_copy = {};
-	var positionType = ['topRight', 'bottomRight', 'top', 'bottom', 'topLeft', 'bottomLeft', ''];
 	
 	var positionObj = {
 	    "top": {
 	        messageStyle: {
-	            transform: 'translateX( -50%)'
+	            width: "100%"
 	        },
 	        notificationStyle: {
 	            top: defaultTop,
-	            left: '50%'
+	            width: "100%"
 	        },
 	        transitionName: 'top'
 	    },
 	    "bottom": {
 	        messageStyle: {
-	            transform: 'translateX( -50%)'
+	            width: "100%"
 	        },
 	        notificationStyle: {
 	            bottom: defaultBottom,
-	            left: '50%'
+	            width: "100%"
 	        },
 	        transitionName: 'bottom'
 	    },
@@ -6243,29 +6236,29 @@
 	    }
 	    switch (position) {
 	        case 'top':
-	            notificationStyle_copy.top = defaultTop;
+	            positionObj[position].notificationStyle.top = defaultTop;
 	            break;
 	        case 'bottom':
-	            notificationStyle_copy.bottom = defaultBottom;
+	            positionObj[position].notificationStyle.bottom = defaultBottom;
 	            break;
 	        case 'bottomRight':
-	            notificationStyle_copy.bottom = bottom;
+	            positionObj[position].notificationStyle.bottom = bottom;
 	            break;
 	        case 'bottomLeft':
-	            notificationStyle_copy.bottom = bottom;
+	            positionObj[position].notificationStyle.bottom = bottom;
 	            break;
 	        default:
 	            break;
 	    }
 	    if (position !== 'top' && position !== 'bottom') {
-	        messageStyle_copy.width = width;
+	        positionObj[position].messageStyle.width = width;
 	    }
-	    var style = JSON.stringify(notificationStyle_copy) == "{}" ? positionObj[position].notificationStyle : notificationStyle_copy;
+	    var style = positionObj[position].notificationStyle;
 	    var instanceObj = {
 	        clsPrefix: clsPrefix,
 	        transitionName: clsPrefix + '-' + positionObj[position].transitionName,
 	        style: style, // 覆盖原来的样式
-	        position: position
+	        position: ''
 	    };
 	    if (typeof keyboard === 'boolean') {
 	        instanceObj.keyboard = keyboard;
@@ -6279,32 +6272,22 @@
 	    });
 	}
 	
-	function notice(content, duration_arg, type, onClose, position, style, keyboard, onEscapeKeyUp, showIcon) {
-	    if (positionType.findIndex(function (item) {
-	        return item === position;
-	    }) < 0) {
-	        (0, _warning2["default"])(false, 'Failed prop type: Invalid prop `position` supplied to `Message`, expected one of ["top","bottom","topRight","topLeft","bottomRight","bottomLeft"].');
-	        return;
-	    }
-	    var duration = duration_arg !== undefined ? duration_arg : defaultDuration;
-	    notificationStyle_copy = _extends({}, positionObj[position].notificationStyle);
-	    messageStyle_copy = _extends({}, positionObj[position].messageStyle);
-	
+	function notice(content, duration, type, onClose, position, style, keyboard, onEscapeKeyUp, showIcon) {
 	    var iconType = {
 	        info: 'uf uf-i-c-2',
 	        success: 'uf uf-correct',
-	        danger: 'uf uf-exc-c',
+	        danger: 'uf uf-close-c',
 	        warning: 'uf uf-exc-t',
 	        light: 'uf uf-notification',
-	        dark: 'uf uf-notification',
+	        dark: 'uf uf-bubble',
 	        news: 'uf uf-bell',
 	        infolight: 'uf uf-i-c-2',
 	        successlight: 'uf uf-correct',
-	        dangerlight: 'uf uf-exc-c',
+	        dangerlight: 'uf uf-close-c',
 	        warninglight: 'uf uf-exc-t'
 	    }[type];
 	
-	    var positionStyle = JSON.stringify(messageStyle_copy) == "{}" ? positionObj[position].messageStyle : messageStyle_copy;
+	    var positionStyle = positionObj[position].messageStyle;
 	    getMessageInstance(position, function (instance) {
 	        instance.notice({
 	            key: key,
@@ -6346,11 +6329,11 @@
 	        }
 	        var content = obj.content || '';
 	        var duration = typeof obj.duration == 'undefined' ? defaultDuration : obj.duration;
-	        var color = obj.color || 'light';
+	        var color = obj.color || 'dark';
 	        var onClose = obj.onClose || noop;
 	        var position = obj.position || "top";
 	        var style = obj.style || {};
-	        var showIcon = obj.showIcon || true;
+	        var showIcon = obj.showIcon || false;
 	        return notice(content, duration, color, onClose, position, style, obj.keyboard, obj.onEscapeKeyUp, showIcon);
 	    },
 	    config: function config(options) {
@@ -6473,7 +6456,7 @@
 	  show: _propTypes2["default"].bool,
 	  clsPrefix: _propTypes2["default"].string,
 	  style: _propTypes2["default"].object,
-	  position: _propTypes2["default"].oneOf(['topRight', 'bottomRight', 'top', 'bottom', 'topLeft', 'bottomLeft', '']),
+	  position: _propTypes2["default"].oneOf(['topRight', 'bottomRight', '']),
 	  transitionName: _propTypes2["default"].string,
 	  keyboard: _propTypes2["default"].bool, // 按esc键是否关闭notice
 	  onEscapeKeyUp: _propTypes2["default"].func, // 设置esc键特殊钩子函数
@@ -7468,10 +7451,6 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _beeIcon = __webpack_require__(79);
-	
-	var _beeIcon2 = _interopRequireDefault(_beeIcon);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
@@ -7577,11 +7556,7 @@
 	      closable ? _react2["default"].createElement(
 	        'a',
 	        { tabIndex: '0', onClick: this.close, className: componentClass + '-close' },
-	        _react2["default"].createElement(
-	          'span',
-	          { className: componentClass + '-close-x' },
-	          _react2["default"].createElement(_beeIcon2["default"], { type: 'uf-close' })
-	        )
+	        _react2["default"].createElement('span', { className: componentClass + '-close-x' })
 	      ) : null
 	    );
 	  };
@@ -7601,107 +7576,9 @@
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _Icon = __webpack_require__(80);
-	
-	var _Icon2 = _interopRequireDefault(_Icon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	exports["default"] = _Icon2["default"];
-	module.exports = exports['default'];
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _classnames = __webpack_require__(5);
-	
-	var _classnames2 = _interopRequireDefault(_classnames);
-	
-	var _propTypes = __webpack_require__(6);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
-	
-	var propTypes = {
-		type: _propTypes2["default"].string
-	
-	};
-	/**
-	 *  badge 默认显示内容1
-	 */
-	var defaultProps = {
-		clsPrefix: 'uf'
-	};
-	
-	var Icon = function (_Component) {
-		_inherits(Icon, _Component);
-	
-		function Icon(props) {
-			_classCallCheck(this, Icon);
-	
-			return _possibleConstructorReturn(this, _Component.call(this, props));
-		}
-	
-		Icon.prototype.render = function render() {
-			var _props = this.props,
-			    type = _props.type,
-			    className = _props.className,
-			    clsPrefix = _props.clsPrefix,
-			    others = _objectWithoutProperties(_props, ['type', 'className', 'clsPrefix']);
-	
-			var clsObj = {};
-	
-			var classNames = (0, _classnames2["default"])(clsPrefix, type);
-	
-			return _react2["default"].createElement('i', _extends({}, others, { className: (0, _classnames2["default"])(classNames, className) }));
-		};
-	
-		return Icon;
-	}(_react.Component);
-	
-	Icon.defaultProps = defaultProps;
-	Icon.propTypes = propTypes;
-	
-	exports["default"] = Icon;
-	module.exports = exports['default'];
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	"use strict";
 	
-	var deselectCurrent = __webpack_require__(82);
+	var deselectCurrent = __webpack_require__(80);
 	
 	var defaultMessage = "Copy to clipboard: #{key}, Enter";
 	
@@ -7745,11 +7622,6 @@
 	    mark.style.userSelect = "text";
 	    mark.addEventListener("copy", function(e) {
 	      e.stopPropagation();
-	      if (options.format) {
-	        e.preventDefault();
-	        e.clipboardData.clearData();
-	        e.clipboardData.setData(options.format, text);
-	      }
 	    });
 	
 	    document.body.appendChild(mark);
@@ -7766,7 +7638,7 @@
 	    debug && console.error("unable to copy using execCommand: ", err);
 	    debug && console.warn("trying IE specific stuff");
 	    try {
-	      window.clipboardData.setData(options.format || "text", text);
+	      window.clipboardData.setData("text", text);
 	      success = true;
 	    } catch (err) {
 	      debug && console.error("unable to copy using clipboardData: ", err);
@@ -7796,7 +7668,7 @@
 
 
 /***/ }),
-/* 82 */
+/* 80 */
 /***/ (function(module, exports) {
 
 	
@@ -7841,7 +7713,7 @@
 
 
 /***/ }),
-/* 83 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7988,7 +7860,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 84 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7997,7 +7869,7 @@
 	  value: true
 	});
 	
-	var _Drawer = __webpack_require__(85);
+	var _Drawer = __webpack_require__(83);
 	
 	var _Drawer2 = _interopRequireDefault(_Drawer);
 	
@@ -8007,7 +7879,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 85 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8032,9 +7904,9 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _common = __webpack_require__(86);
+	var _common = __webpack_require__(84);
 	
-	var _reactTransitionGroup = __webpack_require__(87);
+	var _reactTransitionGroup = __webpack_require__(85);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -8310,7 +8182,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 86 */
+/* 84 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -8337,18 +8209,18 @@
 	}
 
 /***/ }),
-/* 87 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _CSSTransition = _interopRequireDefault(__webpack_require__(88));
+	var _CSSTransition = _interopRequireDefault(__webpack_require__(86));
 	
-	var _ReplaceTransition = _interopRequireDefault(__webpack_require__(95));
+	var _ReplaceTransition = _interopRequireDefault(__webpack_require__(93));
 	
-	var _TransitionGroup = _interopRequireDefault(__webpack_require__(96));
+	var _TransitionGroup = _interopRequireDefault(__webpack_require__(94));
 	
-	var _Transition = _interopRequireDefault(__webpack_require__(92));
+	var _Transition = _interopRequireDefault(__webpack_require__(90));
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8360,7 +8232,7 @@
 	};
 
 /***/ }),
-/* 88 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -8370,15 +8242,15 @@
 	
 	var PropTypes = _interopRequireWildcard(__webpack_require__(6));
 	
-	var _addClass = _interopRequireDefault(__webpack_require__(89));
+	var _addClass = _interopRequireDefault(__webpack_require__(87));
 	
-	var _removeClass = _interopRequireDefault(__webpack_require__(91));
+	var _removeClass = _interopRequireDefault(__webpack_require__(89));
 	
 	var _react = _interopRequireDefault(__webpack_require__(1));
 	
-	var _Transition = _interopRequireDefault(__webpack_require__(92));
+	var _Transition = _interopRequireDefault(__webpack_require__(90));
 	
-	var _PropTypes = __webpack_require__(94);
+	var _PropTypes = __webpack_require__(92);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8730,7 +8602,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
 
 /***/ }),
-/* 89 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8740,7 +8612,7 @@
 	exports.__esModule = true;
 	exports.default = addClass;
 	
-	var _hasClass = _interopRequireDefault(__webpack_require__(90));
+	var _hasClass = _interopRequireDefault(__webpack_require__(88));
 	
 	function addClass(element, className) {
 	  if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + ' ' + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + ' ' + className);
@@ -8749,7 +8621,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 90 */
+/* 88 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -8764,7 +8636,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 91 */
+/* 89 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -8778,7 +8650,7 @@
 	};
 
 /***/ }),
-/* 92 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -8792,9 +8664,9 @@
 	
 	var _reactDom = _interopRequireDefault(__webpack_require__(2));
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
-	var _PropTypes = __webpack_require__(94);
+	var _PropTypes = __webpack_require__(92);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9393,7 +9265,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
 
 /***/ }),
-/* 93 */
+/* 91 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -9561,7 +9433,7 @@
 
 
 /***/ }),
-/* 94 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -9595,7 +9467,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
 
 /***/ }),
-/* 95 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -9609,7 +9481,7 @@
 	
 	var _reactDom = __webpack_require__(2);
 	
-	var _TransitionGroup = _interopRequireDefault(__webpack_require__(96));
+	var _TransitionGroup = _interopRequireDefault(__webpack_require__(94));
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9751,7 +9623,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
 
 /***/ }),
-/* 96 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
@@ -9763,9 +9635,9 @@
 	
 	var _react = _interopRequireDefault(__webpack_require__(1));
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
-	var _ChildMapping = __webpack_require__(97);
+	var _ChildMapping = __webpack_require__(95);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9965,7 +9837,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)))
 
 /***/ }),
-/* 97 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10120,7 +9992,7 @@
 	}
 
 /***/ }),
-/* 98 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10129,7 +10001,7 @@
 	  value: true
 	});
 	
-	var _Clipboard = __webpack_require__(99);
+	var _Clipboard = __webpack_require__(97);
 	
 	var _Clipboard2 = _interopRequireDefault(_Clipboard);
 	
@@ -10139,7 +10011,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 99 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10152,7 +10024,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _clipboard = __webpack_require__(100);
+	var _clipboard = __webpack_require__(98);
 	
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 	
@@ -10160,7 +10032,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -10362,12 +10234,12 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 100 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(101), __webpack_require__(103), __webpack_require__(104)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(99), __webpack_require__(101), __webpack_require__(102)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -10574,12 +10446,12 @@
 	});
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(102)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(100)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -10808,7 +10680,7 @@
 	});
 
 /***/ }),
-/* 102 */
+/* 100 */
 /***/ (function(module, exports) {
 
 	function select(element) {
@@ -10857,7 +10729,7 @@
 
 
 /***/ }),
-/* 103 */
+/* 101 */
 /***/ (function(module, exports) {
 
 	function E () {
@@ -10930,11 +10802,11 @@
 
 
 /***/ }),
-/* 104 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(105);
-	var delegate = __webpack_require__(106);
+	var is = __webpack_require__(103);
+	var delegate = __webpack_require__(104);
 	
 	/**
 	 * Validates all params and calls the right
@@ -11031,7 +10903,7 @@
 
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ (function(module, exports) {
 
 	/**
@@ -11086,10 +10958,10 @@
 
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(107);
+	var closest = __webpack_require__(105);
 	
 	/**
 	 * Delegates event to a selector.
@@ -11170,7 +11042,7 @@
 
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, exports) {
 
 	var DOCUMENT_NODE_TYPE = 9;
@@ -11207,6 +11079,104 @@
 	
 	module.exports = closest;
 
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _Icon = __webpack_require__(107);
+	
+	var _Icon2 = _interopRequireDefault(_Icon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	exports["default"] = _Icon2["default"];
+	module.exports = exports['default'];
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(5);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	var _propTypes = __webpack_require__(6);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+	
+	var propTypes = {
+		type: _propTypes2["default"].string
+	
+	};
+	/**
+	 *  badge 默认显示内容1
+	 */
+	var defaultProps = {
+		clsPrefix: 'uf'
+	};
+	
+	var Icon = function (_Component) {
+		_inherits(Icon, _Component);
+	
+		function Icon(props) {
+			_classCallCheck(this, Icon);
+	
+			return _possibleConstructorReturn(this, _Component.call(this, props));
+		}
+	
+		Icon.prototype.render = function render() {
+			var _props = this.props,
+			    type = _props.type,
+			    className = _props.className,
+			    clsPrefix = _props.clsPrefix,
+			    others = _objectWithoutProperties(_props, ['type', 'className', 'clsPrefix']);
+	
+			var clsObj = {};
+	
+			var classNames = (0, _classnames2["default"])(clsPrefix, type);
+	
+			return _react2["default"].createElement('i', _extends({}, others, { className: (0, _classnames2["default"])(classNames, className) }));
+		};
+	
+		return Icon;
+	}(_react.Component);
+	
+	Icon.defaultProps = defaultProps;
+	Icon.propTypes = propTypes;
+	
+	exports["default"] = Icon;
+	module.exports = exports['default'];
 
 /***/ }),
 /* 108 */
@@ -14095,7 +14065,7 @@
 	
 	var _confirm2 = _interopRequireDefault(_confirm);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -15424,15 +15394,15 @@
 	exports.__esModule = true;
 	exports.default = void 0;
 	
-	var _addClass = _interopRequireDefault(__webpack_require__(89));
+	var _addClass = _interopRequireDefault(__webpack_require__(87));
 	
 	exports.addClass = _addClass.default;
 	
-	var _removeClass = _interopRequireDefault(__webpack_require__(91));
+	var _removeClass = _interopRequireDefault(__webpack_require__(89));
 	
 	exports.removeClass = _removeClass.default;
 	
-	var _hasClass = _interopRequireDefault(__webpack_require__(90));
+	var _hasClass = _interopRequireDefault(__webpack_require__(88));
 	
 	exports.hasClass = _hasClass.default;
 	var _default = {
@@ -33156,7 +33126,7 @@
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -33566,7 +33536,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -33919,7 +33889,7 @@
 	
 	var _singleSelect2 = _interopRequireDefault(_singleSelect);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -34873,7 +34843,7 @@
 	
 	var _beeDropdown2 = _interopRequireDefault(_beeDropdown);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -35704,7 +35674,7 @@
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _PropTypes = __webpack_require__(281);
 	
@@ -45455,7 +45425,7 @@
 	
 	var _beeLoading2 = _interopRequireDefault(_beeLoading);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -48856,16 +48826,27 @@
 	        _this.drag.minWidth = currentObj.style.minWidth != "" ? parseInt(currentObj.style.minWidth) : defaultWidth;
 	        _this.drag.tableWidth = parseInt(_this.table.table.style.width ? _this.table.table.style.width : _this.table.table.scrollWidth);
 	      } else if (type != 'online' && _this.props.draggable) {
-	        if (!_this.props.draggable || targetEvent.nodeName.toUpperCase() != "TH") return;
-	        targetEvent.setAttribute('draggable', true); //添加交换列效果
+	        // if (!this.props.draggable || targetEvent.nodeName.toUpperCase() != "TH") return; 
+	        if (!_this.props.draggable) return;
+	        var th = _this.getTargetToTh(targetEvent);
+	        th.setAttribute('draggable', true); //添加交换列效果
 	        _this.drag.option = 'dragAble';
-	        _this.currentDome = event.target;
-	        var _currentIndex = parseInt(currentElement.getAttribute("data-line-index"));
+	        _this.currentDome = th;
+	        var _currentIndex = parseInt(th.getAttribute("data-line-index"));
 	        _this.drag.currIndex = _currentIndex;
 	      } else {
 	        // console.log("onTrMouseDown dragborder or draggable is all false !");
 	        return;
 	      }
+	    };
+	
+	    _this.getTargetToTh = function (targetEvent) {
+	      var th = targetEvent;
+	      if (targetEvent.nodeName.toUpperCase() != "TH") {
+	        th = _this.getThDome(targetEvent);
+	      }
+	      console.log(" getTargetToTh: ", th);
+	      return th;
 	    };
 	
 	    _this.onTrMouseMove = function (e) {
@@ -48981,8 +48962,9 @@
 	        return;
 	      }
 	      var event = _utils.Event.getEvent(e),
-	          target = _utils.Event.getTarget(event);
 	
+	      // target = Event.getTarget(event);
+	      target = _this.getTargetToTh(_utils.Event.getTarget(event));
 	      var currentIndex = parseInt(target.getAttribute("data-line-index"));
 	      var currentKey = target.getAttribute('data-line-key');
 	
@@ -49332,6 +49314,11 @@
 	
 	
 	  /**
+	   * 判断当前的target 是否是 th，如果不是，直接递归查找。
+	   * @memberof TableHeader
+	   */
+	
+	  /**
 	   * 调整列宽的move事件
 	   * @memberof TableHeader
 	   */
@@ -49427,6 +49414,26 @@
 	      return null;
 	    }
 	  };
+	
+	  /**
+	  * 根据当前鼠标点击的节点，进行递归遍历，最终找到th
+	  * @param {*} element
+	  * @returns  <th />对象
+	  * @memberof TableHeader
+	  */
+	
+	
+	  TableHeader.prototype.getThDome = function getThDome(element) {
+	    var _tagName = element.tagName.toLowerCase();
+	    if (element.getAttribute('data-filter-type') === 'filterContext') return null;
+	    if (_tagName === 'i') return null;
+	    if (_tagName != 'th') {
+	      return this.getThDome(element.parentElement);
+	    } else {
+	      return element;
+	    }
+	  };
+	
 	  //---拖拽列交换----end----- 
 	
 	  /**
@@ -50212,7 +50219,7 @@
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -50617,7 +50624,7 @@
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _DateTable = __webpack_require__(404);
 	
@@ -69579,7 +69586,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _MonthTable = __webpack_require__(541);
 	
@@ -69971,7 +69978,7 @@
 	
 	var _KeyCode2 = _interopRequireDefault(_KeyCode);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _moment = __webpack_require__(407);
 	
@@ -71365,7 +71372,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _createChainedFunction = __webpack_require__(286);
 	
@@ -73047,7 +73054,7 @@
 	
 	var _beeFormControl2 = _interopRequireDefault(_beeFormControl);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -73511,7 +73518,7 @@
 	
 	var _beeInputGroup2 = _interopRequireDefault(_beeInputGroup);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -73746,7 +73753,7 @@
 	
 	var _classnames3 = _interopRequireDefault(_classnames2);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _KeyCode = __webpack_require__(403);
 	
@@ -74849,7 +74856,7 @@
 	
 	var _en_US2 = _interopRequireDefault(_en_US);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -75148,7 +75155,7 @@
 	
 	var _beeInputGroup2 = _interopRequireDefault(_beeInputGroup);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -75612,7 +75619,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _reactLifecyclesCompat = __webpack_require__(93);
+	var _reactLifecyclesCompat = __webpack_require__(91);
 	
 	var _tinperBeeCore = __webpack_require__(27);
 	
@@ -81047,7 +81054,7 @@
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -81907,7 +81914,7 @@
 	
 	var _Portal2 = _interopRequireDefault(_Portal);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -82341,7 +82348,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -82360,29 +82367,29 @@
 	*/
 	
 	function sortBy(arr, prop, desc) {
-	    var props = [],
-	        ret = [],
-	        i = 0,
-	        len = arr.length;
-	    if (typeof prop == 'string') {
-	        for (; i < len; i++) {
-	            var oI = arr[i];
-	            (props[i] = new String(oI && oI[prop] || ''))._obj = oI;
-	        }
-	    } else if (typeof prop == 'function') {
-	        for (; i < len; i++) {
-	            var _oI = arr[i];
-	            (props[i] = new String(_oI && prop(_oI) || ''))._obj = _oI;
-	        }
-	    } else {
-	        throw '参数类型错误';
+	  var props = [],
+	      ret = [],
+	      i = 0,
+	      len = arr.length;
+	  if (typeof prop == 'string') {
+	    for (; i < len; i++) {
+	      var oI = arr[i];
+	      (props[i] = new String(oI && oI[prop] || ''))._obj = oI;
 	    }
-	    props.sort();
-	    for (i = 0; i < len; i++) {
-	        ret[i] = props[i]._obj;
+	  } else if (typeof prop == 'function') {
+	    for (; i < len; i++) {
+	      var _oI = arr[i];
+	      (props[i] = new String(_oI && prop(_oI) || ''))._obj = _oI;
 	    }
-	    if (desc) ret.reverse();
-	    return ret;
+	  } else {
+	    throw '参数类型错误';
+	  }
+	  props.sort();
+	  for (i = 0; i < len; i++) {
+	    ret[i] = props[i]._obj;
+	  }
+	  if (desc) ret.reverse();
+	  return ret;
 	};
 	
 	/**
@@ -82391,11 +82398,11 @@
 	 * @param {} property 
 	 */
 	function compare(property) {
-	    return function (a, b) {
-	        var value1 = a[property];
-	        var value2 = b[property];
-	        return value1 - value2;
-	    };
+	  return function (a, b) {
+	    var value1 = a[property];
+	    var value2 = b[property];
+	    return value1 - value2;
+	  };
 	}
 	
 	/**
@@ -82403,19 +82410,19 @@
 	 * @param {*} obj 要拷贝的对象 
 	 */
 	function ObjectAssign(obj) {
-	    var b = obj instanceof Array;
-	    var tagObj = b ? [] : {};
-	    if (b) {
-	        //数组
-	        obj.forEach(function (da) {
-	            var _da = {};
-	            _extends(_da, da);
-	            tagObj.push(_da);
-	        });
-	    } else {
-	        _extends(tagObj, obj);
-	    }
-	    return tagObj;
+	  var b = obj instanceof Array;
+	  var tagObj = b ? [] : {};
+	  if (b) {
+	    //数组
+	    obj.forEach(function (da) {
+	      var _da = {};
+	      _extends(_da, da);
+	      tagObj.push(_da);
+	    });
+	  } else {
+	    _extends(tagObj, obj);
+	  }
+	  return tagObj;
 	}
 
 /***/ }),
@@ -82440,7 +82447,7 @@
 	
 	var _beeCheckbox2 = _interopRequireDefault(_beeCheckbox);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -84280,8 +84287,15 @@
 	      var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 	
 	      _this.onRadioChange = function (value, record, index) {
-	        _this.setState({ selectedRowIndex: index });
-	        _this.props.getSelectedDataFunc(record, index);
+	        var selectedRowIndex = _this.state.selectedRowIndex;
+	
+	        if (selectedRowIndex === index) {
+	          _this.setState({ selectedRowIndex: '' });
+	          _this.props.getSelectedDataFunc();
+	        } else {
+	          _this.setState({ selectedRowIndex: index });
+	          _this.props.getSelectedDataFunc(record, index);
+	        }
 	      };
 	
 	      _this.getDefaultColumns = function (columns) {
@@ -85007,7 +85021,7 @@
 	
 	var _beeSelect2 = _interopRequireDefault(_beeSelect);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -86168,7 +86182,7 @@
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _beeIcon = __webpack_require__(79);
+	var _beeIcon = __webpack_require__(106);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -87524,7 +87538,7 @@
 	  width: 150
 	}];
 	var dataList = [{
-	  index: 1,
+	  index: 0,
 	  orderCode: "2343",
 	  supplierName: "xxx",
 	  type_name: "123",
@@ -87538,7 +87552,7 @@
 	  d: "操作",
 	  key: "1"
 	}, {
-	  index: 2,
+	  index: 1,
 	  _checked: true,
 	  orderCode: "222",
 	  supplierName: "22xxx",
@@ -87553,7 +87567,7 @@
 	  d: "2操作",
 	  key: "2"
 	}, {
-	  index: 3,
+	  index: 2,
 	  orderCode: "222",
 	  supplierName: "22xxx",
 	  _disabled: true,
@@ -87568,7 +87582,7 @@
 	  d: "3操作",
 	  key: "3"
 	}, {
-	  index: 4,
+	  index: 3,
 	  orderCode: "222",
 	  supplierName: "22xxx",
 	  type_name: "1223",

@@ -6078,7 +6078,7 @@ input.u-button[type="submit"] {
     border-color: rgb(165, 173, 186); }
 
 .u-button.u-button-primary {
-  color: #fff;
+  color: rgb(255,255,255);
   background-color: rgb(245, 60, 50);
   border: 1px rgb(245, 60, 50) solid; }
   .u-button.u-button-primary:hover {
@@ -6106,7 +6106,7 @@ input.u-button[type="submit"] {
     border-color: rgb(223,225,230); }
 
 .u-button.u-button-danger {
-  color: #fff;
+  color: rgb(255,255,255);
   background-color: rgb(244,67,54);
   border: 1px rgb(244,67,54) solid; }
   .u-button.u-button-danger:hover {
@@ -6120,7 +6120,7 @@ input.u-button[type="submit"] {
     border-color: rgb(211,47,47); }
 
 .u-button.u-button-info {
-  color: #fff;
+  color: rgb(255,255,255);
   background-color: rgb(0,188,212);
   border: 1px rgb(0,188,212) solid; }
   .u-button.u-button-info:hover {
@@ -6134,7 +6134,7 @@ input.u-button[type="submit"] {
     border-color: rgb(0,151,167); }
 
 .u-button.u-button-warning {
-  color: #fff;
+  color: rgb(255,255,255);
   background-color: rgb(255,152,0);
   border: 1px rgb(255,152,0) solid; }
   .u-button.u-button-warning:hover {
@@ -6148,7 +6148,7 @@ input.u-button[type="submit"] {
     border-color: rgb(245,124,0); }
 
 .u-button.u-button-success {
-  color: #fff;
+  color: rgb(255,255,255);
   background-color: rgb(76,175,80);
   border: 1px rgb(76,175,80) solid; }
   .u-button.u-button-success:hover {
@@ -6162,7 +6162,7 @@ input.u-button[type="submit"] {
     border-color: rgb(56,142,60); }
 
 .u-button.u-button-dark {
-  color: #fff;
+  color: rgb(255,255,255);
   background-color: rgb(97,97,97);
   border: 1px rgb(97,97,97) solid; }
   .u-button.u-button-dark:hover {
