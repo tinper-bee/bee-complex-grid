@@ -16216,4 +16216,7 @@ ul {
     background: #344563;
     border-color: #505F79; }
 
+.u-table-thead .th-can-not-drag .u-table-thead-th-drag-gap {
+  display: none; }
+
 /*# sourceMappingURL=demo.css.map */

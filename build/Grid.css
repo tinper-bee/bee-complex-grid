@@ -7335,6 +7335,9 @@ ul {
 .u-grid th .cansort.drop-menu {
   max-width: calc(100% - 32px) !important; }
 
+.u-grid th:last-child.column-number-right {
+  padding-right: 28px; }
+
 .u-grid th:last-child .cansort.drop-menu {
   width: calc(100% - 38px) !important; }
 
