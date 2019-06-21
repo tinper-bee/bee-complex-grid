@@ -16109,6 +16109,9 @@ ul {
 .u-grid th .cansort.drop-menu {
   max-width: calc(100% - 32px) !important; }
 
+.u-grid th:last-child.column-number-right {
+  padding-right: 28px; }
+
 .u-grid th:last-child .cansort.drop-menu {
   width: calc(100% - 38px) !important; }
 
@@ -16215,8 +16218,5 @@ ul {
   .opt-btns .u-button:hover, .opt-btns .u-button:active {
     background: #344563;
     border-color: #505F79; }
-
-.u-table-thead .th-can-not-drag .u-table-thead-th-drag-gap {
-  display: none; }
 
 /*# sourceMappingURL=demo.css.map */

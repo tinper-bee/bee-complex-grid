@@ -87,7 +87,7 @@ const column = [
 ];
 const dataList = [
   {
-    index: 1,
+    index: 0,
     orderCode: "2343",
     supplierName: "xxx",
     type_name: "123",
@@ -102,7 +102,7 @@ const dataList = [
     key: "1"
   },
   {
-    index: 2,
+    index: 1,
     _checked: true,
     orderCode: "222",
     supplierName: "22xxx",
@@ -118,7 +118,7 @@ const dataList = [
     key: "2"
   },
   {
-    index: 3,
+    index: 2,
     orderCode: "222",
     supplierName: "22xxx",
     _disabled: true,
@@ -134,7 +134,7 @@ const dataList = [
     key: "3"
   },
   {
-    index: 4,
+    index: 3,
     orderCode: "222",
     supplierName: "22xxx",
     type_name: "1223",
