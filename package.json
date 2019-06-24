@@ -56,7 +56,7 @@
   "xlsx": "^0.11.17"
  },
  "devDependencies": {
-    "babel-runtime": "^6.23.0",
+  "babel-runtime": "^6.23.0",
   "bee-button": "latest",
   "bee-clipboard": "^2.0.0",
   "bee-drawer": "0.0.2",
