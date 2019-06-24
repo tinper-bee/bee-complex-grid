@@ -1,3 +1,13 @@
+<a name="2.0.20"></a>
+## [2.0.20](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.19...v2.0.20) (2019-06-24)
+
+
+### Bug Fixes
+
+* 在最后一列,列右对齐导致的文字隐藏 ([920e712](https://github.com/tinper-bee/bee-complex-grid/commit/920e712))
+
+
+
 <a name="2.0.19"></a>
 ## [2.0.19](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.18...v2.0.19) (2019-06-10)
 
