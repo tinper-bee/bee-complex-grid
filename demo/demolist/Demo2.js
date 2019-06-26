@@ -19,18 +19,18 @@ const column = [
         console.log("data",data);
       }
     },
-    {
-      title: "功力指数名称长时显示省略号",
-      dataIndex: "b",
-      key: "b",
-      width: 200,
-      sumCol: true,
-      sorter: (pre, after) => {return pre.b - after.b},
-      sorterClick:(data,type)=>{//排序的回调函数
-        //type value is up or down
-        console.log("data",data);
-      }
-    },
+    // {
+    //   title: "功力指数名称长时显示省略号",
+    //   dataIndex: "b",
+    //   key: "b",
+    //   width: 200,
+    //   sumCol: true,
+    //   sorter: (pre, after) => {return pre.b - after.b},
+    //   sorterClick:(data,type)=>{//排序的回调函数
+    //     //type value is up or down
+    //     console.log("data",data);
+    //   }
+    // },
     {
       title: "年龄",
       dataIndex: "c",
@@ -55,7 +55,8 @@ const column = [
       title: "武功级别",
       dataIndex: "d",
       key: "d",
-      width: 200
+      width: 200,
+      fixed: 'right'
     }
   ];
   const dataList = [
