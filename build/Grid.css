@@ -1206,8 +1206,7 @@ ul {
   position: absolute;
   outline: none;
   overflow: hidden;
-  font-size: 12px;
-  margin-bottom: 20px; }
+  font-size: 12px; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-bottomLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-bottomLeft {
     -webkit-animation-name: uSlideUpIn;
     animation-name: uSlideUpIn; }
@@ -3621,8 +3620,7 @@ ul {
   position: absolute;
   outline: none;
   overflow: hidden;
-  font-size: 12px;
-  margin-bottom: 20px; }
+  font-size: 12px; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-bottomLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-bottomLeft {
     -webkit-animation-name: uSlideUpIn;
     animation-name: uSlideUpIn; }
@@ -5274,20 +5272,6 @@ ul {
   content: ' ';
   opacity: 0.0001; }
 
-.u-menu-submenu-popup.u-menu-submenu-placement-rightTop:before {
-  top: 0;
-  left: -4px; }
-
-.u-menu-submenu-popup.u-menu-submenu-placement-leftTop:before {
-  top: 0;
-  left: 0;
-  right: -4px; }
-
-.u-menu-submenu-popup.u-menu-submenu-placement-topLeft:before {
-  top: 0;
-  left: 0;
-  bottom: -7px; }
-
 .u-menu-submenu > .u-menu {
   background-color: #fff;
   border-radius: 3px; }
@@ -6456,10 +6440,6 @@ ul {
   .u-table td {
     padding: 12px 8px;
     word-break: break-all; }
-    .u-table th.drag-handle-column .uf,
-    .u-table td.drag-handle-column .uf {
-      font-size: 12px;
-      line-height: 12px; }
     .u-table th.text-center,
     .u-table td.text-center {
       text-align: center; }
@@ -6501,8 +6481,6 @@ ul {
     box-sizing: border-box; }
   .u-table-drag-border tr th.th-can-not-drag {
     overflow: hidden; }
-    .u-table-drag-border tr th.th-can-not-drag .u-table-thead-th-drag-gap {
-      display: none; }
   .u-table-header {
     overflow: hidden;
     background: rgb(241, 242, 245);
@@ -7361,7 +7339,7 @@ ul {
   padding-right: 34px; }
 
 .u-grid th:last-child .cansort.drop-menu {
-  width: calc(100% - 38px) !important; }
+  width: calc(100% - 45px) !important; }
 
 .u-grid th .bee-table-column-sorter {
   margin-left: 0px; }
