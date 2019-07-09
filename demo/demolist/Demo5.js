@@ -224,7 +224,6 @@ class Demo1 extends Component {
           data={this.state.dataList}
           getSelectedDataFunc={this.getSelectedDataFunc}
           paginationObj={paginationObj}
-          canSum={true}
         />
       </div>
       
