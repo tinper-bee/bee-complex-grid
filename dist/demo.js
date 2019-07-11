@@ -46325,7 +46325,7 @@
 	  };
 	
 	  Table.prototype.getRows = function getRows(columns, fixed) {
-	    //统计index，只有含有鼠表结构才有用，因为数表结构时，固定列的索引取值有问题
+	    //统计index，只有含有树表结构才有用，因为树表结构时，固定列的索引取值有问题
 	    this.treeRowIndex = 0;
 	    var rs = this.getRowsByData(this.state.data, true, 0, columns, fixed);
 	    return rs;
@@ -46410,7 +46410,8 @@
 	        footerScroll = _props3.footerScroll,
 	        headerScroll = _props3.headerScroll,
 	        _props3$hideHeaderScr = _props3.hideHeaderScroll,
-	        hideHeaderScroll = _props3$hideHeaderScr === undefined ? false : _props3$hideHeaderScr;
+	        hideHeaderScroll = _props3$hideHeaderScr === undefined ? false : _props3$hideHeaderScr,
+	        expandIconAsCell = _props3.expandIconAsCell;
 	    var _props4 = this.props,
 	        useFixedHeader = _props4.useFixedHeader,
 	        data = _props4.data;
@@ -46589,9 +46590,10 @@
 	    }
 	    var leftFixedWidth = this.columnManager.getLeftColumnsWidth(this.contentWidth);
 	    var rightFixedWidth = this.columnManager.getRightColumnsWidth(this.contentWidth);
+	    var expandIconWidth = expandIconAsCell ? 33 : 0;
 	    var parStyle = {};
 	    if (!fixed) {
-	      parStyle = { 'marginLeft': leftFixedWidth, 'marginRight': rightFixedWidth };
+	      parStyle = { 'marginLeft': leftFixedWidth + expandIconWidth, 'marginRight': rightFixedWidth };
 	    }
 	    return _react2["default"].createElement(
 	      'div',
@@ -47518,13 +47520,13 @@
 	      collapsedIcon: collapsedIcon,
 	      isHiddenExpandIcon: isHiddenExpandIcon
 	    });
-	
+	    var isExpandIconAsCell = expandIconAsCell ? clsPrefix + '-expand-columns-in-body' : '';
 	    for (var i = 0; i < columns.length; i++) {
 	      if (expandIconAsCell && i === 0 && !showSum) {
 	        cells.push(_react2["default"].createElement(
 	          'td',
 	          {
-	            className: clsPrefix + '-expand-icon-cell',
+	            className: clsPrefix + '-expand-icon-cell ' + isExpandIconAsCell,
 	            key: 'rc-table-expand-icon-cell-' + i
 	          },
 	          expandIcon
@@ -82548,7 +82550,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -82567,29 +82569,29 @@
 	*/
 	
 	function sortBy(arr, prop, desc) {
-	  var props = [],
-	      ret = [],
-	      i = 0,
-	      len = arr.length;
-	  if (typeof prop == 'string') {
-	    for (; i < len; i++) {
-	      var oI = arr[i];
-	      (props[i] = new String(oI && oI[prop] || ''))._obj = oI;
+	    var props = [],
+	        ret = [],
+	        i = 0,
+	        len = arr.length;
+	    if (typeof prop == 'string') {
+	        for (; i < len; i++) {
+	            var oI = arr[i];
+	            (props[i] = new String(oI && oI[prop] || ''))._obj = oI;
+	        }
+	    } else if (typeof prop == 'function') {
+	        for (; i < len; i++) {
+	            var _oI = arr[i];
+	            (props[i] = new String(_oI && prop(_oI) || ''))._obj = _oI;
+	        }
+	    } else {
+	        throw '参数类型错误';
 	    }
-	  } else if (typeof prop == 'function') {
-	    for (; i < len; i++) {
-	      var _oI = arr[i];
-	      (props[i] = new String(_oI && prop(_oI) || ''))._obj = _oI;
+	    props.sort();
+	    for (i = 0; i < len; i++) {
+	        ret[i] = props[i]._obj;
 	    }
-	  } else {
-	    throw '参数类型错误';
-	  }
-	  props.sort();
-	  for (i = 0; i < len; i++) {
-	    ret[i] = props[i]._obj;
-	  }
-	  if (desc) ret.reverse();
-	  return ret;
+	    if (desc) ret.reverse();
+	    return ret;
 	};
 	
 	/**
@@ -82598,11 +82600,11 @@
 	 * @param {} property 
 	 */
 	function compare(property) {
-	  return function (a, b) {
-	    var value1 = a[property];
-	    var value2 = b[property];
-	    return value1 - value2;
-	  };
+	    return function (a, b) {
+	        var value1 = a[property];
+	        var value2 = b[property];
+	        return value1 - value2;
+	    };
 	}
 	
 	/**
@@ -82610,19 +82612,19 @@
 	 * @param {*} obj 要拷贝的对象 
 	 */
 	function ObjectAssign(obj) {
-	  var b = obj instanceof Array;
-	  var tagObj = b ? [] : {};
-	  if (b) {
-	    //数组
-	    obj.forEach(function (da) {
-	      var _da = {};
-	      _extends(_da, da);
-	      tagObj.push(_da);
-	    });
-	  } else {
-	    _extends(tagObj, obj);
-	  }
-	  return tagObj;
+	    var b = obj instanceof Array;
+	    var tagObj = b ? [] : {};
+	    if (b) {
+	        //数组
+	        obj.forEach(function (da) {
+	            var _da = {};
+	            _extends(_da, da);
+	            tagObj.push(_da);
+	        });
+	    } else {
+	        _extends(tagObj, obj);
+	    }
+	    return tagObj;
 	}
 
 /***/ }),
@@ -85981,9 +85983,17 @@
 	var propTypes = {
 	  name: _propTypes2["default"].string,
 	  /**
+	   * 默认选中的值
+	   */
+	  defaultValue: _propTypes2["default"].oneOfType([_propTypes2["default"].string, _propTypes2["default"].number, _propTypes2["default"].bool]),
+	  /**
 	   * 选中的值
 	   */
 	  selectedValue: _propTypes2["default"].oneOfType([_propTypes2["default"].string, _propTypes2["default"].number, _propTypes2["default"].bool]),
+	  /**
+	   * 选中的值,作用与selectedValue一致，添加value属性是为了配合form表单校验初始化等一起使用
+	   */
+	  value: _propTypes2["default"].oneOfType([_propTypes2["default"].string, _propTypes2["default"].number, _propTypes2["default"].bool]),
 	  /**
 	  * 暴露给用户，且与子Radio通信的方法
 	  */
@@ -86000,7 +86010,8 @@
 	
 	var defaultProps = {
 	  Component: 'div',
-	  clsPrefix: 'u-radio-group'
+	  clsPrefix: 'u-radio-group',
+	  defaultValue: ''
 	};
 	
 	/**
@@ -86029,14 +86040,26 @@
 	        children.map(function (item) {
 	          array.push(item.props.value);
 	        });
+	      } else if (children.length === 1) {
+	        array.push(children[0].props.value);
 	      } else {
 	        array.push(children.props.value);
 	      }
 	      return array;
 	    };
 	
+	    _this.handleChange = function (value) {
+	      var onChange = _this.props.onChange;
+	
+	      _this.setState({
+	        selectedValue: value
+	      });
+	      onChange && onChange(value);
+	    };
+	
 	    _this.state = {
-	      focusvalue: ''
+	      focusvalue: '',
+	      selectedValue: props.value ? props.value : props.selectedValue ? props.selectedValue : props.defaultValue
 	    };
 	    return _this;
 	  }
@@ -86050,15 +86073,20 @@
 	    }
 	  };
 	
-	  RadioGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps() {
+	  RadioGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
 	    var array = this.getValues();
-	    if (array.indexOf(this.props.selectedValue) == -1) {
+	    if (array.indexOf(this.props.selectedValue) == -1 || array.indexOf(this.props.value) == -1) {
 	      this.setState({
 	        focusvalue: array[0]
 	      });
 	    } else {
 	      this.setState({
 	        focusvalue: ''
+	      });
+	    }
+	    if ('selectedValue' in nextProps || 'value' in nextProps) {
+	      this.setState({
+	        selectedValue: typeof nextProps.selectedValue !== 'undifined' ? nextProps.selectedValue : nextProps.value
 	      });
 	    }
 	  };
@@ -86070,10 +86098,10 @@
 	  RadioGroup.prototype.getChildContext = function getChildContext() {
 	    var _props = this.props,
 	        name = _props.name,
-	        selectedValue = _props.selectedValue,
-	        onChange = _props.onChange,
 	        size = _props.size;
+	    var selectedValue = this.state.selectedValue;
 	
+	    var onChange = this.handleChange;
 	    return {
 	      radioGroup: {
 	        name: name, selectedValue: selectedValue, onChange: onChange, size: size, focusvalue: this.state.focusvalue

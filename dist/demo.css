@@ -15181,6 +15181,9 @@ ul {
   overflow: hidden; }
   .u-table-body {
     position: relative; }
+    .u-table-body .u-table-row-expand-columns-in-body .expand-icon-con {
+      display: none;
+      pointer-events: none; }
   .u-table-hiden-drag {
     position: relative; }
     .u-table-hiden-drag-li {
@@ -15224,10 +15227,11 @@ ul {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: row-reverse;
-    flex-direction: row-reverse;
-    border-right: none; }
+    flex-direction: row-reverse; }
+    .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body):nth-last-child(1):last-child {
+      border-right: none; }
     .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .expand-icon-con {
-      height: 15px; }
+      height: 14px; }
       .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .expand-icon-con .uf {
         padding: 0; }
       .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .expand-icon-con .u-table-row-expand-icon {
@@ -15252,7 +15256,10 @@ ul {
       text-align: right; }
     .u-table th .expand-icon-con,
     .u-table td .expand-icon-con {
-      cursor: pointer; }
+      cursor: pointer;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 12px; }
   .u-table-sm td {
     padding: 8px 8px; }
   .u-table-lg td {
@@ -15344,7 +15351,7 @@ ul {
   .u-table-row-expand-icon, .u-table-expanded-row-expand-icon {
     cursor: pointer;
     display: inline-block;
-    margin-right: 0px;
+    margin-right: 8px;
     width: 14px;
     height: 14px;
     text-align: center;
@@ -15352,8 +15359,7 @@ ul {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
-    margin-right: 10px; }
+    user-select: none; }
     .u-table-row-expand-icon.uf, .u-table-expanded-row-expand-icon.uf {
       font-size: 12px;
       padding: 0; }
@@ -16101,6 +16107,9 @@ ul {
 
 .u-radio.u-radio-dark input[type='radio']:focus + .u-radio-label:before {
   border-color: rgb(97,97,97); }
+
+.u-grid th.u-table-expand-icon-th {
+  width: 43px; }
 
 .u-grid th .drop-menu .uf {
   font-size: 12px;

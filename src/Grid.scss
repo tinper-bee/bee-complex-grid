@@ -12,6 +12,9 @@
 $icon-color:#505F79;
 .u-grid{
     th{
+        &.u-table-expand-icon-th {
+            width: 43px;
+        }
         .drop-menu{
             .uf{
                 font-size: 12px;
