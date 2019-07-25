@@ -16111,7 +16111,7 @@ ul {
 .u-grid th.u-table-expand-icon-th {
   width: 43px; }
 
-.u-grid th .drop-menu .uf {
+.u-grid th .drop-menu .uf:not(.custom-icon) {
   font-size: 12px;
   visibility: hidden;
   color: #505F79;
