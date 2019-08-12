@@ -7443,3 +7443,6 @@ ul {
 
 #filter_column_popover .u-table-filter-column-pop-cont-item .drop-menu .uf {
   display: none; }
+
+#filter_column_popover.u-popover {
+  z-index: 1701; }

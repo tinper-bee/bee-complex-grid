@@ -186,4 +186,7 @@ $icon-color:#505F79;
     .u-table-filter-column-pop-cont-item .drop-menu .uf{
         display: none;
     }
+    &.u-popover {
+        z-index: 1701;
+    }
 }
