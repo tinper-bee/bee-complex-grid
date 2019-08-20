@@ -6425,6 +6425,8 @@ ul {
         color: #1565c0; }
       .u-table td a:active {
         color: #1565c0; }
+    .u-table td .u-switch-span {
+      display: inline-block; }
   .u-table thead tr:last-child {
     border-bottom: 1px solid #C1C7D0; }
   .u-table thead tr > th:last-child {
@@ -6518,7 +6520,7 @@ ul {
   .u-table-fixed-left .u-table-body-inner {
     margin-right: -20px;
     padding-right: 20px; }
-  .u-table-fixed-header .u-table-fixed-left .u-table-body-inner {
+  .u-table-fixed-header:not(.u-table-hide-header) .u-table-fixed-left .u-table-body-inner {
     padding-right: 0px; }
   .u-table-fixed-header .u-table-body-inner {
     height: 100%;
@@ -7384,9 +7386,6 @@ ul {
 
 .u-grid .u-table-fixed-left th:last-child .cansort.drop-menu {
   width: calc(100% - 32px) !important; }
-
-.u-grid .u-checkbox {
-  margin: 0px; }
 
 .u-grid .u-pagination {
   overflow: hidden;
