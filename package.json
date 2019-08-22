@@ -45,6 +45,7 @@
   "bee-menus": "^2.0.2",
   "bee-modal": "^2.0.2",
   "bee-pagination": "^2.0.4",
+  "bee-popconfirm": "^2.0.0",
   "bee-popover": "^2.0.0",
   "bee-radio": "^2.0.14",
   "bee-table": "^2.1.15-beta.1",
