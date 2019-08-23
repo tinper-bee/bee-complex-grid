@@ -1,14 +1,10 @@
 <a name="2.0.24"></a>
-<<<<<<< HEAD
 ## [2.0.24](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.23...v2.0.24) (2019-08-23)
 
 
 ### Features
 
 * **bee-complex-grid:** export 修改 ([93b554c](https://github.com/tinper-bee/bee-complex-grid/commit/93b554c))
-=======
-## [2.0.24](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.23...v2.0.24) (2019-08-20)
->>>>>>> d24c5bdfc5aa7cca6717539038de20a5c9f707a7
 
 
 
