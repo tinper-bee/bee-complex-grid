@@ -4,7 +4,9 @@
  *
  */
 import React, { Component } from "react";
-import  Grid,{GridToolBar} from "../../src";
+import Grid from "../../src";
+
+const GridToolBar = Grid.GridToolBar;
 
   
 const column = [

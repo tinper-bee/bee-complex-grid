@@ -5,7 +5,9 @@
  */
 import React, { Component } from "react";
 import Button from 'bee-button';
-import Grid,{GridToolBar} from "../../src";
+import Grid from "../../src";
+
+const GridToolBar = Grid.GridToolBar;
 
 const column = [
   {

@@ -1206,7 +1206,8 @@ ul {
   position: absolute;
   outline: none;
   overflow: hidden;
-  font-size: 12px; }
+  font-size: 12px;
+  margin-bottom: 20px; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-bottomLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-bottomLeft {
     -webkit-animation-name: uSlideUpIn;
     animation-name: uSlideUpIn; }
@@ -3620,7 +3621,8 @@ ul {
   position: absolute;
   outline: none;
   overflow: hidden;
-  font-size: 12px; }
+  font-size: 12px;
+  margin-bottom: 20px; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-bottomLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-bottomLeft {
     -webkit-animation-name: uSlideUpIn;
     animation-name: uSlideUpIn; }
@@ -5272,6 +5274,20 @@ ul {
   content: ' ';
   opacity: 0.0001; }
 
+.u-menu-submenu-popup.u-menu-submenu-placement-rightTop:before {
+  top: 0;
+  left: -4px; }
+
+.u-menu-submenu-popup.u-menu-submenu-placement-leftTop:before {
+  top: 0;
+  left: 0;
+  right: -4px; }
+
+.u-menu-submenu-popup.u-menu-submenu-placement-topLeft:before {
+  top: 0;
+  left: 0;
+  bottom: -7px; }
+
 .u-menu-submenu > .u-menu {
   background-color: #fff;
   border-radius: 3px; }
@@ -6395,9 +6411,6 @@ ul {
   overflow: hidden; }
   .u-table-body {
     position: relative; }
-    .u-table-body .u-table-row-expand-columns-in-body .expand-icon-con {
-      display: none;
-      pointer-events: none; }
   .u-table-hiden-drag {
     position: relative; }
     .u-table-hiden-drag-li {
@@ -6437,29 +6450,12 @@ ul {
       color: #1565c0; }
     .u-table tr tr a:active {
       color: #1565c0; }
-  .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) {
-    display: flex;
-    flex-direction: row-reverse; }
-    .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body):nth-last-child(1):last-child {
-      border-right: none; }
-    .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .expand-icon-con {
-      height: 14px; }
-      .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .expand-icon-con .uf {
-        padding: 0; }
-      .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .expand-icon-con .u-table-row-expand-icon {
-        width: 2px; }
-    .u-table tr td.u-table-multiSelect-column.u-table-row-has-expandIcon:not(.u-table-row-fixed-columns-in-body) .u-checkbox {
-      margin: 0; }
   .u-table tr.tr-row-hover {
     background: rgb(235, 236, 240); }
   .u-table th,
   .u-table td {
     padding: 12px 8px;
     word-break: break-all; }
-    .u-table th.drag-handle-column .uf,
-    .u-table td.drag-handle-column .uf {
-      font-size: 12px;
-      line-height: 12px; }
     .u-table th.text-center,
     .u-table td.text-center {
       text-align: center; }
@@ -6468,10 +6464,7 @@ ul {
       text-align: right; }
     .u-table th .expand-icon-con,
     .u-table td .expand-icon-con {
-      cursor: pointer;
-      display: inline-block;
-      font-size: 12px;
-      line-height: 12px; }
+      cursor: pointer; }
   .u-table-sm td {
     padding: 8px 8px; }
   .u-table-lg td {
@@ -6504,8 +6497,6 @@ ul {
     box-sizing: border-box; }
   .u-table-drag-border tr th.th-can-not-drag {
     overflow: hidden; }
-    .u-table-drag-border tr th.th-can-not-drag .u-table-thead-th-drag-gap {
-      display: none; }
   .u-table-header {
     overflow: hidden;
     background: rgb(241, 242, 245);
@@ -6563,12 +6554,13 @@ ul {
   .u-table-row-expand-icon, .u-table-expanded-row-expand-icon {
     cursor: pointer;
     display: inline-block;
-    margin-right: 8px;
+    margin-right: 0px;
     width: 14px;
     height: 14px;
     text-align: center;
     line-height: 14px;
-    user-select: none; }
+    user-select: none;
+    margin-right: 10px; }
     .u-table-row-expand-icon.uf, .u-table-expanded-row-expand-icon.uf {
       font-size: 12px;
       padding: 0; }
@@ -6578,10 +6570,10 @@ ul {
     content: "."; }
   .u-table-row-expanded:after, .u-table-expanded-row-expanded:after {
     content: "\e639";
-    font-family: "uf"; }
+    font-family: "uf" !important; }
   .u-table-row-collapsed:after, .u-table-expanded-row-collapsed:after {
     content: "\e61c";
-    font-family: "uf"; }
+    font-family: "uf" !important; }
   .u-table-row.selected {
     background: #FFF7E7; }
   .u-table tr.u-table-expanded-row {

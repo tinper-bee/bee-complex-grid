@@ -4,7 +4,7 @@
  *
  */
 import React, { Component } from "react";
-import  Grid from "../../src";
+import Grid from "../../src";
 
 function fmoney(s, n) {
   n = n > 0 && n <= 20 ? n : 2;
