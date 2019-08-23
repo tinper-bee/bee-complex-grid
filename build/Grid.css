@@ -7377,9 +7377,6 @@ ul {
 .u-grid .u-table-fixed-left th:last-child .cansort.drop-menu {
   width: calc(100% - 32px) !important; }
 
-.u-grid .u-checkbox {
-  margin: 0px; }
-
 .u-grid .u-pagination {
   overflow: hidden;
   margin-bottom: 8px; }
