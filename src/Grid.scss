@@ -16,23 +16,16 @@ $icon-color:#505F79;
             width: 43px;
         }
         .drop-menu{
-            .uf:not(.custom-icon){
+            >.uf{
                 font-size: 12px;
                 visibility: hidden;
                 color:$icon-color;
                 font-weight: bold;
-                // margin-left: 7px;
                 cursor: pointer;
             }
         }
         .drop-menu {
-            // width: calc(100% - 18px) !important;
-            // text-overflow: ellipsis;
-            // white-space: nowrap;
             display: inline-block;
-            // vertical-align: middle;
-            // overflow: hidden;
-            // width:100%;
             i.uf{
                 padding-left: 4px;
                 -ms-width: 12px;//兼容火狐浏览器样式
@@ -45,7 +38,6 @@ $icon-color:#505F79;
                 vertical-align: middle;
                 overflow: hidden;
                 max-width: calc( 100% - 21px);
-                // min-width: 24px;
             }
         }
         .title-con.drop-menu{

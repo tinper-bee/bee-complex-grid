@@ -109,7 +109,8 @@ class Demo2 extends Component {
     let paginationObj = {
       items:10,//总页数
       freshData:this.freshData,
-      noBorder:true
+      noBorder:true,
+      horizontalPosition: 'center'
     }
     let sortObj = {
         mode:'multiple',

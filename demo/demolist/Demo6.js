@@ -225,7 +225,8 @@ class Demo3 extends Component {
       items:10,//总页数
       total:100,
       freshData:this.freshData,
-      noBorder:true
+      noBorder:true,
+      horizontalPosition: 'center'
     }
     const toolBtns = [{
         value:'生成模板表格',

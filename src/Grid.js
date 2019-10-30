@@ -60,7 +60,7 @@ class Grid extends Component {
     let { paginationObj, sort: sortObj, filterable } = props;
     //一些属性需要内部控制，放在state中
     this.state = {
-      filterable,
+      filterable, //是否默认启用“行过滤”功能，即按条件或值筛选行数据`data`的功能
       renderFlag: false, //这个只是一个标记量，用于控制组件是否需要渲染
       activePage: paginationObj.activePage,
       total: paginationObj.total,
@@ -135,7 +135,7 @@ class Grid extends Component {
       } else {
         //先检查nextProps.columns的顺序与this.columns的顺序是否一致，不一致按照this.columns的顺序调整，（主要交换列时当前column会保存列的顺序，而props的顺序还是之前的）
         this.columns.forEach((item, index) => {
-          if (nextProps.columns[index].dataIndex !== item.dataIndex) {
+          if (nextProps.columns[index] && nextProps.columns[index].dataIndex !== item.dataIndex) {
             let curIndex = -1;
             for (
               let nextIndex = 0;

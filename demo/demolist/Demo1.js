@@ -165,23 +165,32 @@ class Demo1 extends Component {
   };
 
   selectedRow = (record, index) => {};
-  /**
-   * 请求页面数据
-   */
-  freshata=()=>{
 
+  /**
+   * 切换页码的回调
+   * @param {Number} pageIndex 跳转指定页数
+   */
+  freshData = (pageIndex) => {
+    console.log('跳转至第 ', pageIndex, ' 页');
   }
-  onDataNumSelect=()=>{
-    console.log('选择每页多少条的回调函数');
+
+  /**
+   * 选择每页多少条的回调函数
+   * @param {*} index 跳转指定页数
+   * @param {*} value 设置每页显示多少条数据
+   */
+  onDataNumSelect=(index, value)=>{
+    console.log('index：',index, ' value：',value);
   }
+  
   render() {
     let paginationObj = {
       items:10,//一页显示多少条
       total:100,//总共多少条、
       freshData:this.freshData,//点击下一页刷新的数据
       onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
-      showJump:false,
-      noBorder:true
+      noBorder:true,
+      horizontalPosition: 'center'
     }
     return (
       <Grid

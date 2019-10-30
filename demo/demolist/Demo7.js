@@ -181,7 +181,8 @@ class Demo7 extends Component {
       freshData:this.freshData,//点击下一页刷新的数据
       onDataNumSelect:this.onDataNumSelect, //每页大小改变触发的事件
       showJump:false,
-      noBorder:true
+      noBorder:true,
+      horizontalPosition: 'center'
     }
     return (
       <Grid

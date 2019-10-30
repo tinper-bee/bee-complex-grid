@@ -65,14 +65,5 @@ table相关API参考[这里](https://design.yonyoucloud.com/tinper-bee/bee-table
 |btnSize|按钮的尺寸,默认是小尺寸行高为26px（sm、lg、xg）|string	|'sm'|
 
 ## 注意事项
-如果将表头的 title 设置为 Icon 图标，需要给该自定义图标传递属性： className = "custom-icon"，实现代码如下：
-```
-const columns = [{
-                  title: <Icon className="custom-icon" type="uf-add-c-o"/>,
-                  dataIndex: "orderCode",
-                  key: "orderCode",
-                  width: 150
-                }]
-```
 
 ## 更新日志
