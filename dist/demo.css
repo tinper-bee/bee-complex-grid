@@ -16267,6 +16267,9 @@ ul {
 #filter_column_popover.u-popover {
   z-index: 1701; }
 
+.u-table .u-table-multiSelect-column {
+  min-width: 49px; }
+
 .btn_group button {
   margin: 10px;
   margin-left: 0px; }

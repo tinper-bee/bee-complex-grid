@@ -179,3 +179,7 @@ $icon-color:#505F79;
         z-index: 1701;
     }
 }
+// fix:电脑设置屏幕显示百分比为 125% 后，Grid 固定列错位
+.u-table .u-table-multiSelect-column {
+    min-width: 49px;
+}
