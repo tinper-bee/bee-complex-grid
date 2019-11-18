@@ -14,14 +14,6 @@ class ColumnsDropdown extends Component {
     }
 
   }
-  componentWillReceiveProps(nextProps){
-    // let {visible} = this.state;
-    // if(nextProps.showMenuKey !== this.props.originColumn.key && visible){
-    //   this.setState({
-    //     visible:false
-    //   })
-    // }
-  }
 
   onMenuSelect = selectObj => {
     this.props.onMenuSelect(selectObj);

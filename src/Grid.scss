@@ -183,3 +183,73 @@ $icon-color:#505F79;
 .u-table .u-table-multiSelect-column {
     min-width: 49px;
 }
+// 编辑表格样式
+.u-edit-grid{
+    .u-table tr td {
+        // 行编辑错误提示
+        .triangle-flag {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .triangle-redline {
+                width: 2px;
+                height: 20px;
+                border-left: 2px solid #ff0000;
+                display: inline-block;
+                margin-right: 2px;
+            }
+
+            .triangle-element {
+                width: 100%;
+                height: 30px;
+                text-align: left;
+            }
+
+            .triangle-icon {
+                color: #ff0000;
+                padding-left: 3px;
+                cursor: pointer;
+
+                .uf {
+                    padding: 0;
+                }
+            }
+
+            .triangle_border_nw {
+                width: 0;
+                height: 0;
+                border-width: 0 0 6px 6px;
+                border-style: solid;
+                border-color: transparent transparent transparent #f44336;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+
+            .triangle_border_nw_number {
+                width: 0;
+                height: 0;
+                border-width: 0 0 6px 6px;
+                border-style: solid;
+                border-color: transparent transparent transparent #f44336;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+            }
+        }
+    }
+
+    .u-table .u-table-tbody tr td {
+        .u-edit-grid-cell {
+            display: block;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+}

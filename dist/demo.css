@@ -7873,7 +7873,6 @@ ul {
   .u-select .u-select-selection {
     outline: none;
     -webkit-user-select: none;
-    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
@@ -9243,7 +9242,6 @@ ul {
   .u-select .u-select-selection {
     outline: none;
     -webkit-user-select: none;
-    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
@@ -10665,7 +10663,6 @@ ul {
   .u-select .u-select-selection {
     outline: none;
     -webkit-user-select: none;
-    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
@@ -12688,7 +12685,6 @@ ul {
   .u-select .u-select-selection {
     outline: none;
     -webkit-user-select: none;
-    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
@@ -15377,7 +15373,6 @@ ul {
     text-align: center;
     line-height: 14px;
     -webkit-user-select: none;
-    -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }
     .u-table-row-expand-icon.uf, .u-table-expanded-row-expand-icon.uf {
@@ -15463,7 +15458,6 @@ ul {
     background: rgb(241, 242, 245);
     color: rgb(33, 33, 33);
     background-clip: padding-box;
-    -moz-user-select: -moz-none;
     -webkit-user-select: none;
     /*
         Introduced in IE 10. 
@@ -15935,7 +15929,6 @@ ul {
   touch-action: manipulation;
   cursor: pointer;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   background-image: none;
@@ -16269,6 +16262,58 @@ ul {
 
 .u-table .u-table-multiSelect-column {
   min-width: 49px; }
+
+.u-edit-grid .u-table tr td .triangle-flag {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .u-edit-grid .u-table tr td .triangle-flag .triangle-redline {
+    width: 2px;
+    height: 20px;
+    border-left: 2px solid #ff0000;
+    display: inline-block;
+    margin-right: 2px; }
+  .u-edit-grid .u-table tr td .triangle-flag .triangle-element {
+    width: 100%;
+    height: 30px;
+    text-align: left; }
+  .u-edit-grid .u-table tr td .triangle-flag .triangle-icon {
+    color: #ff0000;
+    padding-left: 3px;
+    cursor: pointer; }
+    .u-edit-grid .u-table tr td .triangle-flag .triangle-icon .uf {
+      padding: 0; }
+  .u-edit-grid .u-table tr td .triangle-flag .triangle_border_nw {
+    width: 0;
+    height: 0;
+    border-width: 0 0 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #f44336;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+  .u-edit-grid .u-table tr td .triangle-flag .triangle_border_nw_number {
+    width: 0;
+    height: 0;
+    border-width: 0 0 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent #f44336;
+    position: absolute;
+    top: 2px;
+    left: 2px; }
+
+.u-edit-grid .u-table .u-table-tbody tr td .u-edit-grid-cell {
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
 
 .btn_group button {
   margin: 10px;

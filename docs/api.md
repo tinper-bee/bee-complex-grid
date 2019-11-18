@@ -10,7 +10,7 @@
 
 ```
 
-import Grid from 'bee-complex-grid';
+import Grid, {EditGrid} from 'bee-complex-grid';
 import 'bee-complex-grid/build/Grid.css';
 
 ```
@@ -18,7 +18,9 @@ import 'bee-complex-grid/build/Grid.css';
 ## 代码演示
 
 ## API
-table相关API参考[这里](https://design.yonyoucloud.com/tinper-bee/bee-table),下面是Grid扩充的API
+[Table 基础 API 参考](http://bee.tinper.org/tinper-bee/bee-table#Table%20props)，下面是 Grid 扩展的 API ：
+
+### Grid
 
 |参数|说明|类型|默认值|
 |:--|:---:|:--:|---:|
@@ -37,9 +39,15 @@ table相关API参考[这里](https://design.yonyoucloud.com/tinper-bee/bee-table
 |noReplaceColumns|重置column内容|boolean	|false|
 |canSum |是否开启合计功能|boolean	|false|
 
+### EditGrid 编辑表格
+|参数|说明|类型|默认值|版本|
+|:---|:-----|:----|:------|:----|
+|onChange|数据改变、选中时的回调|function|-| bee-complex-grid@2.0.28 新增 |
+|disabled|是否可编辑|bool|-| bee-complex-grid@2.0.28 新增 |
 
+### Column
 
-### Column(新增)
+使用 ```<Grid /> ```请参考 ：
 
 |参数|说明|类型|默认值|
 |:--|:---|:--|:---| 
@@ -47,22 +55,33 @@ table相关API参考[这里](https://design.yonyoucloud.com/tinper-bee/bee-table
 |exportKey|单独设置当前列的key[eg:性别 返回字段中 table 使用 id ，而导出中使用 name ]|string	|-|
 |width|如果设置为百分比，导出的时候默认宽度为 100px | %	| 百分比 |
 
+使用 ```<EditGrid /> ```请参考 ：
 
-###  导出excel 使用
+|参数|说明|类型|默认值|
+|:---|:-----|:----|:------|
+|renderType|表单类型|目前支持 `input/inputNumber/select/datepicker/year`，正在继续完善，不写则不render成表单|-|
+|customizeRender|自定义render表单元素，此组件封装要遵循的规则较多，目前已封装`ac-grids-refer-field` mdf-refer参照使用的render，[组件参考地址](https://github.com/tinper-acs/ac-grids-refer-field)，文档持续完善|node|-|
+|validate|是否校验|bool|-|
+|required|是否必填|bool|-|
+|message|必填校验失败错误信息|string|-|
+|pattern|校验正则|RegExp|-|
+|patternMessage|正则校验错误信息|string|-|
+|filedProps|传给`field`的属性|string|-|
+
+### GridToolbar 操作栏
+|参数|说明|类型|默认值|
+|:--|:---|:--|:---| 
+|toolBtns|按钮组,数组元素中单个按钮属性可以参考[button](http://bee.tinper.org/tinper-bee/bee-button)当按钮属性中含有children属性，会自动解析成dropdown按钮。|array	|[]|
+|btnSize|按钮的尺寸,默认是小尺寸行高为26px（sm、lg、xg）|string	|'sm'|
+
+###  导出 Excel 使用方法
 
 ```js
   exportExcel=()=>{
     this.refs.grid.exportExcel();
   }
-
   
 ```
-
-### GridToolbar操作栏
-|参数|说明|类型|默认值|
-|:--|:---|:--|:---| 
-|toolBtns|按钮组,数组元素中单个按钮属性可以参考[button](http://bee.tinper.org/tinper-bee/bee-button)当按钮属性中含有children属性，会自动解析成dropdown按钮。|array	|[]|
-|btnSize|按钮的尺寸,默认是小尺寸行高为26px（sm、lg、xg）|string	|'sm'|
 
 ## 注意事项
 
