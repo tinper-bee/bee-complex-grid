@@ -20,7 +20,7 @@ import 'bee-complex-grid/build/Grid.css';
 ## API
 [Table 基础 API 参考](http://bee.tinper.org/tinper-bee/bee-table#Table%20props)，下面是 Grid 扩展的 API ：
 
-### Grid
+### Grid 
 
 |参数|说明|类型|默认值|
 |:--|:---:|:--:|---:|
@@ -45,9 +45,9 @@ import 'bee-complex-grid/build/Grid.css';
 |onChange|数据改变、选中时的回调|function|-| bee-complex-grid@2.0.28 新增 |
 |disabled|是否可编辑|bool|-| bee-complex-grid@2.0.28 新增 |
 
-### Column
+### Column 列属性
 
-使用 ```<Grid /> ```请参考 ：
+使用  `<Grid /> ` 请参考 ：
 
 |参数|说明|类型|默认值|
 |:--|:---|:--|:---| 
@@ -55,7 +55,7 @@ import 'bee-complex-grid/build/Grid.css';
 |exportKey|单独设置当前列的key[eg:性别 返回字段中 table 使用 id ，而导出中使用 name ]|string	|-|
 |width|如果设置为百分比，导出的时候默认宽度为 100px | %	| 百分比 |
 
-使用 ```<EditGrid /> ```请参考 ：
+使用  `<EditGrid /> ` 请参考 ：
 
 |参数|说明|类型|默认值|
 |:---|:-----|:----|:------|
@@ -66,7 +66,20 @@ import 'bee-complex-grid/build/Grid.css';
 |message|必填校验失败错误信息|string|-|
 |pattern|校验正则|RegExp|-|
 |patternMessage|正则校验错误信息|string|-|
-|filedProps|传给`field`的属性|string|-|
+|filedProps|传给`field`的属性，`field` 这里代表渲染出来的表单组件。例如：`type:"input"`，则 FormControl 即为 `field` ，具体的 API 说明参考下表|string|-|
+
+### Column.filedProps 
+使用  `<EditGrid /> ` 有效 ：
+
+|参数|说明|类型|默认值|
+|:---|:-----|:----|:------|
+|defaultValue|新增时默认值|string|-|
+|maxLength|最大长度，type=`input`时生效|string|-|
+|options|type=`select` 时的下拉内容|bool|-|
+|precision|小数点后保留几位小数，type=`inputNumber`生效|number|-|
+|max|最大值，type=`inputNumber`生效|number|-|
+|min|最小值，type=`inputNumber`生效|number|-|
+|step|步进值，type=`inputNumber`生效|number|-|
 
 ### GridToolbar 操作栏
 |参数|说明|类型|默认值|

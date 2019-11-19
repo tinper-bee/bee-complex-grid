@@ -72,15 +72,6 @@ var ColumnsDropdown = function (_Component) {
     return _this;
   }
 
-  ColumnsDropdown.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    // let {visible} = this.state;
-    // if(nextProps.showMenuKey !== this.props.originColumn.key && visible){
-    //   this.setState({
-    //     visible:false
-    //   })
-    // }
-  };
-
   ColumnsDropdown.prototype.render = function render() {
     var _props = this.props,
         originColumn = _props.originColumn,
