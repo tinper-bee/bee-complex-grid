@@ -110,7 +110,9 @@ var RenderColumn = function (_Component) {
                 patternMessage = _this$props2.patternMessage,
                 customizeRender = _this$props2.customizeRender,
                 valueField = _this$props2.valueField,
-                filedProps = _this$props2.filedProps;
+                filedProps = _this$props2.filedProps,
+                onValidate = _this$props2.onValidate,
+                defaultValue = _this$props2.defaultValue;
 
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -136,9 +138,11 @@ var RenderColumn = function (_Component) {
                             validate: validate,
                             required: required,
                             value: value,
+                            index: index,
                             onChange: function onChange(field, v) {
                                 _this.props.onChange(index, dataIndex, v);
-                            }
+                            },
+                            onValidate: onValidate
                         }, filedProps))
                     )
                 );
@@ -169,12 +173,9 @@ var RenderColumn = function (_Component) {
                                     patternMessage: patternMessage,
                                     onChange: function onChange(field, v) {
                                         _this.props.onChange(index, dataIndex, v);
-                                    }
-                                    // iconStyle={iconStyle}
-                                    // max={max}
-                                    // min={min}
-                                    // step={step} 
-                                    // precision={precision}
+                                    },
+                                    onValidate: onValidate,
+                                    index: index
                                 }, filedProps))
                             )
                         );
@@ -204,7 +205,9 @@ var RenderColumn = function (_Component) {
                                     patternMessage: patternMessage,
                                     onChange: function onChange(field, v) {
                                         _this.props.onChange(index, dataIndex, v);
-                                    }
+                                    },
+                                    onValidate: onValidate,
+                                    index: index
                                 }, filedProps))
                             )
                         );
@@ -234,7 +237,9 @@ var RenderColumn = function (_Component) {
                                     value: value,
                                     onChange: function onChange(field, v) {
                                         _this.onChange(index, dataIndex, v);
-                                    }
+                                    },
+                                    onValidate: onValidate,
+                                    index: index
                                 }, filedProps))
                             )
                         );
@@ -264,7 +269,9 @@ var RenderColumn = function (_Component) {
                                     patternMessage: patternMessage,
                                     onChange: function onChange(field, v) {
                                         _this.props.onChange(index, dataIndex, v);
-                                    }
+                                    },
+                                    onValidate: onValidate,
+                                    index: index
                                 }, filedProps))
                             )
                         );
@@ -294,7 +301,9 @@ var RenderColumn = function (_Component) {
                                     patternMessage: patternMessage,
                                     onChange: function onChange(field, v) {
                                         _this.props.onChange(index, dataIndex, v);
-                                    }
+                                    },
+                                    onValidate: onValidate,
+                                    index: index
                                 }, filedProps))
                             )
                         );

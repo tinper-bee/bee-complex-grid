@@ -31,6 +31,7 @@ class EditGrid extends Component {
             defaultValueKeyValue: {},//带默认值的key，value键值对
         }
         this.selectDataId = 1;
+        this.errors = {};
     }
 
     componentWillMount () {
@@ -53,6 +54,24 @@ class EditGrid extends Component {
         }
     }
 
+    onValidate=(errors,filed,fileds,index)=>{
+        let current = this.errors[index]||{};
+        if(errors){
+            current[filed] = errors[0].message;
+        }else{
+           delete current[filed];
+        }
+        this.errors[index] = current;
+        console.log(this.errors)
+    }
+    validate = ()=>{
+        if(Object.keys(this.errors).length){
+            return this.errors;
+        }else{
+            return null;
+        }
+    }
+    
     setDataColumn = (disabled, col, da) => {
         let columns = cloneDeep(col);
         let defaultValueKeyValue = {};
@@ -81,6 +100,7 @@ class EditGrid extends Component {
                         patternMessage={item.patternMessage}
                         disabled={disabled ? true : item.disabled}
                         customizeRender={item.customizeRender}
+                        onValidate={this.onValidate}
                         filedProps={item.filedProps}
                     />
                 }

@@ -167,7 +167,7 @@ var NumberField = function (_Component) {
                         error: false
                     });
                 }
-                onValidate && onValidate(field, fields, index);
+                onValidate && onValidate(errors, field, fields, index);
             });
         };
 

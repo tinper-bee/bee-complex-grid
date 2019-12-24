@@ -71,6 +71,25 @@ var EditGrid = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
+        _this.onValidate = function (errors, filed, fileds, index) {
+            var current = _this.errors[index] || {};
+            if (errors) {
+                current[filed] = errors[0].message;
+            } else {
+                delete current[filed];
+            }
+            _this.errors[index] = current;
+            console.log(_this.errors);
+        };
+
+        _this.validate = function () {
+            if (Object.keys(_this.errors).length) {
+                return _this.errors;
+            } else {
+                return null;
+            }
+        };
+
         _this.setDataColumn = function (disabled, col, da) {
             var columns = (0, _lodash2["default"])(col);
             var defaultValueKeyValue = {};
@@ -99,6 +118,7 @@ var EditGrid = function (_Component) {
                             patternMessage: item.patternMessage,
                             disabled: disabled ? true : item.disabled,
                             customizeRender: item.customizeRender,
+                            onValidate: _this.onValidate,
                             filedProps: item.filedProps
                         });
                     };
@@ -180,6 +200,7 @@ var EditGrid = function (_Component) {
             defaultValueKeyValue: {} //带默认值的key，value键值对
         };
         _this.selectDataId = 1;
+        _this.errors = {};
         return _this;
     }
 

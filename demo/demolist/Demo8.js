@@ -184,6 +184,32 @@ class Demo1 extends Component {
     onDataNumSelect = (index, value) => {
         console.log('index：', index, ' value：', value);
     }
+    // {
+  //   0:{
+  //     key1:'errorMessage1',
+  //     key2:'errorMessage',
+  //   },
+  //   1:{
+  //     key1:'errorMessage'
+  //   },
+  // }
+  onValidate=()=>{
+    let errors = this.editGrid.validate();
+
+    if(errors){
+      console.log('有错误，错误信息如下');
+      let errorMessage = '';
+      Object.keys(errors).forEach(item=>{
+        let current = errors[item];
+        Object.keys(current).forEach(it=>{
+          errorMessage+=`第${Number(item)+1}行的${it}校验失败，错误原因是：${current[it]};`
+        })
+      })
+      console.log(errorMessage)
+    }else{
+      console.log('没有错误')
+    }
+  }
 
     render () {
         let paginationObj = {
@@ -199,6 +225,7 @@ class Demo1 extends Component {
                 <Button onClick={this.click} style={{ 'marginBottom': '20px' }} colors='primary'>
                     {this.state.disabled ? '设置可编辑' : '设置不可编辑'}
                 </Button>
+                <Button onClick={this.onValidate} style={{'marginBottom':'20px','marginLeft':'20px'}} colors='primary'>点我校验</Button>
                 <EditGrid
                     columns={column}
                     data={dataList}
@@ -206,6 +233,7 @@ class Demo1 extends Component {
                     multiSelect={true}
                     onChange={this.onChange}
                     disabled={this.state.disabled}
+                    ref ={editGrid => this.editGrid = editGrid } 
                 />
             </div>
 
