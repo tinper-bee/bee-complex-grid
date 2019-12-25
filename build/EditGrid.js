@@ -123,20 +123,24 @@ var EditGrid = function (_Component) {
                         });
                     };
                 } else {
-                    item.render = function (text, record, index) {
-                        var value = typeof item.oldRender == 'function' ? item.oldRender(text, record, index) : text;
-                        var placement = 'left';
-                        if (item.textAlign) placement = item.textAlign == 'center' ? 'bottom' : item.textAlign;
-                        return _react2["default"].createElement(
-                            _beeTooltip2["default"],
-                            { overlay: value, inverse: true, placement: placement },
-                            _react2["default"].createElement(
-                                'span',
-                                { className: 'ac-grid-cell' },
-                                value
-                            )
-                        );
-                    };
+                    if (typeof item.oldRender == 'function' && (item.oldRender.toString().indexOf('colSpan') != -1 || item.oldRender.toString().indexOf('rowSpan') != -1)) {
+                        item.render = item.oldRender;
+                    } else {
+                        item.render = function (text, record, index) {
+                            var value = typeof item.oldRender == 'function' ? item.oldRender(text, record, index) : text;
+                            var placement = 'left';
+                            if (item.textAlign) placement = item.textAlign == 'center' ? 'bottom' : item.textAlign;
+                            return _react2["default"].createElement(
+                                _beeTooltip2["default"],
+                                { overlay: value, inverse: true, placement: placement },
+                                _react2["default"].createElement(
+                                    'span',
+                                    { className: 'ac-grid-cell' },
+                                    value
+                                )
+                            );
+                        };
+                    }
                 }
             });
             _this.setState({

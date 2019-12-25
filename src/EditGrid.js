@@ -105,14 +105,19 @@ class EditGrid extends Component {
                     />
                 }
             } else {
-                item.render = (text, record, index) => {
-                    let value = typeof item.oldRender == 'function' ? item.oldRender(text, record, index) : text;
-                    let placement = 'left';
-                    if (item.textAlign) placement = item.textAlign == 'center' ? 'bottom' : item.textAlign;
-                    return <Tooltip overlay={value} inverse placement={placement}>
-                        <span className='ac-grid-cell'>{value}</span>
-                    </Tooltip>
+                if(typeof item.oldRender == 'function'&&((item.oldRender.toString().indexOf('colSpan')!=-1)||(item.oldRender.toString().indexOf('rowSpan')!=-1))){
+                    item.render = item.oldRender
+                }else{
+                    item.render = (text, record, index) => {
+                        let value = typeof item.oldRender == 'function' ? item.oldRender(text, record, index) : text;
+                        let placement = 'left';
+                        if (item.textAlign) placement = item.textAlign == 'center' ? 'bottom' : item.textAlign;
+                        return <Tooltip overlay={value} inverse placement={placement}>
+                            <span className='ac-grid-cell'>{value}</span>
+                        </Tooltip>
+                    }
                 }
+                
             }
         });
         this.setState({
