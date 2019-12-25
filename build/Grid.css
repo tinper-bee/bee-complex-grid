@@ -1017,6 +1017,8 @@
     outline: 0; }
   .u-form-control::-ms-clear, .u-form-control ::-ms-reveal {
     display: none; }
+  .u-form-control-prefix-suffix {
+    padding: 0 30px; }
 
 .u-form-control[disabled] {
   background: #F7F9FB;
@@ -1071,6 +1073,22 @@
     line-height: 0;
     right: 7px;
     color: rgba(0, 0, 0, 0.65); }
+  .u-form-control-affix-wrapper .u-form-control-simple-prefix, .u-form-control-affix-wrapper .u-form-control-simple-suffix {
+    position: absolute;
+    top: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 2;
+    line-height: 0;
+    color: rgba(0, 0, 0, 0.65);
+    width: 30px;
+    text-align: center;
+    font-size: 12px; }
+  .u-form-control-affix-wrapper .u-form-control-simple-prefix {
+    left: 0; }
+  .u-form-control-affix-wrapper .u-form-control-simple-suffix {
+    right: 0; }
 
 .u-form-control-close .uf-close-c {
   opacity: 0;
@@ -2167,8 +2185,7 @@ ul {
     content: "\e602"; }
 
 .u-select-open .u-select-arrow {
-  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  -ms-transform: rotate(180deg); }
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)"; }
 
 .u-select-open .u-select-arrow:before {
   -webkit-transform: rotate(180deg);
@@ -4584,8 +4601,7 @@ ul {
     content: "\e602"; }
 
 .u-select-open .u-select-arrow {
-  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-  -ms-transform: rotate(180deg); }
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)"; }
 
 .u-select-open .u-select-arrow:before {
   -webkit-transform: rotate(180deg);
@@ -7457,8 +7473,6 @@ ul {
       display: inline-block; }
   .u-table thead tr:last-child {
     border-bottom: 1px solid #C1C7D0; }
-  .u-table thead tr > th:last-child {
-    border-right: none; }
   .u-table tr:hover td .uf-eye {
     visibility: visible !important; }
   .u-table tr tr a {
@@ -7520,6 +7534,10 @@ ul {
       display: inline-block;
       font-size: 12px;
       line-height: 12px; }
+      .u-table th .expand-icon-con .uf,
+      .u-table td .expand-icon-con .uf {
+        padding: 0;
+        font-size: 12px; }
   .u-table-sm td {
     padding: 8px 8px; }
   .u-table-lg td {
@@ -7769,9 +7787,10 @@ ul {
       z-index: 1; }
       .u-table-thead-th-drag-gap .online {
         height: 100%;
-        width: 1px;
-        background: transparent;
+        width: 4px;
         margin: 0 auto; }
+      .u-table-thead-th-drag-gap .online:hover {
+        background: #000000; }
       .u-table-thead-th-drag-gap .online-hover {
         background: #000000; }
     .u-table-thead-th-drag-gap:hover {
