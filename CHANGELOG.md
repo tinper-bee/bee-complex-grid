@@ -1,3 +1,13 @@
+<a name="2.0.30"></a>
+## [2.0.30](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.29...v2.0.30) (2019-12-25)
+
+
+### Features
+
+* **bee-complex-grid:** 自定义行列合并 ([10d56cc](https://github.com/tinper-bee/bee-complex-grid/commit/10d56cc))
+
+
+
 <a name="2.0.29"></a>
 ## [2.0.29](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.28...v2.0.29) (2019-12-24)
 
