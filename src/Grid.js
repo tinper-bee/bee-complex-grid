@@ -51,11 +51,7 @@ const defualtPaginationParam = { horizontalPosition: "left", verticalPosition: '
 class Grid extends Component {
     constructor(props) {
         super(props);
-
-        let ComplexTable = Table;
-
-        let { paginationObj, sort: sortObj, filterable } = props;
-        //一些属性需要内部控制，放在state中
+        let { paginationObj, filterable } = props;
         this.state = {
             filterable, //是否默认启用“行过滤”功能，即按条件或值筛选行数据`data`的功能
             renderFlag: false, //这个只是一个标记量，用于控制组件是否需要渲染
@@ -63,8 +59,19 @@ class Grid extends Component {
             total: paginationObj.total,
             pageItems: paginationObj.items,
             dataNum: paginationObj.dataNum,
-            showMenuKey: ''
+            showMenuKey: '',
+            selectedRowIndex: props.selectedRowIndex || ''
         };
+        this.selectType = 'none'; // 标识单选/多选/无选择列
+        this.ComplexTable = this.constructGrid(Table);
+    }
+
+    // 根据参数，组装复杂表格
+    constructGrid = (basicTable) => {
+        let { props } = this;
+        let { sort: sortObj } = props;
+        let ComplexTable = basicTable;
+        // 大数据渲染
         if (props.loadLazy) {
             ComplexTable = bigData(ComplexTable);
         }
@@ -76,6 +83,7 @@ class Grid extends Component {
             sortObj.sortFun = this.sortFun;
             this.sort = sortObj;
         }
+        // 合计
         if (props.canSum) {
             ComplexTable = sum(ComplexTable);
         }
@@ -86,26 +94,28 @@ class Grid extends Component {
         if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
             if (props.multiSelect.type === "checkbox") { //多选
                 ComplexTable = multiSelect(ComplexTable, Checkbox);
+                this.selectType = "multiple";
             } else if (props.multiSelect.type === "radio") { //单选
                 ComplexTable = singleSelect(ComplexTable, Radio);
+                this.selectType = "single";
             }
         } else if (typeof props.multiSelect === 'boolean' && !!(props.multiSelect)) { //兼容老版本，设置 true 为多选。
             ComplexTable = multiSelect(ComplexTable, Checkbox);
         }
-
+        // 拖拽
         if (props.draggable) {
             ComplexTable = dragColumn(ComplexTable);
         }
-
+        // 过滤
         ComplexTable = filterColumn(ComplexTable, Popover);
-        this.ComplexTable = ComplexTable;
+        return ComplexTable;
     }
 
     columns = this.props.columns.map(colItem => {
         return { ...colItem };
     });
     componentWillReceiveProps(nextProps) {
-        const { renderFlag } = this.state;
+        const { renderFlag, selectedRowIndex } = this.state;
         //分页
         if (nextProps.paginationObj && nextProps.paginationObj !== 'none') {
             this.setState({
@@ -184,6 +194,12 @@ class Grid extends Component {
                     renderFlag: !renderFlag,
                     filterable: nextProps.filterable
                 });
+        }
+        // 单选行
+        if ('selectedRowIndex' in nextProps && nextProps.selectedRowIndex !== selectedRowIndex) {
+            this.setState({
+                selectedRowIndex
+            })
         }
     }
 
@@ -495,6 +511,17 @@ class Grid extends Component {
         }
     };
 
+    /**
+     * 单选/多选后的回调
+     */
+    getSelectedDataFunc = (record, index) => {
+        if (this.selectType === 'single') {
+            this.setState({
+                selectedRowIndex: index
+            })
+        }
+    }
+
     render() {
         const props = this.props;
         const ComplexTable = this.ComplexTable;
@@ -518,7 +545,7 @@ class Grid extends Component {
         //默认固定表头
         const scroll = Object.assign({}, { y: true }, props.scroll);
 
-        const { filterable } = this.state;
+        const { filterable, selectedRowIndex } = this.state;
         let columns = this.columns.slice();
         //是否显示表头菜单、已经显示过的不再显示
         if (props.showHeaderMenu) {
@@ -545,9 +572,11 @@ class Grid extends Component {
                     columns={columns}
                     afterFilter={this.afterFilter}
                     sort={this.sort}
-                    onDrop={this.dragDrop}
+                    onDragEnd={this.dragDrop}
                     afterDragColWidth={this.afterDragColWidth}
                     filterable={filterable}
+                    selectedRowIndex={selectedRowIndex}
+                    getSelectedDataFunc={this.getSelectedDataFunc}
                 />
                 {verticalPosition == "bottom" && (
                     <Pagination

@@ -130,12 +130,8 @@ var Grid = function (_Component) {
 
         _initialiseProps.call(_this);
 
-        var ComplexTable = _beeTable2["default"];
-
         var paginationObj = props.paginationObj,
-            sortObj = props.sort,
             filterable = props.filterable;
-        //一些属性需要内部控制，放在state中
 
         _this.state = {
             filterable: filterable, //是否默认启用“行过滤”功能，即按条件或值筛选行数据`data`的功能
@@ -144,50 +140,23 @@ var Grid = function (_Component) {
             total: paginationObj.total,
             pageItems: paginationObj.items,
             dataNum: paginationObj.dataNum,
-            showMenuKey: ''
+            showMenuKey: '',
+            selectedRowIndex: props.selectedRowIndex || ''
         };
-        if (props.loadLazy) {
-            ComplexTable = (0, _bigData2["default"])(ComplexTable);
-        }
-        //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
-        if (sortObj) {
-            sortObj.originSortFun = sortObj.originSortFun ? sortObj.originSortFun : sortObj.sortFun;
-            sortObj.sortFun = _this.sortFun;
-            _this.sort = sortObj;
-        }
-        if (props.canSum) {
-            ComplexTable = (0, _sum2["default"])(ComplexTable);
-        }
-        //根据条件生成Grid
-        ComplexTable = (0, _sort2["default"])(ComplexTable, _beeIcon2["default"]);
-
-        // 1、type: "checkbox" 多选  2、type: "radio" 单选
-        if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
-            if (props.multiSelect.type === "checkbox") {
-                //多选
-                ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
-            } else if (props.multiSelect.type === "radio") {
-                //单选
-                ComplexTable = (0, _singleSelect2["default"])(ComplexTable, _beeRadio2["default"]);
-            }
-        } else if (typeof props.multiSelect === 'boolean' && !!props.multiSelect) {
-            //兼容老版本，设置 true 为多选。
-            ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
-        }
-
-        if (props.draggable) {
-            ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
-        }
-
-        ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
-        _this.ComplexTable = ComplexTable;
+        _this.selectType = 'none'; // 标识单选/多选/无选择列
+        _this.ComplexTable = _this.constructGrid(_beeTable2["default"]);
         return _this;
     }
+
+    // 根据参数，组装复杂表格
+
 
     Grid.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
         var _this2 = this;
 
-        var renderFlag = this.state.renderFlag;
+        var _state = this.state,
+            renderFlag = _state.renderFlag,
+            selectedRowIndex = _state.selectedRowIndex;
         //分页
 
         if (nextProps.paginationObj && nextProps.paginationObj !== 'none') {
@@ -257,6 +226,12 @@ var Grid = function (_Component) {
             this.columns = newColumns, this.setState({
                 renderFlag: !renderFlag,
                 filterable: nextProps.filterable
+            });
+        }
+        // 单选行
+        if ('selectedRowIndex' in nextProps && nextProps.selectedRowIndex !== selectedRowIndex) {
+            this.setState({
+                selectedRowIndex: selectedRowIndex
             });
         }
     };
@@ -335,6 +310,11 @@ var Grid = function (_Component) {
      */
 
 
+    /**
+     * 单选/多选后的回调
+     */
+
+
     Grid.prototype.render = function render() {
         var props = this.props;
         var ComplexTable = this.ComplexTable;
@@ -362,7 +342,9 @@ var Grid = function (_Component) {
         //默认固定表头
         var scroll = _extends({}, { y: true }, props.scroll);
 
-        var filterable = this.state.filterable;
+        var _state2 = this.state,
+            filterable = _state2.filterable,
+            selectedRowIndex = _state2.selectedRowIndex;
 
         var columns = this.columns.slice();
         //是否显示表头菜单、已经显示过的不再显示
@@ -386,9 +368,11 @@ var Grid = function (_Component) {
                 columns: columns,
                 afterFilter: this.afterFilter,
                 sort: this.sort,
-                onDrop: this.dragDrop,
+                onDragEnd: this.dragDrop,
                 afterDragColWidth: this.afterDragColWidth,
-                filterable: filterable
+                filterable: filterable,
+                selectedRowIndex: selectedRowIndex,
+                getSelectedDataFunc: this.getSelectedDataFunc
             })),
             verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
                 className: horizontalPosition,
@@ -406,6 +390,52 @@ var Grid = function (_Component) {
 
 var _initialiseProps = function _initialiseProps() {
     var _this4 = this;
+
+    this.constructGrid = function (basicTable) {
+        var props = _this4.props;
+        var sortObj = props.sort;
+
+        var ComplexTable = basicTable;
+        // 大数据渲染
+        if (props.loadLazy) {
+            ComplexTable = (0, _bigData2["default"])(ComplexTable);
+        }
+        //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
+        if (sortObj) {
+            sortObj.originSortFun = sortObj.originSortFun ? sortObj.originSortFun : sortObj.sortFun;
+            sortObj.sortFun = _this4.sortFun;
+            _this4.sort = sortObj;
+        }
+        // 合计
+        if (props.canSum) {
+            ComplexTable = (0, _sum2["default"])(ComplexTable);
+        }
+        //根据条件生成Grid
+        ComplexTable = (0, _sort2["default"])(ComplexTable, _beeIcon2["default"]);
+
+        // 1、type: "checkbox" 多选  2、type: "radio" 单选
+        if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
+            if (props.multiSelect.type === "checkbox") {
+                //多选
+                ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+                _this4.selectType = "multiple";
+            } else if (props.multiSelect.type === "radio") {
+                //单选
+                ComplexTable = (0, _singleSelect2["default"])(ComplexTable, _beeRadio2["default"]);
+                _this4.selectType = "single";
+            }
+        } else if (typeof props.multiSelect === 'boolean' && !!props.multiSelect) {
+            //兼容老版本，设置 true 为多选。
+            ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+        }
+        // 拖拽
+        if (props.draggable) {
+            ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
+        }
+        // 过滤
+        ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
+        return ComplexTable;
+    };
 
     this.columns = this.props.columns.map(function (colItem) {
         return _extends({}, colItem);
@@ -456,9 +486,9 @@ var _initialiseProps = function _initialiseProps() {
     this.onMenuSelect = function (_ref) {
         var key = _ref.key,
             item = _ref.item;
-        var _state = _this4.state,
-            filterable = _state.filterable,
-            renderFlag = _state.renderFlag;
+        var _state3 = _this4.state,
+            filterable = _state3.filterable,
+            renderFlag = _state3.renderFlag;
         var checkMinSize = _this4.props.checkMinSize;
 
         var fieldKey = item.props.data.fieldKey;
@@ -679,6 +709,14 @@ var _initialiseProps = function _initialiseProps() {
             });
             _this4.setState({
                 renderFlag: !renderFlag
+            });
+        }
+    };
+
+    this.getSelectedDataFunc = function (record, index) {
+        if (_this4.selectType === 'single') {
+            _this4.setState({
+                selectedRowIndex: index
             });
         }
     };

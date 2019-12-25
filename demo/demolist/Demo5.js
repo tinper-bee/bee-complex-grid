@@ -133,25 +133,19 @@ class Demo1 extends Component {
           ]
     }
   }
-  //临时加个判断
-//   shouldComponentUpdate(){
-    // if(this.props.className =='u-panel-title'){
-    //   return false;
-    // }
-//   }
-  getSelectedDataFunc = data => {
-    console.log("data", data);
+
+  getSelectedDataFunc = (selectedList,record,index,newData) => {
+    console.log("data", newData);
   };
 
-  selectedRow = (record, index) => {};
   /**
    * 请求页面数据
    */
-  freshata=()=>{
-
+  freshData = (pageIndex) => {
+    console.log('跳转至第 ', pageIndex, ' 页');
   }
-  onDataNumSelect=()=>{
-    console.log('选择每页多少条的回调函数');
+  onDataNumSelect=(index, value)=>{
+    console.log('index：',index, ' value：',value);
   }
   addData = ()=>{
       const dataList = this.state.dataList;

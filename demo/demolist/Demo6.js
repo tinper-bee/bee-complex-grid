@@ -174,8 +174,8 @@ class Demo3 extends Component {
     }
   }
   
-  getSelectedDataFunc = data => {
-    console.log("data", data);
+  getSelectedDataFunc = (selectedList,record,index,newData) => {
+    console.log("data", newData);
   };
 
   getCloumnsScroll = columns => {
@@ -187,12 +187,11 @@ class Demo3 extends Component {
     return sum;
   };
 
-  selectedRow = (record, index) => {};
   /**
    * 请求页面数据
    */
-  freshData=()=>{
-
+  freshData = (pageIndex) => {
+    console.log('跳转至第 ', pageIndex, ' 页');
   }
   createTemTable=()=>{
     const colsAndTablePros = this.refs.grid.getColumnsAndTablePros();

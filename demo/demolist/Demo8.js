@@ -1,6 +1,6 @@
 /**
  * @title EditGrid 编辑表格
- * @description disabled 参数控制是否可编辑，onChange 方法是表格数据更改后的回调函数
+ * @description disabled 参数控制是否可编辑，onChange 方法是表格数据更改后的回调函数，onValidate 方法用于提交前的数据校验。
  *
  */
 import React, { Component } from "react";
@@ -185,31 +185,31 @@ class Demo1 extends Component {
         console.log('index：', index, ' value：', value);
     }
     // {
-  //   0:{
-  //     key1:'errorMessage1',
-  //     key2:'errorMessage',
-  //   },
-  //   1:{
-  //     key1:'errorMessage'
-  //   },
-  // }
-  onValidate=()=>{
-    let errors = this.editGrid.validate();
+    //   0:{
+    //     key1:'errorMessage1',
+    //     key2:'errorMessage',
+    //   },
+    //   1:{
+    //     key1:'errorMessage'
+    //   },
+    // }
+    onValidate=()=>{
+        let errors = this.editGrid.validate();
 
-    if(errors){
-      console.log('有错误，错误信息如下');
-      let errorMessage = '';
-      Object.keys(errors).forEach(item=>{
-        let current = errors[item];
-        Object.keys(current).forEach(it=>{
-          errorMessage+=`第${Number(item)+1}行的${it}校验失败，错误原因是：${current[it]};`
+        if(errors){
+        console.log('有错误，错误信息如下');
+        let errorMessage = '';
+        Object.keys(errors).forEach(item=>{
+            let current = errors[item];
+            Object.keys(current).forEach(it=>{
+            errorMessage+=`第${Number(item)+1}行的${it}校验失败，错误原因是：${current[it]};`
+            })
         })
-      })
-      console.log(errorMessage)
-    }else{
-      console.log('没有错误')
+        console.log(errorMessage)
+        }else{
+        console.log('没有错误')
+        }
     }
-  }
 
     render () {
         let paginationObj = {

@@ -1,6 +1,6 @@
 /**
  * @title 高级表格的基础应用(基本示例3)
- * @description 全选、分页、过滤。功能、交换
+ * @description 大数据渲染场景
  *
  */
 import React, { Component } from "react";
@@ -35,25 +35,18 @@ class Demo4 extends Component {
   constructor(props) {
     super(props);
   }
-  //临时加个判断
-  shouldComponentUpdate(){
-    if(this.props.className =='u-panel-title'){
-      return false;
-    }
-  }
-  getSelectedDataFunc = data => {
-    console.log("data", data);
+  getSelectedDataFunc = (selectedList,record,index,newData) => {
+    console.log("data", newData);
   };
 
-  selectedRow = (record, index) => {};
   /**
    * 请求页面数据
    */
-  freshata = () => {
-
+  freshata = (pageIndex) => {
+    console.log('跳转至第 ', pageIndex, ' 页');
   }
-  onDataNumSelect = () => {
-    console.log('选择每页多少条的回调函数');
+  onDataNumSelect=(index, value)=>{
+    console.log('index：',index, ' value：',value);
   }
   onRowHover = (index,record) => {
     this.currentIndex = index;

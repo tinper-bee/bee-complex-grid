@@ -1,7 +1,7 @@
 /**
  *
  * @title 高级表格(排序)应用
- * @description 基础grid上添加排序功能
+ * @description 基础grid上添加排序、行过滤功能
  *
  */
 import React, { Component } from "react";
@@ -17,20 +17,9 @@ const column = [
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
         console.log("data",data);
-      }
+      },
+      filterType: "text"
     },
-    // {
-    //   title: "功力指数名称长时显示省略号",
-    //   dataIndex: "b",
-    //   key: "b",
-    //   width: 200,
-    //   sumCol: true,
-    //   sorter: (pre, after) => {return pre.b - after.b},
-    //   sorterClick:(data,type)=>{//排序的回调函数
-    //     //type value is up or down
-    //     console.log("data",data);
-    //   }
-    // },
     {
       title: "年龄",
       dataIndex: "c",
@@ -41,7 +30,8 @@ const column = [
       sorterClick:(data,type)=>{//排序的回调函数
         //type value is up or down
         console.log("data",data);
-      }
+      },
+      filterType: "number"
     },
     {
       title: "成绩",
@@ -50,13 +40,14 @@ const column = [
       width: 200,
       sumCol: true,
       sorter: (pre, after) => {return pre.e - after.e},
+      filterType: "text"
     },
     {
       title: "武功级别",
       dataIndex: "d",
       key: "d",
       width: 200,
-      fixed: 'right'
+      filterType: "text"
     }
   ];
   const dataList = [
@@ -72,14 +63,8 @@ class Demo2 extends Component {
     super(props);
   }
 
-  //临时加个判断
-  shouldComponentUpdate(){
-    if(this.props.className =='u-panel-title'){
-      return false;
-    }
-  }
-  getSelectedDataFunc = data => {
-    console.log("data", data);
+  getSelectedDataFunc = (selectedList,record,index,newData) => {
+    console.log("data", newData);
   };
 
   getCloumnsScroll = columns => {
@@ -90,13 +75,11 @@ class Demo2 extends Component {
     console.log("sum", sum);
     return sum;
   };
-
-  selectedRow = (record, index) => {};
   /**
    * 请求页面数据
    */
-  freshData=()=>{
-
+  freshData = (pageIndex) => {
+    console.log('跳转至第 ', pageIndex, ' 页');
   }
   /**
    * 后端获取数据
@@ -116,11 +99,10 @@ class Demo2 extends Component {
         mode:'multiple',
         // backSource:true,
         sortFun:this.sortFun
-      }
+    }
     
     return (
       <div>
-        
          <Grid
           className="demo"
           columns={column}

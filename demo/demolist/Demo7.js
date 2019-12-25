@@ -1,6 +1,6 @@
 /**
  * @title 高级表格(单选)应用
- * @description 单选、分页、过滤功能、交换。设置 `multiSelect = {{ type:"radio" }}`，即可使用表格单选功能。
+ * @description 设置 multiSelect = {{ type:"radio" }} 即可使用 Grid 表格单选功能。
  *
  */
 import React, { Component } from "react";
@@ -151,12 +151,6 @@ const dataList = [
 class Demo7 extends Component {
   constructor(props) {
     super(props);
-  }
-  //临时加个判断
-  shouldComponentUpdate(){
-    if(this.props.className =='u-panel-title'){
-      return false;
-    }
   }
   getSelectedDataFunc = (record,index) => {
     console.log("record", record, "index",index);
