@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.0...v2.1.1) (2019-12-26)
+
+
+### Features
+
+* **bee-complex-grid:** 编辑表格校验错误失去焦点保留输入框 ([afb9e1c](https://github.com/tinper-bee/bee-complex-grid/commit/afb9e1c))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/tinper-bee/bee-complex-grid/compare/v2.0.30...v2.1.0) (2019-12-25)
 
