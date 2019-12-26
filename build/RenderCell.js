@@ -56,7 +56,7 @@ var RenderCell = function (_Component) {
         };
 
         _this.renderSpan = function () {
-            if (_this.state.visible) {
+            if (_this.state.visible && !_this.state.hasError) {
                 var textAlign = _this.props.textAlign;
                 var placement = 'left';
                 if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -73,10 +73,14 @@ var RenderCell = function (_Component) {
                 );
             } else {
                 return _react2["default"].cloneElement(_this.props.children, {
+                    ref: function ref(field) {
+                        return _this.field = field;
+                    },
                     onBlur: function onBlur() {
                         _this.setState({
                             visible: true,
-                            enter: false
+                            enter: false,
+                            hasError: _this.field.state.error
                         });
                     }
                 });
@@ -85,7 +89,8 @@ var RenderCell = function (_Component) {
 
         _this.state = {
             visible: true,
-            enter: false
+            enter: false,
+            hasError: false
         };
         return _this;
     }
