@@ -512,14 +512,22 @@ class Grid extends Component {
     };
 
     /**
-     * 单选/多选后的回调
+     * 单选回调
      */
-    getSelectedDataFunc = (record, index) => {
-        if (this.selectType === 'single') {
-            this.setState({
-                selectedRowIndex: index
-            })
-        }
+    getSingleSelectedDataFunc = (record, index) => {
+        let { getSelectedDataFunc } = this.props;
+        this.setState({
+            selectedRowIndex: index
+        });
+        getSelectedDataFunc && getSelectedDataFunc(record, index);
+    }
+
+    /**
+     * 多选回调
+     */
+    getMultiSelectedDataFunc = (selectedList, record, index, newData) => {
+        let { getSelectedDataFunc } = this.props;
+        getSelectedDataFunc && getSelectedDataFunc(selectedList, record, index, newData);
     }
 
     render() {
@@ -576,7 +584,7 @@ class Grid extends Component {
                     afterDragColWidth={this.afterDragColWidth}
                     filterable={filterable}
                     selectedRowIndex={selectedRowIndex}
-                    getSelectedDataFunc={this.getSelectedDataFunc}
+                    getSelectedDataFunc={this.selectType === 'single' ? this.getSingleSelectedDataFunc : this.getMultiSelectedDataFunc}
                 />
                 {verticalPosition == "bottom" && (
                     <Pagination

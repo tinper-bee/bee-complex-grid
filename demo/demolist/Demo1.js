@@ -153,10 +153,16 @@ const dataList = [
 class Demo1 extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      data: dataList
+    }
   }
 
   getSelectedDataFunc = (selectedList,record,index,newData) => {
     console.log("data", newData);
+    this.setState({
+      data: newData
+    })
   };
 
   /**
@@ -189,7 +195,7 @@ class Demo1 extends Component {
       <Grid
         className="demo"
         columns={column}
-        data={dataList}
+        data={this.state.data}
         getSelectedDataFunc={this.getSelectedDataFunc}
         paginationObj={paginationObj}
         canSum={true}

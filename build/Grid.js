@@ -311,7 +311,12 @@ var Grid = function (_Component) {
 
 
     /**
-     * 单选/多选后的回调
+     * 单选回调
+     */
+
+
+    /**
+     * 多选回调
      */
 
 
@@ -372,7 +377,7 @@ var Grid = function (_Component) {
                 afterDragColWidth: this.afterDragColWidth,
                 filterable: filterable,
                 selectedRowIndex: selectedRowIndex,
-                getSelectedDataFunc: this.getSelectedDataFunc
+                getSelectedDataFunc: this.selectType === 'single' ? this.getSingleSelectedDataFunc : this.getMultiSelectedDataFunc
             })),
             verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
                 className: horizontalPosition,
@@ -713,12 +718,19 @@ var _initialiseProps = function _initialiseProps() {
         }
     };
 
-    this.getSelectedDataFunc = function (record, index) {
-        if (_this4.selectType === 'single') {
-            _this4.setState({
-                selectedRowIndex: index
-            });
-        }
+    this.getSingleSelectedDataFunc = function (record, index) {
+        var getSelectedDataFunc = _this4.props.getSelectedDataFunc;
+
+        _this4.setState({
+            selectedRowIndex: index
+        });
+        getSelectedDataFunc && getSelectedDataFunc(record, index);
+    };
+
+    this.getMultiSelectedDataFunc = function (selectedList, record, index, newData) {
+        var getSelectedDataFunc = _this4.props.getSelectedDataFunc;
+
+        getSelectedDataFunc && getSelectedDataFunc(selectedList, record, index, newData);
     };
 };
 
