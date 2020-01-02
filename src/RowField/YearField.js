@@ -116,7 +116,7 @@ class YearField extends Component {
     render() {
         let { value, error, flag } = this.state;
 
-        let { className, message, required } = this.props;
+        let { className, message, required, disabled } = this.props;
 
         return (
             <FieldWrap
@@ -132,6 +132,7 @@ class YearField extends Component {
                     format={'YYYY'}
                     locale={zhCN}
                     placeholder={"选择年"}
+                    disabled={disabled}
                 />
             </FieldWrap>
         );

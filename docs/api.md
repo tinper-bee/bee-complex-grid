@@ -76,7 +76,9 @@ import 'bee-complex-grid/build/Grid.css';
 |参数|说明|类型|默认值|
 |:---|:-----|:----|:------|
 |defaultValue|新增时默认值|string|-|
+|disabled|字段是否禁止输入|bool|-|
 |maxLength|最大长度，type=`input`时生效|string|-|
+|placeholder|输入框的提示信息，type=`input`时生效|string|-|
 |options|type=`select` 时的下拉内容|bool|-|
 |precision|小数点后保留几位小数，type=`inputNumber`生效|number|-|
 |max|最大值，type=`inputNumber`生效|number|-|

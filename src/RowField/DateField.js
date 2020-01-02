@@ -116,7 +116,7 @@ class DateField extends Component {
     render() {
         let { value, error, flag } = this.state;
 
-        let { className, message, required,disabledDate } = this.props;
+        let { className, message, required,disabledDate,disabled } = this.props;
 
         return (
             <FieldWrap
@@ -133,6 +133,7 @@ class DateField extends Component {
                     locale={zhCN}
                     placeholder={"选择年"}
                     disabledDate={disabledDate}
+                    disabled={disabled}
                 />
             </FieldWrap>
         );

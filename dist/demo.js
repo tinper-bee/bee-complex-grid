@@ -95314,7 +95314,9 @@
 	            onBlur = _props.onBlur,
 	            pattern = _props.pattern,
 	            patternMessage = _props.patternMessage,
-	            maxLength = _props.maxLength;
+	            maxLength = _props.maxLength,
+	            placeholder = _props.placeholder,
+	            disabled = _props.disabled;
 	
 	
 	        return _react2['default'].createElement(
@@ -95330,7 +95332,9 @@
 	                value: value,
 	                onChange: this.handlerChange,
 	                onBlur: onBlur,
-	                maxLength: maxLength
+	                maxLength: maxLength,
+	                placeholder: placeholder,
+	                disabled: disabled
 	            })
 	        );
 	    };
@@ -97042,7 +97046,8 @@
 	            min = _props.min,
 	            step = _props.step,
 	            precision = _props.precision,
-	            onBlur = _props.onBlur;
+	            onBlur = _props.onBlur,
+	            disabled = _props.disabled;
 	
 	
 	        return _react2['default'].createElement(
@@ -97064,7 +97069,8 @@
 	                min: min,
 	                precision: precision,
 	                onBlur: onBlur,
-	                autoFocus: true
+	                autoFocus: true,
+	                disabled: disabled
 	            })
 	        );
 	    };
@@ -97254,7 +97260,8 @@
 	            message = _props.message,
 	            required = _props.required,
 	            data = _props.data,
-	            onBlur = _props.onBlur;
+	            onBlur = _props.onBlur,
+	            disabled = _props.disabled;
 	
 	
 	        return _react2['default'].createElement(
@@ -97270,7 +97277,8 @@
 	                value: value,
 	                onChange: this.handlerChange,
 	                data: data,
-	                onBlur: onBlur
+	                onBlur: onBlur,
+	                disabled: disabled
 	            })
 	        );
 	    };
@@ -97473,7 +97481,8 @@
 	            className = _props.className,
 	            message = _props.message,
 	            required = _props.required,
-	            disabledDate = _props.disabledDate;
+	            disabledDate = _props.disabledDate,
+	            disabled = _props.disabled;
 	
 	
 	        return _react2['default'].createElement(
@@ -97491,7 +97500,8 @@
 	                format: 'YYYY-MM-DD',
 	                locale: _zh_CN2['default'],
 	                placeholder: "选择年",
-	                disabledDate: disabledDate
+	                disabledDate: disabledDate,
+	                disabled: disabled
 	            })
 	        );
 	    };
@@ -97695,7 +97705,8 @@
 	        var _props = this.props,
 	            className = _props.className,
 	            message = _props.message,
-	            required = _props.required;
+	            required = _props.required,
+	            disabled = _props.disabled;
 	
 	
 	        return _react2['default'].createElement(
@@ -97712,7 +97723,8 @@
 	                onChange: this.handlerChange,
 	                format: 'YYYY',
 	                locale: _zh_CN2['default'],
-	                placeholder: "选择年"
+	                placeholder: "选择年",
+	                disabled: disabled
 	            })
 	        );
 	    };

@@ -184,7 +184,8 @@ var DateField = function (_Component) {
             className = _props.className,
             message = _props.message,
             required = _props.required,
-            disabledDate = _props.disabledDate;
+            disabledDate = _props.disabledDate,
+            disabled = _props.disabled;
 
 
         return _react2["default"].createElement(
@@ -202,7 +203,8 @@ var DateField = function (_Component) {
                 format: 'YYYY-MM-DD',
                 locale: _zh_CN2["default"],
                 placeholder: "选择年",
-                disabledDate: disabledDate
+                disabledDate: disabledDate,
+                disabled: disabled
             })
         );
     };

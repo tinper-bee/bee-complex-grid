@@ -180,7 +180,9 @@ var TextField = function (_Component) {
             onBlur = _props.onBlur,
             pattern = _props.pattern,
             patternMessage = _props.patternMessage,
-            maxLength = _props.maxLength;
+            maxLength = _props.maxLength,
+            placeholder = _props.placeholder,
+            disabled = _props.disabled;
 
 
         return _react2["default"].createElement(
@@ -196,7 +198,9 @@ var TextField = function (_Component) {
                 value: value,
                 onChange: this.handlerChange,
                 onBlur: onBlur,
-                maxLength: maxLength
+                maxLength: maxLength,
+                placeholder: placeholder,
+                disabled: disabled
             })
         );
     };

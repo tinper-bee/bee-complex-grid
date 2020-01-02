@@ -231,7 +231,8 @@ var NumberField = function (_Component) {
             min = _props.min,
             step = _props.step,
             precision = _props.precision,
-            onBlur = _props.onBlur;
+            onBlur = _props.onBlur,
+            disabled = _props.disabled;
 
 
         return _react2["default"].createElement(
@@ -253,7 +254,8 @@ var NumberField = function (_Component) {
                 min: min,
                 precision: precision,
                 onBlur: onBlur,
-                autoFocus: true
+                autoFocus: true,
+                disabled: disabled
             })
         );
     };

@@ -156,7 +156,7 @@ class NumberField extends Component {
     render () {
         let { value, error, flag, required, message } = this.state;
 
-        let { className, iconStyle, max, min, step, precision, onBlur } = this.props;
+        let { className, iconStyle, max, min, step, precision, onBlur, disabled } = this.props;
 
         return (
             <FieldWrap
@@ -177,6 +177,7 @@ class NumberField extends Component {
                     precision={precision}
                     onBlur={onBlur}
                     autoFocus={true}
+                    disabled={disabled}
                 />
             </FieldWrap>
         )
