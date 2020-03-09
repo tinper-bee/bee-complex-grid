@@ -1,3 +1,8 @@
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.2...v2.1.3) (2020-03-09)
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.1...v2.1.2) (2019-12-30)
 
