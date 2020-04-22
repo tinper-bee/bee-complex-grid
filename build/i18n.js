@@ -9,12 +9,12 @@ module.exports = {
     'openRowFilter': '打开行过滤',
     'closeRowFilter': '关闭行过滤',
     'en-us': {
-        'fixTitle': 'fix',
-        'noFixTitle': 'unfix',
-        'hideTitle': 'hide',
-        'rowFilter': 'rowFilter',
-        'openRowFilter': 'openRowFilter',
-        'closeRowFilter': 'closeRowFilter'
+        'fixTitle': 'Lock',
+        'noFixTitle': 'Unlock',
+        'hideTitle': 'Hide',
+        'rowFilter': 'Row Filter',
+        'openRowFilter': 'Enable Row Filter',
+        'closeRowFilter': 'Disable Row Filter'
     },
     'zh-TW': {
         'fixTitle': '鎖定',

@@ -1,5 +1,15 @@
+<a name="2.1.4"></a>
+## [2.1.4](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.3...v2.1.4) (2020-03-09)
+
+
+### Features
+
+* **bee-complex-grid:** 默认英文修改 ([75bbb01](https://github.com/tinper-bee/bee-complex-grid/commit/75bbb01))
+
+
+
 <a name="2.1.3"></a>
-## [2.1.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.2...v2.1.3) (2020-01-02)
+## [2.1.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.2...v2.1.3) (2020-03-09)
 
 
 
