@@ -36829,7 +36829,7 @@
 	        // 单选行
 	        if ('selectedRowIndex' in nextProps && nextProps.selectedRowIndex !== selectedRowIndex) {
 	            this.setState({
-	                selectedRowIndex: selectedRowIndex
+	                selectedRowIndex: nextProps.selectedRowIndex
 	            });
 	        }
 	    };
@@ -48544,6 +48544,10 @@
 	  };
 	
 	  Table.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	    var _props = this.props,
+	        rowDraggAble = _props.rowDraggAble,
+	        showRowNum = _props.showRowNum;
+	
 	    if ('data' in nextProps) {
 	      this.setState({
 	        data: nextProps.data
@@ -48555,17 +48559,22 @@
 	      });
 	    }
 	    if (nextProps.columns && nextProps.columns !== this.props.columns) {
-	      this.columnManager.reset(nextProps.columns, null, this.props.showRowNum); // 加入this.props.showRowNum参数
+	      this.columnManager.reset(nextProps.columns, null, showRowNum, rowDraggAble); // 加入this.props.showRowNum参数
 	      if (nextProps.columns.length !== this.props.columns.length && this.refs && this.bodyTable) {
 	        this.scrollTop = this.bodyTable.scrollTop;
 	      }
 	    } else if (nextProps.children !== this.props.children) {
-	      this.columnManager.reset(null, nextProps.children, this.props.showRowNum); // 加入this.props.showRowNum参数
+	      this.columnManager.reset(null, nextProps.children, showRowNum, rowDraggAble); // 加入this.props.showRowNum参数
 	    }
 	    //适配lazyload
 	    if (nextProps.scrollTop > -1) {
 	      // this.bodyTable.scrollTop = nextProps.scrollTop;
 	      this.scrollTop = nextProps.scrollTop;
+	    }
+	    // fix:模态框中使用table，计算的滚动条宽度为0的bug
+	    // fix:表格首次渲染时 display:none，再显示时，未重新计算，导致表行出现错位的bug
+	    if (this.scrollbarWidth <= 0 && this.props.scroll.y) {
+	      this.scrollbarWidth = (0, _utils.measureScrollbar)();
 	    }
 	    if (!nextProps.originWidth) {
 	      this.computeTableWidth();
@@ -48573,11 +48582,6 @@
 	    }
 	    if (nextProps.resetScroll) {
 	      this.resetScrollX();
-	    }
-	    // fix:模态框中使用table，计算的滚动条宽度为0的bug
-	    // fix:表格首次渲染时 display:none，再显示时，未重新计算，导致表行出现错位的bug
-	    if (this.scrollbarWidth <= 0 && this.props.scroll.y) {
-	      this.scrollbarWidth = (0, _utils.measureScrollbar)();
 	    }
 	
 	    // console.log('this.scrollTop**********',this.scrollTop);
@@ -48747,33 +48751,33 @@
 	
 	  Table.prototype.getHeader = function getHeader(columns, fixed, leftFixedWidth, rightFixedWidth) {
 	    var lastShowIndex = this.state.lastShowIndex;
-	    var _props = this.props,
-	        filterDelay = _props.filterDelay,
-	        onFilterChange = _props.onFilterChange,
-	        onFilterClear = _props.onFilterClear,
-	        filterable = _props.filterable,
-	        showHeader = _props.showHeader,
-	        expandIconAsCell = _props.expandIconAsCell,
-	        clsPrefix = _props.clsPrefix,
-	        onDragStart = _props.onDragStart,
-	        onDragEnter = _props.onDragEnter,
-	        onDragOver = _props.onDragOver,
-	        onDrop = _props.onDrop,
-	        onDragEnd = _props.onDragEnd,
-	        draggable = _props.draggable,
-	        onMouseDown = _props.onMouseDown,
-	        onMouseMove = _props.onMouseMove,
-	        onMouseUp = _props.onMouseUp,
-	        dragborder = _props.dragborder,
-	        onThMouseMove = _props.onThMouseMove,
-	        dragborderKey = _props.dragborderKey,
-	        minColumnWidth = _props.minColumnWidth,
-	        headerHeight = _props.headerHeight,
-	        afterDragColWidth = _props.afterDragColWidth,
-	        headerScroll = _props.headerScroll,
-	        bordered = _props.bordered,
-	        onDropBorder = _props.onDropBorder,
-	        onDraggingBorder = _props.onDraggingBorder;
+	    var _props2 = this.props,
+	        filterDelay = _props2.filterDelay,
+	        onFilterChange = _props2.onFilterChange,
+	        onFilterClear = _props2.onFilterClear,
+	        filterable = _props2.filterable,
+	        showHeader = _props2.showHeader,
+	        expandIconAsCell = _props2.expandIconAsCell,
+	        clsPrefix = _props2.clsPrefix,
+	        onDragStart = _props2.onDragStart,
+	        onDragEnter = _props2.onDragEnter,
+	        onDragOver = _props2.onDragOver,
+	        onDrop = _props2.onDrop,
+	        onDragEnd = _props2.onDragEnd,
+	        draggable = _props2.draggable,
+	        onMouseDown = _props2.onMouseDown,
+	        onMouseMove = _props2.onMouseMove,
+	        onMouseUp = _props2.onMouseUp,
+	        dragborder = _props2.dragborder,
+	        onThMouseMove = _props2.onThMouseMove,
+	        dragborderKey = _props2.dragborderKey,
+	        minColumnWidth = _props2.minColumnWidth,
+	        headerHeight = _props2.headerHeight,
+	        afterDragColWidth = _props2.afterDragColWidth,
+	        headerScroll = _props2.headerScroll,
+	        bordered = _props2.bordered,
+	        onDropBorder = _props2.onDropBorder,
+	        onDraggingBorder = _props2.onDraggingBorder;
 	
 	    this.columnsChildrenList = []; //复杂表头拖拽，重新render表头前，将其置空
 	    var rows = this.getHeaderRows(columns);
@@ -48851,7 +48855,7 @@
 	      } else if (width) {
 	        width = parseInt(width);
 	      }
-	      if (lastShowIndex == i && width) {
+	      if (!column.fixed && lastShowIndex == i && width) {
 	        width = width + contentWidthDiff;
 	      }
 	      var cell = {
@@ -48913,9 +48917,9 @@
 	  };
 	
 	  Table.prototype.getExpandedRow = function getExpandedRow(key, content, visible, className, fixed) {
-	    var _props2 = this.props,
-	        clsPrefix = _props2.clsPrefix,
-	        expandIconAsCell = _props2.expandIconAsCell;
+	    var _props3 = this.props,
+	        clsPrefix = _props3.clsPrefix,
+	        expandIconAsCell = _props3.expandIconAsCell;
 	
 	    var colCount = void 0;
 	    if (fixed === 'left') {
@@ -49035,10 +49039,12 @@
 	      var isHiddenExpandIcon = void 0;
 	      var record = data[i];
 	      var key = this.getRowKey(record, i);
-	      // isLeaf 字段是在 bigData 里添加的，只有层级树大数据场景需要该字段
-	      // isLeaf 有三种取值情况：true / false / null
-	      var isLeaf = typeof record['isLeaf'] === 'boolean' ? record['isLeaf'] : null;
-	      var childrenColumn = isLeaf ? false : record[childrenColumnName];
+	      // 兼容 NCC 以前的业务逻辑，支持外部通过 record 中的 isleaf 字段，判断是否为叶子节点
+	      record['_isLeaf'] = typeof record['isleaf'] === 'boolean' ? record['isleaf'] : record['_isLeaf'];
+	      // _isLeaf 字段是在 bigData 里添加的，只有层级树大数据场景需要该字段
+	      // _isLeaf 有三种取值情况：true / false / null。（Table内部字段）
+	      var _isLeaf = typeof record['_isLeaf'] === 'boolean' ? record['_isLeaf'] : null;
+	      var childrenColumn = _isLeaf ? false : record[childrenColumnName];
 	      var isRowExpanded = this.isRowExpanded(record, i);
 	      var expandedRowContent = void 0;
 	      var expandedContentHeight = 0;
@@ -49103,7 +49109,7 @@
 	        visible: visible,
 	        expandRowByClick: expandRowByClick,
 	        onExpand: this.onExpanded,
-	        expandable: expandedRowRender || (childrenColumn && childrenColumn.length > 0 ? true : isLeaf === false),
+	        expandable: expandedRowRender || (childrenColumn && childrenColumn.length > 0 ? true : _isLeaf === false),
 	        expanded: isRowExpanded,
 	        clsPrefix: props.clsPrefix + '-row',
 	        childrenColumnName: childrenColumnName,
@@ -49242,19 +49248,19 @@
 	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	    var columns = options.columns,
 	        fixed = options.fixed;
-	    var _props3 = this.props,
-	        clsPrefix = _props3.clsPrefix,
-	        _props3$scroll = _props3.scroll,
-	        scroll = _props3$scroll === undefined ? {} : _props3$scroll,
-	        getBodyWrapper = _props3.getBodyWrapper,
-	        footerScroll = _props3.footerScroll,
-	        headerScroll = _props3.headerScroll,
-	        _props3$hideHeaderScr = _props3.hideHeaderScroll,
-	        hideHeaderScroll = _props3$hideHeaderScr === undefined ? false : _props3$hideHeaderScr,
-	        expandIconAsCell = _props3.expandIconAsCell;
 	    var _props4 = this.props,
-	        useFixedHeader = _props4.useFixedHeader,
-	        data = _props4.data;
+	        clsPrefix = _props4.clsPrefix,
+	        _props4$scroll = _props4.scroll,
+	        scroll = _props4$scroll === undefined ? {} : _props4$scroll,
+	        getBodyWrapper = _props4.getBodyWrapper,
+	        footerScroll = _props4.footerScroll,
+	        headerScroll = _props4.headerScroll,
+	        _props4$hideHeaderScr = _props4.hideHeaderScroll,
+	        hideHeaderScroll = _props4$hideHeaderScr === undefined ? false : _props4$hideHeaderScr,
+	        expandIconAsCell = _props4.expandIconAsCell;
+	    var _props5 = this.props,
+	        useFixedHeader = _props5.useFixedHeader,
+	        data = _props5.data;
 	
 	    var bodyStyle = _extends({}, this.props.bodyStyle); // 这里为什么不写在上面?
 	    var headStyle = {};
@@ -49446,9 +49452,9 @@
 	  };
 	
 	  Table.prototype.getTitle = function getTitle() {
-	    var _props5 = this.props,
-	        title = _props5.title,
-	        clsPrefix = _props5.clsPrefix;
+	    var _props6 = this.props,
+	        title = _props6.title,
+	        clsPrefix = _props6.clsPrefix;
 	
 	    return title ? _react2["default"].createElement(
 	      'div',
@@ -49458,9 +49464,9 @@
 	  };
 	
 	  Table.prototype.getFooter = function getFooter() {
-	    var _props6 = this.props,
-	        footer = _props6.footer,
-	        clsPrefix = _props6.clsPrefix;
+	    var _props7 = this.props,
+	        footer = _props7.footer,
+	        clsPrefix = _props7.clsPrefix;
 	
 	    return footer ? _react2["default"].createElement(
 	      'div',
@@ -49470,10 +49476,10 @@
 	  };
 	
 	  Table.prototype.getEmptyText = function getEmptyText() {
-	    var _props7 = this.props,
-	        defaultEmptyText = _props7.emptyText,
-	        clsPrefix = _props7.clsPrefix,
-	        data = _props7.data;
+	    var _props8 = this.props,
+	        defaultEmptyText = _props8.emptyText,
+	        clsPrefix = _props8.clsPrefix,
+	        data = _props8.data;
 	
 	    var locale = (0, _tool.getComponentLocale)(this.props, this.context, 'Table', function () {
 	      return _i18n2["default"];
@@ -49514,13 +49520,13 @@
 	
 	  Table.prototype.syncFixedTableRowHeight = function syncFixedTableRowHeight() {
 	    //this.props.height、headerHeight分别为用户传入的行高和表头高度，如果有值，所有行的高度都是固定的，主要为了避免在千行数据中有固定列时获取行高度有问题
-	    var _props8 = this.props,
-	        clsPrefix = _props8.clsPrefix,
-	        height = _props8.height,
-	        headerHeight = _props8.headerHeight,
-	        columns = _props8.columns,
-	        heightConsistent = _props8.heightConsistent,
-	        bodyDisplayInRow = _props8.bodyDisplayInRow;
+	    var _props9 = this.props,
+	        clsPrefix = _props9.clsPrefix,
+	        height = _props9.height,
+	        headerHeight = _props9.headerHeight,
+	        columns = _props9.columns,
+	        heightConsistent = _props9.heightConsistent,
+	        bodyDisplayInRow = _props9.bodyDisplayInRow;
 	
 	    var headRows = this.headTable ? this.headTable.querySelectorAll('thead') : this.bodyTable.querySelectorAll('thead');
 	    var expandedRows = this.bodyTable.querySelectorAll('.' + clsPrefix + '-expanded-row') || [];
@@ -49612,13 +49618,13 @@
 	
 	  Table.prototype.handleBodyScroll = function handleBodyScroll(e) {
 	    var headTable = this.headTable;
-	    var _props9 = this.props,
-	        _props9$scroll = _props9.scroll,
-	        scroll = _props9$scroll === undefined ? {} : _props9$scroll,
-	        clsPrefix = _props9.clsPrefix,
-	        handleScrollY = _props9.handleScrollY,
-	        handleScrollX = _props9.handleScrollX,
-	        onBodyScroll = _props9.onBodyScroll;
+	    var _props10 = this.props,
+	        _props10$scroll = _props10.scroll,
+	        scroll = _props10$scroll === undefined ? {} : _props10$scroll,
+	        clsPrefix = _props10.clsPrefix,
+	        handleScrollY = _props10.handleScrollY,
+	        handleScrollX = _props10.handleScrollX,
+	        onBodyScroll = _props10.onBodyScroll;
 	    var _refs = this.refs,
 	        fixedColumnsBodyLeft = _refs.fixedColumnsBodyLeft,
 	        fixedColumnsBodyRight = _refs.fixedColumnsBodyRight;
@@ -49675,10 +49681,10 @@
 	
 	  Table.prototype.handleRowHover = function handleRowHover(isHover, key, event, currentIndex, propsRecord) {
 	    //增加新的API，设置是否同步Hover状态，提高性能，避免无关的渲染
-	    var _props10 = this.props,
-	        syncHover = _props10.syncHover,
-	        onRowHover = _props10.onRowHover,
-	        data = _props10.data;
+	    var _props11 = this.props,
+	        syncHover = _props11.syncHover,
+	        onRowHover = _props11.onRowHover,
+	        data = _props11.data;
 	    //fix:树形表，onRowHover返回参数异常
 	
 	    var isTreeType = this.isTreeType;
@@ -50441,7 +50447,8 @@
 	          expandIcon
 	        ));
 	      }
-	      var isColumnHaveExpandIcon = expandIconAsCell || expandRowByClick || showSum ? false : i === expandIndexInThisTable;
+	      // bugfix 设置expandRowByClick，无法显示箭头，去掉 expandRowByClick 判断
+	      var isColumnHaveExpandIcon = expandIconAsCell || showSum ? false : i === expandIndexInThisTable;
 	      cells.push(_react2["default"].createElement(_TableCell2["default"], {
 	        clsPrefix: clsPrefix,
 	        record: record,
@@ -50871,13 +50878,13 @@
 	        var key = node.key,
 	            title = node.title,
 	            children = node.children,
-	            isLeaf = node.isLeaf,
-	            otherProps = _objectWithoutProperties(node, ['key', 'title', 'children', 'isLeaf']);
+	            _isLeaf = node._isLeaf,
+	            otherProps = _objectWithoutProperties(node, ['key', 'title', 'children', '_isLeaf']);
 	
 	        var obj = {
 	          key: key,
 	          title: title,
-	          isLeaf: isLeaf,
+	          _isLeaf: _isLeaf,
 	          children: []
 	        };
 	        tree.push(_extends(obj, _extends({}, otherProps)));
@@ -50897,7 +50904,7 @@
 	
 	      var obj = {
 	        key: item[attr.id],
-	        isLeaf: item[attr.isLeaf],
+	        _isLeaf: item[attr._isLeaf],
 	        children: []
 	      };
 	      tree.push(_extends(obj, _extends({}, otherProps)));
@@ -50923,7 +50930,7 @@
 	
 	            var _obj = {
 	              key: _item[attr.id],
-	              isLeaf: _item[attr.isLeaf],
+	              _isLeaf: _item[attr._isLeaf],
 	              children: []
 	            };
 	            treeArrs[_i].children.push(_extends(_obj, _extends({}, _otherProps)));
@@ -51781,19 +51788,22 @@
 	      className += ' u-table-inline-icon';
 	    }
 	    return _react2["default"].createElement(
-	      'td',
-	      {
-	        colSpan: colSpan,
-	        rowSpan: rowSpan,
-	        className: className,
-	        onClick: this.handleClick,
-	        title: title,
-	        style: _extends({ maxWidth: column.width, color: fontColor, backgroundColor: bgColor }, column.style)
-	      },
-	      indentText,
-	      expandIcon,
-	      text,
-	      colMenu
+	      _react.Fragment,
+	      null,
+	      colSpan == 0 ? null : _react2["default"].createElement(
+	        'td',
+	        {
+	          colSpan: colSpan,
+	          rowSpan: rowSpan,
+	          className: className,
+	          onClick: this.handleClick,
+	          title: title,
+	          style: _extends({ maxWidth: column.width, color: fontColor, backgroundColor: bgColor }, column.style) },
+	        indentText,
+	        expandIcon,
+	        text,
+	        colMenu
+	      )
 	    );
 	  };
 	
@@ -52130,20 +52140,20 @@
 	    "bool_true": "是",
 	    "bool_false": "否",
 	    'en-us': {
-	        'resetSettings': 'reset settings',
-	        'include': 'include',
-	        'exclusive': 'exclusive',
-	        'equal': 'equal',
-	        'unequal': 'unequal',
-	        'begin': 'begin',
-	        'end': 'end',
-	        'greater_than': 'greater than',
-	        'great_than_equal_to': 'great than equal to',
-	        'less_than': 'less than',
-	        'less_than_equal_to': 'less than equal to',
-	        'be_equal_to': 'be equal to',
-	        'not_equal_to': 'not equal to',
-	        "no_data": 'no data',
+	        'resetSettings': 'Reset',
+	        'include': 'Include',
+	        'exclusive': 'Not include',
+	        'equal': 'Equal to',
+	        'unequal': 'Not equal to',
+	        'begin': 'Begin with',
+	        'end': 'End with',
+	        'greater_than': 'Greater than',
+	        'great_than_equal_to': 'Greater than or equal to',
+	        'less_than': 'Less than',
+	        'less_than_equal_to': 'Less than or equal to',
+	        'be_equal_to': 'Equal to',
+	        'not_equal_to': 'Not equal to',
+	        "no_data": 'No data',
 	        "bool_true": "true",
 	        "bool_false": "false"
 	    },
@@ -52347,7 +52357,7 @@
 	    _this.drag = {
 	      option: ''
 	    };
-	    _this.minWidth = 80; //确定最小宽度就是80
+	    _this.minWidth = parseInt(props.minColumnWidth);
 	    _this.table = null;
 	    _this._thead = null; //当前对象
 	    _this.event = false; //避免多次绑定问题
@@ -52355,6 +52365,14 @@
 	    _this.fixedTable = {};
 	    return _this;
 	  }
+	
+	  TableHeader.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	    if (this._thead && nextProps.rows && nextProps.rows !== this.props.rows) {
+	      if (nextProps.rows.length !== this.props.rows.length) {
+	        this.event = false;
+	      }
+	    }
+	  };
 	
 	  TableHeader.prototype.componentDidUpdate = function componentDidUpdate() {
 	    this.initTable();
@@ -52785,7 +52803,7 @@
 	              da.onClick ? thDefaultObj.onClick = function (e) {
 	                da.onClick(da, e);
 	              } : "";
-	              return _react2["default"].createElement("th", _extends({}, thDefaultObj, keyTemp, { "data-th-fixed": da.fixed }));
+	              return _react2["default"].createElement("th", _extends({}, thDefaultObj, keyTemp, { "data-th-fixed": da.fixed, style: { maxWidth: da.width } }));
 	            }
 	          })
 	        );
@@ -52833,7 +52851,7 @@
 	    var type = currentElement.getAttribute('data-type');
 	    if (!_this7.props.dragborder && !_this7.props.draggable) return;
 	    if (type == 'online' && _this7.props.dragborder) {
-	      if (!_this7.props.dragborder) return;
+	      // if(!this.props.dragborder)return;
 	      targetEvent.setAttribute('draggable', false); //添加交换列效果
 	      var currentIndex = -1;
 	      var defaultWidth = currentElement.getAttribute("data-th-width");
@@ -52846,7 +52864,10 @@
 	          });
 	        }
 	      }
-	      // console.log("currentIndex :",currentIndex);
+	      if (currentIndex < 0) {
+	        console.log('Key must be set for column!');
+	        return;
+	      }
 	      var currentObj = _this7.table.cols[currentIndex];
 	      _this7.drag.currIndex = currentIndex;
 	      _this7.drag.oldLeft = event.x;
@@ -52978,7 +52999,9 @@
 	  this.onTrMouseUp = function (e) {
 	    var event = _utils.Event.getEvent(e);
 	    var width = _this7.drag.newWidth;
+	    var opt = _this7.drag.option;
 	    _this7.mouseClear();
+	    if (opt !== "border") return; // fix:点击表头会触发onDropBorder事件的问题
 	    _this7.props.onDropBorder && _this7.props.onDropBorder(event, width);
 	  };
 	
@@ -53201,6 +53224,51 @@
 	          className: "filter-date",
 	          onClick: function onClick() {},
 	          format: rows[1][index]["format"] || "YYYY-MM-DD",
+	          dataIndex: dataIndex //字段
+	          , onFilterChange: _this7.handlerFilterChange //输入框回调
+	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , filterDropdown: rows[1][index]["filterdropdown"],
+	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
+	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
+	        });
+	      //日期 年
+	      case "dateyear":
+	        return _react2["default"].createElement(_FilterType2["default"], {
+	          locale: locale,
+	          rendertype: type,
+	          className: "filter-date",
+	          onClick: function onClick() {},
+	          format: rows[1][index]["format"] || "YYYY",
+	          dataIndex: dataIndex //字段
+	          , onFilterChange: _this7.handlerFilterChange //输入框回调
+	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , filterDropdown: rows[1][index]["filterdropdown"],
+	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
+	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
+	        });
+	      //日期 月
+	      case "datemonth":
+	        return _react2["default"].createElement(_FilterType2["default"], {
+	          locale: locale,
+	          rendertype: type,
+	          className: "filter-date",
+	          onClick: function onClick() {},
+	          format: rows[1][index]["format"] || "YYYY-MM",
+	          dataIndex: dataIndex //字段
+	          , onFilterChange: _this7.handlerFilterChange //输入框回调
+	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , filterDropdown: rows[1][index]["filterdropdown"],
+	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
+	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
+	        });
+	      //日期 周
+	      case "dateweek":
+	        return _react2["default"].createElement(_FilterType2["default"], {
+	          locale: locale,
+	          rendertype: type,
+	          className: "filter-date",
+	          onClick: function onClick() {},
+	          format: rows[1][index]["format"] || "YYYY-Wo",
 	          dataIndex: dataIndex //字段
 	          , onFilterChange: _this7.handlerFilterChange //输入框回调
 	          , onFilterClear: _this7.handlerFilterClear //清除回调
@@ -53435,7 +53503,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var RangePicker = _beeDatepicker2["default"].RangePicker;
+	var RangePicker = _beeDatepicker2["default"].RangePicker,
+	    YearPicker = _beeDatepicker2["default"].YearPicker,
+	    MonthPicker = _beeDatepicker2["default"].MonthPicker,
+	    WeekPicker = _beeDatepicker2["default"].WeekPicker;
 	
 	
 	var propTypes = {
@@ -53674,6 +53745,75 @@
 	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
 	                        })
 	                    );
+	                case 'dateyear':
+	                    return _react2["default"].createElement(
+	                        'div',
+	                        { className: clsPrefix + ' filter-wrap' },
+	                        _react2["default"].createElement(YearPicker, _extends({}, _this.props, {
+	                            value: _this.state.value,
+	                            onChange: _this.changeDate,
+	                            open: _this.state.open,
+	                            format: format,
+	                            locale: _zh_CN2["default"]
+	                        })),
+	                        _react2["default"].createElement(_FilterDropDown2["default"], {
+	                            locale: locale,
+	                            dataIndex: dataIndex,
+	                            dataText: _this.state.value,
+	                            onSelectDropdown: _this.onSelectDropdown,
+	                            onClickClear: _this.clearFilter,
+	                            isShowCondition: filterDropdown,
+	                            isShowClear: _this.state.value,
+	                            filterDropdownType: filterDropdownType,
+	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
+	                        })
+	                    );
+	                case 'datemonth':
+	                    return _react2["default"].createElement(
+	                        'div',
+	                        { className: clsPrefix + ' filter-wrap' },
+	                        _react2["default"].createElement(MonthPicker, _extends({}, _this.props, {
+	                            value: _this.state.value,
+	                            onChange: _this.changeDate,
+	                            open: _this.state.open,
+	                            format: format,
+	                            locale: _zh_CN2["default"]
+	                        })),
+	                        _react2["default"].createElement(_FilterDropDown2["default"], {
+	                            locale: locale,
+	                            dataIndex: dataIndex,
+	                            dataText: _this.state.value,
+	                            onSelectDropdown: _this.onSelectDropdown,
+	                            onClickClear: _this.clearFilter,
+	                            isShowCondition: filterDropdown,
+	                            isShowClear: _this.state.value,
+	                            filterDropdownType: filterDropdownType,
+	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
+	                        })
+	                    );
+	                case 'dateweek':
+	                    return _react2["default"].createElement(
+	                        'div',
+	                        { className: clsPrefix + ' filter-wrap' },
+	                        _react2["default"].createElement(WeekPicker, _extends({}, _this.props, {
+	                            value: _this.state.value,
+	                            onChange: _this.changeDate,
+	                            open: _this.state.open,
+	                            format: format,
+	                            locale: _zh_CN2["default"]
+	                        })),
+	                        _react2["default"].createElement(_FilterDropDown2["default"], {
+	                            locale: locale,
+	                            dataIndex: dataIndex,
+	                            dataText: _this.state.value,
+	                            onSelectDropdown: _this.onSelectDropdown,
+	                            onClickClear: _this.clearFilter,
+	                            isShowCondition: filterDropdown,
+	                            isShowClear: _this.state.value,
+	                            filterDropdownType: filterDropdownType,
+	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
+	                        })
+	                    );
 	                case 'daterange':
 	                    return _react2["default"].createElement(
 	                        'div',
@@ -53782,7 +53922,7 @@
 	    /**
 	     * 根据不同的类型生成对应的组件类型包含一些参数的适应
 	     *
-	     * @param {*} rendertype 参数类型，包括['text','dropdown','date','daterange','number']
+	     * @param {*} rendertype 参数类型，包括['text','dropdown','date','dateyear','datemonth','dateweek',daterange','number']
 	     * @returns
 	     */
 	
@@ -53984,7 +54124,10 @@
 	    var showClose = props.showClose,
 	        defaultPanelShown = props.defaultPanelShown,
 	        onBlur = props.onBlur,
-	        others = _objectWithoutProperties(props, ["showClose", "defaultPanelShown", "onBlur"]);
+	        showHour = props.showHour,
+	        showMinute = props.showMinute,
+	        showSecond = props.showSecond,
+	        others = _objectWithoutProperties(props, ["showClose", "defaultPanelShown", "onBlur", "showHour", "showMinute", "showSecond"]);
 	
 	    var value = state.value;
 	    var pickerChangeHandler = {};
@@ -54002,8 +54145,16 @@
 	      };
 	    }
 	
+	    var splitNumber = '3';
+	    if (!showHour) splitNumber -= 1;
+	    if (!showMinute) splitNumber -= 1;
+	    if (!showSecond) splitNumber -= 1;
+	
 	    var calendar = _react2["default"].createElement(_rcCalendar2["default"], _extends({
-	      timePicker: props.showTime ? _react2["default"].createElement(_Panel2["default"], { defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") }) : null
+	      timePicker: props.showTime ? _react2["default"].createElement(_Panel2["default"], {
+	        className: 'time-split-' + splitNumber,
+	        showHour: showHour, showMinute: showMinute, showSecond: showSecond,
+	        defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") }) : null
 	    }, props, {
 	      onSelect: this.handleSelect,
 	      onChange: this.handleCalendarChange,
@@ -54339,7 +54490,10 @@
 	  onKeyDown: function onKeyDown() {},
 	  renderError: function renderError() {},
 	  showClose: true,
-	  format: "YYYY-MM-DD"
+	  format: "YYYY-MM-DD",
+	  showSecond: true,
+	  showHour: true,
+	  showMinute: true
 	};
 	
 	exports["default"] = DatePicker;
@@ -74023,7 +74177,7 @@
 	    }
 	
 	    // 不合法直接退出
-	    var parsed = (0, _moment2["default"])(str, format, true);
+	    var parsed = (0, _moment2["default"])(str);
 	    if (!parsed.isValid()) {
 	      _this2.setState({
 	        // invalid: true,
@@ -74074,7 +74228,7 @@
 	    }
 	
 	    // 不合法直接退出
-	    var parsed = (0, _moment2["default"])(str, format, true);
+	    var parsed = (0, _moment2["default"])(str);
 	    if (!parsed.isValid()) {
 	      _this2.setState({
 	        invalid: true
@@ -74116,7 +74270,7 @@
 	        isRange = _props3.isRange;
 	
 	    var str = e.target.value;
-	    var parsed = (0, _moment2["default"])(str, format, true);
+	    var parsed = (0, _moment2["default"])(str);
 	    if (e.keyCode === _tinperBeeCore.KeyCode.ENTER) {
 	      if (parsed.isValid() && onSelect) {
 	        isRange ? onSelect(parsed.clone()) : onSelect(value.clone()); //FIX https://github.com/iuap-design/tinper-bee/issues/183
@@ -75466,7 +75620,8 @@
 	  placement: _propTypes2["default"].any,
 	  value: _propTypes2["default"].oneOfType([_propTypes2["default"].object, _propTypes2["default"].array]),
 	  defaultValue: _propTypes2["default"].oneOfType([_propTypes2["default"].object, _propTypes2["default"].array]),
-	  align: _propTypes2["default"].object
+	  align: _propTypes2["default"].object,
+	  enterKeyDown: _propTypes2["default"].bool //enter 键是否打开日期面板
 	};
 	Picker.defaultProps = {
 	  prefixCls: 'rc-calendar-picker',
@@ -75475,7 +75630,8 @@
 	  placement: 'bottomLeft',
 	  defaultOpen: false,
 	  onChange: noop,
-	  onOpenChange: noop
+	  onOpenChange: noop,
+	  enterKeyDown: true
 	};
 	
 	var _initialiseProps = function _initialiseProps() {
@@ -75505,8 +75661,10 @@
 	  };
 	
 	  this.onKeyDown = function (event) {
-	    if (!_this2.state.open && (event.keyCode === _KeyCode2["default"].DOWN || event.keyCode === _KeyCode2["default"].ENTER)) {
-	      _this2.open();
+	    var enterKeyDown = _this2.props.enterKeyDown;
+	
+	    if (event.keyCode === _KeyCode2["default"].DOWN || enterKeyDown && event.keyCode === _KeyCode2["default"].ENTER) {
+	      if (!_this2.state.open) _this2.open();
 	      event.preventDefault();
 	    }
 	    _this2.props.onKeyDown && _this2.props.onKeyDown(event);
@@ -77201,7 +77359,7 @@
 	      }, (0, _omit2["default"])(others, ['closeIcon', 'renderIcon', 'format', 'showDateInput', 'showMonthInput', 'locale', 'placeholder', 'onClear', 'renderFooter', 'renderError', 'disabledDate', 'disabledTime'])),
 	      _react2["default"].createElement(
 	        _Picker2["default"],
-	        {
+	        _extends({}, props, {
 	          onOpenChange: this.onOpenChange,
 	          animation: 'animation' in props ? props.animation : "slide-up",
 	          calendar: monthCalendar,
@@ -77211,7 +77369,7 @@
 	          dropdownClassName: props.dropdownClassName,
 	          selectedValue: state.value,
 	          renderError: props.renderError
-	        },
+	        }),
 	        function (_ref) {
 	          var value = _ref.value;
 	
@@ -77720,8 +77878,6 @@
 	    now.locale("en-gb").utcOffset(0);
 	}
 	
-	var timePickerElement = _react2["default"].createElement(_Panel2["default"], { defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") });
-	
 	var RangePicker = function (_Component) {
 	    _inherits(RangePicker, _Component);
 	
@@ -77767,14 +77923,19 @@
 	
 	        var showClose = props.showClose,
 	            onChange = props.onChange,
-	            others = _objectWithoutProperties(props, ["showClose", "onChange"]);
+	            showHour = props.showHour,
+	            showMinute = props.showMinute,
+	            showSecond = props.showSecond,
+	            others = _objectWithoutProperties(props, ["showClose", "onChange", "showHour", "showMinute", "showSecond"]);
 	
 	        var _state = this.state,
 	            value = _state.value,
 	            open = _state.open;
 	
 	        var formatStr = props.format || 'YYYY-MM-DD';
-	
+	        var timePickerElement = _react2["default"].createElement(_Panel2["default"], {
+	            showHour: showHour, showMinute: showMinute, showSecond: showSecond,
+	            defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") });
 	        var calendar = _react2["default"].createElement(_RangeCalendar2["default"], {
 	            hoverValue: this.state.hoverValue,
 	            onHoverChange: this.onHoverChange,
@@ -77802,7 +77963,7 @@
 	            }, (0, _omit2["default"])(others, ['closeIcon', 'renderIcon', 'showClear', 'showToday', 'locale', 'placeholder', 'showOk', 'dateInputPlaceholder', 'onPanelChange', 'onStartInputBlur', 'onEndInputBlur', 'renderFooter', 'showTime', 'disabledDate', 'disabledTime'])),
 	            _react2["default"].createElement(
 	                _Picker2["default"],
-	                {
+	                _extends({}, props, {
 	                    value: value,
 	                    animation: 'animation' in props ? props.animation : "slide-up",
 	                    calendar: calendar,
@@ -77810,7 +77971,8 @@
 	                    dropdownClassName: props.dropdownClassName,
 	                    onOpenChange: this.onOpenChange,
 	                    open: open
-	                },
+	
+	                }),
 	                function (_ref) {
 	                    _objectDestructuringEmpty(_ref);
 	
@@ -78049,7 +78211,10 @@
 	    showClear: true,
 	    showToday: true,
 	    showOk: true,
-	    showClose: true
+	    showClose: true,
+	    showSecond: true,
+	    showHour: true,
+	    showMinute: true
 	};
 	
 	exports["default"] = RangePicker;
@@ -85699,7 +85864,9 @@
 	    toThousands: _propTypes2["default"].bool,
 	    locale: _propTypes2["default"].object,
 	    toNumber: _propTypes2["default"].bool, //回调函数内的值是否转换为数值类型
-	    displayCheckPrompt: _propTypes2["default"].bool //是否显示超出限制范围之后的检验提示
+	    displayCheckPrompt: _propTypes2["default"].bool, //是否显示超出限制范围之后的检验提示
+	    minusRight: _propTypes2["default"].bool, //负号是否在右边
+	    handleBtnClick: _propTypes2["default"].func //加减按钮点击回调
 	};
 	
 	var defaultProps = {
@@ -85711,7 +85878,8 @@
 	    delay: 300,
 	    toNumber: false,
 	    displayCheckPrompt: false,
-	    locale: {}
+	    locale: {},
+	    handleBtnClick: function handleBtnClick() {}
 	};
 	
 	//校验提示
@@ -85749,11 +85917,6 @@
 	    return result;
 	}
 	
-	function unThousands(number) {
-	    number = (number || 0).toString();
-	    return number.replace(/\,/g, '');
-	}
-	
 	function setCaretPosition(ctrl, pos, need) {
 	
 	    if (ctrl && need) {
@@ -85784,7 +85947,6 @@
 	        _initialiseProps.call(_this);
 	
 	        var data = _this.judgeValue(props);
-	
 	        _this.state = {
 	            value: data.value,
 	            minusDisabled: data.minusDisabled,
@@ -85797,6 +85959,14 @@
 	        _this.selectionStart = 0;
 	        return _this;
 	    }
+	
+	    // unThousands = (number) =>{
+	    //     if(!number || number === "")return number;
+	    //     number = number.toString();
+	    //     return number.replace(new RegExp(this.props.formatSymbol,'g'),'');
+	    //     // return number.replace(/\,/g,'');
+	    // }
+	
 	    /**
 	     * 校验value
 	     * @param {*} props 
@@ -85833,6 +86003,12 @@
 	    InputNumber.prototype.ComponentWillUnMount = function ComponentWillUnMount() {
 	        this.clear();
 	    };
+	
+	    /**
+	     *  @memberof InputNumber
+	     * type 是否要四舍五入(此参数无效,超长不让输入)
+	     */
+	
 	    /**
 	     * 设置增加减少按钮是否可用
 	     */
@@ -85859,6 +86035,7 @@
 	
 	        var _props = this.props,
 	            toThousands = _props.toThousands,
+	            minusRight = _props.minusRight,
 	            max = _props.max,
 	            min = _props.min,
 	            step = _props.step,
@@ -85874,7 +86051,7 @@
 	            format = _props.format,
 	            precision = _props.precision,
 	            toNumber = _props.toNumber,
-	            others = _objectWithoutProperties(_props, ['toThousands', 'max', 'min', 'step', 'disabled', 'clsPrefix', 'className', 'delay', 'onBlur', 'onFocus', 'iconStyle', 'autoWidth', 'onChange', 'format', 'precision', 'toNumber']);
+	            others = _objectWithoutProperties(_props, ['toThousands', 'minusRight', 'max', 'min', 'step', 'disabled', 'clsPrefix', 'className', 'delay', 'onBlur', 'onFocus', 'iconStyle', 'autoWidth', 'onChange', 'format', 'precision', 'toNumber']);
 	
 	        var classes = (_classes = {}, _defineProperty(_classes, clsPrefix + '-auto', autoWidth), _defineProperty(_classes, '' + clsPrefix, true), _defineProperty(_classes, clsPrefix + '-lg', others.size === "lg"), _defineProperty(_classes, clsPrefix + '-sm', others.size === "sm"), _classes);
 	
@@ -85884,9 +86061,11 @@
 	            plusDisabled = _state.plusDisabled,
 	            showValue = _state.showValue;
 	
-	
-	        value = format ? format(value) : value;
-	
+	        value = precision != null && !this.focus ? this.getPrecision(value) : value;
+	        value = format && !this.focus ? format(value) : value;
+	        if (minusRight && String(value).indexOf('-') != -1) {
+	            value = String(value).replace("-", "") + "-";
+	        }
 	        var disabledCursor = disabled ? ' disabled-cursor' : '';
 	        var disabledCon = disabled ? ' disabled-con' : '';
 	        return _react2["default"].createElement(
@@ -85898,6 +86077,7 @@
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
+	                        // onClick={()=>{minusDisabled?'':this.handleBtnClick('down')}}
 	                        className: (minusDisabled && 'disabled') + disabledCursor,
 	                        onMouseDown: this.handleReduceMouseDown,
 	                        onMouseLeave: this.clear,
@@ -85917,6 +86097,7 @@
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
+	                        // onClick={()=>{plusDisabled?'':this.handleBtnClick('up')}}
 	                        className: (plusDisabled && 'disabled') + disabledCursor,
 	                        onMouseDown: this.handlePlusMouseDown,
 	                        onMouseLeave: this.clear,
@@ -85948,6 +86129,7 @@
 	                        _react2["default"].createElement(
 	                            'span',
 	                            {
+	                                // onClick={()=>{plusDisabled?'':this.handleBtnClick('up')}}
 	                                onMouseDown: this.handlePlusMouseDown,
 	                                onMouseLeave: this.clear,
 	                                onMouseUp: this.clear,
@@ -85957,6 +86139,7 @@
 	                        _react2["default"].createElement(
 	                            'span',
 	                            {
+	                                // onClick={()=> minusDisabled?'':this.handleBtnClick('down')}
 	                                onMouseDown: this.handleReduceMouseDown,
 	                                onMouseLeave: this.clear,
 	                                onMouseUp: this.clear,
@@ -85986,6 +86169,15 @@
 	            onChange = props.onChange,
 	            displayCheckPrompt = props.displayCheckPrompt;
 	
+	        if (props.minusRight) {
+	            value = value.toString();
+	            if (value.indexOf('-') != -1) {
+	                //所有位置的负号转到前边
+	                value = value.replace('-', '');
+	                value = '-' + value;
+	            }
+	            value = Number(value);
+	        }
 	        if (value != undefined) {
 	            if (value === '') {
 	                currentValue = '';
@@ -85997,23 +86189,24 @@
 	            } else {
 	                currentValue = Number(value) || 0;
 	            }
-	        } else if (min && value != '') {
-	            currentValue = min;
-	        } else if (value === '0' || value === 0) {
-	            currentValue = 0;
-	        } else {
-	            //NaN
-	            if (oldValue || oldValue === 0 || oldValue === '0') {
-	                currentValue = oldValue;
+	        } //lse if (min&&(value!='')) {//mdd中提出bug
+	        //currentValue = min;
+	        //} 
+	        else if (value === '0' || value === 0) {
+	                currentValue = 0;
 	            } else {
-	                //value为空
-	                return {
-	                    value: '',
-	                    minusDisabled: false,
-	                    plusDisabled: false
-	                };
+	                //NaN
+	                if (oldValue || oldValue === 0 || oldValue === '0') {
+	                    currentValue = oldValue;
+	                } else {
+	                    //value为空
+	                    return {
+	                        value: '',
+	                        minusDisabled: false,
+	                        plusDisabled: false
+	                    };
+	                }
 	            }
-	        }
 	        if (currentValue == -Infinity) {
 	            return {
 	                value: min,
@@ -86043,7 +86236,16 @@
 	        }
 	
 	        if (props.hasOwnProperty('precision')) {
-	            currentValue = Number(currentValue).toFixed(precision);
+	            // currentValue = Number(currentValue).toFixed(precision);
+	            currentValue = _this3.getPrecision(currentValue);
+	        }
+	        if (props.minusRight) {
+	            currentValue = currentValue.toString();
+	            if (currentValue.indexOf('-') != -1) {
+	                //负号转到后边
+	                currentValue = currentValue.replace('-', '');
+	                currentValue = currentValue + '-';
+	            }
 	        }
 	
 	        return {
@@ -86053,12 +86255,28 @@
 	        };
 	    };
 	
+	    this.numToFixed = function (value, fixed, type) {
+	        value = String(value);
+	        if (!value && value !== "0") return value;
+	        if (!fixed && String(fixed) !== "0") return value;
+	        var preIndex = value.indexOf(".");
+	        if (value.indexOf(".") === -1) return value;
+	        preIndex++;
+	        var endIndex = preIndex + fixed;
+	        var precValue = value.substr(preIndex, endIndex) + "0000000000";
+	        if (type) {
+	            return Number(value).toFixed(fixed);
+	        }
+	        return value.split(".")[0] + "." + precValue.substr(0, fixed);
+	    };
+	
 	    this.handleChange = function (value) {
 	        var selectionStart = _this3.input.selectionStart == undefined ? _this3.input.input.selectionStart : _this3.input.selectionStart;
 	        _this3.selectionStart = selectionStart;
 	        var _props2 = _this3.props,
 	            onChange = _props2.onChange,
-	            toNumber = _props2.toNumber;
+	            toNumber = _props2.toNumber,
+	            minusRight = _props2.minusRight;
 	
 	        if (value === '') {
 	            onChange && onChange(value);
@@ -86068,8 +86286,18 @@
 	            });
 	            return;
 	        }
-	        value = unThousands(value);
+	        // value = this.unThousands(value);
+	        if (minusRight) {
+	            if (value.match(/-/g) && value.match(/-/g).length > 1) return;
+	        }
 	        if (isNaN(value) && value !== '.' && value !== '-') return;
+	        if (value.indexOf(".") !== -1) {
+	            //小数最大值处理
+	            var prec = String(value.split(".")[1]).replace("-", "");
+	            if (_this3.props.precision === 0 && (prec === "" || prec != "")) return;
+	            if (_this3.props.precision && prec.length > _this3.props.precision) return;
+	            if (prec.length > 8) return;
+	        }
 	        _this3.setState({
 	            value: value,
 	            showValue: toThousands(value)
@@ -86112,7 +86340,7 @@
 	            min = _props3.min,
 	            max = _props3.max;
 	
-	        onFocus && onFocus(value, e);
+	        onFocus && onFocus(_this3.getPrecision(_this3.state.value), e);
 	    };
 	
 	    this.handleBlur = function (v, e) {
@@ -86124,12 +86352,15 @@
 	            toNumber = _props4.toNumber,
 	            max = _props4.max,
 	            min = _props4.min,
-	            displayCheckPrompt = _props4.displayCheckPrompt;
+	            displayCheckPrompt = _props4.displayCheckPrompt,
+	            minusRight = _props4.minusRight,
+	            round = _props4.round;
 	
 	        var local = (0, _tool.getComponentLocale)(_this3.props, _this3.context, 'InputNumber', function () {
 	            return _i18n2["default"];
 	        });
-	        if (v === '') {
+	        v = _this3.state.value; //在onBlur的时候不需要活输入框的只，而是要获取state中的值，因为有format的时候就会有问题。
+	        if (v === '' || !v) {
 	            _this3.setState({
 	                value: v
 	            });
@@ -86137,8 +86368,16 @@
 	            onBlur && onBlur(v, e);
 	            return;
 	        }
-	        v = unThousands(v);
-	        var value = isNaN(Number(v)) ? 0 : Number(v);
+	        // let value = this.unThousands(v); 
+	        var value = _this3.numToFixed(v, precision, round);
+	        if (minusRight) {
+	            if (value.indexOf('-') != -1) {
+	                //所有位置的负号转到前边
+	                value = value.replace('-', '');
+	                value = '-' + value;
+	            }
+	        }
+	        value = isNaN(Number(value)) ? 0 : Number(value);
 	        if (value > max) {
 	            if (displayCheckPrompt) prompt(local['msgMax']);
 	            value = max;
@@ -86148,16 +86387,23 @@
 	            value = min;
 	        }
 	        if (_this3.props.hasOwnProperty('precision')) {
-	            value = value.toFixed(precision);
+	            // value = value.toFixed(precision);
+	            value = _this3.getPrecision(value);
+	        }
+	        value = value.toString();
+	        if (minusRight && value.indexOf('-') != -1) {
+	            //负号转到后边
+	            value = value.replace('-', '');
+	            value = value + '-';
 	        }
 	        _this3.setState({
 	            value: value,
 	            showValue: toThousands(value)
 	        });
 	        _this3.detailDisable(value);
-	        if (toNumber) {
-	            onChange && onChange(Number(value));
-	            onBlur && onBlur(Number(value), e);
+	        if (toNumber && !minusRight) {
+	            onChange && onChange(value);
+	            onBlur && onBlur(value, e);
 	        } else {
 	            onChange && onChange(value);
 	            onBlur && onBlur(value, e);
@@ -86222,6 +86468,7 @@
 	            showValue: toThousands(value)
 	        });
 	        toNumber ? onChange && onChange(Number(value)) : onChange && onChange(value);
+	        _this3.handleBtnClick('down', value);
 	        _this3.detailDisable(value);
 	    };
 	
@@ -86254,6 +86501,7 @@
 	            showValue: toThousands(value)
 	        });
 	        toNumber ? onChange && onChange(Number(value)) : onChange && onChange(value);
+	        _this3.handleBtnClick('up', value);
 	        _this3.detailDisable(value);
 	    };
 	
@@ -86297,35 +86545,61 @@
 	    };
 	
 	    this.handlePlusMouseDown = function (e) {
-	        e.preventDefault();
+	        e.preventDefault && e.preventDefault();
 	        var _props8 = _this3.props,
 	            delay = _props8.delay,
 	            disabled = _props8.disabled;
-	
-	        if (disabled) return;
 	        var value = _this3.state.value;
 	
+	        if (disabled) return;
 	        _this3.plus(value);
 	        _this3.clear();
 	        _this3.timer = setTimeout(function () {
-	            _this3.handlePlusMouseDown();
+	            _this3.handlePlusMouseDown(e);
 	        }, delay);
 	    };
 	
 	    this.handleReduceMouseDown = function (e) {
-	        e.preventDefault();
+	        e.preventDefault && e.preventDefault();
 	        var _props9 = _this3.props,
 	            delay = _props9.delay,
 	            disabled = _props9.disabled;
-	
-	        if (disabled) return;
 	        var value = _this3.state.value;
 	
+	        if (disabled) return;
 	        _this3.minus(value);
 	        _this3.clear();
 	        _this3.timer = setTimeout(function () {
 	            _this3.handleReduceMouseDown();
 	        }, delay);
+	    };
+	
+	    this.getPrecision = function (value) {
+	        if (!value && value === "") return value;
+	        value = String(value);
+	        var precision = _this3.props.precision;
+	
+	        if (precision === 0) return value;
+	        if (precision == undefined || value.indexOf(".") !== -1 && String(value.split(".")[1]).length === precision) {
+	            return value;
+	        }
+	        var before = value.substring(0, 1),
+	            len = value.length,
+	            after = value.substring(len - 1, len);
+	        before = before === "-" ? before : "";
+	        after = after === "-" ? after : "";
+	        value = value.replace("-", '');
+	        var precV = "000000000000";
+	        if (value.indexOf(".") === -1) {
+	            precV = precV.substr(0, precision);
+	            precV = precV ? "." + precV : precV;
+	            value = value + precV;
+	        }
+	        return before + Number(value).toFixed(precision) + after;
+	    };
+	
+	    this.handleBtnClick = function (type, value) {
+	        _this3.props.handleBtnClick(type, value);
 	    };
 	};
 	
@@ -86350,8 +86624,8 @@
 	    'msgMax': '值不能大于最大值',
 	    'msgMin': '值不能小于最小值',
 	    'en-us': {
-	        'msgMax': 'value cannot be greater than the maximum',
-	        'msgMin': 'value cannot be less than minimum'
+	        'msgMax': 'Cannot be greater than the Max value',
+	        'msgMin': 'Cannot be less than the Min value'
 	    },
 	    'zh-tw': {
 	        'msgMax': '值不能大於最大值',
@@ -86869,6 +87143,9 @@
 	    filterDropdownType: 'string'
 	};
 	
+	FilterDropDown.contextTypes = {
+	    beeLocale: _propTypes2["default"].object
+	};
 	exports["default"] = FilterDropDown;
 	module.exports = exports['default'];
 
@@ -87102,7 +87379,8 @@
 	    return element && (element.type === _Column2["default"] || element.type === _ColumnGroup2["default"]);
 	  };
 	
-	  ColumnManager.prototype.reset = function reset(columns, elements, showRowNum) {
+	  ColumnManager.prototype.reset = function reset(columns, elements, showRowNum, rowDraggAble) {
+	    columns = this.addDragHandleColumn(columns, rowDraggAble);
 	    columns = this.addOrderColumn(columns, showRowNum);
 	    columns = this.deleteColumnNotShow(columns);
 	    this.columns = columns || this.normalize(elements);
@@ -89585,11 +89863,11 @@
 	    BigData.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
 	      var props = this.props;
 	      var currentIndex = nextProps.currentIndex,
-	          data = nextProps.data,
+	          newData = nextProps.data,
 	          newExpandedKeys = nextProps.expandedRowKeys;
 	
 	      var _this = this,
-	          dataLen = data.length;
+	          dataLen = newData.length;
 	      if (nextProps.scroll.y !== props.scroll.y) {
 	        var rowHeight = nextProps.height ? nextProps.height : defaultHeight;
 	        var scrollY = nextProps.scroll.y ? parseInt(nextProps.scroll.y) : 0;
@@ -89600,21 +89878,21 @@
 	        _this.endIndex = _this.currentIndex + _this.loadCount; //数据结束位置
 	      }
 	      if ('data' in nextProps) {
-	        var isTreeType = nextProps.isTree ? true : _this.checkIsTreeType(nextProps.data);
+	        var isTreeType = nextProps.isTree ? true : _this.checkIsTreeType(newData);
 	        _this.treeType = isTreeType;
 	        //fix: 滚动加载场景中,数据动态改变下占位计算错误的问题(26 Jun)
-	        if (nextProps.data.toString() !== props.data.toString()) {
+	        if (newData.toString() !== props.data.toString()) {
 	          _this.cachedRowHeight = []; //缓存每行的高度
 	          _this.cachedRowParentIndex = [];
-	          _this.computeCachedRowParentIndex(nextProps.data);
+	          _this.computeCachedRowParentIndex(newData);
 	        }
 	        _this.treeData = [];
 	        _this.flatTreeData = [];
-	        if (nextProps.data.length > 0) {
+	        if (newData.length > 0) {
 	          _this.endIndex = _this.currentIndex - nextProps.loadBuffer + _this.loadCount; //数据结束位置
 	        }
 	        if (isTreeType) {
-	          _this.getTreeData(newExpandedKeys);
+	          _this.getTreeData(newExpandedKeys, newData);
 	        }
 	      }
 	      //如果传currentIndex，会判断该条数据是否在可视区域，如果没有的话，则重新计算startIndex和endIndex
@@ -89640,7 +89918,8 @@
 	
 	    /**
 	     * 如果是树形表，需要对传入的 data 进行处理
-	     * @param expandedKeys: props 中传入的新 expandedRowKeys 属性值
+	     * @param expandedKeys: nextProps 中传入的新 expandedRowKeys 属性值
+	     * @param newData: nextProps 中传入的新 data 属性值
 	     */
 	
 	
@@ -89882,11 +90161,11 @@
 	  }, _initialiseProps = function _initialiseProps() {
 	    var _this4 = this;
 	
-	    this.getTreeData = function (expandedKeys) {
+	    this.getTreeData = function (expandedKeys, newData) {
 	      var startIndex = _this4.startIndex,
 	          endIndex = _this4.endIndex;
-	      var data = _this4.props.data;
 	
+	      var data = newData ? newData : _this4.props.data;
 	      _this4.cacheExpandedKeys = expandedKeys && new Set(expandedKeys);
 	      // 深递归 data，截取可视区 data 数组，再将扁平结构转换成嵌套结构
 	      var sliceTreeList = [];
@@ -89917,14 +90196,14 @@
 	              children = _dataCopy$i.children,
 	              props = _objectWithoutProperties(_dataCopy$i, ["key", "children"]),
 	              dataCopyI = new Object(),
-	              isLeaf = children && children.length > 0 ? false : true,
+	              _isLeaf = children && children.length > 0 ? false : true,
 	              isExpanded = parentKey === null || expandedKeysSet.has(parentKey) ? expandedKeysSet.has(key) : false;
 	
 	          dataCopyI = _extends(dataCopyI, {
 	            key: key,
 	            isExpanded: isExpanded,
 	            parentKey: parentKey,
-	            isLeaf: isLeaf,
+	            _isLeaf: _isLeaf,
 	            index: flatTreeData.length
 	          }, _extends({}, props));
 	
@@ -89946,7 +90225,7 @@
 	        id: 'key',
 	        parendId: 'parentKey',
 	        rootId: null,
-	        isLeaf: 'isLeaf'
+	        _isLeaf: '_isLeaf'
 	      };
 	      var treeData = (0, _utils.convertListToTree)(treeList, attr, _this4.flatTreeKeysMap);
 	
@@ -92577,12 +92856,12 @@
 	    'openRowFilter': '打开行过滤',
 	    'closeRowFilter': '关闭行过滤',
 	    'en-us': {
-	        'fixTitle': 'fix',
-	        'noFixTitle': 'unfix',
-	        'hideTitle': 'hide',
-	        'rowFilter': 'rowFilter',
-	        'openRowFilter': 'openRowFilter',
-	        'closeRowFilter': 'closeRowFilter'
+	        'fixTitle': 'Lock',
+	        'noFixTitle': 'Unlock',
+	        'hideTitle': 'Hide',
+	        'rowFilter': 'Row Filter',
+	        'openRowFilter': 'Enable Row Filter',
+	        'closeRowFilter': 'Disable Row Filter'
 	    },
 	    'zh-TW': {
 	        'fixTitle': '鎖定',

@@ -231,7 +231,7 @@ var Grid = function (_Component) {
         // 单选行
         if ('selectedRowIndex' in nextProps && nextProps.selectedRowIndex !== selectedRowIndex) {
             this.setState({
-                selectedRowIndex: selectedRowIndex
+                selectedRowIndex: nextProps.selectedRowIndex
             });
         }
     };

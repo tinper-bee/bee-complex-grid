@@ -198,7 +198,7 @@ class Grid extends Component {
         // 单选行
         if ('selectedRowIndex' in nextProps && nextProps.selectedRowIndex !== selectedRowIndex) {
             this.setState({
-                selectedRowIndex
+                selectedRowIndex: nextProps.selectedRowIndex
             })
         }
     }
