@@ -1,3 +1,13 @@
+<a name="2.1.5"></a>
+## [2.1.5](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.4...v2.1.5) (2020-04-22)
+
+
+### Bug Fixes
+
+* 单选selectedRowIndex没更新 ([093cf33](https://github.com/tinper-bee/bee-complex-grid/commit/093cf33))
+
+
+
 <a name="2.1.4"></a>
 ## [2.1.4](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.3...v2.1.4) (2020-03-09)
 
@@ -9,7 +19,7 @@
 
 
 <a name="2.1.3"></a>
-## [2.1.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.2...v2.1.3) (2020-03-09)
+## [2.1.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.2...v2.1.3) (2020-01-02)
 
 
 
