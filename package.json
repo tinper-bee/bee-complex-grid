@@ -1,1 +1,88 @@
-{"name":"bee-complex-grid","version":"2.1.5","description":"Complex Grid for React, AdvancedDataGrid ","keywords":["react","react-component","bee-grid","iuap-design","tinper-bee","Grid"],"engines":{"node":">=4.0.0"},"homepage":"https://github.com/tinper-bee/bee-complex-grid.git","author":"Yonyou FED","repository":"http://github.com/tinper-bee/bee-complex-grid","bugs":"https://github.com/tinper-bee/bee-complex-grid/issues","license":"MIT","main":"./build/index.js","config":{"port":3000,"commitizen":{"path":"./node_modules/cz-conventional-changelog"}},"scripts":{"dev":"bee-tools run start","build":"bee-tools run build","lint":"bee-tools-test run lint","test":"bee-tools-test run test","chrome":"bee-tools-test run chrome","coveralls":"bee-tools-test run coverage","browsers":"bee-tools-test run browsers","pub":"bee-tools run pub","changelog":"bee-tools run changelog","version":"conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md","postversion":"git push --follow-tags","prepublishOnly":"npm run build"},"dependencies":{"async-validator":"^3.2.2","bee-checkbox":"^2.0.3","bee-dropdown":"^2.0.2","bee-form-control":"^2.0.1","bee-icon":"latest","bee-locale":"0.0.14","bee-menus":"^2.0.2","bee-modal":"^2.0.2","bee-pagination":"^2.0.4","bee-popconfirm":"^2.0.0","bee-popover":"^2.0.0","bee-radio":"^2.0.14","bee-table":"^2.2.4","bee-tooltip":"^2.1.4","blob.js":"^1.0.1","classnames":"^2.2.6","file-saver":"^1.3.3","lodash.clonedeep":"^4.5.0","lodash.isequal":"^4.5.0","script-loader":"0.7.2","tinper-bee-core":"latest","xlsx":"^0.11.17"},"devDependencies":{"babel-runtime":"^6.23.0","bee-button":"latest","bee-clipboard":"^2.0.0","bee-drawer":"0.0.2","bee-layout":"latest","bee-panel":"latest","chai":"^3.5.0","console-polyfill":"~0.2.1","cz-conventional-changelog":"^2.1.0","enzyme":"^2.4.1","es5-shim":"~4.1.10","react":"15.3.2","react-addons-test-utils":"15.3.2","react-dom":"15.3.2","husky":"^4.2.5"},"peerDependencies":{"react":">= 15.3.0","react-dom":">= 15.3.0","prop-types":">= 15.6.0"}}
+{
+  "name": "bee-complex-grid",
+  "version": "2.1.6",
+  "description": "Complex Grid for React, AdvancedDataGrid ",
+  "keywords": [
+    "react",
+    "react-component",
+    "bee-grid",
+    "iuap-design",
+    "tinper-bee",
+    "Grid"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "homepage": "https://github.com/tinper-bee/bee-complex-grid.git",
+  "author": "Yonyou FED",
+  "repository": "http://github.com/tinper-bee/bee-complex-grid",
+  "bugs": "https://github.com/tinper-bee/bee-complex-grid/issues",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "config": {
+    "port": 3000,
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "dev": "bee-tools run start",
+    "build": "bee-tools run build",
+    "lint": "bee-tools-test run lint",
+    "test": "bee-tools-test run test",
+    "chrome": "bee-tools-test run chrome",
+    "coveralls": "bee-tools-test run coverage",
+    "browsers": "bee-tools-test run browsers",
+    "pub": "bee-tools run pub",
+    "changelog": "bee-tools run changelog",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "postversion": "git push --follow-tags",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "async-validator": "^3.2.2",
+    "bee-checkbox": "^2.0.3",
+    "bee-dropdown": "^2.0.2",
+    "bee-form-control": "^2.0.1",
+    "bee-icon": "latest",
+    "bee-locale": "0.0.14",
+    "bee-menus": "^2.0.2",
+    "bee-modal": "^2.0.2",
+    "bee-pagination": "^2.0.4",
+    "bee-popconfirm": "^2.0.0",
+    "bee-popover": "^2.0.0",
+    "bee-radio": "^2.0.14",
+    "bee-table": "^2.2.4",
+    "bee-tooltip": "^2.1.4",
+    "blob.js": "^1.0.1",
+    "classnames": "^2.2.6",
+    "file-saver": "^1.3.3",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.isequal": "^4.5.0",
+    "script-loader": "0.7.2",
+    "tinper-bee-core": "latest",
+    "xlsx": "^0.11.17"
+  },
+  "devDependencies": {
+    "babel-runtime": "^6.23.0",
+    "bee-button": "latest",
+    "bee-clipboard": "^2.0.0",
+    "bee-drawer": "0.0.2",
+    "bee-layout": "latest",
+    "bee-panel": "latest",
+    "chai": "^3.5.0",
+    "console-polyfill": "~0.2.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "enzyme": "^2.4.1",
+    "es5-shim": "~4.1.10",
+    "react": "15.3.2",
+    "react-addons-test-utils": "15.3.2",
+    "react-dom": "15.3.2",
+    "husky": "^4.2.5"
+  },
+  "peerDependencies": {
+    "react": ">= 15.3.0",
+    "react-dom": ">= 15.3.0",
+    "prop-types": ">= 15.6.0"
+  }
+}

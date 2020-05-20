@@ -1,3 +1,17 @@
+## [2.1.6](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.5...v2.1.6) (2020-05-20)
+
+
+### Bug Fixes
+
+* 自动化 ([52dbfa4](https://github.com/tinper-bee/bee-complex-grid/commit/52dbfa429756d7e67f9ad1b7d4bd52be9dca3a25))
+
+
+### Features
+
+* 新增表头锁定解锁的回调函数 ([ec79b6d](https://github.com/tinper-bee/bee-complex-grid/commit/ec79b6ddf3c60b75f499e1f645436b80c82112a5))
+
+
+
 <a name="2.1.5"></a>
 ## [2.1.5](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.4...v2.1.5) (2020-04-22)
 
