@@ -200,6 +200,9 @@ class Demo1 extends Component {
         paginationObj={paginationObj}
         canSum={true}
         multiSelect={true}
+        afterRowLock={(key,isLock,columns)=>{//列锁定回调
+          console.log(key,isLock,columns)
+        }}
       />
     );
   }

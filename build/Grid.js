@@ -98,7 +98,8 @@ var propTypes = {
     showHeaderMenu: _propTypes2["default"].bool,
     sheetName: _propTypes2["default"].string,
     sheetIsRowFilter: _propTypes2["default"].bool,
-    exportData: _propTypes2["default"].array
+    exportData: _propTypes2["default"].array,
+    afterRowLock: _propTypes2["default"].func
 };
 var defaultProps = {
     scroll: {
@@ -115,7 +116,8 @@ var defaultProps = {
     paginationObj: {},
     sheetName: "sheet", //导出表格的name
     sheetIsRowFilter: false, //是否要设置行样式，是否遍历
-    columnFilterAble: true
+    columnFilterAble: true,
+    afterRowLock: function afterRowLock() {} //表头锁定解锁的回调函数
 };
 
 var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
@@ -494,7 +496,9 @@ var _initialiseProps = function _initialiseProps() {
         var _state3 = _this4.state,
             filterable = _state3.filterable,
             renderFlag = _state3.renderFlag;
-        var checkMinSize = _this4.props.checkMinSize;
+        var _props2 = _this4.props,
+            checkMinSize = _props2.checkMinSize,
+            afterRowLock = _props2.afterRowLock;
 
         var fieldKey = item.props.data.fieldKey;
         var sum = 0;
@@ -510,6 +514,7 @@ var _initialiseProps = function _initialiseProps() {
                 return;
             }
             _this4.columns = _this4.optFixCols(_this4.columns, fieldKey);
+            afterRowLock(fieldKey, !item.props.data.fixed, _this4.columns);
             _this4.setState({
                 renderFlag: !renderFlag
             });
@@ -632,12 +637,12 @@ var _initialiseProps = function _initialiseProps() {
     };
 
     this.exportExcel = function () {
-        var _props2 = _this4.props,
-            sheetIsRowFilter = _props2.sheetIsRowFilter,
-            sheetName = _props2.sheetName,
-            _sheetHeader = _props2.sheetHeader,
-            exportData = _props2.exportData,
-            exportFileName = _props2.exportFileName;
+        var _props3 = _this4.props,
+            sheetIsRowFilter = _props3.sheetIsRowFilter,
+            sheetName = _props3.sheetName,
+            _sheetHeader = _props3.sheetHeader,
+            exportData = _props3.exportData,
+            exportFileName = _props3.exportFileName;
 
         var colsAndTablePros = _this4.getColumnsAndTablePros();
         var sheetHeader = [],

@@ -26,7 +26,8 @@ const propTypes = {
     showHeaderMenu: PropTypes.bool,
     sheetName: PropTypes.string,
     sheetIsRowFilter: PropTypes.bool,
-    exportData: PropTypes.array
+    exportData: PropTypes.array,
+    afterRowLock:PropTypes.func
 };
 const defaultProps = {
     scroll: {
@@ -43,7 +44,8 @@ const defaultProps = {
     paginationObj: {},
     sheetName: "sheet", //导出表格的name
     sheetIsRowFilter: false, //是否要设置行样式，是否遍历
-    columnFilterAble: true
+    columnFilterAble: true,
+    afterRowLock:()=>{},//表头锁定解锁的回调函数
 };
 
 const defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
@@ -256,7 +258,7 @@ class Grid extends Component {
      */
     onMenuSelect = ({ key, item }) => {
         let { filterable, renderFlag } = this.state;
-        const { checkMinSize } = this.props;
+        const { checkMinSize,afterRowLock } = this.props;
         const fieldKey = item.props.data.fieldKey;
         let sum = 0;
         if (key !== 'rowFilter') {
@@ -272,6 +274,7 @@ class Grid extends Component {
                 return;
             }
             this.columns = this.optFixCols(this.columns, fieldKey);
+            afterRowLock(fieldKey,!item.props.data.fixed,this.columns)
             this.setState({
                 renderFlag: !renderFlag
             });

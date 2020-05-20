@@ -36,6 +36,7 @@ import 'bee-complex-grid/build/Grid.css';
 |resetColumns|重置columns|function|this.refs.grid.resetColumns(columns)|
 |exportData|要导出的数据源|array	|-|
 |afterRowFilter|行过滤菜单显示隐藏时的回调函数，第一个参数会返回当前行过滤展开关闭状态|Function	|-|
+|afterRowLock|表头锁定解锁的回调函数。包含三个参数：列的key值，是否锁定，所有column信息|Function	|-|
 |noReplaceColumns|重置column内容|boolean	|false|
 |canSum |是否开启合计功能|boolean	|false|
 

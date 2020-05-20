@@ -3549,6 +3549,9 @@ a, .mdl-accordion, .mdl-button, .mdl-card, .mdl-checkbox, .mdl-dropdown-menu,
 .uf-qingkong:before {
   content: "\e666"; }
 
+.uf-location:before {
+  content: "\e78b"; }
+
 /* FormGroup */
 /*  Navlayout  */
 .vertical-align {
@@ -11073,7 +11076,8 @@ ul {
   word-spacing: normal;
   word-wrap: normal;
   font-size: 12px;
-  opacity: 0; }
+  opacity: 0;
+  max-width: 200px; }
   .u-tooltip.in {
     opacity: 1 !important; }
   .u-tooltip .tooltip-arrow {
@@ -11084,7 +11088,6 @@ ul {
     border-color: transparent;
     border-style: solid; }
   .u-tooltip .tooltip-inner {
-    max-width: 200px;
     padding: 3px 8px;
     color: #fff;
     background-color: #42526E;
