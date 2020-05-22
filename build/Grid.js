@@ -198,7 +198,7 @@ var Grid = function (_Component) {
                     var newItem = {};
 
                     _this2.columns.forEach(function (item) {
-                        if (nextItem.dataIndex == item.dataIndex) {
+                        if (nextItem.dataIndex == item.dataIndex || !item.dataIndex) {
                             newItem = _extends({}, item, nextItem);
                             //对于解锁的列，再次传入时还是解锁状态
                             if (!item.fixed) {

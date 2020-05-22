@@ -164,7 +164,7 @@ class Grid extends Component {
                     let newItem = {};
 
                     this.columns.forEach(item => {
-                        if (nextItem.dataIndex == item.dataIndex) {
+                        if (nextItem.dataIndex == item.dataIndex || (!item.dataIndex)) {//适配初始item内没有数据的情况
                             newItem = { ...item, ...nextItem };
                             //对于解锁的列，再次传入时还是解锁状态
                             if (!item.fixed) {
