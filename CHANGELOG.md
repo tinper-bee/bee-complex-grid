@@ -1,3 +1,17 @@
+## [2.1.7](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.6...v2.1.7) (2020-05-22)
+
+
+### Bug Fixes
+
+* 适配初始item内没有数据的情况 ([4cedc4a](https://github.com/tinper-bee/bee-complex-grid/commit/4cedc4ac89d70e7eeb57738f4c9a94883b3c0c6f))
+
+
+### Features
+
+* 文档地址 ([e134dbc](https://github.com/tinper-bee/bee-complex-grid/commit/e134dbc4af7d7468ca53a94221692f8d1afb1c4c))
+
+
+
 ## [2.1.6](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.5...v2.1.6) (2020-05-20)
 
 
