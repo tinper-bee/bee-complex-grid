@@ -1,3 +1,12 @@
+## [2.1.9](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.8...v2.1.9) (2020-06-05)
+
+
+### Bug Fixes
+
+* record=record ([d75e271](https://github.com/tinper-bee/bee-complex-grid/commit/d75e271b6cc09f7c8467313d11351f99eed08f87))
+
+
+
 ## [2.1.8](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.7...v2.1.8) (2020-06-05)
 
 
