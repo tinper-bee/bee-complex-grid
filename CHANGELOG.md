@@ -1,3 +1,12 @@
+## [2.1.8](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.7...v2.1.8) (2020-06-05)
+
+
+### Features
+
+* 编辑表格更新 ([747be03](https://github.com/tinper-bee/bee-complex-grid/commit/747be0388373ed4869cbd7420d82632988e8ec79))
+
+
+
 ## [2.1.7](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.6...v2.1.7) (2020-05-22)
 
 
