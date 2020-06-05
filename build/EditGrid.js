@@ -79,7 +79,7 @@ var EditGrid = function (_Component) {
                 delete current[filed];
             }
             _this.errors[index] = current;
-            console.log(_this.errors);
+            _this.props.onValidate && _this.props.onValidate(_this.errors);
         };
 
         _this.validate = function () {
@@ -119,7 +119,8 @@ var EditGrid = function (_Component) {
                             disabled: disabled ? true : item.disabled,
                             customizeRender: item.customizeRender,
                             onValidate: _this.onValidate,
-                            filedProps: item.filedProps
+                            filedProps: item.filedProps,
+                            record: record
                         });
                     };
                 } else {

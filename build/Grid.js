@@ -199,6 +199,7 @@ var Grid = function (_Component) {
 
                     _this2.columns.forEach(function (item) {
                         if (nextItem.dataIndex == item.dataIndex || !item.dataIndex) {
+                            //适配初始item内没有数据的情况
                             newItem = _extends({}, item, nextItem);
                             //对于解锁的列，再次传入时还是解锁状态
                             if (!item.fixed) {

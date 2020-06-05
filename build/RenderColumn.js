@@ -112,7 +112,8 @@ var RenderColumn = function (_Component) {
                 valueField = _this$props2.valueField,
                 filedProps = _this$props2.filedProps,
                 onValidate = _this$props2.onValidate,
-                defaultValue = _this$props2.defaultValue;
+                defaultValue = _this$props2.defaultValue,
+                record = _this$props2.record;
 
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -139,6 +140,7 @@ var RenderColumn = function (_Component) {
                             required: required,
                             value: value,
                             index: index,
+                            record: record,
                             onChange: function onChange(field, v) {
                                 _this.props.onChange(index, dataIndex, v);
                             },
