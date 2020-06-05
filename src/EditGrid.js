@@ -145,7 +145,11 @@ class EditGrid extends Component {
         this.setState({
             data: data
         })
-        this.props.onChange(data);
+        this.props.onChange(data,{
+            index,
+            key,
+            value
+        });
     }
 
     //选中数据的回调
