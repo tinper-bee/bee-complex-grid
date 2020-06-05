@@ -58,7 +58,7 @@ class RenderColumn extends Component {
             textAlign, validate, disabled,
             required, pattern, patternMessage,
             customizeRender, valueField,
-            filedProps,onValidate,defaultValue
+            filedProps,onValidate,defaultValue,record
         } = this.props;
         let placement = 'left';
         if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -80,6 +80,7 @@ class RenderColumn extends Component {
                                         required: required,
                                         value: value,
                                         index:index,
+                                        record:record,
                                         onChange: (field, v) => { this.props.onChange(index, dataIndex, v) },
                                         onValidate:onValidate,
                                         ...filedProps
