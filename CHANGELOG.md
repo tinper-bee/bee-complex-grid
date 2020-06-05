@@ -1,3 +1,12 @@
+## [2.1.10](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.9...v2.1.10) (2020-06-05)
+
+
+### Features
+
+* 编辑表格onChang新增改变的单元格数据e ([a58f3c6](https://github.com/tinper-bee/bee-complex-grid/commit/a58f3c60cac7212ae05325375b99d1a47b9851cd))
+
+
+
 ## [2.1.9](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.8...v2.1.9) (2020-06-05)
 
 
