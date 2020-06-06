@@ -1,3 +1,12 @@
+## [2.1.13](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.12...v2.1.13) (2020-06-06)
+
+
+### Features
+
+* 编辑表格自定义renderText ([3f6e2ae](https://github.com/tinper-bee/bee-complex-grid/commit/3f6e2ae2443165fafdf867b928c225692f28601a))
+
+
+
 ## [2.1.12](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.11...v2.1.12) (2020-06-06)
 
 
