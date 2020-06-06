@@ -65,14 +65,17 @@ class RenderColumn extends Component {
         let placement = 'left';
         if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
         if (customizeRender) {
+            // let customizeRenderFlag = this.customizeRender&&this.customizeRender.customizeRenderFlag;
             let customizeRenderText = this.customizeRender&&this.customizeRender.customizeRenderText;
-            let text = customizeRenderText?customizeRenderText({
+            let customText = customizeRenderText&&customizeRenderText({
                 ...filedProps,
                 value,
                 field: dataIndex,
                 record,
                 index
-            }):value;
+            });
+            let text = value;
+            if(customText)text=customText;
             return (
                 <div>
                     {

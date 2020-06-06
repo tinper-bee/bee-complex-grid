@@ -122,13 +122,16 @@ var RenderColumn = function (_Component) {
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
             if (customizeRender) {
+                // let customizeRenderFlag = this.customizeRender&&this.customizeRender.customizeRenderFlag;
                 var customizeRenderText = _this.customizeRender && _this.customizeRender.customizeRenderText;
-                var text = customizeRenderText ? customizeRenderText(_extends({}, filedProps, {
+                var customText = customizeRenderText && customizeRenderText(_extends({}, filedProps, {
                     value: value,
                     field: dataIndex,
                     record: record,
                     index: index
-                })) : value;
+                }));
+                var text = value;
+                if (customText) text = customText;
                 return _react2["default"].createElement(
                     'div',
                     null,
