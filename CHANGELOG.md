@@ -1,3 +1,12 @@
+## [2.1.11](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.10...v2.1.11) (2020-06-06)
+
+
+### Features
+
+* customizeRenderText ([f8b5a0b](https://github.com/tinper-bee/bee-complex-grid/commit/f8b5a0b105295447618c6aeb7423be8718483bac))
+
+
+
 ## [2.1.10](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.9...v2.1.10) (2020-06-05)
 
 
