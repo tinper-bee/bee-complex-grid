@@ -1,3 +1,12 @@
+## [2.1.12](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.11...v2.1.12) (2020-06-06)
+
+
+### Features
+
+* 编辑表格customizeRender的时候,自定义渲染text ([129332c](https://github.com/tinper-bee/bee-complex-grid/commit/129332c3ed1e2d485a36d57c068f776da93ee299))
+
+
+
 ## [2.1.11](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.10...v2.1.11) (2020-06-06)
 
 
