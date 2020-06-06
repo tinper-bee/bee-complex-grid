@@ -63,12 +63,20 @@ class RenderColumn extends Component {
         let placement = 'left';
         if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
         if (customizeRender) {
+            let customizeRenderText = customizeRender.type&&customizeRender.type.customizeRenderText;
+            let text = customizeRenderText?customizeRenderText({
+                ...filedProps,
+                value,
+                field: dataIndex,
+                record,
+                index
+            }):value;
             return (
                 <div>
                     {
                         disabled ?
-                            <ToolTip overlay={value} inverse placement={placement}>
-                                <span className='u-edit-grid-cell'>{value}</span>
+                            <ToolTip overlay={text} inverse placement={placement}>
+                                <span className='u-edit-grid-cell'>{text}</span>
                             </ToolTip>
                             : <RenderCell type='refer' text={value} textAlign={textAlign}>
                                 {

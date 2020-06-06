@@ -118,16 +118,23 @@ var RenderColumn = function (_Component) {
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
             if (customizeRender) {
+                var customizeRenderText = customizeRender.type && customizeRender.type.customizeRenderText;
+                var text = customizeRenderText ? customizeRenderText(_extends({}, filedProps, {
+                    value: value,
+                    field: dataIndex,
+                    record: record,
+                    index: index
+                })) : value;
                 return _react2["default"].createElement(
                     'div',
                     null,
                     disabled ? _react2["default"].createElement(
                         _beeTooltip2["default"],
-                        { overlay: value, inverse: true, placement: placement },
+                        { overlay: text, inverse: true, placement: placement },
                         _react2["default"].createElement(
                             'span',
                             { className: 'u-edit-grid-cell' },
-                            value
+                            text
                         )
                     ) : _react2["default"].createElement(
                         _RenderCell2["default"],

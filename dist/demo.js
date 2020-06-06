@@ -36986,6 +36986,7 @@
 	
 	                    _this2.columns.forEach(function (item) {
 	                        if (nextItem.dataIndex == item.dataIndex || !item.dataIndex) {
+	                            //适配初始item内没有数据的情况
 	                            newItem = _extends({}, item, nextItem);
 	                            //对于解锁的列，再次传入时还是解锁状态
 	                            if (!item.fixed) {
@@ -93284,7 +93285,7 @@
 	                delete current[filed];
 	            }
 	            _this.errors[index] = current;
-	            console.log(_this.errors);
+	            _this.props.onValidate && _this.props.onValidate(_this.errors);
 	        };
 	
 	        _this.validate = function () {
@@ -93324,7 +93325,8 @@
 	                            disabled: disabled ? true : item.disabled,
 	                            customizeRender: item.customizeRender,
 	                            onValidate: _this.onValidate,
-	                            filedProps: item.filedProps
+	                            filedProps: item.filedProps,
+	                            record: record
 	                        });
 	                    };
 	                } else {
@@ -93371,7 +93373,11 @@
 	            _this.setState({
 	                data: data
 	            });
-	            _this.props.onChange(data);
+	            _this.props.onChange(data, {
+	                index: index,
+	                key: key,
+	                value: value
+	            });
 	        };
 	
 	        _this.getSelectedDataFunc = function (selectData) {
@@ -95343,21 +95349,29 @@
 	                valueField = _this$props2.valueField,
 	                filedProps = _this$props2.filedProps,
 	                onValidate = _this$props2.onValidate,
-	                defaultValue = _this$props2.defaultValue;
+	                defaultValue = _this$props2.defaultValue,
+	                record = _this$props2.record;
 	
 	            var placement = 'left';
 	            if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
 	            if (customizeRender) {
+	                var customizeRenderText = customizeRender.type && customizeRender.type.customizeRenderText;
+	                var text = customizeRenderText ? customizeRenderText(_extends({}, filedProps, {
+	                    value: value,
+	                    field: dataIndex,
+	                    record: record,
+	                    index: index
+	                })) : value;
 	                return _react2['default'].createElement(
 	                    'div',
 	                    null,
 	                    disabled ? _react2['default'].createElement(
 	                        _beeTooltip2['default'],
-	                        { overlay: value, inverse: true, placement: placement },
+	                        { overlay: text, inverse: true, placement: placement },
 	                        _react2['default'].createElement(
 	                            'span',
 	                            { className: 'u-edit-grid-cell' },
-	                            value
+	                            text
 	                        )
 	                    ) : _react2['default'].createElement(
 	                        _RenderCell2['default'],
@@ -95370,6 +95384,7 @@
 	                            required: required,
 	                            value: value,
 	                            index: index,
+	                            record: record,
 	                            onChange: function onChange(field, v) {
 	                                _this.props.onChange(index, dataIndex, v);
 	                            },

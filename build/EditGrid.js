@@ -167,7 +167,11 @@ var EditGrid = function (_Component) {
             _this.setState({
                 data: data
             });
-            _this.props.onChange(data);
+            _this.props.onChange(data, {
+                index: index,
+                key: key,
+                value: value
+            });
         };
 
         _this.getSelectedDataFunc = function (selectData) {
