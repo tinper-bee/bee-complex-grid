@@ -96,6 +96,10 @@ var RenderColumn = function (_Component) {
             _this.props.onChange(index, dataIndex, value);
         };
 
+        _this.onRef = function (ref) {
+            _this.customizeRender = ref;
+        };
+
         _this.renderComp = function () {
             var _this$props2 = _this.props,
                 type = _this$props2.type,
@@ -118,7 +122,7 @@ var RenderColumn = function (_Component) {
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
             if (customizeRender) {
-                var customizeRenderText = customizeRender.type && customizeRender.type.customizeRenderText;
+                var customizeRenderText = _this.customizeRender && _this.customizeRender.customizeRenderText;
                 var text = customizeRenderText ? customizeRenderText(_extends({}, filedProps, {
                     value: value,
                     field: dataIndex,
@@ -138,7 +142,7 @@ var RenderColumn = function (_Component) {
                         )
                     ) : _react2["default"].createElement(
                         _RenderCell2["default"],
-                        { type: 'refer', text: value, textAlign: textAlign },
+                        { type: 'refer', text: text, textAlign: textAlign },
                         _react2["default"].cloneElement(customizeRender, _extends({
                             valueField: valueField,
                             textAlign: textAlign,
@@ -151,7 +155,8 @@ var RenderColumn = function (_Component) {
                             onChange: function onChange(field, v) {
                                 _this.props.onChange(index, dataIndex, v);
                             },
-                            onValidate: onValidate
+                            onValidate: onValidate,
+                            onRef: _this.onRef
                         }, filedProps))
                     )
                 );
@@ -326,7 +331,6 @@ var RenderColumn = function (_Component) {
         };
         return _this;
     }
-
     /**
      * 渲染组件函数
      * @returns JSX

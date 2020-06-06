@@ -48,7 +48,9 @@ class RenderColumn extends Component {
         this.getValue(value);
         this.props.onChange(index, dataIndex, value);
     }
-
+    onRef=(ref)=>{
+        this.customizeRender = ref
+    }
     /**
      * 渲染组件函数
      * @returns JSX
@@ -63,7 +65,7 @@ class RenderColumn extends Component {
         let placement = 'left';
         if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
         if (customizeRender) {
-            let customizeRenderText = customizeRender.type&&customizeRender.type.customizeRenderText;
+            let customizeRenderText = this.customizeRender&&this.customizeRender.customizeRenderText;
             let text = customizeRenderText?customizeRenderText({
                 ...filedProps,
                 value,
@@ -78,7 +80,7 @@ class RenderColumn extends Component {
                             <ToolTip overlay={text} inverse placement={placement}>
                                 <span className='u-edit-grid-cell'>{text}</span>
                             </ToolTip>
-                            : <RenderCell type='refer' text={value} textAlign={textAlign}>
+                            : <RenderCell type='refer' text={text} textAlign={textAlign}>
                                 {
                                     React.cloneElement(customizeRender, {
                                         valueField: valueField,
@@ -91,7 +93,8 @@ class RenderColumn extends Component {
                                         record:record,
                                         onChange: (field, v) => { this.props.onChange(index, dataIndex, v) },
                                         onValidate:onValidate,
-                                        ...filedProps
+                                        onRef:this.onRef,
+                                        ...filedProps,
                                     })
                                 }
                             </RenderCell>
