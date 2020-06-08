@@ -1,3 +1,12 @@
+## [2.1.14](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.13...v2.1.14) (2020-06-08)
+
+
+### Features
+
+* forceRenderColumn ([ffc1d9f](https://github.com/tinper-bee/bee-complex-grid/commit/ffc1d9f2a83b8710735c7f0f7885b9d8bc19e8d2))
+
+
+
 ## [2.1.13](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.12...v2.1.13) (2020-06-06)
 
 
