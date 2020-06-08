@@ -55,6 +55,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var propTypes = {
     onChange: _propTypes2["default"].func,
     filedProps: _propTypes2["default"].object //filed属性
+
 };
 
 var defaultProps = {
@@ -122,7 +123,6 @@ var RenderColumn = function (_Component) {
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
             if (customizeRender) {
-                // let customizeRenderFlag = this.customizeRender&&this.customizeRender.customizeRenderFlag;
                 var customizeRenderText = _this.customizeRender && _this.customizeRender.customizeRenderText;
                 var customText = customizeRenderText && customizeRenderText(_extends({}, filedProps, {
                     value: value,
@@ -135,6 +135,25 @@ var RenderColumn = function (_Component) {
                 return _react2["default"].createElement(
                     'div',
                     null,
+                    forceRenderColumn ? _react2["default"].createElement(
+                        'span',
+                        { style: { 'display': 'none' } },
+                        _react2["default"].cloneElement(customizeRender, _extends({
+                            valueField: valueField,
+                            textAlign: textAlign,
+                            field: dataIndex,
+                            validate: validate,
+                            required: required,
+                            value: value,
+                            index: index,
+                            record: record,
+                            onChange: function onChange(field, v) {
+                                _this.props.onChange(index, dataIndex, v);
+                            },
+                            onValidate: onValidate,
+                            onRef: _this.onRef
+                        }, filedProps))
+                    ) : '',
                     disabled ? _react2["default"].createElement(
                         _beeTooltip2["default"],
                         { overlay: text, inverse: true, placement: placement },

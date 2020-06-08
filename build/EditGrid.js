@@ -53,14 +53,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var propTypes = {
     onChange: _propTypes2["default"].func, //数据改变回调
     clsfix: _propTypes2["default"].string,
-    disabled: _propTypes2["default"].bool //是否可编辑
+    disabled: _propTypes2["default"].bool, //是否可编辑
+    forceRenderColumn: _propTypes2["default"].bool //强制renderColumn
 };
 
 var defaultProps = {
     clsfix: 'u-edit-grid',
     data: [],
     columns: [],
-    onChange: function onChange() {}
+    onChange: function onChange() {},
+    forceRenderColumn: false
 };
 
 var EditGrid = function (_Component) {
@@ -120,7 +122,8 @@ var EditGrid = function (_Component) {
                             customizeRender: item.customizeRender,
                             onValidate: _this.onValidate,
                             filedProps: item.filedProps,
-                            record: record
+                            record: record,
+                            forceRenderColumn: _this.props.forceRenderColumn
                         });
                     };
                 } else {

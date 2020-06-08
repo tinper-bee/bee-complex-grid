@@ -11,6 +11,7 @@ const propTypes = {
     onChange: PropTypes.func,//数据改变回调
     clsfix: PropTypes.string,
     disabled: PropTypes.bool,//是否可编辑
+    forceRenderColumn:PropTypes.bool,//强制renderColumn
 }
 
 const defaultProps = {
@@ -18,6 +19,7 @@ const defaultProps = {
     data: [],
     columns: [],
     onChange: () => { },
+    forceRenderColumn:false
 };
 
 class EditGrid extends Component {
@@ -103,6 +105,7 @@ class EditGrid extends Component {
                         onValidate={this.onValidate}
                         filedProps={item.filedProps}
                         record={record}
+                        forceRenderColumn={this.props.forceRenderColumn}
                     />
                 }
             } else {

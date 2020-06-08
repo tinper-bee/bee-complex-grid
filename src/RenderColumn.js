@@ -12,6 +12,7 @@ import ToolTip from 'bee-tooltip';
 const propTypes = {
     onChange: PropTypes.func,
     filedProps: PropTypes.object,//filed属性
+    
 }
 
 const defaultProps = {
@@ -65,7 +66,6 @@ class RenderColumn extends Component {
         let placement = 'left';
         if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
         if (customizeRender) {
-            // let customizeRenderFlag = this.customizeRender&&this.customizeRender.customizeRenderFlag;
             let customizeRenderText = this.customizeRender&&this.customizeRender.customizeRenderText;
             let customText = customizeRenderText&&customizeRenderText({
                 ...filedProps,
@@ -79,11 +79,30 @@ class RenderColumn extends Component {
             return (
                 <div>
                     {
+                        forceRenderColumn?<span style={{'display':'none'}}>
+                        {
+                            React.cloneElement(customizeRender, {
+                                valueField: valueField,
+                                textAlign: textAlign,
+                                field: dataIndex,
+                                validate: validate,
+                                required: required,
+                                value: value,
+                                index:index,
+                                record:record,
+                                onChange: (field, v) => { this.props.onChange(index, dataIndex, v) },
+                                onValidate:onValidate,
+                                onRef:this.onRef,
+                                ...filedProps,
+                            })
+                        }
+                        </span>:''
+                    }
+                    {
                         disabled ?
                             <ToolTip overlay={text} inverse placement={placement}>
                                 <span className='u-edit-grid-cell'>{text}</span>
-                            </ToolTip>
-                            : <RenderCell type='refer' text={text} textAlign={textAlign}>
+                            </ToolTip>:<RenderCell type='refer' text={text} textAlign={textAlign}>
                                 {
                                     React.cloneElement(customizeRender, {
                                         valueField: valueField,

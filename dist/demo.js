@@ -93259,14 +93259,16 @@
 	var propTypes = {
 	    onChange: _propTypes2['default'].func, //数据改变回调
 	    clsfix: _propTypes2['default'].string,
-	    disabled: _propTypes2['default'].bool //是否可编辑
+	    disabled: _propTypes2['default'].bool, //是否可编辑
+	    forceRenderColumn: _propTypes2['default'].bool //强制renderColumn
 	};
 	
 	var defaultProps = {
 	    clsfix: 'u-edit-grid',
 	    data: [],
 	    columns: [],
-	    onChange: function onChange() {}
+	    onChange: function onChange() {},
+	    forceRenderColumn: false
 	};
 	
 	var EditGrid = function (_Component) {
@@ -93326,7 +93328,8 @@
 	                            customizeRender: item.customizeRender,
 	                            onValidate: _this.onValidate,
 	                            filedProps: item.filedProps,
-	                            record: record
+	                            record: record,
+	                            forceRenderColumn: _this.props.forceRenderColumn
 	                        });
 	                    };
 	                } else {
@@ -95292,6 +95295,7 @@
 	var propTypes = {
 	    onChange: _propTypes2['default'].func,
 	    filedProps: _propTypes2['default'].object //filed属性
+	
 	};
 	
 	var defaultProps = {
@@ -95333,6 +95337,10 @@
 	            _this.props.onChange(index, dataIndex, value);
 	        };
 	
+	        _this.onRef = function (ref) {
+	            _this.customizeRender = ref;
+	        };
+	
 	        _this.renderComp = function () {
 	            var _this$props2 = _this.props,
 	                type = _this$props2.type,
@@ -95355,27 +95363,21 @@
 	            var placement = 'left';
 	            if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
 	            if (customizeRender) {
-	                var customizeRenderText = customizeRender.type && customizeRender.type.customizeRenderText;
-	                var text = customizeRenderText ? customizeRenderText(_extends({}, filedProps, {
+	                var customizeRenderText = _this.customizeRender && _this.customizeRender.customizeRenderText;
+	                var customText = customizeRenderText && customizeRenderText(_extends({}, filedProps, {
 	                    value: value,
 	                    field: dataIndex,
 	                    record: record,
 	                    index: index
-	                })) : value;
+	                }));
+	                var text = value;
+	                if (customText) text = customText;
 	                return _react2['default'].createElement(
 	                    'div',
 	                    null,
-	                    disabled ? _react2['default'].createElement(
-	                        _beeTooltip2['default'],
-	                        { overlay: text, inverse: true, placement: placement },
-	                        _react2['default'].createElement(
-	                            'span',
-	                            { className: 'u-edit-grid-cell' },
-	                            text
-	                        )
-	                    ) : _react2['default'].createElement(
-	                        _RenderCell2['default'],
-	                        { type: 'refer', text: value, textAlign: textAlign },
+	                    forceRenderColumn ? _react2['default'].createElement(
+	                        'span',
+	                        { style: { 'display': 'none' } },
 	                        _react2['default'].cloneElement(customizeRender, _extends({
 	                            valueField: valueField,
 	                            textAlign: textAlign,
@@ -95388,7 +95390,35 @@
 	                            onChange: function onChange(field, v) {
 	                                _this.props.onChange(index, dataIndex, v);
 	                            },
-	                            onValidate: onValidate
+	                            onValidate: onValidate,
+	                            onRef: _this.onRef
+	                        }, filedProps))
+	                    ) : '',
+	                    disabled ? _react2['default'].createElement(
+	                        _beeTooltip2['default'],
+	                        { overlay: text, inverse: true, placement: placement },
+	                        _react2['default'].createElement(
+	                            'span',
+	                            { className: 'u-edit-grid-cell' },
+	                            text
+	                        )
+	                    ) : _react2['default'].createElement(
+	                        _RenderCell2['default'],
+	                        { type: 'refer', text: text, textAlign: textAlign },
+	                        _react2['default'].cloneElement(customizeRender, _extends({
+	                            valueField: valueField,
+	                            textAlign: textAlign,
+	                            field: dataIndex,
+	                            validate: validate,
+	                            required: required,
+	                            value: value,
+	                            index: index,
+	                            record: record,
+	                            onChange: function onChange(field, v) {
+	                                _this.props.onChange(index, dataIndex, v);
+	                            },
+	                            onValidate: onValidate,
+	                            onRef: _this.onRef
 	                        }, filedProps))
 	                    )
 	                );
@@ -95563,7 +95593,6 @@
 	        };
 	        return _this;
 	    }
-	
 	    /**
 	     * 渲染组件函数
 	     * @returns JSX
