@@ -1,3 +1,12 @@
+## [2.1.15](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.14...v2.1.15) (2020-06-15)
+
+
+### Bug Fixes
+
+* forceRenderColumn未定义 ([3578efe](https://github.com/tinper-bee/bee-complex-grid/commit/3578efe6d9d23c5008d5153a376c3ed6b3f9e688))
+
+
+
 ## [2.1.14](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.13...v2.1.14) (2020-06-08)
 
 
