@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var _beeTooltip = require('bee-tooltip');
 
 var _beeTooltip2 = _interopRequireDefault(_beeTooltip);
@@ -35,6 +39,10 @@ var RenderCell = function (_Component) {
                 setTimeout(function () {
                     var input = document.querySelector('.triangle-flag .u-form-control');
                     if (input) input.focus();
+                    var field = _reactDom2["default"].findDOMNode(_this.field);
+                    var fieldInput = field.querySelector('.u-form-control');
+                    console.log(fieldInput);
+                    if (fieldInput) fieldInput.focus && fieldInput.focus();
                 }, 0);
             }
             _this.setState({
