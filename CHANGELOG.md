@@ -1,3 +1,12 @@
+## [2.1.16](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.15...v2.1.16) (2020-06-16)
+
+
+### Features
+
+* customText 返回overlay和text ([6ffbd1d](https://github.com/tinper-bee/bee-complex-grid/commit/6ffbd1d63e7e3d64b66fa430e5d28411aacbf813))
+
+
+
 ## [2.1.15](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.14...v2.1.15) (2020-06-15)
 
 
