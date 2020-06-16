@@ -81,6 +81,7 @@ class RenderColumn extends Component {
                     text = customText.text;
                 }else{
                     text = customText;
+                    overlay = customText;
                 }
             }
             return (
@@ -109,7 +110,7 @@ class RenderColumn extends Component {
                         disabled ?
                             <ToolTip overlay={overlay} inverse placement={placement}>
                                 <span className='u-edit-grid-cell'>{text}</span>
-                            </ToolTip>:<RenderCell type='refer' text={text} textAlign={textAlign}>
+                            </ToolTip>:<RenderCell type='refer' text={overlay} textAlign={textAlign}>
                                 {
                                     React.cloneElement(customizeRender, {
                                         valueField: valueField,

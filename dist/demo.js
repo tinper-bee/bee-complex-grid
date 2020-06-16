@@ -95379,6 +95379,7 @@
 	                        text = customText.text;
 	                    } else {
 	                        text = customText;
+	                        overlay = customText;
 	                    }
 	                }
 	                return _react2['default'].createElement(
@@ -95413,7 +95414,7 @@
 	                        )
 	                    ) : _react2['default'].createElement(
 	                        _RenderCell2['default'],
-	                        { type: 'refer', text: text, textAlign: textAlign },
+	                        { type: 'refer', text: overlay, textAlign: textAlign },
 	                        _react2['default'].cloneElement(customizeRender, _extends({
 	                            valueField: valueField,
 	                            textAlign: textAlign,
@@ -98247,6 +98248,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactDom = __webpack_require__(2);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
 	var _beeTooltip = __webpack_require__(96);
 	
 	var _beeTooltip2 = _interopRequireDefault(_beeTooltip);
@@ -98274,6 +98279,9 @@
 	                setTimeout(function () {
 	                    var input = document.querySelector('.triangle-flag .u-form-control');
 	                    if (input) input.focus();
+	                    var field = _reactDom2['default'].findDOMNode(_this.field);
+	                    var fieldInput = field.querySelector('.u-form-control');
+	                    if (fieldInput) fieldInput.focus && fieldInput.focus();
 	                }, 0);
 	            }
 	            _this.setState({

@@ -41,7 +41,6 @@ var RenderCell = function (_Component) {
                     if (input) input.focus();
                     var field = _reactDom2["default"].findDOMNode(_this.field);
                     var fieldInput = field.querySelector('.u-form-control');
-                    console.log(fieldInput);
                     if (fieldInput) fieldInput.focus && fieldInput.focus();
                 }, 0);
             }
@@ -70,7 +69,7 @@ var RenderCell = function (_Component) {
                 if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
                 return _react2["default"].createElement(
                     _beeTooltip2["default"],
-                    { inverse: true, overlay: _this.props.text, placement: placement },
+                    { inverse: true, overlay: _this.props.overlay, placement: placement },
                     _react2["default"].createElement(
                         'span',
                         { className: 'u-edit-grid-cell ' + (_this.state.enter ? 'enter' : ''),
