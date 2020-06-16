@@ -1,3 +1,12 @@
+## [2.1.19](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.18...v2.1.19) (2020-06-16)
+
+
+### Bug Fixes
+
+* 编辑表格自定义renderoverlay问题 ([34a6c75](https://github.com/tinper-bee/bee-complex-grid/commit/34a6c75cd3ce30eb749c40fefd45484458eae1f8))
+
+
+
 ## [2.1.18](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.17...v2.1.18) (2020-06-16)
 
 
