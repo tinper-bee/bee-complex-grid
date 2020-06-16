@@ -95374,10 +95374,10 @@
 	                var text = value,
 	                    overlay = value;
 	                if (customText) {
-	                    if (customText.overlay) {
+	                    if (Object.prototype.toString.call(customText) == '[object Object]') {
 	                        overlay = customText.overlay;
 	                        text = customText.text;
-	                    } else {
+	                    } else if (Object.prototype.toString.call(customText) == '[object String]') {
 	                        text = customText;
 	                        overlay = customText;
 	                    }
@@ -95414,7 +95414,7 @@
 	                        )
 	                    ) : _react2['default'].createElement(
 	                        _RenderCell2['default'],
-	                        { type: 'refer', text: overlay, textAlign: textAlign },
+	                        { type: 'refer', overlay: overlay, text: text, textAlign: textAlign },
 	                        _react2['default'].cloneElement(customizeRender, _extends({
 	                            valueField: valueField,
 	                            textAlign: textAlign,
@@ -98304,18 +98304,22 @@
 	
 	        _this.renderSpan = function () {
 	            if (_this.state.visible && !_this.state.hasError) {
-	                var textAlign = _this.props.textAlign;
+	                var _this$props = _this.props,
+	                    textAlign = _this$props.textAlign,
+	                    overlay = _this$props.overlay,
+	                    text = _this$props.text;
+	
 	                var placement = 'left';
 	                if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
 	                return _react2['default'].createElement(
 	                    _beeTooltip2['default'],
-	                    { inverse: true, overlay: _this.props.text, placement: placement },
+	                    { inverse: true, overlay: overlay, placement: placement },
 	                    _react2['default'].createElement(
 	                        'span',
 	                        { className: 'u-edit-grid-cell ' + (_this.state.enter ? 'enter' : ''),
 	                            onMouseLeave: _this.onMouseLeave, onMouseEnter: _this.onMouseEnter,
 	                            onClick: _this.click },
-	                        _this.props.text
+	                        text
 	                    )
 	                );
 	            } else {

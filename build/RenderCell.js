@@ -64,18 +64,22 @@ var RenderCell = function (_Component) {
 
         _this.renderSpan = function () {
             if (_this.state.visible && !_this.state.hasError) {
-                var textAlign = _this.props.textAlign;
+                var _this$props = _this.props,
+                    textAlign = _this$props.textAlign,
+                    overlay = _this$props.overlay,
+                    text = _this$props.text;
+
                 var placement = 'left';
                 if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
                 return _react2["default"].createElement(
                     _beeTooltip2["default"],
-                    { inverse: true, overlay: _this.props.overlay, placement: placement },
+                    { inverse: true, overlay: overlay, placement: placement },
                     _react2["default"].createElement(
                         'span',
                         { className: 'u-edit-grid-cell ' + (_this.state.enter ? 'enter' : ''),
                             onMouseLeave: _this.onMouseLeave, onMouseEnter: _this.onMouseEnter,
                             onClick: _this.click },
-                        _this.props.text
+                        text
                     )
                 );
             } else {

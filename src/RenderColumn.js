@@ -76,10 +76,10 @@ class RenderColumn extends Component {
             });
             let text = value,overlay = value;
             if(customText){
-                if(customText.overlay){
+                if(Object.prototype.toString.call(customText)=='[object Object]'){
                     overlay = customText.overlay;
                     text = customText.text;
-                }else{
+                }else if(Object.prototype.toString.call(customText)=='[object String]'){
                     text = customText;
                     overlay = customText;
                 }
@@ -110,7 +110,7 @@ class RenderColumn extends Component {
                         disabled ?
                             <ToolTip overlay={overlay} inverse placement={placement}>
                                 <span className='u-edit-grid-cell'>{text}</span>
-                            </ToolTip>:<RenderCell type='refer' text={overlay} textAlign={textAlign}>
+                            </ToolTip>:<RenderCell type='refer' overlay={overlay} text={text} textAlign={textAlign}>
                                 {
                                     React.cloneElement(customizeRender, {
                                         valueField: valueField,

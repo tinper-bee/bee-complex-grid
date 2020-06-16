@@ -134,11 +134,12 @@ var RenderColumn = function (_Component) {
                 var text = value,
                     overlay = value;
                 if (customText) {
-                    if (customText.overlay) {
+                    if (Object.prototype.toString.call(customText) == '[object Object]') {
                         overlay = customText.overlay;
                         text = customText.text;
-                    } else {
+                    } else if (Object.prototype.toString.call(customText) == '[object String]') {
                         text = customText;
+                        overlay = customText;
                     }
                 }
                 return _react2["default"].createElement(
@@ -173,7 +174,7 @@ var RenderColumn = function (_Component) {
                         )
                     ) : _react2["default"].createElement(
                         _RenderCell2["default"],
-                        { type: 'refer', text: text, textAlign: textAlign },
+                        { type: 'refer', overlay: overlay, text: text, textAlign: textAlign },
                         _react2["default"].cloneElement(customizeRender, _extends({
                             valueField: valueField,
                             textAlign: textAlign,
