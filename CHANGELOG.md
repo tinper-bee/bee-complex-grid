@@ -1,3 +1,12 @@
+## [2.1.20](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.19...v2.1.20) (2020-06-16)
+
+
+### Bug Fixes
+
+* 编辑表格customText数据类型判断 ([dda19ef](https://github.com/tinper-bee/bee-complex-grid/commit/dda19ef20ff384acae02a446af80443c7789b49a))
+
+
+
 ## [2.1.19](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.18...v2.1.19) (2020-06-16)
 
 
