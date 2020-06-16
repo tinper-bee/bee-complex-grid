@@ -1,3 +1,7 @@
+## [2.1.17](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.16...v2.1.17) (2020-06-16)
+
+
+
 ## [2.1.16](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.15...v2.1.16) (2020-06-16)
 
 
