@@ -1,3 +1,12 @@
+## [2.1.18](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.17...v2.1.18) (2020-06-16)
+
+
+### Bug Fixes
+
+* 编辑表格自定义field focus问题 ([ba7ce6d](https://github.com/tinper-bee/bee-complex-grid/commit/ba7ce6de902c0c463409202be41b75e452bf27f8))
+
+
+
 ## [2.1.17](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.16...v2.1.17) (2020-06-16)
 
 
