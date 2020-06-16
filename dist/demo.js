@@ -95358,7 +95358,8 @@
 	                filedProps = _this$props2.filedProps,
 	                onValidate = _this$props2.onValidate,
 	                defaultValue = _this$props2.defaultValue,
-	                record = _this$props2.record;
+	                record = _this$props2.record,
+	                forceRenderColumn = _this$props2.forceRenderColumn;
 	
 	            var placement = 'left';
 	            if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -95370,8 +95371,16 @@
 	                    record: record,
 	                    index: index
 	                }));
-	                var text = value;
-	                if (customText) text = customText;
+	                var text = value,
+	                    overlay = value;
+	                if (customText) {
+	                    if (customText.overlay) {
+	                        overlay = customText.overlay;
+	                        text = customText.text;
+	                    } else {
+	                        text = customText;
+	                    }
+	                }
 	                return _react2['default'].createElement(
 	                    'div',
 	                    null,
@@ -95396,7 +95405,7 @@
 	                    ) : '',
 	                    disabled ? _react2['default'].createElement(
 	                        _beeTooltip2['default'],
-	                        { overlay: text, inverse: true, placement: placement },
+	                        { overlay: overlay, inverse: true, placement: placement },
 	                        _react2['default'].createElement(
 	                            'span',
 	                            { className: 'u-edit-grid-cell' },

@@ -74,8 +74,15 @@ class RenderColumn extends Component {
                 record,
                 index
             });
-            let text = value;
-            if(customText)text=customText;
+            let text = value,overlay = value;
+            if(customText){
+                if(customText.overlay){
+                    overlay = customText.overlay;
+                    text = customText.text;
+                }else{
+                    text = customText;
+                }
+            }
             return (
                 <div>
                     {
@@ -100,7 +107,7 @@ class RenderColumn extends Component {
                     }
                     {
                         disabled ?
-                            <ToolTip overlay={text} inverse placement={placement}>
+                            <ToolTip overlay={overlay} inverse placement={placement}>
                                 <span className='u-edit-grid-cell'>{text}</span>
                             </ToolTip>:<RenderCell type='refer' text={text} textAlign={textAlign}>
                                 {
