@@ -1,3 +1,12 @@
+## [2.1.21](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.20...v2.1.21) (2020-06-17)
+
+
+### Bug Fixes
+
+* 编辑表格抛出getSelectedDataFunc ([09170cd](https://github.com/tinper-bee/bee-complex-grid/commit/09170cdb45d226de20c8b1438163e61faaf2f088))
+
+
+
 ## [2.1.20](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.19...v2.1.20) (2020-06-16)
 
 
