@@ -156,7 +156,7 @@ class EditGrid extends Component {
     }
 
     //选中数据的回调
-    getSelectedDataFunc = (selectData) => {
+    getSelectedDataFunc = (selectData,a,b,c,d) => {
         let data = this.resetChecked(this.state.data)
         let selectDataIds = []
         selectData.forEach((item) => {
@@ -172,6 +172,7 @@ class EditGrid extends Component {
             data
         })
         this.props.onChange(data);
+        this.props.getSelectedDataFunc&&getSelectedDataFunc(selectData,a,b,c,d)
     }
 
     resetChecked = (dataValue) => {
