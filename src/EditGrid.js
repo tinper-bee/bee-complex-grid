@@ -172,7 +172,7 @@ class EditGrid extends Component {
             data
         })
         this.props.onChange(data);
-        this.props.getSelectedDataFunc&&getSelectedDataFunc(selectData,a,b,c,d)
+        this.props.getSelectedDataFunc&&this.props.getSelectedDataFunc(selectData,a,b,c,d)
     }
 
     resetChecked = (dataValue) => {
