@@ -1,3 +1,12 @@
+## [2.1.22](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.21...v2.1.22) (2020-06-17)
+
+
+### Bug Fixes
+
+* this.props.getSelectedDataFunc ([890a6b9](https://github.com/tinper-bee/bee-complex-grid/commit/890a6b9f2286da003cfb14a3cf3b33df3531ada5))
+
+
+
 ## [2.1.21](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.20...v2.1.21) (2020-06-17)
 
 
