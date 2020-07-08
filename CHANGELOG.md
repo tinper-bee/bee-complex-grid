@@ -1,3 +1,12 @@
+## [2.1.23](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.22...v2.1.23) (2020-07-08)
+
+
+### Bug Fixes
+
+* 排序+拖拽组合点击表头会触发排序问题修复 ([989f8b8](https://github.com/tinper-bee/bee-complex-grid/commit/989f8b8c4fd3903bfec990158c2c7f2314b4f1be))
+
+
+
 ## [2.1.22](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.21...v2.1.22) (2020-06-17)
 
 
