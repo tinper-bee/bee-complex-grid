@@ -7545,6 +7545,9 @@ input.u-button[type="submit"] {
 .uf-qingkong:before {
   content: "\e666"; }
 
+.uf-location:before {
+  content: "\e78b"; }
+
 .u-form-control {
   position: relative;
   display: inline-block;
@@ -7619,6 +7622,10 @@ input.u-button[type="submit"] {
     line-height: 0;
     right: 7px;
     color: rgba(0, 0, 0, 0.65); }
+  .u-form-control-affix-wrapper .u-form-control-suffix.has-close {
+    cursor: pointer;
+    right: 0;
+    padding-right: 7px; }
   .u-form-control-affix-wrapper .u-form-control-simple-prefix, .u-form-control-affix-wrapper .u-form-control-simple-suffix {
     position: absolute;
     top: 60%;
@@ -8649,6 +8656,9 @@ input.u-button[type="submit"] {
 .uf-qingkong:before {
   content: "\e666"; }
 
+.uf-location:before {
+  content: "\e78b"; }
+
 /* FormGroup */
 /*  Navlayout  */
 /* keyframes 定义 */
@@ -9557,6 +9567,17 @@ ul {
     bottom: 0;
     right: 0;
     background: transparent; }
+
+.u-select-nowarp {
+  overflow: hidden; }
+  .u-select-nowarp .u-select-selection-rendered {
+    display: -ms-flexbox;
+    display: flex;
+    white-space: nowrap; }
+    .u-select-nowarp .u-select-selection-rendered ul {
+      display: -ms-flexbox;
+      display: flex;
+      white-space: nowrap; }
 
 .u-pagination {
   font-size: 14px;
@@ -10936,6 +10957,17 @@ ul {
     right: 0;
     background: transparent; }
 
+.u-select-nowarp {
+  overflow: hidden; }
+  .u-select-nowarp .u-select-selection-rendered {
+    display: -ms-flexbox;
+    display: flex;
+    white-space: nowrap; }
+    .u-select-nowarp .u-select-selection-rendered ul {
+      display: -ms-flexbox;
+      display: flex;
+      white-space: nowrap; }
+
 /* FormGroup */
 /*  Navlayout  */
 .u-popover {
@@ -12263,6 +12295,9 @@ ul {
 .uf-qingkong:before {
   content: "\e666"; }
 
+.uf-location:before {
+  content: "\e78b"; }
+
 .u-form-control {
   position: relative;
   display: inline-block;
@@ -12337,6 +12372,10 @@ ul {
     line-height: 0;
     right: 7px;
     color: rgba(0, 0, 0, 0.65); }
+  .u-form-control-affix-wrapper .u-form-control-suffix.has-close {
+    cursor: pointer;
+    right: 0;
+    padding-right: 7px; }
   .u-form-control-affix-wrapper .u-form-control-simple-prefix, .u-form-control-affix-wrapper .u-form-control-simple-suffix {
     position: absolute;
     top: 60%;
@@ -13422,6 +13461,17 @@ ul {
     bottom: 0;
     right: 0;
     background: transparent; }
+
+.u-select-nowarp {
+  overflow: hidden; }
+  .u-select-nowarp .u-select-selection-rendered {
+    display: -ms-flexbox;
+    display: flex;
+    white-space: nowrap; }
+    .u-select-nowarp .u-select-selection-rendered ul {
+      display: -ms-flexbox;
+      display: flex;
+      white-space: nowrap; }
 
 /* FormGroup */
 /*  Navlayout  */
@@ -14550,6 +14600,9 @@ ul {
 .uf-qingkong:before {
   content: "\e666"; }
 
+.uf-location:before {
+  content: "\e78b"; }
+
 /* FormGroup */
 /*  Navlayout  */
 /* keyframes 定义 */
@@ -15458,6 +15511,17 @@ ul {
     bottom: 0;
     right: 0;
     background: transparent; }
+
+.u-select-nowarp {
+  overflow: hidden; }
+  .u-select-nowarp .u-select-selection-rendered {
+    display: -ms-flexbox;
+    display: flex;
+    white-space: nowrap; }
+    .u-select-nowarp .u-select-selection-rendered ul {
+      display: -ms-flexbox;
+      display: flex;
+      white-space: nowrap; }
 
 .u-pagination {
   font-size: 14px;

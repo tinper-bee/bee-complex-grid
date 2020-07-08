@@ -343,7 +343,7 @@ class Grid extends Component {
     /**
      * 后端获取数据
      */
-    sortFun = sortParam => {
+    sortFun = (sortParam,newData,oldData) => {
         let sortObj = {};
         sortParam.forEach(item => {
             sortObj[item.field] = item;
@@ -357,10 +357,9 @@ class Grid extends Component {
                 da.orderNum = "";
             }
         });
-
         //将参数传递给后端排序
         if (typeof this.sort.originSortFun == "function") {
-            this.sort.originSortFun(sortParam, this.columns);
+            this.sort.originSortFun(sortParam, this.columns,newData,oldData);
         }
     };
     /**

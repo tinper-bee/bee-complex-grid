@@ -14,10 +14,10 @@ const column = [
       className:'dfasd',
       width: 200,
       sorter: (pre, after) => {return pre.a.localeCompare(after.a)} ,
-      sorterClick:(data,type)=>{//排序的回调函数
-        //type value is up or down
-        console.log("data",data);
-      },
+      // sorterClick:(data,type)=>{//排序的回调函数
+      //   //type value is up or down
+      //   console.log("data",data);
+      // },
       filterType: "text"
     },
     {
@@ -26,11 +26,11 @@ const column = [
       key: "c",
       width: 200,
       sumCol: true,
-      sorter: (pre, after) => {return pre.c - after.c},
-      sorterClick:(data,type)=>{//排序的回调函数
-        //type value is up or down
-        console.log("data",data);
-      },
+      // sorter: (pre, after) => {return pre.c - after.c},
+      // sorterClick:(data,type)=>{//排序的回调函数
+      //   //type value is up or down
+      //   console.log("data",data);
+      // },
       filterType: "number"
     },
     {
@@ -39,7 +39,7 @@ const column = [
       key: "e",
       width: 200,
       sumCol: true,
-      sorter: (pre, after) => {return pre.e - after.e},
+      // sorter: (pre, after) => {return pre.e - after.e},
       filterType: "text"
     },
     {
@@ -61,6 +61,9 @@ const column = [
 class Demo2 extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      data:dataList
+    }
   }
 
   getSelectedDataFunc = (selectedList,record,index,newData) => {
@@ -84,9 +87,10 @@ class Demo2 extends Component {
   /**
    * 后端获取数据
    */
-  sortFun = (sortParam)=>{
-    console.info(sortParam);
-    //将参数传递给后端排序
+  sortFun = (sortParam,columns,newData,oldData)=>{
+    this.setState({
+      data:newData
+    })
   }
   render() {
     let paginationObj = {
@@ -96,8 +100,6 @@ class Demo2 extends Component {
       horizontalPosition: 'center'
     }
     let sortObj = {
-        mode:'multiple',
-        // backSource:true,
         sortFun:this.sortFun
     }
     
@@ -106,7 +108,7 @@ class Demo2 extends Component {
          <Grid
           className="demo"
           columns={column}
-          data={dataList}
+          data={this.state.data}
           // multiSelect={false}
           getSelectedDataFunc={this.getSelectedDataFunc}
           selectedRow={this.selectedRow}
