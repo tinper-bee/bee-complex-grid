@@ -177,7 +177,7 @@ var EditGrid = function (_Component) {
             });
         };
 
-        _this.getSelectedDataFunc = function (selectData) {
+        _this.getSelectedDataFunc = function (selectData, a, b, c, d) {
             var data = _this.resetChecked(_this.state.data);
             var selectDataIds = [];
             selectData.forEach(function (item) {
@@ -193,6 +193,7 @@ var EditGrid = function (_Component) {
                 data: data
             });
             _this.props.onChange(data);
+            _this.props.getSelectedDataFunc && _this.props.getSelectedDataFunc(selectData, a, b, c, d);
         };
 
         _this.resetChecked = function (dataValue) {

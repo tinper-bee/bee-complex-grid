@@ -120,7 +120,7 @@ var defaultProps = {
     afterRowLock: function afterRowLock() {} //表头锁定解锁的回调函数
 };
 
-var defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
+var defualtPaginationParam = { horizontalPosition: "center", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
 
 var Grid = function (_Component) {
     _inherits(Grid, _Component);
@@ -558,7 +558,7 @@ var _initialiseProps = function _initialiseProps() {
         }
     };
 
-    this.sortFun = function (sortParam) {
+    this.sortFun = function (sortParam, newData, oldData) {
         var sortObj = {};
         sortParam.forEach(function (item) {
             sortObj[item.field] = item;
@@ -572,10 +572,9 @@ var _initialiseProps = function _initialiseProps() {
                 da.orderNum = "";
             }
         });
-
         //将参数传递给后端排序
         if (typeof _this4.sort.originSortFun == "function") {
-            _this4.sort.originSortFun(sortParam, _this4.columns);
+            _this4.sort.originSortFun(sortParam, _this4.columns, newData, oldData);
         }
     };
 

@@ -48,7 +48,7 @@ const defaultProps = {
     afterRowLock:()=>{},//表头锁定解锁的回调函数
 };
 
-const defualtPaginationParam = { horizontalPosition: "left", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
+const defualtPaginationParam = { horizontalPosition: "center", verticalPosition: 'bottom', showJump: true, first: true, prev: true, last: true, next: true, maxButtons: 5 };
 
 class Grid extends Component {
     constructor(props) {

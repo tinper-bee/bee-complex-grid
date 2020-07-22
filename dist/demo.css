@@ -7648,6 +7648,10 @@ input.u-button[type="submit"] {
 .u-form-control-close:hover .uf-close-c {
   opacity: 1; }
 
+.u-form-control.rc-textarea {
+  min-height: 32px;
+  transition: all .3s,height 0s; }
+
 /* FormGroup */
 /*  Navlayout  */
 /* FormGroup */
@@ -12397,6 +12401,10 @@ ul {
 
 .u-form-control-close:hover .uf-close-c {
   opacity: 1; }
+
+.u-form-control.rc-textarea {
+  min-height: 32px;
+  transition: all .3s,height 0s; }
 
 /* FormGroup */
 /*  Navlayout  */
@@ -17842,7 +17850,7 @@ ul {
     display: none; }
   .u-table ::-webkit-scrollbar-track-piece {
     display: none; }
-  .u-table .row-dragg-able {
+  .u-table .drag-handle-column, .u-table .row-dragg-able {
     cursor: move; }
   .u-table .u-table-drag-hidden-cont {
     width: 100px;
