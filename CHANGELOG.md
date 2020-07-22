@@ -1,3 +1,35 @@
+# [2.2.0](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.5...v2.2.0) (2020-07-22)
+
+
+### Bug Fixes
+
+* forceRenderColumn未定义 ([3578efe](https://github.com/tinper-bee/bee-complex-grid/commit/3578efe6d9d23c5008d5153a376c3ed6b3f9e688))
+* record=record ([d75e271](https://github.com/tinper-bee/bee-complex-grid/commit/d75e271b6cc09f7c8467313d11351f99eed08f87))
+* this.props.getSelectedDataFunc ([890a6b9](https://github.com/tinper-bee/bee-complex-grid/commit/890a6b9f2286da003cfb14a3cf3b33df3531ada5))
+* 排序+拖拽组合点击表头会触发排序问题修复 ([989f8b8](https://github.com/tinper-bee/bee-complex-grid/commit/989f8b8c4fd3903bfec990158c2c7f2314b4f1be))
+* 编辑表格customText数据类型判断 ([dda19ef](https://github.com/tinper-bee/bee-complex-grid/commit/dda19ef20ff384acae02a446af80443c7789b49a))
+* 编辑表格抛出getSelectedDataFunc ([09170cd](https://github.com/tinper-bee/bee-complex-grid/commit/09170cdb45d226de20c8b1438163e61faaf2f088))
+* 编辑表格自定义field focus问题 ([ba7ce6d](https://github.com/tinper-bee/bee-complex-grid/commit/ba7ce6de902c0c463409202be41b75e452bf27f8))
+* 编辑表格自定义renderoverlay问题 ([34a6c75](https://github.com/tinper-bee/bee-complex-grid/commit/34a6c75cd3ce30eb749c40fefd45484458eae1f8))
+* 自动化 ([52dbfa4](https://github.com/tinper-bee/bee-complex-grid/commit/52dbfa429756d7e67f9ad1b7d4bd52be9dca3a25))
+* 适配初始item内没有数据的情况 ([4cedc4a](https://github.com/tinper-bee/bee-complex-grid/commit/4cedc4ac89d70e7eeb57738f4c9a94883b3c0c6f))
+
+
+### Features
+
+* customizeRenderText ([f8b5a0b](https://github.com/tinper-bee/bee-complex-grid/commit/f8b5a0b105295447618c6aeb7423be8718483bac))
+* customText 返回overlay和text ([6ffbd1d](https://github.com/tinper-bee/bee-complex-grid/commit/6ffbd1d63e7e3d64b66fa430e5d28411aacbf813))
+* forceRenderColumn ([ffc1d9f](https://github.com/tinper-bee/bee-complex-grid/commit/ffc1d9f2a83b8710735c7f0f7885b9d8bc19e8d2))
+* 分页默认居中显示 ([44ac35f](https://github.com/tinper-bee/bee-complex-grid/commit/44ac35ff9e4d3425f82772abfaea72248ee3e2dc))
+* 文档地址 ([e134dbc](https://github.com/tinper-bee/bee-complex-grid/commit/e134dbc4af7d7468ca53a94221692f8d1afb1c4c))
+* 新增表头锁定解锁的回调函数 ([ec79b6d](https://github.com/tinper-bee/bee-complex-grid/commit/ec79b6ddf3c60b75f499e1f645436b80c82112a5))
+* 编辑表格customizeRender的时候,自定义渲染text ([129332c](https://github.com/tinper-bee/bee-complex-grid/commit/129332c3ed1e2d485a36d57c068f776da93ee299))
+* 编辑表格onChang新增改变的单元格数据e ([a58f3c6](https://github.com/tinper-bee/bee-complex-grid/commit/a58f3c60cac7212ae05325375b99d1a47b9851cd))
+* 编辑表格更新 ([747be03](https://github.com/tinper-bee/bee-complex-grid/commit/747be0388373ed4869cbd7420d82632988e8ec79))
+* 编辑表格自定义renderText ([3f6e2ae](https://github.com/tinper-bee/bee-complex-grid/commit/3f6e2ae2443165fafdf867b928c225692f28601a))
+
+
+
 ## [2.1.23](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.22...v2.1.23) (2020-07-08)
 
 
