@@ -1,3 +1,12 @@
+## [2.2.1](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.0...v2.2.1) (2020-07-30)
+
+
+### Bug Fixes
+
+* 更新组件paginationObj时候加判断优化 ([1bb8f26](https://github.com/tinper-bee/bee-complex-grid/commit/1bb8f2691b5041fbbb6ac4bfbab4ac143ac5eaf0))
+
+
+
 # [2.2.0](https://github.com/tinper-bee/bee-complex-grid/compare/v2.1.5...v2.2.0) (2020-07-22)
 
 
