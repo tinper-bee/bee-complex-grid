@@ -6008,6 +6008,7 @@ a, .mdl-accordion, .mdl-button, .mdl-card, .mdl-checkbox, .mdl-dropdown-menu,
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
+  font-size: 14px;
   overflow: hidden;
   will-change: box-shadow, transform;
   outline: none;
@@ -18396,8 +18397,8 @@ ul {
 .u-grid th:last-child.column-number-right {
   padding-right: 34px; }
 
-.u-grid th:last-child .cansort.drop-menu {
-  width: calc(100% - 55px) !important; }
+.u-grid th:last-child > span:first-child {
+  width: calc(100% - 58px) !important; }
 
 .u-grid th .bee-table-column-sorter {
   margin-left: 0px; }

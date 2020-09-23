@@ -51,9 +51,12 @@ $icon-color:#505F79;
             &.column-number-right{
                 padding-right: 34px;
             }
-            .cansort.drop-menu {
-                width: calc(100% - 55px) !important;
+            // .cansort.drop-menu {
+            //     width: calc(100% - 55px) !important;
             
+            // }
+            > span:first-child {
+                width: calc(100% - 58px) !important;
             }
         }
         .bee-table-column-sorter {
