@@ -1,3 +1,12 @@
+## [2.2.2](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.1...v2.2.2) (2020-09-23)
+
+
+### Bug Fixes
+
+* 最后一列排序按钮样式 ([756d6ca](https://github.com/tinper-bee/bee-complex-grid/commit/756d6ca215513b5974848310d7d1a887d0249cae))
+
+
+
 ## [2.2.1](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.0...v2.2.1) (2020-07-30)
 
 
