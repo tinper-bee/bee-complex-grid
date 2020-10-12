@@ -120,13 +120,12 @@ class Grid extends Component {
         const { renderFlag, selectedRowIndex } = this.state;
         //分页
         if (nextProps.paginationObj && nextProps.paginationObj !== 'none') {
-            let { activePage,total,items,dataNum } = nextProps.paginationObj;
-            let obj = {}
-            if(activePage!=this.state.activePage)obj.activePage=activePage;
-            if(total!=this.state.total)obj.total=total;
-            if(items!=this.state.pageItems)obj.pageItems=items;
-            if(dataNum!=this.state.dataNum)obj.activePage=dataNum;
-            this.setState(obj);
+            this.setState({
+                activePage: nextProps.paginationObj.activePage,
+                total: nextProps.paginationObj.total,
+                pageItems: nextProps.paginationObj.items,
+                dataNum: nextProps.paginationObj.dataNum
+            });
         }
         if (nextProps.columns && nextProps.columns !== this.columns) {
             let newColumns = [],
