@@ -1,3 +1,12 @@
+## [2.2.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.2...v2.2.3) (2020-10-12)
+
+
+### Bug Fixes
+
+* 分页 activePage不准备 ([af75dde](https://github.com/tinper-bee/bee-complex-grid/commit/af75dde6d8e648772f9176cc14861ce45050d2f5))
+
+
+
 ## [2.2.2](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.1...v2.2.2) (2020-09-23)
 
 
