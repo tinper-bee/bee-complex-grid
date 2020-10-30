@@ -1,3 +1,12 @@
+## [2.2.4](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.3...v2.2.4) (2020-10-30)
+
+
+### Bug Fixes
+
+* 更改package.json版本 ([cb5234d](https://github.com/tinper-bee/bee-complex-grid/commit/cb5234d05bd08baf345748fe5984d2b0fe835946))
+
+
+
 ## [2.2.3](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.2...v2.2.3) (2020-10-12)
 
 
