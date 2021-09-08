@@ -1,3 +1,12 @@
+## [2.2.5](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.4...v2.2.5) (2021-09-08)
+
+
+### Bug Fixes
+
+* 固定一些包的版本 ([971268b](https://github.com/tinper-bee/bee-complex-grid/commit/971268bd1a31d7332e2775d82cf105fd31682165))
+
+
+
 ## [2.2.4](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.3...v2.2.4) (2020-10-30)
 
 
