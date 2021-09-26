@@ -1,3 +1,12 @@
+## [2.2.6](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.5...v2.2.6) (2021-09-26)
+
+
+### Bug Fixes
+
+* 修改bee-table的依赖 ([8a54472](https://github.com/tinper-bee/bee-complex-grid/commit/8a544722bf2354025726a94e19533902ee454cf4))
+
+
+
 ## [2.2.5](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.4...v2.2.5) (2021-09-08)
 
 
