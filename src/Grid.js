@@ -211,7 +211,8 @@ class Grid extends Component {
     handleSelectPage = eventKey => {
         let { paginationObj = {} } = this.props;
         this.setState({
-            activePage: eventKey
+            activePage: eventKey,
+            selectedRowIndex: ''
         });
         paginationObj.freshData && paginationObj.freshData(eventKey);
     };
