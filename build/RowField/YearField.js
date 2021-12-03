@@ -24,11 +24,9 @@ var _FieldWrap = require('./FieldWrap');
 
 var _FieldWrap2 = _interopRequireDefault(_FieldWrap);
 
-var _beeDatepicker = require('bee-datepicker');
+var _nextUi = require('@tinper/next-ui');
 
-var _beeDatepicker2 = _interopRequireDefault(_beeDatepicker);
-
-var _zh_CN = require('bee-datepicker/build/locale/zh_CN');
+var _zh_CN = require('@tinper/next-ui/lib/wui-datepicker/src/locale/zh_CN');
 
 var _zh_CN2 = _interopRequireDefault(_zh_CN);
 
@@ -55,12 +53,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //验证组件 https://www.npmjs.com/package/async-validator
 
 //日期组件
+// import DatePicker from 'bee-datepicker';
 
 //本地化日期
+// import zhCN from 'bee-datepicker/build/locale/zh_CN'
 
 
 //变量结构
-var YearPicker = _beeDatepicker2["default"].YearPicker;
+var YearPicker = _nextUi.DatePicker.YearPicker;
 
 //类型校验
 

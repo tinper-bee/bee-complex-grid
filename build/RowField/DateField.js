@@ -20,11 +20,9 @@ var _asyncValidator = require('async-validator');
 
 var _asyncValidator2 = _interopRequireDefault(_asyncValidator);
 
-var _beeDatepicker = require('bee-datepicker');
+var _nextUi = require('@tinper/next-ui');
 
-var _beeDatepicker2 = _interopRequireDefault(_beeDatepicker);
-
-var _zh_CN = require('bee-datepicker/build/locale/zh_CN');
+var _zh_CN = require('@tinper/next-ui/lib/wui-datepicker/src/locale/zh_CN');
 
 var _zh_CN2 = _interopRequireDefault(_zh_CN);
 
@@ -58,6 +56,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //日期组件
 
 //本地化日期
+// import zhCN from 'bee-datepicker/build/locale/zh_CN'
 
 
 //类型校验
@@ -196,7 +195,7 @@ var DateField = function (_Component) {
                 message: message,
                 flag: flag
             },
-            _react2["default"].createElement(_beeDatepicker2["default"], {
+            _react2["default"].createElement(_nextUi.DatePicker, {
                 className: className,
                 value: value,
                 onChange: this.handlerChange,

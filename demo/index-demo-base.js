@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Con, Row, Col } from 'bee-layout';
-import { Panel } from 'bee-panel';
-import Drawer from 'bee-drawer';
-import Clipboard from 'bee-clipboard'; 
+import { Drawer, Clipboard, Collapse, Row, Col } from '@tinper/next-ui';
 import Button from '../src';
+const { Panel } = Collapse
 
 
 
@@ -37,12 +35,12 @@ class Demo extends Component {
             </div>
         );
         return (
-            <Col md={12} id={title.trim()} className='component-demo'>
+            <Col md={24} id={title.trim()} className='component-demo'>
             <Panel header={header}>
                 {example}
             </Panel>
            
-            <Drawer className='component-drawerc' title={title} show={this.state.open} placement='right' onClose={this.fCloseDrawer}>
+            <Drawer style={{position: 'fixed'}} className='component-drawerc' title={title} show={this.state.open} placement='right' onClose={this.fCloseDrawer}>
             <div className='component-code-copy'> JS代码 
                 <Clipboard action="copy" text={code}/>
             </div>

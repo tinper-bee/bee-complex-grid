@@ -8,13 +8,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _beeIcon = require('bee-icon');
-
-var _beeIcon2 = _interopRequireDefault(_beeIcon);
-
-var _beeTooltip = require('bee-tooltip');
-
-var _beeTooltip2 = _interopRequireDefault(_beeTooltip);
+var _nextUi = require('@tinper/next-ui');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -56,18 +50,18 @@ var FieldWrap = function (_Component) {
                 'div',
                 { className: 'triangle-icon' },
                 _react2["default"].createElement(
-                    _beeTooltip2["default"],
+                    _nextUi.Tooltip,
                     {
                         className: 'inline-edit-tooltip',
                         placement: 'bottom',
                         overlay: _react2["default"].createElement(
                             'div',
                             null,
-                            _react2["default"].createElement(_beeIcon2["default"], { type: 'uf-exc-t-o' }),
+                            _react2["default"].createElement(_nextUi.Icon, { type: 'uf-exc-t-o' }),
                             message
                         )
                     },
-                    _react2["default"].createElement(_beeIcon2["default"], { type: 'uf-exc-t-o' })
+                    _react2["default"].createElement(_nextUi.Icon, { type: 'uf-exc-t-o' })
                 )
             ) : null,
             flag ? _react2["default"].createElement(

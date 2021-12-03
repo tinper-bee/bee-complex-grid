@@ -16,9 +16,7 @@ var _asyncValidator = require('async-validator');
 
 var _asyncValidator2 = _interopRequireDefault(_asyncValidator);
 
-var _beeFormControl = require('bee-form-control');
-
-var _beeFormControl2 = _interopRequireDefault(_beeFormControl);
+var _nextUi = require('@tinper/next-ui');
 
 var _FieldWrap = require('./FieldWrap');
 
@@ -45,6 +43,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //验证组件 https://www.npmjs.com/package/async-validator
 
 //Tinper-bee
+// import FormControl from 'bee-form-control';
 
 
 //类型校验
@@ -193,7 +192,7 @@ var TextField = function (_Component) {
                 message: pattern ? patternMessage : message,
                 flag: flag
             },
-            _react2["default"].createElement(_beeFormControl2["default"], {
+            _react2["default"].createElement(_nextUi.Input, {
                 className: className + ' triangle-element',
                 value: value,
                 onChange: this.handlerChange,

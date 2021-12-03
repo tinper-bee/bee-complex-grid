@@ -8,9 +8,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _beeInputNumber = require('bee-input-number');
-
-var _beeInputNumber2 = _interopRequireDefault(_beeInputNumber);
+var _nextUi = require('@tinper/next-ui');
 
 var _propTypes = require('prop-types');
 
@@ -35,6 +33,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } //React导入
+
+// import InputNumber from 'bee-input-number';
 
 //类型校验
 
@@ -243,7 +243,7 @@ var NumberField = function (_Component) {
                 message: message,
                 flag: flag
             },
-            _react2["default"].createElement(_beeInputNumber2["default"], {
+            _react2["default"].createElement(_nextUi.InputNumber, {
                 prefixCls: 'ac-input-number',
                 className: className,
                 value: value,

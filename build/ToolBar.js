@@ -10,21 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _beeButton = require('bee-button');
-
-var _beeButton2 = _interopRequireDefault(_beeButton);
-
-var _beeIcon = require('bee-icon');
-
-var _beeIcon2 = _interopRequireDefault(_beeIcon);
-
-var _beeMenus = require('bee-menus');
-
-var _beeMenus2 = _interopRequireDefault(_beeMenus);
-
-var _beeDropdown = require('bee-dropdown');
-
-var _beeDropdown2 = _interopRequireDefault(_beeDropdown);
+var _nextUi = require('@tinper/next-ui');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -35,8 +21,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+// import Button from 'bee-button';
+// import Icon from 'bee-icon';
+// import Menu from 'bee-menus';
+// import Dropdown from 'bee-dropdown';
 
-var Item = _beeMenus2["default"].Item;
+
+var Item = _nextUi.Menu.Item;
 
 var defaultProps = {
     toolBtns: [],
@@ -70,12 +61,12 @@ var ToolBar = function (_Component) {
                     Item,
                     { key: index },
                     ' ',
-                    item.iconType && _react2["default"].createElement(_beeIcon2["default"], { type: item.iconType }),
+                    item.iconType && _react2["default"].createElement(_nextUi.Icon, { type: item.iconType }),
                     item.value
                 );
             });
             menu = _react2["default"].createElement(
-                _beeMenus2["default"],
+                _nextUi.Menu,
                 {
                     onSelect: function onSelect(key) {
                         return _this.onDropDownMenuSelect(key, dropBtn);
@@ -86,19 +77,19 @@ var ToolBar = function (_Component) {
                 'div',
                 { className: 'dropdown-btn' },
                 _react2["default"].createElement(
-                    _beeDropdown2["default"],
+                    _nextUi.Dropdown,
                     {
                         trigger: ['hover'],
                         overlay: menu,
                         animation: 'slide-up'
                     },
                     _react2["default"].createElement(
-                        _beeButton2["default"],
+                        _nextUi.Button,
                         {
                             bordered: _this.props.btnBordered,
                             size: _this.props.btnSize },
                         dropBtn.value,
-                        _react2["default"].createElement(_beeIcon2["default"], { type: 'uf-anglearrowdown' })
+                        _react2["default"].createElement(_nextUi.Icon, { type: 'uf-anglearrowdown' })
                     )
                 )
             );
@@ -126,9 +117,9 @@ var ToolBar = function (_Component) {
                     btn = _this.getDropDownBtn(item);
                 } else {
                     btn = _react2["default"].createElement(
-                        _beeButton2["default"],
+                        _nextUi.Button,
                         _extends({ size: btnSize, bordered: btnBordered }, item, { className: className }),
-                        item.iconType && _react2["default"].createElement(_beeIcon2["default"], { type: item.iconType }),
+                        item.iconType && _react2["default"].createElement(_nextUi.Icon, { type: item.iconType }),
                         item.value
                     );
                 }

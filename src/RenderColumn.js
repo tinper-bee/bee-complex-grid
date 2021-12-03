@@ -7,7 +7,9 @@ import SelectField from './RowField/SelectField';
 import DateField from './RowField/DateField';
 import YearField from './RowField/YearField';
 import RenderCell from './RenderCell';
-import ToolTip from 'bee-tooltip';
+// import ToolTip from 'bee-tooltip';
+import { Tooltip } from '@tinper/next-ui'
+const prefix = 'wui'
 
 const propTypes = {
     onChange: PropTypes.func,
@@ -108,9 +110,9 @@ class RenderColumn extends Component {
                     }
                     {
                         disabled ?
-                            <ToolTip overlay={overlay} inverse placement={placement}>
-                                <span className='u-edit-grid-cell'>{text}</span>
-                            </ToolTip>:<RenderCell type='refer' overlay={overlay} text={text} textAlign={textAlign}>
+                            <Tooltip overlay={overlay} inverse placement={placement}>
+                                <span className={`${prefix}-edit-grid-cell`}>{text}</span>
+                            </Tooltip>:<RenderCell type='refer' overlay={overlay} text={text} textAlign={textAlign}>
                                 {
                                     React.cloneElement(customizeRender, {
                                         valueField: valueField,
@@ -136,9 +138,9 @@ class RenderColumn extends Component {
                     return (<div>
                         {
                             disabled ?
-                                <ToolTip overlay={value} inverse placement={placement}>
-                                    <span className='u-edit-grid-cell'>{value}</span>
-                                </ToolTip>
+                                <Tooltip overlay={value} inverse placement={placement}>
+                                    <span className={`${prefix}-edit-grid-cell`}>{value}</span>
+                                </Tooltip>
                                 : <RenderCell text={value} textAlign={textAlign}>
                                     <NumberField
                                         textAlign={textAlign}
@@ -161,9 +163,9 @@ class RenderColumn extends Component {
                     return (<div>
                         {
                             disabled ?
-                                <ToolTip overlay={value} inverse placement={placement}>
-                                    <span className='u-edit-grid-cell'>{value}</span>
-                                </ToolTip>
+                                <Tooltip overlay={value} inverse placement={placement}>
+                                    <span className={`${prefix}-edit-grid-cell`}>{value}</span>
+                                </Tooltip>
                                 : <RenderCell text={value} textAlign={textAlign}>
                                     <TextField
                                         textAlign={textAlign}
@@ -187,9 +189,9 @@ class RenderColumn extends Component {
                     return (<div>
                         {
                             disabled ?
-                                <ToolTip inverse placement={placement} overlay={this.getValue(value)}>
-                                    <span className='u-edit-grid-cell'>{this.getValue(value)}</span>
-                                </ToolTip>
+                                <Tooltip inverse placement={placement} overlay={this.getValue(value)}>
+                                    <span className={`${prefix}-edit-grid-cell`}>{this.getValue(value)}</span>
+                                </Tooltip>
                                 : <RenderCell text={this.getValue(value)} textAlign={textAlign}>
                                     <SelectField
                                         textAlign={textAlign}
@@ -212,9 +214,9 @@ class RenderColumn extends Component {
                     return (<div>
                         {
                             disabled ?
-                                <ToolTip overlay={value} inverse placement={placement}>
-                                    <span className='u-edit-grid-cell'>{value}</span>
-                                </ToolTip>
+                                <Tooltip overlay={value} inverse placement={placement}>
+                                    <span className={`${prefix}-edit-grid-cell`}>{value}</span>
+                                </Tooltip>
                                 : <RenderCell text={value} textAlign={textAlign}>
                                     <DateField
                                         textAlign={textAlign}
@@ -237,9 +239,9 @@ class RenderColumn extends Component {
                     return (<div>
                         {
                             disabled ?
-                                <ToolTip overlay={value} inverse placement={placement}>
-                                    <span className='u-edit-grid-cell'>{value}</span>
-                                </ToolTip>
+                                <Tooltip overlay={value} inverse placement={placement}>
+                                    <span className={`${prefix}-edit-grid-cell`}>{value}</span>
+                                </Tooltip>
                                 : <RenderCell text={value} textAlign={textAlign}>
                                     <YearField
                                         textAlign={textAlign}

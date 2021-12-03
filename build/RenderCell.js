@@ -12,9 +12,7 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _beeTooltip = require('bee-tooltip');
-
-var _beeTooltip2 = _interopRequireDefault(_beeTooltip);
+var _nextUi = require('@tinper/next-ui');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -25,6 +23,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+// import ToolTip from 'bee-tooltip'
+
+
+var prefix = 'wui';
 
 var RenderCell = function (_Component) {
     _inherits(RenderCell, _Component);
@@ -72,11 +74,11 @@ var RenderCell = function (_Component) {
                 var placement = 'left';
                 if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
                 return _react2["default"].createElement(
-                    _beeTooltip2["default"],
+                    _nextUi.Tooltip,
                     { inverse: true, overlay: overlay, placement: placement },
                     _react2["default"].createElement(
                         'span',
-                        { className: 'u-edit-grid-cell ' + (_this.state.enter ? 'enter' : ''),
+                        { className: prefix + '-edit-grid-cell ' + (_this.state.enter ? 'enter' : ''),
                             onMouseLeave: _this.onMouseLeave, onMouseEnter: _this.onMouseEnter,
                             onClick: _this.click },
                         text

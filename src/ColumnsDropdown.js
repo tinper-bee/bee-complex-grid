@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Menu from "bee-menus";
-import Dropdown from "bee-dropdown";
-import Icon from "bee-icon";
+// import Menu from "bee-menus";
+// import Dropdown from "bee-dropdown";
+// import Icon from "bee-icon";
+import {Menu, Dropdown, Icon } from '@tinper/next-ui'
 
 const { Item } = Menu;
 

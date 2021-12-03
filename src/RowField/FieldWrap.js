@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Icon from 'bee-icon';
-import Tooltip from 'bee-tooltip';
+import { Icon, Tooltip } from '@tinper/next-ui'
 
 class FieldWrap extends Component {
     render () {

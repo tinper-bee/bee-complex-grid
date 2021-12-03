@@ -1,6 +1,7 @@
 //React导入
 import React, { Component } from 'react';
-import InputNumber from 'bee-input-number';
+// import InputNumber from 'bee-input-number';
+import { InputNumber } from '@tinper/next-ui';
 //类型校验
 import PropTypes from 'prop-types';
 //验证组件 https://www.npmjs.com/package/async-validator

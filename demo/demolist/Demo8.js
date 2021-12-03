@@ -5,7 +5,8 @@
  */
 import React, { Component } from "react";
 import Grid from '../../src';
-import Button from 'bee-button'
+// import Button from 'bee-button'
+import { Button } from '@tinper/next-ui';
 
 const EditGrid = Grid.EditGrid;
 
@@ -155,7 +156,7 @@ const dataList = [
     }
 ];
 
-class Demo1 extends Component {
+class Demo8 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -242,4 +243,4 @@ class Demo1 extends Component {
 }
 
 
-export default Demo1;
+export default Demo8;

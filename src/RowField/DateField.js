@@ -12,9 +12,10 @@ import moment from 'moment';
 import schema from 'async-validator';
 
 //日期组件
-import DatePicker from "bee-datepicker";
+import { DatePicker } from '@tinper/next-ui';
 //本地化日期
-import zhCN from 'bee-datepicker/build/locale/zh_CN'
+// import zhCN from 'bee-datepicker/build/locale/zh_CN'
+import zhCN from '@tinper/next-ui/lib/wui-datepicker/src/locale/zh_CN'
 
 import FieldWrap from './FieldWrap'
 

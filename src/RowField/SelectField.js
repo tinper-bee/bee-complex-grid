@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import schema from 'async-validator';
 import FieldWrap from './FieldWrap'
 //下拉组件
-import Select from 'bee-select'
+// import Select from 'bee-select'
+import { Select } from '@tinper/next-ui'
 
 
 

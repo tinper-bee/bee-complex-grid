@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 //验证组件 https://www.npmjs.com/package/async-validator
 import schema from 'async-validator';
 //Tinper-bee
-import FormControl from 'bee-form-control';
+// import FormControl from 'bee-form-control';
+import { Input } from '@tinper/next-ui'
 import FieldWrap from './FieldWrap'
 
 //类型校验
@@ -126,7 +127,7 @@ class TextField extends Component {
                 message={pattern ? patternMessage : message}
                 flag={flag}
             >
-                <FormControl
+                <Input
                     className={`${className} triangle-element`}
                     value={value}
                     onChange={this.handlerChange}

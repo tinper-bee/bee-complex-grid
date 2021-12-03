@@ -20,9 +20,7 @@ var _FieldWrap = require('./FieldWrap');
 
 var _FieldWrap2 = _interopRequireDefault(_FieldWrap);
 
-var _beeSelect = require('bee-select');
-
-var _beeSelect2 = _interopRequireDefault(_beeSelect);
+var _nextUi = require('@tinper/next-ui');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -45,6 +43,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //验证组件 https://www.npmjs.com/package/async-validator
 
 //下拉组件
+// import Select from 'bee-select'
 
 
 //类型校验
@@ -183,7 +182,7 @@ var SelectField = function (_Component) {
                 message: message,
                 flag: flag
             },
-            _react2["default"].createElement(_beeSelect2["default"], {
+            _react2["default"].createElement(_nextUi.Select, {
                 className: className,
                 value: value,
                 onChange: this.handlerChange,

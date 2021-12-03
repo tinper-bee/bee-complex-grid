@@ -5,22 +5,12 @@ import classNames from "classnames";
 import ExportJsonExcel from "./ExportExcel";
 import ColumnsDropdown from './ColumnsDropdown';
 
-import Table from "bee-table";
-import multiSelect from "bee-table/build/lib/multiSelect";
-import filterColumn from "bee-table/build/lib/filterColumn";
-import dragColumn from "bee-table/build/lib/dragColumn";
-import sort from "bee-table/build/lib/sort";
-import sum from "bee-table/build/lib/sum";
-import bigData from "bee-table/build/lib/bigData";
-import singleSelect from "bee-table/build/lib/singleSelect";
-import Icon from "bee-icon";
-import Checkbox from "bee-checkbox";
-import Popover from "bee-popover";
-import Pagination from "bee-pagination";
-import Radio from "bee-radio";
+import { Pagination, Popover, Checkbox, Icon, Radio, Table } from '@tinper/next-ui'
+const { multiSelect, filterColumn, dragColumn, sort, sum, bigData, singleSelect } = Table
 
 import i18n from "./i18n";
-import { getComponentLocale } from "bee-locale/build/tool";
+// import { getComponentLocale } from "bee-locale/build/tool";
+import { getComponentLocale } from "@tinper/next-ui/lib/wui-locale/src/tool"
 
 const propTypes = {
     showHeaderMenu: PropTypes.bool,
@@ -211,8 +201,7 @@ class Grid extends Component {
     handleSelectPage = eventKey => {
         let { paginationObj = {} } = this.props;
         this.setState({
-            activePage: eventKey,
-            selectedRowIndex: ''
+            activePage: eventKey
         });
         paginationObj.freshData && paginationObj.freshData(eventKey);
     };
@@ -563,7 +552,7 @@ class Grid extends Component {
             columns = this.renderColumnsDropdown(columns);
         }
         return (
-            <div className={classNames("u-grid", props.className)}>
+            <div className={classNames("wui-grid", props.className)}>
                 {verticalPosition == "top" && (
                     <Pagination
                         {...paginationParam}

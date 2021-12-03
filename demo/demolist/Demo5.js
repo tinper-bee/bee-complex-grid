@@ -67,7 +67,7 @@ const column = [
 ];
 
 
-class Demo1 extends Component {
+class Demo5 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -227,4 +227,4 @@ class Demo1 extends Component {
     );
   }
 }
-export default Demo1;
+export default Demo5;

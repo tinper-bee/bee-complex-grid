@@ -1,7 +1,9 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ToolTip from 'bee-tooltip'
+// import ToolTip from 'bee-tooltip'
+import { Tooltip } from '@tinper/next-ui'
+const prefix = 'wui'
 
 class RenderCell extends Component {
     constructor(props){
@@ -46,11 +48,11 @@ class RenderCell extends Component {
             let placement = 'left';
             if(textAlign)placement=textAlign=='center'?'bottom':textAlign;
             return (
-                <ToolTip inverse overlay={overlay} placement={placement}>
-                    <span className={`u-edit-grid-cell ${this.state.enter?'enter':''}`} 
+                <Tooltip inverse overlay={overlay} placement={placement}>
+                    <span className={`${prefix}-edit-grid-cell ${this.state.enter?'enter':''}`} 
                     onMouseLeave={this.onMouseLeave} onMouseEnter={this.onMouseEnter} 
                     onClick={this.click}>{text}</span>
-                </ToolTip> 
+                </Tooltip> 
             )
         }else{
             return React.cloneElement(this.props.children,{

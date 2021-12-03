@@ -12,17 +12,7 @@ var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _beeMenus = require("bee-menus");
-
-var _beeMenus2 = _interopRequireDefault(_beeMenus);
-
-var _beeDropdown = require("bee-dropdown");
-
-var _beeDropdown2 = _interopRequireDefault(_beeDropdown);
-
-var _beeIcon = require("bee-icon");
-
-var _beeIcon2 = _interopRequireDefault(_beeIcon);
+var _nextUi = require("@tinper/next-ui");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -33,8 +23,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+// import Menu from "bee-menus";
+// import Dropdown from "bee-dropdown";
+// import Icon from "bee-icon";
 
-var Item = _beeMenus2["default"].Item;
+
+var Item = _nextUi.Menu.Item;
 
 var ColumnsDropdown = function (_Component) {
   _inherits(ColumnsDropdown, _Component);
@@ -126,7 +120,7 @@ var ColumnsDropdown = function (_Component) {
       });
     }
     var menu = _react2["default"].createElement(
-      _beeMenus2["default"],
+      _nextUi.Menu,
       {
         onSelect: this.onMenuSelect,
         selectedKeys: [],
@@ -152,7 +146,7 @@ var ColumnsDropdown = function (_Component) {
         originColumn.title
       ),
       _react2["default"].createElement(
-        _beeDropdown2["default"],
+        _nextUi.Dropdown,
         {
           trigger: ["click"]
           // onVisibleChange={this.onVisibleChange}
@@ -163,7 +157,7 @@ var ColumnsDropdown = function (_Component) {
           overlayClassName: 'grid-menu',
           rootClose: true
         },
-        _react2["default"].createElement(_beeIcon2["default"], { type: icon, "data-key": originColumn.key, "data-role": "menuBtn" })
+        _react2["default"].createElement(_nextUi.Icon, { type: icon, "data-key": originColumn.key, "data-role": "menuBtn" })
       )
     );
   };

@@ -26,63 +26,13 @@ var _ColumnsDropdown = require("./ColumnsDropdown");
 
 var _ColumnsDropdown2 = _interopRequireDefault(_ColumnsDropdown);
 
-var _beeTable = require("bee-table");
-
-var _beeTable2 = _interopRequireDefault(_beeTable);
-
-var _multiSelect = require("bee-table/build/lib/multiSelect");
-
-var _multiSelect2 = _interopRequireDefault(_multiSelect);
-
-var _filterColumn = require("bee-table/build/lib/filterColumn");
-
-var _filterColumn2 = _interopRequireDefault(_filterColumn);
-
-var _dragColumn = require("bee-table/build/lib/dragColumn");
-
-var _dragColumn2 = _interopRequireDefault(_dragColumn);
-
-var _sort = require("bee-table/build/lib/sort");
-
-var _sort2 = _interopRequireDefault(_sort);
-
-var _sum = require("bee-table/build/lib/sum");
-
-var _sum2 = _interopRequireDefault(_sum);
-
-var _bigData = require("bee-table/build/lib/bigData");
-
-var _bigData2 = _interopRequireDefault(_bigData);
-
-var _singleSelect = require("bee-table/build/lib/singleSelect");
-
-var _singleSelect2 = _interopRequireDefault(_singleSelect);
-
-var _beeIcon = require("bee-icon");
-
-var _beeIcon2 = _interopRequireDefault(_beeIcon);
-
-var _beeCheckbox = require("bee-checkbox");
-
-var _beeCheckbox2 = _interopRequireDefault(_beeCheckbox);
-
-var _beePopover = require("bee-popover");
-
-var _beePopover2 = _interopRequireDefault(_beePopover);
-
-var _beePagination = require("bee-pagination");
-
-var _beePagination2 = _interopRequireDefault(_beePagination);
-
-var _beeRadio = require("bee-radio");
-
-var _beeRadio2 = _interopRequireDefault(_beeRadio);
+var _nextUi = require("@tinper/next-ui");
 
 var _i18n = require("./i18n");
 
 var _i18n2 = _interopRequireDefault(_i18n);
 
-var _tool = require("bee-locale/build/tool");
+var _tool = require("@tinper/next-ui/lib/wui-locale/src/tool");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -93,6 +43,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+
+var multiSelect = _nextUi.Table.multiSelect,
+    filterColumn = _nextUi.Table.filterColumn,
+    dragColumn = _nextUi.Table.dragColumn,
+    sort = _nextUi.Table.sort,
+    sum = _nextUi.Table.sum,
+    bigData = _nextUi.Table.bigData,
+    singleSelect = _nextUi.Table.singleSelect;
+// import { getComponentLocale } from "bee-locale/build/tool";
 
 var propTypes = {
     showHeaderMenu: _propTypes2["default"].bool,
@@ -146,7 +105,7 @@ var Grid = function (_Component) {
             selectedRowIndex: props.selectedRowIndex || ''
         };
         _this.selectType = 'none'; // 标识单选/多选/无选择列
-        _this.ComplexTable = _this.constructGrid(_beeTable2["default"]);
+        _this.ComplexTable = _this.constructGrid(_nextUi.Table);
         return _this;
     }
 
@@ -361,8 +320,8 @@ var Grid = function (_Component) {
         }
         return _react2["default"].createElement(
             "div",
-            { className: (0, _classnames2["default"])("u-grid", props.className) },
-            verticalPosition == "top" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+            { className: (0, _classnames2["default"])("wui-grid", props.className) },
+            verticalPosition == "top" && _react2["default"].createElement(_nextUi.Pagination, _extends({}, paginationParam, {
                 className: horizontalPosition,
 
                 boundaryLinks: true,
@@ -382,7 +341,7 @@ var Grid = function (_Component) {
                 selectedRowIndex: selectedRowIndex,
                 getSelectedDataFunc: this.selectType === 'single' ? this.getSingleSelectedDataFunc : this.getMultiSelectedDataFunc
             })),
-            verticalPosition == "bottom" && _react2["default"].createElement(_beePagination2["default"], _extends({}, paginationParam, {
+            verticalPosition == "bottom" && _react2["default"].createElement(_nextUi.Pagination, _extends({}, paginationParam, {
                 className: horizontalPosition,
                 boundaryLinks: true,
                 activePage: this.state.activePage,
@@ -406,7 +365,7 @@ var _initialiseProps = function _initialiseProps() {
         var ComplexTable = basicTable;
         // 大数据渲染
         if (props.loadLazy) {
-            ComplexTable = (0, _bigData2["default"])(ComplexTable);
+            ComplexTable = bigData(ComplexTable);
         }
         //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
         if (sortObj) {
@@ -416,32 +375,32 @@ var _initialiseProps = function _initialiseProps() {
         }
         // 合计
         if (props.canSum) {
-            ComplexTable = (0, _sum2["default"])(ComplexTable);
+            ComplexTable = sum(ComplexTable);
         }
         //根据条件生成Grid
-        ComplexTable = (0, _sort2["default"])(ComplexTable, _beeIcon2["default"]);
+        ComplexTable = sort(ComplexTable, _nextUi.Icon);
 
         // 1、type: "checkbox" 多选  2、type: "radio" 单选
         if (Object.prototype.toString.call(props.multiSelect) === '[object Object]' && 'type' in props.multiSelect) {
             if (props.multiSelect.type === "checkbox") {
                 //多选
-                ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+                ComplexTable = multiSelect(ComplexTable, _nextUi.Checkbox);
                 _this4.selectType = "multiple";
             } else if (props.multiSelect.type === "radio") {
                 //单选
-                ComplexTable = (0, _singleSelect2["default"])(ComplexTable, _beeRadio2["default"]);
+                ComplexTable = singleSelect(ComplexTable, _nextUi.Radio);
                 _this4.selectType = "single";
             }
         } else if (typeof props.multiSelect === 'boolean' && !!props.multiSelect) {
             //兼容老版本，设置 true 为多选。
-            ComplexTable = (0, _multiSelect2["default"])(ComplexTable, _beeCheckbox2["default"]);
+            ComplexTable = multiSelect(ComplexTable, _nextUi.Checkbox);
         }
         // 拖拽
         if (props.draggable) {
-            ComplexTable = (0, _dragColumn2["default"])(ComplexTable);
+            ComplexTable = dragColumn(ComplexTable);
         }
         // 过滤
-        ComplexTable = (0, _filterColumn2["default"])(ComplexTable, _beePopover2["default"]);
+        ComplexTable = filterColumn(ComplexTable, _nextUi.Popover);
         return ComplexTable;
     };
 

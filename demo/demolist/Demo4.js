@@ -4,7 +4,7 @@
  *
  */
 import React, { Component } from "react";
-import Button from 'bee-button';
+import { Button } from '@tinper/next-ui';
 import Grid from "../../src";
 const columns = [
     {

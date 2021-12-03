@@ -1,18 +1,8 @@
-@import "../node_modules/tinper-bee-core/scss/minxin-variables";
-@import "../node_modules/tinper-bee-core/scss/minxin-mixins";
-@import "../node_modules/bee-form-control/src/FormControl.scss";
-@import "../node_modules/bee-checkbox/src/Checkbox.scss";
-@import "../node_modules/bee-select/src/Select.scss";
-@import "../node_modules/bee-popover/src/Popover.scss";
-@import  "../node_modules/bee-pagination/src/Pagination.scss";
-@import "../node_modules/bee-dropdown/src/Dropdown.scss";
-@import "../node_modules/bee-menus/src/Menu.scss";
-@import "../node_modules/bee-table/src/Table.scss";
-@import "../node_modules/bee-radio/src/Radio.scss";
+$prefix: 'wui';
 $icon-color:#505F79;
-.u-grid{
+.#{$prefix}-grid{
     th{
-        &.u-table-expand-icon-th {
+        &.#{$prefix}-table-expand-icon-th {
             width: 43px;
         }
         .drop-menu{
@@ -59,7 +49,7 @@ $icon-color:#505F79;
                 width: calc(100% - 58px) !important;
             }
         }
-        .bee-table-column-sorter {
+        .#{$prefix}-table-column-sorter {
             margin-left: 0px;
             // margin-top:4px;
             i{
@@ -67,7 +57,7 @@ $icon-color:#505F79;
             }
         }
         
-        .bee-table-column-sorter>.bee-table-column-sorter-up {
+        .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-up {
             width: auto;
         }
         &:hover{
@@ -83,7 +73,7 @@ $icon-color:#505F79;
           }
           
     }
-    .u-table-fixed-left {
+    .#{$prefix}-table-fixed-left {
         th{
             &:last-child{
                 .cansort.drop-menu {
@@ -94,14 +84,14 @@ $icon-color:#505F79;
         }
        
     }
-    .u-pagination {
+    .#{$prefix}-pagination {
         
         overflow: hidden;
         margin-bottom: 8px;
-        .u-pagination-list{
+        .#{$prefix}-pagination-list{
             margin-left: 0px;
         }
-        .data_per_select .u-select {
+        .data_per_select .#{$prefix}-select {
             width: 60px;
         }
         &.center{
@@ -116,7 +106,7 @@ $icon-color:#505F79;
     } 
 }
 
-.u-table-filter-column-pop-cont-item{
+.#{$prefix}-table-filter-column-pop-cont-item{
     .drop-menu{
         .uf{
             visibility: hidden;
@@ -126,27 +116,27 @@ $icon-color:#505F79;
 
 
 
-.u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-down, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-flat, .u-table-thead th .bee-table-column-sorter>.bee-table-column-sorter-up {
+.#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-down, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-flat, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-up {
     width:auto !important;
 }
 // 菜单在模态框中使用隐藏问题
-.u-dropdown.grid-menu{
+.#{$prefix}-dropdown.grid-menu{
     z-index: 1800;
 }
 // todo
-.u-table-thead th .bee-table-column-sorter{
+.#{$prefix}-table-thead th .#{$prefix}-table-column-sorter{
     margin-top: 0px;
 }
 // toolbar
 .grid-toolbar{
     padding: 7px 12px 7px 4px;
-    .u-button{
+    .#{$prefix}-button{
         margin-left: 8px;
     }
     .dropdown-btn{
         display: inline-block;
     }
-    .toolbar-btn-icon.u-button{
+    .toolbar-btn-icon.#{$prefix}-button{
         width: 26px;
         min-width: 0px;
         height: 26px;
@@ -157,15 +147,15 @@ $icon-color:#505F79;
         }
     }
 
-    .u-button:not(.u-button-icon) i.uf {
+    .#{$prefix}-button:not(.wui-button-icon) i.uf {
         vertical-align: middle;
         font-size: 14px;
     }
 }
-.u-dropdown-menu{
+.#{$prefix}-dropdown-menu{
     padding-top: 3px;
     padding-bottom: 8px;
-    > .u-dropdown-menu-item {
+    > .#{$prefix}-dropdown-menu-item {
         line-height: 26px;
         height: 26px;
         padding-left: 12px;
@@ -175,20 +165,20 @@ $icon-color:#505F79;
 
 // 过滤列
 #filter_column_popover{
-    .u-table-filter-column-pop-cont-item .drop-menu .uf{
+    .#{$prefix}-table-filter-column-pop-cont-item .drop-menu .uf{
         display: none;
     }
-    &.u-popover {
+    &.#{$prefix}-popover {
         z-index: 1701;
     }
 }
 // fix:电脑设置屏幕显示百分比为 125% 后，Grid 固定列错位
-.u-table .u-table-multiSelect-column {
+.#{$prefix}-table .#{$prefix}-table-multiSelect-column {
     min-width: 49px;
 }
 // 编辑表格样式
-.u-edit-grid{
-    .u-table tr td {
+.#{$prefix}-edit-grid{
+    .#{$prefix}-table tr td {
         // 行编辑错误提示
         .triangle-flag {
             position: relative;
@@ -244,10 +234,10 @@ $icon-color:#505F79;
         }
     }
 
-    .u-table .u-table-tbody tr td {
+    .#{$prefix}-table .#{$prefix}-table-tbody tr td {
         padding: 0;
         padding-left: 12px;
-        .u-edit-grid-cell {
+        .#{$prefix}-edit-grid-cell {
             display: block;
             width: 100%;
             height: 30px;

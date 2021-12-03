@@ -5,7 +5,8 @@ import Grid from "./Grid";
 import cloneDeep from 'lodash.clonedeep';
 import isequal from 'lodash.isequal';
 import RenderColumn from './RenderColumn';
-import Tooltip from 'bee-tooltip';
+// import Tooltip from 'bee-tooltip';
+import { Tooltip } from '@tinper/next-ui'
 
 const propTypes = {
     onChange: PropTypes.func,//数据改变回调
@@ -15,7 +16,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-    clsfix: 'u-edit-grid',
+    clsfix: 'wui-edit-grid',
     data: [],
     columns: [],
     onChange: () => { },
@@ -193,7 +194,7 @@ class EditGrid extends Component {
             <Grid
                 height={40}
                 {...otherProps}
-                className={classNames("u-edit-grid", className)}
+                className={classNames("wui-edit-grid", className)}
                 noReplaceColumns={true}
                 columns={columns}
                 data={data}
