@@ -1,3 +1,13 @@
+## [2.2.8](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.7...v2.2.8) (2021-12-06)
+
+
+### Bug Fixes
+
+* package文件修改 ([28658ad](https://github.com/tinper-bee/bee-complex-grid/commit/28658adb2a58ea270994ebe111924383082b6c12))
+* tinper组件升级 ([e1c937c](https://github.com/tinper-bee/bee-complex-grid/commit/e1c937c7dfc79c45c68ce27046c93d6be7a9e4bc))
+
+
+
 ## [2.2.7](https://github.com/tinper-bee/bee-complex-grid/compare/v2.2.6...v2.2.7) (2021-11-12)
 
 
