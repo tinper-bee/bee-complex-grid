@@ -454,7 +454,8 @@ var _initialiseProps = function _initialiseProps() {
             paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj;
 
         _this4.setState({
-            activePage: eventKey
+            activePage: eventKey,
+            selectedRowIndex: ''
         });
         paginationObj.freshData && paginationObj.freshData(eventKey);
     };
