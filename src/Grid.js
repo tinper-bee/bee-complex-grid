@@ -9,8 +9,9 @@ import { Pagination, Popover, Checkbox, Icon, Radio, Table } from '@tinper/next-
 const { multiSelect, filterColumn, dragColumn, sort, sum, bigData, singleSelect } = Table
 
 import i18n from "./i18n";
+import { getLangInfo } from './utils'
 // import { getComponentLocale } from "bee-locale/build/tool";
-import { getComponentLocale } from "@tinper/next-ui/lib/wui-locale/src/tool"
+// import { getComponentLocale } from "@tinper/next-ui/lib/wui-locale/src/tool"
 
 const propTypes = {
     showHeaderMenu: PropTypes.bool,
@@ -30,7 +31,7 @@ const defaultProps = {
     showHeaderMenu: true,
     data: [],
     exportData: [],
-    locale: {},
+    locale: 'zh-cn',
     paginationObj: {},
     sheetName: "sheet", //导出表格的name
     sheetIsRowFilter: false, //是否要设置行样式，是否遍历
@@ -54,6 +55,7 @@ class Grid extends Component {
             showMenuKey: '',
             selectedRowIndex: props.selectedRowIndex || ''
         };
+        this.local = i18n
         this.selectType = 'none'; // 标识单选/多选/无选择列
         this.ComplexTable = this.constructGrid(Table);
     }
@@ -288,7 +290,7 @@ class Grid extends Component {
      * 渲染表头下拉菜单（过滤、隐藏）
      * @param {Array} columns 表格列数组
      */
-    renderColumnsDropdown(columns) {
+    renderColumnsDropdown = (columns) => {
         const icon = "uf-arrow-down";
         const { showFilterMenu, columnFilterAble } = this.props;
         const { filterable } = this.state;
@@ -527,12 +529,13 @@ class Grid extends Component {
         const ComplexTable = this.ComplexTable;
         let { sort = {}, paginationObj, toolBar = {} } = props;
         let paginationParam, verticalPosition, horizontalPosition;
-        this.local = getComponentLocale(
-            this.props,
-            this.context,
-            "Grid",
-            () => i18n
-        );
+        // this.local = getComponentLocale(
+        //     this.props,
+        //     this.context,
+        //     "Grid",
+        //     () => i18n
+        // );
+        this.local = getLangInfo(this.props.locale, i18n)
         if (paginationObj !== 'none') {
             paginationParam = { ...defualtPaginationParam, ...paginationObj }
             verticalPosition = paginationParam.verticalPosition;

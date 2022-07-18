@@ -32,7 +32,7 @@ var _i18n = require("./i18n");
 
 var _i18n2 = _interopRequireDefault(_i18n);
 
-var _tool = require("@tinper/next-ui/lib/wui-locale/src/tool");
+var _utils = require("./utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -51,7 +51,9 @@ var multiSelect = _nextUi.Table.multiSelect,
     sum = _nextUi.Table.sum,
     bigData = _nextUi.Table.bigData,
     singleSelect = _nextUi.Table.singleSelect;
+
 // import { getComponentLocale } from "bee-locale/build/tool";
+// import { getComponentLocale } from "@tinper/next-ui/lib/wui-locale/src/tool"
 
 var propTypes = {
     showHeaderMenu: _propTypes2["default"].bool,
@@ -71,7 +73,7 @@ var defaultProps = {
     showHeaderMenu: true,
     data: [],
     exportData: [],
-    locale: {},
+    locale: 'zh-cn',
     paginationObj: {},
     sheetName: "sheet", //导出表格的name
     sheetIsRowFilter: false, //是否要设置行样式，是否遍历
@@ -104,6 +106,7 @@ var Grid = function (_Component) {
             showMenuKey: '',
             selectedRowIndex: props.selectedRowIndex || ''
         };
+        _this.local = _i18n2["default"];
         _this.selectType = 'none'; // 标识单选/多选/无选择列
         _this.ComplexTable = _this.constructGrid(_nextUi.Table);
         return _this;
@@ -221,26 +224,7 @@ var Grid = function (_Component) {
      * 渲染表头下拉菜单（过滤、隐藏）
      * @param {Array} columns 表格列数组
      */
-    Grid.prototype.renderColumnsDropdown = function renderColumnsDropdown(columns) {
-        var _this3 = this;
 
-        var icon = "uf-arrow-down";
-        var _props = this.props,
-            showFilterMenu = _props.showFilterMenu,
-            columnFilterAble = _props.columnFilterAble;
-        var filterable = this.state.filterable;
-
-        return columns.map(function (originColumn, index, arr) {
-            var column = _extends({}, originColumn);
-            column.hasHeaderMenu = true;
-            column.title = _react2["default"].createElement(_ColumnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu,
-                onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble,
-                filterable: filterable
-            });
-
-            return column;
-        });
-    };
 
     /**
      * 表头menu和表格整体过滤时有冲突，因此添加了回调函数
@@ -294,9 +278,13 @@ var Grid = function (_Component) {
         var paginationParam = void 0,
             verticalPosition = void 0,
             horizontalPosition = void 0;
-        this.local = (0, _tool.getComponentLocale)(this.props, this.context, "Grid", function () {
-            return _i18n2["default"];
-        });
+        // this.local = getComponentLocale(
+        //     this.props,
+        //     this.context,
+        //     "Grid",
+        //     () => i18n
+        // );
+        this.local = (0, _utils.getLangInfo)(this.props.locale, _i18n2["default"]);
         if (paginationObj !== 'none') {
             paginationParam = _extends({}, defualtPaginationParam, paginationObj);
             verticalPosition = paginationParam.verticalPosition;
@@ -356,10 +344,10 @@ var Grid = function (_Component) {
 }(_react.Component);
 
 var _initialiseProps = function _initialiseProps() {
-    var _this4 = this;
+    var _this3 = this;
 
     this.constructGrid = function (basicTable) {
-        var props = _this4.props;
+        var props = _this3.props;
         var sortObj = props.sort;
 
         var ComplexTable = basicTable;
@@ -370,8 +358,8 @@ var _initialiseProps = function _initialiseProps() {
         //后端回调方法，用户的sortFun和Grid的有时有冲突，所以重新定义了一个sort，传给Table
         if (sortObj) {
             sortObj.originSortFun = sortObj.originSortFun ? sortObj.originSortFun : sortObj.sortFun;
-            sortObj.sortFun = _this4.sortFun;
-            _this4.sort = sortObj;
+            sortObj.sortFun = _this3.sortFun;
+            _this3.sort = sortObj;
         }
         // 合计
         if (props.canSum) {
@@ -385,11 +373,11 @@ var _initialiseProps = function _initialiseProps() {
             if (props.multiSelect.type === "checkbox") {
                 //多选
                 ComplexTable = multiSelect(ComplexTable, _nextUi.Checkbox);
-                _this4.selectType = "multiple";
+                _this3.selectType = "multiple";
             } else if (props.multiSelect.type === "radio") {
                 //单选
                 ComplexTable = singleSelect(ComplexTable, _nextUi.Radio);
-                _this4.selectType = "single";
+                _this3.selectType = "single";
             }
         } else if (typeof props.multiSelect === 'boolean' && !!props.multiSelect) {
             //兼容老版本，设置 true 为多选。
@@ -409,10 +397,10 @@ var _initialiseProps = function _initialiseProps() {
     });
 
     this.handleSelectPage = function (eventKey) {
-        var _props$paginationObj = _this4.props.paginationObj,
+        var _props$paginationObj = _this3.props.paginationObj,
             paginationObj = _props$paginationObj === undefined ? {} : _props$paginationObj;
 
-        _this4.setState({
+        _this3.setState({
             activePage: eventKey
         });
         paginationObj.freshData && paginationObj.freshData(eventKey);
@@ -453,19 +441,19 @@ var _initialiseProps = function _initialiseProps() {
     this.onMenuSelect = function (_ref) {
         var key = _ref.key,
             item = _ref.item;
-        var _state3 = _this4.state,
+        var _state3 = _this3.state,
             filterable = _state3.filterable,
             renderFlag = _state3.renderFlag;
-        var _props2 = _this4.props,
-            checkMinSize = _props2.checkMinSize,
-            afterRowLock = _props2.afterRowLock;
+        var _props = _this3.props,
+            checkMinSize = _props.checkMinSize,
+            afterRowLock = _props.afterRowLock;
 
         var fieldKey = item.props.data.fieldKey;
         var sum = 0;
         if (key !== 'rowFilter') {
             //显示原则跟table组件同步，至少有一个非固定列显示
 
-            _this4.columns.forEach(function (da) {
+            _this3.columns.forEach(function (da) {
                 !da.fixed && da.ifshow !== false ? sum++ : "";
             });
         }
@@ -473,30 +461,49 @@ var _initialiseProps = function _initialiseProps() {
             if (sum <= 1 && !item.props.data.fixed) {
                 return;
             }
-            _this4.columns = _this4.optFixCols(_this4.columns, fieldKey);
-            afterRowLock(fieldKey, !item.props.data.fixed, _this4.columns);
-            _this4.setState({
+            _this3.columns = _this3.optFixCols(_this3.columns, fieldKey);
+            afterRowLock(fieldKey, !item.props.data.fixed, _this3.columns);
+            _this3.setState({
                 renderFlag: !renderFlag
             });
         } else if (key == "show") {
             if (sum < checkMinSize || sum <= 1) {
                 return;
             }
-            _this4.columns = _this4.optShowCols(_this4.columns, fieldKey);
-            _this4.setState({
+            _this3.columns = _this3.optShowCols(_this3.columns, fieldKey);
+            _this3.setState({
                 renderFlag: !renderFlag
             });
         } else {
-            if (typeof _this4.props.afterRowFilter == "function") {
-                _this4.props.afterRowFilter(!filterable);
+            if (typeof _this3.props.afterRowFilter == "function") {
+                _this3.props.afterRowFilter(!filterable);
             }
-            _this4.setState({ filterable: !filterable });
+            _this3.setState({ filterable: !filterable });
         }
+    };
+
+    this.renderColumnsDropdown = function (columns) {
+        var icon = "uf-arrow-down";
+        var _props2 = _this3.props,
+            showFilterMenu = _props2.showFilterMenu,
+            columnFilterAble = _props2.columnFilterAble;
+        var filterable = _this3.state.filterable;
+
+        return columns.map(function (originColumn, index, arr) {
+            var column = _extends({}, originColumn);
+            column.hasHeaderMenu = true;
+            column.title = _react2["default"].createElement(_ColumnsDropdown2["default"], { originColumn: originColumn, local: _this3.local, showFilterMenu: showFilterMenu,
+                onMenuSelect: _this3.onMenuSelect, allColumns: arr, columnFilterAble: columnFilterAble,
+                filterable: filterable
+            });
+
+            return column;
+        });
     };
 
     this.afterFilter = function (optData, columns) {
         if (Array.isArray(optData)) {
-            _this4.columns.forEach(function (da) {
+            _this3.columns.forEach(function (da) {
                 optData.forEach(function (optItem) {
                     if (da.key == optItem.key) {
                         da.ifshow = optItem.ifshow;
@@ -505,15 +512,15 @@ var _initialiseProps = function _initialiseProps() {
                 });
             });
         } else {
-            _this4.columns.find(function (da) {
+            _this3.columns.find(function (da) {
                 if (da.key == optData.key) {
                     da.ifshow = optData.ifshow;
                 }
             });
         }
 
-        if (typeof _this4.props.afterFilter == "function") {
-            _this4.props.afterFilter(optData, _this4.columns);
+        if (typeof _this3.props.afterFilter == "function") {
+            _this3.props.afterFilter(optData, _this3.columns);
         }
     };
 
@@ -522,7 +529,7 @@ var _initialiseProps = function _initialiseProps() {
         sortParam.forEach(function (item) {
             sortObj[item.field] = item;
         });
-        _this4.columns.forEach(function (da) {
+        _this3.columns.forEach(function (da) {
             //保存返回的column状态，没有则终止order状态
             if (sortObj[da.dataIndex]) {
                 da = _extends(da, sortObj[da.dataIndex]);
@@ -532,38 +539,38 @@ var _initialiseProps = function _initialiseProps() {
             }
         });
         //将参数传递给后端排序
-        if (typeof _this4.sort.originSortFun == "function") {
-            _this4.sort.originSortFun(sortParam, _this4.columns, newData, oldData);
+        if (typeof _this3.sort.originSortFun == "function") {
+            _this3.sort.originSortFun(sortParam, _this3.columns, newData, oldData);
         }
     };
 
     this.dragDrop = function (event, data, columns) {
         columns.forEach(function (item, index) {
-            if (_this4.columns[index].dataIndex !== item.dataIndex) {
+            if (_this3.columns[index].dataIndex !== item.dataIndex) {
                 var curIndex = -1;
-                for (var nextIndex = 0; nextIndex < _this4.columns.length; nextIndex++) {
-                    if (_this4.columns[nextIndex].dataIndex == item.dataIndex) {
+                for (var nextIndex = 0; nextIndex < _this3.columns.length; nextIndex++) {
+                    if (_this3.columns[nextIndex].dataIndex == item.dataIndex) {
                         curIndex = nextIndex;
                         break;
                     }
                 }
-                _this4.columns.splice(index, 0, _this4.columns.splice(curIndex, 1)[0]);
+                _this3.columns.splice(index, 0, _this3.columns.splice(curIndex, 1)[0]);
             }
         });
-        if (_this4.props.onDrop) {
-            _this4.props.onDrop(event, data, _this4.columns);
+        if (_this3.props.onDrop) {
+            _this3.props.onDrop(event, data, _this3.columns);
         }
     };
 
     this.getColumnsAndTablePros = function () {
-        var columns = _this4.columns.slice();
+        var columns = _this3.columns.slice();
 
-        if (_this4.dragColsData) {
-            var dragColsKeyArr = Object.keys(_this4.dragColsData);
+        if (_this3.dragColsData) {
+            var dragColsKeyArr = Object.keys(_this3.dragColsData);
             dragColsKeyArr.some(function (itemKey) {
                 columns.forEach(function (col) {
                     if (col.dataIndex == itemKey) {
-                        col.width = _this4.dragColsData[itemKey].width;
+                        col.width = _this3.dragColsData[itemKey].width;
                         return true;
                     }
                 });
@@ -571,7 +578,7 @@ var _initialiseProps = function _initialiseProps() {
         }
         var rs = {
             columns: columns,
-            tablePros: _this4.props
+            tablePros: _this3.props
         };
         return rs;
     };
@@ -587,7 +594,7 @@ var _initialiseProps = function _initialiseProps() {
     this.getRowList = function (data) {
         var rowAttr = [];
         data.forEach(function (da) {
-            var item = _this4.getItem(da);
+            var item = _this3.getItem(da);
             if (item) {
                 rowAttr.push(item);
             }
@@ -596,14 +603,14 @@ var _initialiseProps = function _initialiseProps() {
     };
 
     this.exportExcel = function () {
-        var _props3 = _this4.props,
+        var _props3 = _this3.props,
             sheetIsRowFilter = _props3.sheetIsRowFilter,
             sheetName = _props3.sheetName,
             _sheetHeader = _props3.sheetHeader,
             exportData = _props3.exportData,
             exportFileName = _props3.exportFileName;
 
-        var colsAndTablePros = _this4.getColumnsAndTablePros();
+        var colsAndTablePros = _this3.getColumnsAndTablePros();
         var sheetHeader = [],
             columnAttr = [],
             rowAttr = [],
@@ -627,10 +634,10 @@ var _initialiseProps = function _initialiseProps() {
             }
         });
         if (_sheetHeader) {
-            rowAttr.push(_this4.getItem(_sheetHeader));
+            rowAttr.push(_this3.getItem(_sheetHeader));
         }
         if (sheetIsRowFilter) {
-            _this4.getRowList(colsAndTablePros.tablePros.data);
+            _this3.getRowList(colsAndTablePros.tablePros.data);
         }
         var option = {
             datas: [{
@@ -648,12 +655,12 @@ var _initialiseProps = function _initialiseProps() {
     };
 
     this.afterDragColWidth = function (colData) {
-        var renderFlag = _this4.state.renderFlag;
+        var renderFlag = _this3.state.renderFlag;
         var rows = colData.rows,
             cols = colData.cols,
             currIndex = colData.currIndex;
 
-        _this4.columns.forEach(function (item) {
+        _this3.columns.forEach(function (item) {
             rows.find(function (paramItem, paramIndex) {
                 if (item.dataIndex == paramItem.dataindex) {
                     if (paramIndex == currIndex) {
@@ -664,35 +671,35 @@ var _initialiseProps = function _initialiseProps() {
                 }
             });
         });
-        _this4.setState({
+        _this3.setState({
             renderFlag: !renderFlag
         });
     };
 
     this.resetColumns = function (newColumns) {
-        var renderFlag = _this4.state.renderFlag;
+        var renderFlag = _this3.state.renderFlag;
 
         if (newColumns) {
-            _this4.columns = newColumns.map(function (colItem) {
+            _this3.columns = newColumns.map(function (colItem) {
                 return _extends({}, colItem);
             });
-            _this4.setState({
+            _this3.setState({
                 renderFlag: !renderFlag
             });
         }
     };
 
     this.getSingleSelectedDataFunc = function (record, index) {
-        var getSelectedDataFunc = _this4.props.getSelectedDataFunc;
+        var getSelectedDataFunc = _this3.props.getSelectedDataFunc;
 
-        _this4.setState({
+        _this3.setState({
             selectedRowIndex: index
         });
         getSelectedDataFunc && getSelectedDataFunc(record, index);
     };
 
     this.getMultiSelectedDataFunc = function (selectedList, record, index, newData) {
-        var getSelectedDataFunc = _this4.props.getSelectedDataFunc;
+        var getSelectedDataFunc = _this3.props.getSelectedDataFunc;
 
         getSelectedDataFunc && getSelectedDataFunc(selectedList, record, index, newData);
     };

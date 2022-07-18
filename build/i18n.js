@@ -16,7 +16,7 @@ module.exports = {
         'openRowFilter': 'Enable Row Filter',
         'closeRowFilter': 'Disable Row Filter'
     },
-    'zh-TW': {
+    'zh-tw': {
         'fixTitle': '鎖定',
         'noFixTitle': '解鎖',
         'hideTitle': '隱藏',
