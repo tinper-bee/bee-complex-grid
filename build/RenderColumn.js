@@ -121,7 +121,8 @@ var RenderColumn = function (_Component) {
                 onValidate = _this$props2.onValidate,
                 defaultValue = _this$props2.defaultValue,
                 record = _this$props2.record,
-                forceRenderColumn = _this$props2.forceRenderColumn;
+                forceRenderColumn = _this$props2.forceRenderColumn,
+                fieldid = _this$props2.fieldid;
 
             var placement = 'left';
             if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -288,7 +289,9 @@ var RenderColumn = function (_Component) {
                                     },
                                     onValidate: onValidate,
                                     index: index
-                                }, filedProps))
+                                }, filedProps, {
+                                    fieldid: fieldid ? fieldid : undefined
+                                }))
                             )
                         );
                         break;

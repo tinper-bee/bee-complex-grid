@@ -107,6 +107,7 @@ class EditGrid extends Component {
                         filedProps={item.filedProps}
                         record={record}
                         forceRenderColumn={this.props.forceRenderColumn}
+                        fieldid={item.fieldid ? item.fieldid + '_' + index : undefined}
                     />
                 }
             } else {

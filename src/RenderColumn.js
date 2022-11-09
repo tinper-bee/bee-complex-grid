@@ -63,7 +63,7 @@ class RenderColumn extends Component {
             textAlign, validate, disabled,
             required, pattern, patternMessage,
             customizeRender, valueField,
-            filedProps,onValidate,defaultValue,record,forceRenderColumn
+            filedProps,onValidate,defaultValue,record,forceRenderColumn,fieldid
         } = this.props;
         let placement = 'left';
         if (textAlign) placement = textAlign == 'center' ? 'bottom' : textAlign;
@@ -204,6 +204,7 @@ class RenderColumn extends Component {
                                         onValidate={onValidate}
                                         index={index}
                                         {...filedProps}
+                                        fieldid={fieldid ? fieldid : undefined}
                                     />
                                 </RenderCell>
                         }

@@ -111,7 +111,7 @@ class SelectField extends Component {
     render() {
         let { value, error, flag } = this.state;
 
-        let { className, message, required, data, onBlur, disabled } = this.props;
+        let { className, message, required, data, onBlur, disabled, fieldid } = this.props;
 
         return (
             <FieldWrap
@@ -127,6 +127,7 @@ class SelectField extends Component {
                     data={data}
                     onBlur={onBlur}
                     disabled={disabled}
+                    fieldid={fieldid ? fieldid : undefined}
                 >
                 </Select>
             </FieldWrap>

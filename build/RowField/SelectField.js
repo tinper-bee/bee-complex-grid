@@ -171,7 +171,8 @@ var SelectField = function (_Component) {
             required = _props.required,
             data = _props.data,
             onBlur = _props.onBlur,
-            disabled = _props.disabled;
+            disabled = _props.disabled,
+            fieldid = _props.fieldid;
 
 
         return _react2["default"].createElement(
@@ -188,7 +189,8 @@ var SelectField = function (_Component) {
                 onChange: this.handlerChange,
                 data: data,
                 onBlur: onBlur,
-                disabled: disabled
+                disabled: disabled,
+                fieldid: fieldid ? fieldid : undefined
             })
         );
     };

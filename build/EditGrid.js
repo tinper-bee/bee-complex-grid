@@ -123,7 +123,8 @@ var EditGrid = function (_Component) {
                             onValidate: _this.onValidate,
                             filedProps: item.filedProps,
                             record: record,
-                            forceRenderColumn: _this.props.forceRenderColumn
+                            forceRenderColumn: _this.props.forceRenderColumn,
+                            fieldid: item.fieldid ? item.fieldid + '_' + index : undefined
                         });
                     };
                 } else {
