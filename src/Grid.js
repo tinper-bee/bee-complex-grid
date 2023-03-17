@@ -555,7 +555,7 @@ class Grid extends Component {
             columns = this.renderColumnsDropdown(columns);
         }
         return (
-            <div className={classNames("wui-grid", props.className)}>
+            <div className={classNames("bee-complex-grid", props.className)}>
                 {verticalPosition == "top" && (
                     <Pagination
                         {...paginationParam}

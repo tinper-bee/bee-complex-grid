@@ -2,23 +2,23 @@
 @import url(../node_modules/@tinper/next-ui/lib/wui-clipboard/src/Clipboard.css);
 @import url(../node_modules/@tinper/next-ui/lib/wui-collapse/src/Collapse.css);
 @import url(../node_modules/@tinper/next-ui/lib/wui-layout/src/Layout.css);
-.wui-grid th.wui-table-expand-icon-th {
+.bee-complex-grid th.wui-table-expand-icon-th {
   width: 43px; }
 
-.wui-grid th .drop-menu > .uf {
+.bee-complex-grid th .drop-menu > .uf {
   font-size: 12px;
   visibility: hidden;
   color: #505F79;
   font-weight: bold;
   cursor: pointer; }
 
-.wui-grid th .drop-menu {
+.bee-complex-grid th .drop-menu {
   display: inline-block; }
-  .wui-grid th .drop-menu i.uf {
+  .bee-complex-grid th .drop-menu i.uf {
     padding-left: 4px;
     -ms-width: 12px;
     -ms-display: inline-block; }
-  .wui-grid th .drop-menu .drop-menu-title {
+  .bee-complex-grid th .drop-menu .drop-menu-title {
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
@@ -26,64 +26,67 @@
     overflow: hidden;
     max-width: calc( 100% - 21px); }
 
-.wui-grid th .title-con.drop-menu {
+.bee-complex-grid th .title-con.drop-menu {
   max-width: 100% !important; }
 
-.wui-grid th .cansort.drop-menu {
+.bee-complex-grid th .cansort.drop-menu {
   max-width: calc(100% - 32px) !important; }
 
-.wui-grid th:last-child.column-number-right {
+.bee-complex-grid th:last-child.column-number-right {
   padding-right: 34px; }
 
-.wui-grid th:last-child > span:first-child {
+.bee-complex-grid th:last-child > span:first-child {
   width: calc(100% - 58px) !important; }
 
-.wui-grid th .wui-table-column-sorter {
+.bee-complex-grid th .wui-table-column-sorter {
   margin-left: 0px; }
-  .wui-grid th .wui-table-column-sorter i {
+  .bee-complex-grid th .wui-table-column-sorter i {
     padding: 0px; }
 
-.wui-grid th .wui-table-column-sorter > .wui-table-column-sorter-up {
+.bee-complex-grid th .wui-table-column-sorter > .wui-table-column-sorter-up {
   width: auto; }
 
-.wui-grid th:hover .drop-menu .uf {
+.bee-complex-grid th:hover .drop-menu .uf {
   visibility: visible; }
 
-.wui-grid th ::last-child {
+.bee-complex-grid th ::last-child {
   overflow: hidden; }
 
-.wui-grid .wui-table-fixed-left th:last-child .cansort.drop-menu {
+.bee-complex-grid .wui-table-fixed-left th:last-child .cansort.drop-menu {
   width: calc(100% - 32px) !important; }
 
-.wui-grid .wui-pagination {
+.bee-complex-grid .wui-pagination {
   overflow: hidden;
   margin-bottom: 8px; }
-  .wui-grid .wui-pagination .wui-pagination-list {
+  .bee-complex-grid .wui-pagination .wui-pagination-list {
     margin-left: 0px; }
-  .wui-grid .wui-pagination .data_per_select .wui-select {
+  .bee-complex-grid .wui-pagination .data_per_select .wui-select {
     width: 60px; }
-  .wui-grid .wui-pagination.center {
+  .bee-complex-grid .wui-pagination.center {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: center;
     justify-content: center; }
-  .wui-grid .wui-pagination.right {
+  .bee-complex-grid .wui-pagination.right {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: end;
     justify-content: flex-end; }
 
-.wui-table-filter-column-pop-cont-item .drop-menu .uf {
+.bee-complex-grid .wui-table .wui-table-multiSelect-column {
+  min-width: 49px; }
+
+.bee-complex-grid .wui-table-thead th .wui-table-column-sorter {
+  margin-top: 0px; }
+
+.bee-complex-grid .wui-table-filter-column-pop-cont-item .drop-menu .uf {
   visibility: hidden; }
 
-.wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-down, .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-flat, .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-up {
+.bee-complex-grid .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-down, .bee-complex-grid .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-flat, .bee-complex-grid .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-up {
   width: auto !important; }
 
-.wui-dropdown.grid-menu {
+.grid-menu {
   z-index: 1800; }
-
-.wui-table-thead th .wui-table-column-sorter {
-  margin-top: 0px; }
 
 .grid-toolbar {
   padding: 7px 12px 7px 4px; }
@@ -103,10 +106,10 @@
     vertical-align: middle;
     font-size: 14px; }
 
-.wui-dropdown-menu {
+.grid-menu {
   padding-top: 3px;
   padding-bottom: 8px; }
-  .wui-dropdown-menu > .wui-dropdown-menu-item {
+  .grid-menu > .wui-dropdown-menu-item {
     line-height: 26px;
     height: 26px;
     padding-left: 12px;
@@ -118,10 +121,19 @@
 #filter_column_popover.wui-popover {
   z-index: 1701; }
 
-.wui-table .wui-table-multiSelect-column {
+.bee-complex-edit-grid .wui-table .wui-table-multiSelect-column {
   min-width: 49px; }
 
-.wui-edit-grid .wui-table tr td .triangle-flag {
+.bee-complex-edit-grid .wui-table-thead th .wui-table-column-sorter {
+  margin-top: 0px; }
+
+.bee-complex-edit-grid .wui-table-filter-column-pop-cont-item .drop-menu .uf {
+  visibility: hidden; }
+
+.bee-complex-edit-grid .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-down, .bee-complex-edit-grid .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-flat, .bee-complex-edit-grid .wui-table-thead th .wui-table-column-sorter > .wui-table-column-sorter-up {
+  width: auto !important; }
+
+.bee-complex-edit-grid .wui-table tr td .triangle-flag {
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -129,23 +141,23 @@
   justify-content: center;
   -ms-flex-align: center;
   align-items: center; }
-  .wui-edit-grid .wui-table tr td .triangle-flag .triangle-redline {
+  .bee-complex-edit-grid .wui-table tr td .triangle-flag .triangle-redline {
     width: 2px;
     height: 20px;
     border-left: 2px solid #ff0000;
     display: inline-block;
     margin-right: 2px; }
-  .wui-edit-grid .wui-table tr td .triangle-flag .triangle-element {
+  .bee-complex-edit-grid .wui-table tr td .triangle-flag .triangle-element {
     width: 100%;
     height: 30px;
     text-align: left; }
-  .wui-edit-grid .wui-table tr td .triangle-flag .triangle-icon {
+  .bee-complex-edit-grid .wui-table tr td .triangle-flag .triangle-icon {
     color: #ff0000;
     padding-left: 3px;
     cursor: pointer; }
-    .wui-edit-grid .wui-table tr td .triangle-flag .triangle-icon .uf {
+    .bee-complex-edit-grid .wui-table tr td .triangle-flag .triangle-icon .uf {
       padding: 0; }
-  .wui-edit-grid .wui-table tr td .triangle-flag .triangle_border_nw {
+  .bee-complex-edit-grid .wui-table tr td .triangle-flag .triangle_border_nw {
     width: 0;
     height: 0;
     border-width: 0 0 6px 6px;
@@ -154,7 +166,7 @@
     position: absolute;
     top: 0px;
     left: 0px; }
-  .wui-edit-grid .wui-table tr td .triangle-flag .triangle_border_nw_number {
+  .bee-complex-edit-grid .wui-table tr td .triangle-flag .triangle_border_nw_number {
     width: 0;
     height: 0;
     border-width: 0 0 6px 6px;
@@ -164,10 +176,10 @@
     top: 2px;
     left: 2px; }
 
-.wui-edit-grid .wui-table .wui-table-tbody tr td {
+.bee-complex-edit-grid .wui-table .wui-table-tbody tr td {
   padding: 0;
   padding-left: 12px; }
-  .wui-edit-grid .wui-table .wui-table-tbody tr td .wui-edit-grid-cell {
+  .bee-complex-edit-grid .wui-table .wui-table-tbody tr td .wui-edit-grid-cell {
     display: block;
     width: 100%;
     height: 30px;

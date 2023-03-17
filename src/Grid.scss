@@ -1,6 +1,6 @@
 $prefix: 'wui';
 $icon-color:#505F79;
-.#{$prefix}-grid{
+.bee-complex-grid{
     th{
         &.#{$prefix}-table-expand-icon-th {
             width: 43px;
@@ -103,30 +103,32 @@ $icon-color:#505F79;
             justify-content: flex-end;;
         }
         
-    } 
-}
-
-.#{$prefix}-table-filter-column-pop-cont-item{
-    .drop-menu{
-        .uf{
-            visibility: hidden;
+    }
+    // fix:电脑设置屏幕显示百分比为 125% 后，Grid 固定列错位
+    .#{$prefix}-table .#{$prefix}-table-multiSelect-column {
+        min-width: 49px;
+    }
+    // todo
+    .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter{
+        margin-top: 0px;
+    }
+    .#{$prefix}-table-filter-column-pop-cont-item{
+        .drop-menu{
+            .uf{
+                visibility: hidden;
+            }
         }
+    }
+    .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-down, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-flat, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-up {
+        width:auto !important;
     }
 }
 
-
-
-.#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-down, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-flat, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-up {
-    width:auto !important;
-}
 // 菜单在模态框中使用隐藏问题
-.#{$prefix}-dropdown.grid-menu{
+.grid-menu{
     z-index: 1800;
 }
-// todo
-.#{$prefix}-table-thead th .#{$prefix}-table-column-sorter{
-    margin-top: 0px;
-}
+
 // toolbar
 .grid-toolbar{
     padding: 7px 12px 7px 4px;
@@ -152,7 +154,7 @@ $icon-color:#505F79;
         font-size: 14px;
     }
 }
-.#{$prefix}-dropdown-menu{
+.grid-menu{
     padding-top: 3px;
     padding-bottom: 8px;
     > .#{$prefix}-dropdown-menu-item {
@@ -172,12 +174,26 @@ $icon-color:#505F79;
         z-index: 1701;
     }
 }
-// fix:电脑设置屏幕显示百分比为 125% 后，Grid 固定列错位
-.#{$prefix}-table .#{$prefix}-table-multiSelect-column {
-    min-width: 49px;
-}
 // 编辑表格样式
-.#{$prefix}-edit-grid{
+.bee-complex-edit-grid{
+    // fix:电脑设置屏幕显示百分比为 125% 后，Grid 固定列错位
+    .#{$prefix}-table .#{$prefix}-table-multiSelect-column {
+        min-width: 49px;
+    }
+    // todo
+    .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter{
+        margin-top: 0px;
+    }
+    .#{$prefix}-table-filter-column-pop-cont-item{
+        .drop-menu{
+            .uf{
+                visibility: hidden;
+            }
+        }
+    }
+    .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-down, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-flat, .#{$prefix}-table-thead th .#{$prefix}-table-column-sorter>.#{$prefix}-table-column-sorter-up {
+        width:auto !important;
+    }
     .#{$prefix}-table tr td {
         // 行编辑错误提示
         .triangle-flag {

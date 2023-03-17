@@ -257,7 +257,7 @@ var EditGrid = function (_Component) {
         return _react2["default"].createElement(_Grid2["default"], _extends({
             height: 40
         }, otherProps, {
-            className: (0, _classnames2["default"])("wui-edit-grid", className),
+            className: (0, _classnames2["default"])("bee-complex-edit-grid", className),
             noReplaceColumns: true,
             columns: columns,
             data: data,

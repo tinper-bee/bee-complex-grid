@@ -195,7 +195,7 @@ class EditGrid extends Component {
             <Grid
                 height={40}
                 {...otherProps}
-                className={classNames("wui-edit-grid", className)}
+                className={classNames("bee-complex-edit-grid", className)}
                 noReplaceColumns={true}
                 columns={columns}
                 data={data}

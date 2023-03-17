@@ -308,7 +308,7 @@ var Grid = function (_Component) {
         }
         return _react2["default"].createElement(
             "div",
-            { className: (0, _classnames2["default"])("wui-grid", props.className) },
+            { className: (0, _classnames2["default"])("bee-complex-grid", props.className) },
             verticalPosition == "top" && _react2["default"].createElement(_nextUi.Pagination, _extends({}, paginationParam, {
                 className: horizontalPosition,
 
